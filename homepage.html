@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Your Health. Your Script. STAT.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF;
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6;
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif; /* Avenir Next is not on Google Fonts, this is a fallback */
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-primary); color: var(--text-primary); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 700; }
+        .text-title { font-size: 18px; font-weight: 600; font-family: var(--font-primary); }
+        .text-caption { font-size: 14px; font-weight: 500; }
+        .text-muted { color: var(--text-secondary); }
+        .text-display { font-size: 48px; font-weight: 800; font-family: var(--font-primary); line-height: 1.2; }
+        .text-heading { font-size: 36px; font-weight: 700; font-family: var(--font-primary); }
+        .text-body { font-size: 16px; font-weight: 400; }
+        
+        /* Main Structure */
+        .section { padding: var(--space-xl) 0; margin: 0 auto; }
+        .section-header { margin-bottom: var(--space-lg); text-align: center; }
+        
+        /* Card Style */
+        .card { background: var(--white); border-radius: 16px; padding: var(--space-lg); box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); border: 1px solid var(--border-secondary); position: relative; }
+        
+        /* Components */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: 12px 24px; border-radius: 8px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal); text-decoration: none; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-secondary { background: var(--bg-primary); color: var(--primary); border-color: var(--primary); }
+        .btn-secondary:hover { background: var(--statwell-teal-light); color: var(--text-primary); border-color: var(--statwell-teal-light); }
+        .btn-coral { background: var(--statwell-coral); color: var(--white); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        /* Header */
+        .main-header { padding: var(--space-md) 0; background: var(--white); border-bottom: 1px solid var(--border-secondary); }
+        .header-content { display: flex; align-items: center; justify-content: space-between; }
+        .header-logo { text-decoration: none; }
+        .header-logo img { display: block; height: 32px; }
+        .header-nav { display: flex; align-items: center; gap: var(--space-md); }
+        .header-nav a { text-decoration: none; color: var(--text-primary); font-weight: 500; position: relative; padding-bottom: 4px; }
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s var(--smooth);
+        }
+        .header-nav a:hover::after,
+        .header-nav a.active::after {
+            transform: scaleX(1);
+        }
+        .header-actions { display: flex; align-items: center; gap: var(--space-sm); }
+
+        /* New Hero Section */
+        .hero-section-v2 {
+            text-align: center;
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        .hero-content-v2 {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-content-v2 .text-display {
+            font-size: 56px;
+        }
+        .hero-subheadline {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin: var(--space-md) auto var(--space-xl);
+            max-width: 600px;
+        }
+        .symptom-checker-container {
+            display: flex;
+            gap: var(--space-sm);
+            background-color: var(--white);
+            padding: var(--space-sm);
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            max-width: 550px;
+            margin: 0 auto var(--space-xl);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+         .symptom-checker-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(42, 59, 84, 0.1);
+        }
+        .symptom-checker-input {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 10px;
+            color: var(--text-secondary);
+        }
+        .symptom-checker-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+        }
+        .hero-cta-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        .secondary-cta {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .outcome-graphic-container {
+            margin: 0 auto;
+            max-width: 400px;
+        }
+        .phone-mockup {
+            width: 100%;
+            padding-top: 200%; /* 2:1 aspect ratio */
+            background: var(--statwell-navy);
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 3px solid #334562;
+            position: relative;
+        }
+        .phone-screen {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-bubble {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: 12px;
+            width: 90%;
+            animation: slideUpIn 0.8s 0.5s var(--smooth) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes slideUpIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .notification-icon {
+            font-size: 24px;
+        }
+        .notification-text strong {
+            display: block;
+            font-size: 14px;
+            text-align: left;
+        }
+        .notification-text span {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        /* Hero Section */
+        .hero-section { background: var(--statwell-hero-blue); color: var(--white); padding: var(--space-xl) 0; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-xl); }
+        .hero-text .text-display { color: var(--white); }
+        .hero-text p { font-size: 18px; margin: var(--space-md) 0; max-width: 450px; }
+        .hero-features { list-style: none; padding: 0; margin: var(--space-lg) 0; }
+        .hero-features li { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .hero-image { height: 400px; border-radius: 16px; object-fit: cover; }
+        
+        /* Tabs */
+        .tabs-container { display: flex; gap: var(--space-sm); padding: 4px; background: var(--light-gray); border-radius: 12px; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
+        .tabs-container::-webkit-scrollbar { display: none; }
+        .tab-item { padding: 8px 16px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all var(--anim-normal); white-space: nowrap; }
+        .tab-item.active { background: var(--statwell-navy); color: var(--white); }
+        .tab-item:not(.active) { background: transparent; color: var(--text-primary); }
+
+        /* Pricing Grid */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .pricing-item { display: flex; justify-content: space-between; padding: var(--space-md); border-bottom: 1px solid var(--border-secondary); }
+        .pricing-item:last-child { border-bottom: none; }
+        
+        /* How it works */
+        .how-it-works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); }
+        .how-it-works-card { text-align: center; transition: all var(--anim-normal) var(--smooth); position: relative; }
+        .how-it-works-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(42, 59, 84, 0.1), 0 0 15px rgba(93, 120, 255, 0.2);
+        }
+        .how-it-works-card .icon-placeholder { margin: 0 auto var(--space-md); width: 80px; height: 80px; border-radius: 16px; background: var(--light-gray); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .how-it-works-card .step-title { color: var(--statwell-coral); font-weight: 700; margin-bottom: var(--space-sm); }
+
+        /* Condition Selector */
+        .condition-selector-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            border: 1px solid var(--border-secondary);
+            background: var(--white);
+        }
+        .filter-tab.active {
+            background: var(--statwell-navy);
+            color: var(--white);
+            border-color: var(--statwell-navy);
+        }
+        .condition-search-wrapper {
+            flex-grow: 1;
+            min-width: 250px;
+        }
+        .condition-search {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            font-size: 16px;
+        }
+        .condition-grid {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 250px;
+            grid-template-rows: repeat(2, 1fr);
+            gap: var(--space-lg);
+            overflow-x: auto;
+            padding-bottom: var(--space-md);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-secondary) var(--light-gray);
+        }
+        .condition-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        .condition-grid::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 4px;
+        }
+        .condition-grid::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: 4px;
+        }
+        .condition-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-gray);
+        }
+        .condition-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            transition: all 0.3s var(--smooth);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .condition-card:hover {
+            transform: translateY(-4px);
+        }
+        .condition-card-img {
+            width: 100%;
+            flex-grow: 1;
+            height: 0;
+            object-fit: cover;
+            display: block;
+        }
+        .condition-card-title {
+            padding: var(--space-md);
+            font-weight: 600;
+            background: var(--white);
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .condition-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 59, 84, 0.85);
+            color: var(--white);
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .condition-card:hover .condition-card-overlay, .condition-card.is-active .condition-card-overlay {
+            opacity: 1;
+        }
+        .condition-card-overlay p {
+            font-size: 14px;
+            margin-bottom: var(--space-md);
+        }
+        .condition-card.is-coming-soon .condition-card-overlay {
+            background: rgba(42, 59, 84, 0.9);
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: var(--statwell-coral);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .hero-selector {
+            background-color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        .hero-selector .text-display {
+             font-size: 56px;
+        }
+        .hero-selector .hero-subheadline {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin: var(--space-md) auto var(--space-xl);
+            max-width: 600px;
+        }
+        .hero-selector .condition-search-wrapper {
+            max-width: 600px;
+            margin: 0 auto var(--space-lg);
+        }
+        .hero-selector .filter-tabs {
+            justify-content: center;
+        }
+         .hero-selector .filter-tab {
+            font-size: 14px;
+            padding: 6px 14px;
+        }
+
+        /* Value Prop Hero */
+        .value-hero-section {
+            display: flex;
+            align-items: center;
+            padding: var(--space-xl) 0;
+            background-color: var(--white);
+            min-height: calc(100vh - 80px); /* Adjust 80px based on header height */
+        }
+        .value-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            gap: var(--space-xl);
+        }
+        @media (min-width: 992px) {
+            .value-hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .value-hero-grid .text-display {
+            font-size: 40px;
+        }
+        @media (min-width: 768px) {
+            .value-hero-grid .text-display {
+                font-size: 56px;
+            }
+        }
+        .value-props-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        .value-props-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-weight: 500;
+        }
+        .value-prop-icon {
+            background-color: var(--statwell-teal-light);
+            color: var(--statwell-navy);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .hero-image-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(42, 59, 84, 0.1);
+            background-color: var(--bg-secondary);
+            padding: var(--space-xl);
+        }
+        .hero-image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Comparison Table */
+        .comparison-table { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--border-secondary); border-radius: 16px; overflow: hidden; }
+        .comparison-table > div { padding: var(--space-md); }
+        .comparison-table .table-header { background: var(--light-gray); font-weight: 700; font-family: var(--font-primary); }
+        .comparison-table .feature-name { background: var(--statwell-teal-light); color: var(--text-primary); font-weight: 600; border-right: 1px solid var(--border-secondary); }
+        .comparison-table > div:not(:nth-child(3n)) { border-right: 1px solid var(--border-secondary); }
+        .comparison-table > div { border-bottom: 1px solid var(--border-secondary); }
+        .comparison-table > div:nth-last-child(-n+3) { border-bottom: none; }
+
+        /* Step Process Layout */
+        .step-process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .step-card {
+            text-align: center;
+        }
+        .step-number {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--statwell-teal-light);
+            color: var(--statwell-navy);
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: var(--space-md);
+            border: 2px solid var(--statwell-navy);
+        }
+        .step-card h4 {
+            margin-bottom: var(--space-sm);
+        }
+
+        /* FAQ Section */
+        .faq-section { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-xl); align-items: center; }
+        .faq-image { height: 300px; border-radius: 16px; object-fit: cover; }
+        .faq-accordion .accordion-item { border: none; border-bottom: 1px solid var(--border-secondary); border-radius: 0; margin-bottom: 0;}
+        .faq-accordion .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) 0; cursor: pointer; }
+        .faq-accordion .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-accordion .accordion-padding { padding: 0 0 var(--space-md) 0; font-size: 14px; color: var(--text-secondary); }
+        .faq-accordion .accordion-icon { transition: transform 0.3s ease; font-size: 20px; }
+        .faq-accordion .accordion-header.active .accordion-icon { transform: rotate(45deg); }
+
+        /* CTA Banner */
+        .cta-banner { background: var(--statwell-navy); color: var(--white); padding: var(--space-xl); border-radius: 16px; text-align: center; }
+        .cta-banner .text-heading { color: var(--white); }
+
+        /* Footer */
+        .main-footer { background: var(--light-gray); padding: var(--space-xl); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-lg); }
+        .footer-column h4 { font-family: var(--font-primary); margin-bottom: var(--space-md); }
+        .footer-column ul { list-style: none; padding: 0; }
+        .footer-column li { margin-bottom: var(--space-sm); }
+        .footer-column a { text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 14px; }
+
+        /* Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="header-logo"><img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo"></a>
+                <nav class="header-nav">
+                    <a href="#">Start Visit</a>
+                    <a href="#">Prescription Refill</a>
+                    <a href="#">Medications</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="#" class="btn btn-secondary" style="padding: 8px 16px;">Contact Us</a>
+                    <a href="#" class="btn btn-primary" style="background-color: var(--statwell-coral); padding: 8px 16px;">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="value-hero-section fade-in-section">
+            <div class="container">
+                 <div class="value-hero-grid">
+                    <div>
+                        <h1 class="text-display">Online Urgent Care, Right When You Need It.</h1>
+                        <p class="hero-subheadline">Get fast, affordable care from a board-certified doctor. Prescriptions sent to your pharmacy in hours.</p>
+                        <ul class="value-props-list">
+                            <li><span class="value-prop-icon">💲</span><span>Visits for just <strong>$35.99</strong> — no insurance needed.</span></li>
+                            <li><span class="value-prop-icon">⏱️</span><span>Prescriptions ready in <strong>under 2 hours</strong>.</span></li>
+                            <li><span class="value-prop-icon">🌎</span><span>Available <strong>24/7, nationwide</strong> in all 50 states.</span></li>
+                        </ul>
+                        <a href="#condition-selector-section" class="btn btn-coral" id="find-condition-btn">Find Your Condition</a>
+                    </div>
+                    <div class="hero-image-container">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758081314/statwell_rx_icij7g.png" alt="Prescription Notification on a Phone">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-selector fade-in-section" id="condition-selector-section">
+             <div class="container">
+                <h2 class="text-heading">Select a Condition to Start</h2>
+                <p class="hero-subheadline">Start by searching, or select a common condition below.</p>
+                <div class="condition-search-wrapper">
+                    <input type="text" placeholder="Search for your condition..." class="condition-search" id="condition-search">
+                </div>
+                <div class="condition-selector-controls">
+                    <div class="filter-tabs" id="filter-tabs">
+                        <!-- Tabs will be dynamically generated -->
+                    </div>
+                </div>
+                <div class="condition-grid" id="condition-grid">
+                    <!-- Condition cards will be dynamically generated -->
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="text-heading">A Clear Path to Feeling Better</h2>
+                </div>
+                <div class="step-process-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4 class="text-title">Describe Your Symptoms</h4>
+                        <p class="text-caption text-muted">Complete a quick online form about your medical history and current symptoms.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4 class="text-title">Doctor Review</h4>
+                        <p class="text-caption text-muted">A board-certified doctor reviews your case and creates a personalized treatment plan.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4 class="text-title">Get Your Prescription</h4>
+                        <p class="text-caption text-muted">We send your prescription to your chosen pharmacy, ready in under 2 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="text-heading">StatwellMD Vs Others</h2>
+                    <p class="text-muted">See how we're making healthcare more accessible and affordable.</p>
+                </div>
+                <div class="comparison-table">
+                    <div class="table-header"></div><div class="table-header">StatwellMD</div><div class="table-header">Other Telemedicine</div>
+                    <div class="feature-name">Visit Fee</div><div>$35.99</div><div>$80 - $250</div>
+                    <div class="feature-name">Appointment Needed?</div><div>Never</div><div>Required</div>
+                    <div class="feature-name">Insurance Needed?</div><div>No</div><div>Often Required</div>
+                    <div class="feature-name">Available Nationwide?</div><div>✔️</div><div>Limited</div>
+                    <div class="feature-name">Open 24/7?</div><div>✔️</div><div>Limited Hours</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in-section">
+            <div class="container">
+                 <div class="section-header">
+                    <h2 class="text-heading">Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-section">
+                    <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="A friendly and professional doctor smiling" class="faq-image">
+                    <div class="faq-accordion" id="faq-accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">What is StatwellMD?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">StatwellMD is a telehealth platform dedicated to making affordable, quality, and fast urgent care available to everyone, with or without insurance. We believe healthcare should be simple, accessible, and stress-free.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Who are the doctors?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Your consultation will be handled by our dedicated in-house physician, who is a U.S.-licensed and board-certified medical doctor with years of experience in urgent care. He is certified to practice in all 50 states.</div>
+                            </div>
+                        </div>
+                         <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Is StatwellMD available in my state?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Yes! Our service is available 24/7 to patients in all 50 states. Please note that prescriptions can only be filled during your local pharmacy's operating hours.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section fade-in-section">
+            <div class="container">
+                <div class="cta-banner">
+                    <h2 class="text-heading">Ready to Feel Better?</h2>
+                    <a href="#" class="btn btn-primary" style="background-color: var(--statwell-coral); margin-top: var(--space-md);">Start Your Consult for $35.99</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                 <div class="footer-column">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" style="height: 28px; margin-bottom: var(--space-md);">
+                    <!-- Social Icons would go here -->
+                </div>
+                <div class="footer-column">
+                    <h4 class="text-title">Services</h4>
+                    <ul>
+                        <li><a href="#">Urgent Care</a></li>
+                        <li><a href="#">Men's Health</a></li>
+                        <li><a href="#">Women's Health</a></li>
+                        <li><a href="#">Primary Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="text-title">Products</h4>
+                    <ul>
+                        <li><a href="#">Lab Kits</a></li>
+                        <li><a href="#">Shop Medications</a></li>
+                        <li><a href="#">Prescription Refill</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="text-title">Popular</h4>
+                    <ul>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="text-title">Join Our Email List</h4>
+                    <p class="text-caption text-muted">Be the first to know when we offer deals.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tabs functionality
+            const tabsContainer = document.getElementById('condition-tabs');
+            if (tabsContainer) {
+                tabsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('tab-item')) {
+                        tabsContainer.querySelector('.active').classList.remove('active');
+                        e.target.classList.add('active');
+                    }
+                });
+            }
+
+            // FAQ Accordion functionality
+            const accordionContainer = document.getElementById('faq-accordion');
+            if (accordionContainer) {
+                 accordionContainer.addEventListener('click', (e) => {
+                    const header = e.target.closest('.accordion-header');
+                    if (header) {
+                        const content = header.nextElementSibling;
+                        const wasActive = header.classList.contains('active');
+
+                        // Optional: Close other accordions when one opens
+                        accordionContainer.querySelectorAll('.accordion-header').forEach(h => {
+                             h.classList.remove('active');
+                             h.nextElementSibling.style.maxHeight = null;
+                        });
+
+                        if (!wasActive) {
+                            header.classList.add('active');
+                            content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                    }
+                });
+            }
+
+            // Scroll Animation functionality
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Hero scroll functionality
+            const symptomChecker = document.getElementById('symptom-checker');
+            const seeConditionsLink = document.getElementById('see-conditions-link');
+            const conditionsSection = document.getElementById('conditions-section');
+
+            const scrollToConditions = (e) => {
+                e.preventDefault();
+                conditionsSection.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            if (symptomChecker) {
+                symptomChecker.addEventListener('click', scrollToConditions);
+            }
+            if (seeConditionsLink) {
+                seeConditionsLink.addEventListener('click', scrollToConditions);
+            }
+            const findConditionBtn = document.getElementById('find-condition-btn');
+            if(findConditionBtn) {
+                findConditionBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('condition-selector-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Condition Selector Logic
+            const conditionsData = {
+                "General": [
+                    { name: "UTI", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Cold & Flu", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Allergies", snippet: "Manage seasonal or chronic allergy symptoms.", img: "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Pink Eye", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Sinus Infection", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Migraines", snippet: "Personalized plans to manage migraine headaches.", img: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "COVID-19", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Acid Reflux", snippet: "Manage heartburn and GERD symptoms.", img: "https://images.pexels.com/photos/5793649/pexels-photo-5793649.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Skin": [
+                    { name: "Acne", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Skin Rashes", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Eczema", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Dandruff", snippet: "Effective treatments for a healthier scalp.", img: "https://images.pexels.com/photos/7262444/pexels-photo-7262444.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Rosacea", snippet: "Control redness and breakouts from rosacea.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Hives", snippet: "Relief from itchy welts and allergic reactions.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Cold Sores", snippet: "Prescription antiviral medication for cold sores.", img: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Poison Ivy", snippet: "Soothe itching and inflammation from poison ivy.", img: "https://images.pexels.com/photos/4752857/pexels-photo-4752857.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Women's Health": [
+                    { name: "Birth Control", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Yeast Infection", snippet: "Fast and effective treatment for yeast infections.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Bacterial Vaginosis", snippet: "Discreet and effective BV treatment.", img: "https://images.pexels.com/photos/6729579/pexels-photo-6729579.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Morning After Pill", snippet: "Emergency contraception, delivered fast.", img: "https://images.pexels.com/photos/7880998/pexels-photo-7880998.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Men's Health": [
+                    { name: "Erectile Dysfunction", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Hair Loss", snippet: "Clinically-proven treatments for hair loss.", img: "https://images.pexels.com/photos/2533682/pexels-photo-2533682.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Genital Herpes", snippet: "Manage outbreaks with prescription medication.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Jock Itch", snippet: "Fast relief from itching and irritation.", img: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Stomach": [
+                    { name: "Constipation", snippet: "Gentle and effective relief from constipation.", img: "https://images.pexels.com/photos/4556124/pexels-photo-4556124.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Diarrhea", snippet: "Get relief and rehydrate with our treatment plans.", img: "https://images.pexels.com/photos/6128224/pexels-photo-6128224.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Food Poisoning", snippet: "Relieve symptoms and recover faster.", img: "https://images.pexels.com/photos/4268683/pexels-photo-4268683.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Nausea & Vomiting", snippet: "Control nausea and prevent dehydration.", img: "https://images.pexels.com/photos/4021772/pexels-photo-4021772.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Injuries": [
+                    { name: "Sprains & Strains", snippet: "Guidance on managing minor sprains and strains.", img: "https://images.pexels.com/photos/6744841/pexels-photo-6744841.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Minor Burns", snippet: "Care advice and treatment for minor burns.", img: "https://images.pexels.com/photos/3982361/pexels-photo-3982361.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Insect Bites", snippet: "Relief from pain and itching from insect bites.", img: "https://images.pexels.com/photos/220297/pexels-photo-220297.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Minor Cuts", snippet: "Advice on cleaning and caring for minor cuts.", img: "https://images.pexels.com/photos/4427572/pexels-photo-4427572.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                 "Mental Health": [
+                    { name: "Anxiety", snippet: "Support and treatment plans for anxiety.", img: "https://images.pexels.com/photos/3958958/pexels-photo-3958958.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Depression", snippet: "Confidential care and medication management.", img: "https://images.pexels.com/photos/3831336/pexels-photo-3831336.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Stress", snippet: "Develop strategies to manage and reduce stress.", img: "https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Insomnia", snippet: "Personalized treatment to help you sleep better.", img: "https://images.pexels.com/photos/2128043/pexels-photo-2128043.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ],
+                "Other": [
+                    { name: "Asthma", snippet: "Refills and management for your asthma condition.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Gout", snippet: "Manage gout flare-ups with effective treatment.", img: "https://images.pexels.com/photos/6128189/pexels-photo-6128189.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "Thyroid Conditions", snippet: "Medication management for thyroid disorders.", img: "https://images.pexels.com/photos/325633/pexels-photo-325633.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "High Blood Pressure", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                    { name: "High Cholesterol", snippet: "Prescription management for high cholesterol.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                ]
+            };
+
+            const conditionTabs = document.getElementById('filter-tabs');
+            const gridContainer = document.getElementById('condition-grid');
+            const searchInput = document.getElementById('condition-search');
+
+            // 1. Populate Tabs
+            const allConditions = Object.values(conditionsData).flat();
+            const categories = ['All', ...Object.keys(conditionsData)];
+            conditionTabs.innerHTML = categories.map(cat => `<div class="filter-tab ${cat === 'All' ? 'active' : ''}" data-category="${cat}">${cat}</div>`).join('');
+
+            // 2. Populate Cards
+            const renderCards = (filterCategory = 'All', searchTerm = '') => {
+                gridContainer.innerHTML = '';
+                let conditionsToShow = [];
+                
+                if (filterCategory === 'All') {
+                    conditionsToShow = allConditions;
+                } else {
+                    conditionsToShow = conditionsData[filterCategory];
+                }
+
+                if (searchTerm) {
+                    conditionsToShow = conditionsToShow.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
+                }
+
+                conditionsToShow.forEach(condition => {
+                    const card = document.createElement('a');
+                    card.href = "#"; // Placeholder link
+                    card.className = 'condition-card';
+                    card.innerHTML = `
+                        <img src="${condition.img}" alt="${condition.name}" class="condition-card-img">
+                        <h4 class="condition-card-title">${condition.name}</h4>
+                        <div class="condition-card-overlay">
+                            <p>${condition.snippet}</p>
+                            <span class="btn btn-primary">Start Visit for $35.99</span>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+                
+                const generalCard = document.createElement('div');
+                generalCard.className = 'condition-card is-coming-soon';
+                generalCard.innerHTML = `
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <img src="https://images.pexels.com/photos/4167541/pexels-photo-4167541.jpeg?auto=compress&cs=tinysrgb&w=600" alt="General Consultation" class="condition-card-img">
+                    <h4 class="condition-card-title">General Consultation</h4>
+                    <div class="condition-card-overlay">
+                        <p>Soon, you'll be able to set up video calls with one of our specially trained physicians.</p>
+                    </div>
+                `;
+                gridContainer.appendChild(generalCard);
+            };
+
+            // 3. Event Listeners
+            conditionTabs.addEventListener('click', e => {
+                if (e.target.classList.contains('filter-tab')) {
+                    conditionTabs.querySelector('.active').classList.remove('active');
+                    e.target.classList.add('active');
+                    searchInput.value = '';
+                    renderCards(e.target.dataset.category);
+                }
+            });
+
+            searchInput.addEventListener('input', e => {
+                conditionTabs.querySelector('.active').classList.remove('active');
+                conditionTabs.querySelector('[data-category="All"]').classList.add('active');
+                renderCards('All', e.target.value);
+            });
+
+            // 4. Mobile Tap Handler
+            gridContainer.addEventListener('click', e => {
+                const card = e.target.closest('.condition-card');
+                if (card && window.innerWidth < 768) { 
+                    e.preventDefault();
+                    if (card.classList.contains('is-active')) {
+                        // If already active, let the link work. Find the link and click it.
+                        const link = card.querySelector('a');
+                        if (link) link.click();
+                    } else {
+                        // Deactivate other cards
+                        gridContainer.querySelectorAll('.condition-card.is-active').forEach(c => c.classList.remove('is-active'));
+                        // Activate this card
+                        card.classList.add('is-active');
+                    }
+                }
+            });
+
+
+            // Initial Render
+            renderCards();
+
+        });
+    </script>
+</body>
+</html>
