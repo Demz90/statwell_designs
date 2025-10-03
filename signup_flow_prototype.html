@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Sign Up Flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF;
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6;
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; 
+            --space-md: 16px; 
+            --space-lg: 24px; 
+            --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        body { 
+            font-family: var(--font-secondary); 
+            line-height: 1.6; 
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--smooth);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Modal Container */
+        .signup-modal {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.3s var(--smooth);
+        }
+
+        .modal-overlay.active .signup-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            z-index: 10;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            padding: var(--space-xl);
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        /* Flow Steps */
+        .flow-step {
+            display: none;
+            animation: slideIn 0.4s var(--smooth);
+        }
+
+        .flow-step.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+        }
+
+        /* Headers */
+        .step-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .step-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg-primary);
+            transition: all var(--anim-normal);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--statwell-teal-light), 0 0 0 5px var(--primary);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Phone Input */
+        .phone-input {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .country-code {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            background: var(--light-gray);
+            font-size: 16px;
+            min-width: 80px;
+        }
+
+        .flag-emoji {
+            font-size: 18px;
+        }
+
+        /* Dropdown Styles */
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-input {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 40px;
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        .dropdown-container.open .dropdown-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .dropdown-container.open .dropdown-menu {
+            display: block;
+            animation: dropdownSlide 0.2s var(--smooth);
+        }
+
+        @keyframes dropdownSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-search {
+            padding: 12px;
+            border: none;
+            border-bottom: 1px solid var(--border-secondary);
+            outline: none;
+            width: 100%;
+        }
+
+        .dropdown-option {
+            padding: 12px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .dropdown-option:hover {
+            background: var(--light-gray);
+        }
+
+        /* Date Input */
+        .date-input {
+            position: relative;
+        }
+
+        .date-input input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+
+        .checkbox-label a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 12px 24px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--anim-normal) var(--smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            color: var(--white);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: var(--space-lg);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Verification Code Input */
+        .verification-step {
+            text-align: center;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        .email-info {
+            background: var(--light-gray);
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin: var(--space-lg) 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .code-inputs {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin: var(--space-xl) 0;
+        }
+
+        .code-input {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            outline: none;
+            transition: all var(--anim-normal);
+        }
+
+        .code-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--statwell-teal-light), 0 0 0 5px var(--primary);
+        }
+
+        .code-input.filled {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .timer-section {
+            margin-top: var(--space-lg);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .timer {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .resend-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin: var(--space-md) 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        /* Notification Modal */
+        .notification-modal {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+        }
+
+        .notification-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .notification-icon.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .notification-icon.info {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+
+        /* Card Style */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { 
+            font-family: var(--font-primary); 
+            font-weight: 700; 
+        }
+        .text-title { 
+            font-size: 18px; 
+            font-weight: 600; 
+            font-family: var(--font-primary); 
+        }
+        .text-caption { 
+            font-size: 14px; 
+            font-weight: 500; 
+        }
+        .text-muted { 
+            color: var(--text-secondary); 
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .signup-modal {
+                width: 95%;
+                margin: var(--space-md);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .code-inputs {
+                gap: 6px;
+            }
+
+            .code-input {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Modal Overlay -->
+    <div class="modal-overlay active" id="modalOverlay">
+        <div class="signup-modal">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <!-- Step 1: Registration Form -->
+            <div class="flow-step active" id="step1">
+                <div class="modal-content">
+                    <div class="step-header">
+                        <h2 class="step-title">Register Now</h2>
+                        <p class="step-subtitle">Let's create an account for you, before you continue.</p>
+                    </div>
+
+                    <form id="registrationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First name</label>
+                                <input type="text" class="form-input" id="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last name</label>
+                                <input type="text" class="form-input" id="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-input" id="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone number</label>
+                            <div class="phone-input">
+                                <div class="country-code">
+                                    <span class="flag-emoji">🇺🇸</span>
+                                    <span>+1</span>
+                                </div>
+                                <input type="tel" class="form-input" id="phone" placeholder="000 000 000" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">State</label>
+                                <div class="dropdown-container" id="stateDropdown">
+                                    <input type="text" class="form-input dropdown-input" id="stateInput" placeholder="Select State" readonly required>
+                                    <span class="dropdown-arrow">▼</span>
+                                    <div class="dropdown-menu">
+                                        <input type="text" class="dropdown-search" placeholder="Search states..." id="stateSearch">
+                                        <div id="stateOptions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <div class="dropdown-container" id="cityDropdown">
+                                    <input type="text" class="form-input dropdown-input" id="cityInput" placeholder="Select city" readonly required>
+                                    <span class="dropdown-arrow">▼</span>
+                                    <div class="dropdown-menu">
+                                        <input type="text" class="dropdown-search" placeholder="Search cities..." id="citySearch">
+                                        <div id="cityOptions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-input" id="address" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <div class="date-input">
+                                    <input type="date" class="form-input" id="dateOfBirth" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div class="dropdown-container" id="genderDropdown">
+                                    <input type="text" class="form-input dropdown-input" id="genderInput" placeholder="Select gender" readonly required>
+                                    <span class="dropdown-arrow">▼</span>
+                                    <div class="dropdown-menu">
+                                        <div id="genderOptions">
+                                            <div class="dropdown-option" data-value="male">Male</div>
+                                            <div class="dropdown-option" data-value="female">Female</div>
+                                            <div class="dropdown-option" data-value="other">Other</div>
+                                            <div class="dropdown-option" data-value="prefer-not-to-say">Prefer not to say</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" class="checkbox" id="termsCheckbox" required>
+                            <label class="checkbox-label" for="termsCheckbox">
+                                I agree with StatwellMD <a href="#">Terms of service</a> & <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="registerBtn">
+                            Register
+                        </button>
+                    </form>
+
+                    <div class="login-link">
+                        Already have an account? <a href="#">Log in</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Verification Code -->
+            <div class="flow-step" id="step2">
+                <button class="back-btn" onclick="goToStep(1)">←</button>
+                <div class="modal-content verification-step">
+                    <div class="step-header">
+                        <h2 class="step-title">Verify your account</h2>
+                        <p class="step-subtitle">We sent a 6 digit OTP to <span id="verificationEmail"></span>.<br>Please input it below to proceed.</p>
+                    </div>
+
+                    <div class="code-inputs">
+                        <input type="text" class="code-input" maxlength="1" id="code1">
+                        <input type="text" class="code-input" maxlength="1" id="code2">
+                        <input type="text" class="code-input" maxlength="1" id="code3">
+                        <input type="text" class="code-input" maxlength="1" id="code4">
+                        <input type="text" class="code-input" maxlength="1" id="code5">
+                        <input type="text" class="code-input" maxlength="1" id="code6">
+                    </div>
+
+                    <div id="verificationMessage"></div>
+
+                    <button class="btn btn-primary" id="confirmCodeBtn" onclick="verifyCode()">
+                        Confirm code
+                    </button>
+
+                    <div class="timer-section">
+                        <span class="timer" id="timer">00:20</span> 
+                        <a href="#" class="resend-link" id="resendLink" onclick="resendCode()" style="display: none;">Resend code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Completed Form -->
+            <div class="flow-step" id="step3">
+                <div class="modal-content">
+                    <div class="step-header">
+                        <h2 class="step-title">Registration Complete</h2>
+                        <p class="step-subtitle">Your account has been verified. Here's your information:</p>
+                    </div>
+
+                    <div id="completedForm">
+                        <!-- Will be populated with form data -->
+                    </div>
+
+                    <button class="btn btn-primary" onclick="goToHomepage()">
+                        Continue to Homepage
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal-overlay" id="notificationOverlay">
+        <div class="notification-modal">
+            <div class="notification-icon" id="notificationIcon">
+                📧
+            </div>
+            <h3 id="notificationTitle">Code Sent!</h3>
+            <p id="notificationMessage">A verification code has been sent to your email address.</p>
+        </div>
+    </div>
+
+    <script>
+        // US States and Cities Data
+        const statesAndCities = {
+            "Alabama": ["Birmingham", "Montgomery", "Mobile", "Huntsville", "Tuscaloosa"],
+            "Alaska": ["Anchorage", "Fairbanks", "Juneau", "Sitka", "Ketchikan"],
+            "Arizona": ["Phoenix", "Tucson", "Mesa", "Chandler", "Scottsdale"],
+            "Arkansas": ["Little Rock", "Fort Smith", "Fayetteville", "Springdale", "Jonesboro"],
+            "California": ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "San Jose"],
+            "Colorado": ["Denver", "Colorado Springs", "Aurora", "Fort Collins", "Lakewood"],
+            "Connecticut": ["Hartford", "Bridgeport", "New Haven", "Stamford", "Waterbury"],
+            "Delaware": ["Wilmington", "Dover", "Newark", "Middletown", "Smyrna"],
+            "Florida": ["Miami", "Orlando", "Tampa", "Jacksonville", "Fort Lauderdale"],
+            "Georgia": ["Atlanta", "Augusta", "Columbus", "Macon", "Savannah"],
+            "Hawaii": ["Honolulu", "Pearl City", "Hilo", "Kailua", "Waipahu"],
+            "Idaho": ["Boise", "Meridian", "Nampa", "Idaho Falls", "Pocatello"],
+            "Illinois": ["Chicago", "Aurora", "Rockford", "Joliet", "Naperville"],
+            "Indiana": ["Indianapolis", "Fort Wayne", "Evansville", "South Bend", "Carmel"],
+            "Iowa": ["Des Moines", "Cedar Rapids", "Davenport", "Sioux City", "Iowa City"],
+            "Kansas": ["Wichita", "Overland Park", "Kansas City", "Topeka", "Olathe"],
+            "Kentucky": ["Louisville", "Lexington", "Bowling Green", "Owensboro", "Covington"],
+            "Louisiana": ["New Orleans", "Baton Rouge", "Shreveport", "Lafayette", "Lake Charles"],
+            "Maine": ["Portland", "Lewiston", "Bangor", "South Portland", "Auburn"],
+            "Maryland": ["Baltimore", "Frederick", "Rockville", "Gaithersburg", "Bowie"],
+            "Massachusetts": ["Boston", "Worcester", "Springfield", "Lowell", "Cambridge"],
+            "Michigan": ["Detroit", "Grand Rapids", "Warren", "Sterling Heights", "Lansing"],
+            "Minnesota": ["Minneapolis", "Saint Paul", "Rochester", "Duluth", "Bloomington"],
+            "Mississippi": ["Jackson", "Gulfport", "Southaven", "Hattiesburg", "Biloxi"],
+            "Missouri": ["Kansas City", "Saint Louis", "Springfield", "Independence", "Columbia"],
+            "Montana": ["Billings", "Missoula", "Great Falls", "Bozeman", "Butte"],
+            "Nebraska": ["Omaha", "Lincoln", "Bellevue", "Grand Island", "Kearney"],
+            "Nevada": ["Las Vegas", "Henderson", "Reno", "North Las Vegas", "Sparks"],
+            "New Hampshire": ["Manchester", "Nashua", "Concord", "Derry", "Rochester"],
+            "New Jersey": ["Newark", "Jersey City", "Paterson", "Elizabeth", "Edison"],
+            "New Mexico": ["Albuquerque", "Las Cruces", "Rio Rancho", "Santa Fe", "Roswell"],
+            "New York": ["New York City", "Buffalo", "Rochester", "Yonkers", "Syracuse"],
+            "North Carolina": ["Charlotte", "Raleigh", "Greensboro", "Durham", "Winston-Salem"],
+            "North Dakota": ["Fargo", "Bismarck", "Grand Forks", "Minot", "West Fargo"],
+            "Ohio": ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron"],
+            "Oklahoma": ["Oklahoma City", "Tulsa", "Norman", "Broken Arrow", "Lawton"],
+            "Oregon": ["Portland", "Salem", "Eugene", "Gresham", "Hillsboro"],
+            "Pennsylvania": ["Philadelphia", "Pittsburgh", "Allentown", "Erie", "Reading"],
+            "Rhode Island": ["Providence", "Warwick", "Cranston", "Pawtucket", "East Providence"],
+            "South Carolina": ["Columbia", "Charleston", "North Charleston", "Mount Pleasant", "Rock Hill"],
+            "South Dakota": ["Sioux Falls", "Rapid City", "Aberdeen", "Brookings", "Watertown"],
+            "Tennessee": ["Nashville", "Memphis", "Knoxville", "Chattanooga", "Clarksville"],
+            "Texas": ["Houston", "San Antonio", "Dallas", "Austin", "Fort Worth"],
+            "Utah": ["Salt Lake City", "West Valley City", "Provo", "West Jordan", "Orem"],
+            "Vermont": ["Burlington", "Essex", "South Burlington", "Colchester", "Rutland"],
+            "Virginia": ["Virginia Beach", "Norfolk", "Chesapeake", "Richmond", "Newport News"],
+            "Washington": ["Seattle", "Spokane", "Tacoma", "Vancouver", "Bellevue"],
+            "West Virginia": ["Charleston", "Huntington", "Parkersburg", "Morgantown", "Wheeling"],
+            "Wisconsin": ["Milwaukee", "Madison", "Green Bay", "Kenosha", "Racine"],
+            "Wyoming": ["Cheyenne", "Casper", "Laramie", "Gillette", "Rock Springs"]
+        };
+
+        let currentStep = 1;
+        let formData = {};
+        let verificationTimer;
+        let timeLeft = 20;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDropdowns();
+            initializeCodeInputs();
+        });
+
+        // Initialize dropdowns
+        function initializeDropdowns() {
+            // Populate states
+            const stateOptions = document.getElementById('stateOptions');
+            Object.keys(statesAndCities).forEach(state => {
+                const option = document.createElement('div');
+                option.className = 'dropdown-option';
+                option.textContent = state;
+                option.setAttribute('data-value', state);
+                stateOptions.appendChild(option);
+            });
+
+            // Setup dropdown functionality
+            setupDropdown('stateDropdown', 'stateInput', 'stateSearch', 'stateOptions', function(value) {
+                populateCities(value);
+                document.getElementById('cityInput').value = '';
+            });
+
+            setupDropdown('cityDropdown', 'cityInput', 'citySearch', 'cityOptions');
+            setupDropdown('genderDropdown', 'genderInput', null, 'genderOptions');
+        }
+
+        // Setup dropdown functionality
+        function setupDropdown(containerId, inputId, searchId, optionsId, onSelect) {
+            const container = document.getElementById(containerId);
+            const input = document.getElementById(inputId);
+            const search = searchId ? document.getElementById(searchId) : null;
+            const options = document.getElementById(optionsId);
+
+            input.addEventListener('click', () => {
+                closeAllDropdowns();
+                container.classList.toggle('open');
+            });
+
+            if (search) {
+                search.addEventListener('input', (e) => {
+                    filterOptions(optionsId, e.target.value);
+                });
+            }
+
+            options.addEventListener('click', (e) => {
+                if (e.target.classList.contains('dropdown-option')) {
+                    const value = e.target.getAttribute('data-value') || e.target.textContent;
+                    input.value = e.target.textContent;
+                    container.classList.remove('open');
+                    if (onSelect) onSelect(value);
+                }
+            });
+        }
+
+        // Populate cities based on selected state
+        function populateCities(state) {
+            const cityOptions = document.getElementById('cityOptions');
+            cityOptions.innerHTML = '';
+            
+            if (statesAndCities[state]) {
+                statesAndCities[state].forEach(city => {
+                    const option = document.createElement('div');
+                    option.className = 'dropdown-option';
+                    option.textContent = city;
+                    option.setAttribute('data-value', city);
+                    cityOptions.appendChild(option);
+                });
+            }
+        }
+
+        // Filter dropdown options
+        function filterOptions(optionsId, searchTerm) {
+            const options = document.getElementById(optionsId);
+            const items = options.querySelectorAll('.dropdown-option');
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const matches = text.includes(searchTerm.toLowerCase());
+                item.style.display = matches ? 'block' : 'none';
+            });
+        }
+
+        // Close all dropdowns
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-container').forEach(dropdown => {
+                dropdown.classList.remove('open');
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown-container')) {
+                closeAllDropdowns();
+            }
+        });
+
+        // Initialize verification code inputs
+        function initializeCodeInputs() {
+            const codeInputs = document.querySelectorAll('.code-input');
+            
+            codeInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    
+                    if (value && /^\d$/.test(value)) {
+                        e.target.classList.add('filled');
+                        
+                        // Auto-focus next input
+                        if (index < codeInputs.length - 1) {
+                            codeInputs[index + 1].focus();
+                        }
+                    } else {
+                        e.target.classList.remove('filled');
+                        e.target.value = '';
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    // Handle backspace
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        codeInputs[index - 1].focus();
+                        codeInputs[index - 1].value = '';
+                        codeInputs[index - 1].classList.remove('filled');
+                    }
+                });
+
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const paste = e.clipboardData.getData('text');
+                    const digits = paste.replace(/\D/g, '').slice(0, 6);
+                    
+                    digits.split('').forEach((digit, i) => {
+                        if (codeInputs[i]) {
+                            codeInputs[i].value = digit;
+                            codeInputs[i].classList.add('filled');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                state: document.getElementById('stateInput').value,
+                city: document.getElementById('cityInput').value,
+                address: document.getElementById('address').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                gender: document.getElementById('genderInput').value
+            };
+
+            // Show loading state
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.classList.add('btn-loading');
+            registerBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                registerBtn.classList.remove('btn-loading');
+                registerBtn.disabled = false;
+                showNotification('Code Sent!', 'A verification code has been sent to your email address.', 'info');
+                
+                setTimeout(() => {
+                    hideNotification();
+                    goToStep(2);
+                }, 2000);
+            }, 1500);
+        });
+
+        // Navigate to step
+        function goToStep(step) {
+            // Hide current step
+            document.querySelector('.flow-step.active').classList.remove('active');
+            
+            // Show new step
+            document.getElementById(`step${step}`).classList.add('active');
+            currentStep = step;
+
+            if (step === 2) {
+                document.getElementById('verificationEmail').textContent = formData.email;
+                startTimer();
+            } else if (step === 3) {
+                displayCompletedForm();
+            }
+        }
+
+        // Start verification timer
+        function startTimer() {
+            timeLeft = 20;
+            updateTimerDisplay();
+            
+            verificationTimer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(verificationTimer);
+                    document.getElementById('timer').style.display = 'none';
+                    document.getElementById('resendLink').style.display = 'inline';
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Verify code
+        function verifyCode() {
+            const codeInputs = document.querySelectorAll('.code-input');
+            const code = Array.from(codeInputs).map(input => input.value).join('');
+            
+            if (code.length !== 6) {
+                showMessage('Please enter all 6 digits', 'error');
+                return;
+            }
+
+            const confirmBtn = document.getElementById('confirmCodeBtn');
+            confirmBtn.classList.add('btn-loading');
+            confirmBtn.disabled = true;
+
+            // Simulate verification (accept any 6-digit code)
+            setTimeout(() => {
+                confirmBtn.classList.remove('btn-loading');
+                confirmBtn.disabled = false;
+                
+                if (code === '123456') {
+                    // Simulate wrong code for demo
+                    showMessage('Invalid code. Please try again.', 'error');
+                    codeInputs.forEach(input => {
+                        input.classList.add('error');
+                        input.classList.remove('filled');
+                        input.value = '';
+                    });
+                    
+                    setTimeout(() => {
+                        codeInputs.forEach(input => input.classList.remove('error'));
+                    }, 500);
+                } else {
+                    // Success
+                    clearInterval(verificationTimer);
+                    showNotification('Success!', 'You have successfully authenticated and will now be taken to your homepage.', 'success');
+                    
+                    setTimeout(() => {
+                        hideNotification();
+                        goToStep(3);
+                    }, 3000);
+                }
+            }, 1500);
+        }
+
+        // Resend code
+        function resendCode() {
+            showNotification('Code Resent!', 'A new verification code has been sent to your email.', 'info');
+            document.getElementById('timer').style.display = 'inline';
+            document.getElementById('resendLink').style.display = 'none';
+            startTimer();
+            
+            setTimeout(() => {
+                hideNotification();
+            }, 2000);
+        }
+
+        // Display completed form
+        function displayCompletedForm() {
+            const completedForm = document.getElementById('completedForm');
+            completedForm.innerHTML = `
+                <div class="card" style="margin-bottom: var(--space-lg);">
+                    <div style="display: grid; gap: var(--space-md);">
+                        <div><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</div>
+                        <div><strong>Email:</strong> ${formData.email} <span style="color: var(--success);">✓ Verified</span></div>
+                        <div><strong>Phone:</strong> +1 ${formData.phone}</div>
+                        <div><strong>Location:</strong> ${formData.city}, ${formData.state}</div>
+                        <div><strong>Address:</strong> ${formData.address}</div>
+                        <div><strong>Date of Birth:</strong> ${formData.dateOfBirth}</div>
+                        <div><strong>Gender:</strong> ${formData.gender}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('verificationMessage');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // Show notification modal
+        function showNotification(title, message, type) {
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationMessage').textContent = message;
+            
+            const icon = document.getElementById('notificationIcon');
+            icon.className = `notification-icon ${type}`;
+            icon.textContent = type === 'success' ? '✓' : type === 'info' ? '📧' : '⚠️';
+            
+            document.getElementById('notificationOverlay').classList.add('active');
+        }
+
+        // Hide notification modal
+        function hideNotification() {
+            document.getElementById('notificationOverlay').classList.remove('active');
+        }
+
+        // Go to homepage
+        function goToHomepage() {
+            showNotification('Welcome!', 'Redirecting to your dashboard...', 'success');
+            setTimeout(() => {
+                // In a real app, this would redirect to the homepage
+                alert('Welcome to StatwellMD! You would now be redirected to your dashboard.');
+                closeModal();
+            }, 2000);
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        // Prevent modal close on content click
+        document.querySelector('.signup-modal').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Close modal on overlay click
+        document.getElementById('modalOverlay').addEventListener('click', closeModal);
+        document.getElementById('notificationOverlay').addEventListener('click', hideNotification);
+    </script>
+</body>
+</html>
