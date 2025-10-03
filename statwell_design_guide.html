@@ -709,6 +709,207 @@
         .step-card h4 {
             margin-bottom: var(--space-sm);
         }
+
+        /* Form Components Styles */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .form-input-enhanced {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg-primary);
+            transition: all var(--anim-normal);
+            outline: none;
+        }
+        .form-input-enhanced:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--statwell-teal-light), 0 0 0 5px var(--primary);
+        }
+        .form-input-enhanced.error {
+            border-color: var(--error);
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Phone Input */
+        .phone-input-demo {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        .country-code-demo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            background: var(--light-gray);
+            font-size: 16px;
+            min-width: 80px;
+        }
+
+        /* Dropdown Styles */
+        .dropdown-container-demo {
+            position: relative;
+        }
+        .dropdown-input-demo {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 40px;
+        }
+        .dropdown-arrow-demo {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+        .dropdown-menu-demo {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        .dropdown-search-demo {
+            padding: 12px;
+            border: none;
+            border-bottom: 1px solid var(--border-secondary);
+            outline: none;
+            width: 100%;
+        }
+        .dropdown-option-demo {
+            padding: 12px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .dropdown-option-demo:hover {
+            background: var(--light-gray);
+        }
+
+        /* OTP Verification */
+        .code-inputs-demo {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin: var(--space-xl) 0;
+        }
+        .code-input-demo {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            outline: none;
+            transition: all var(--anim-normal);
+        }
+        .code-input-demo:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--statwell-teal-light), 0 0 0 5px var(--primary);
+        }
+        .code-input-demo.filled {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Modal Overlay Demo */
+        .modal-overlay-demo {
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        .signup-modal-demo {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        /* Notification Demo */
+        .notification-modal-demo {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+        }
+        .notification-icon-demo {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+
+        /* Validation States */
+        .validation-demo {
+            display: grid;
+            gap: var(--space-md);
+        }
+        .message-demo {
+            padding: var(--space-md);
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .message-demo.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .message-demo.error {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -723,6 +924,7 @@
             <li><a href="#colors" class="nav-link">Colors</a></li>
             <li><a href="#typography" class="nav-link">Typography</a></li>
             <li><a href="#components" class="nav-link">Components</a></li>
+            <li><a href="#forms" class="nav-link">Forms</a></li>
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
             <li><a href="#animations" class="nav-link">Animations</a></li>
         </ul>
@@ -864,6 +1066,25 @@
                     <button class="btn btn-secondary" onclick="openModal('core-input-field-modal')">Input Field</button>
                     <button class="btn btn-secondary" onclick="openModal('core-pill-tags-modal')">Pill Tags</button>
                     <button class="btn btn-secondary" onclick="openModal('core-progress-bar-modal')">Progress Bar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="forms">
+            <div class="section-header">
+                <h2 class="section-title">Form Components</h2>
+                <p class="section-subtitle">Advanced form patterns and interactive components for user input and data collection.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Form Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of form components and patterns.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('form-inputs-modal')">Form Inputs</button>
+                    <button class="btn btn-secondary" onclick="openModal('form-dropdowns-modal')">Searchable Dropdowns</button>
+                    <button class="btn btn-secondary" onclick="openModal('form-verification-modal')">OTP Verification</button>
+                    <button class="btn btn-secondary" onclick="openModal('form-validation-modal')">Validation States</button>
+                    <button class="btn btn-secondary" onclick="openModal('form-modals-modal')">Modal Overlays</button>
+                    <button class="btn btn-secondary" onclick="openModal('form-notifications-modal')">Notifications</button>
                 </div>
             </div>
         </section>
@@ -1307,6 +1528,139 @@
                 <div class="hero-image-container">
                     <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758081314/statwell_rx_icij7g.png" alt="Prescription Notification">
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Component Modals -->
+    <div id="form-inputs-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Enhanced Form Inputs</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Advanced form input patterns with focus states and validation.</p>
+            
+            <div style="display: grid; gap: var(--space-lg);">
+                <div class="form-group">
+                    <label class="form-label">Standard Input</label>
+                    <input type="text" class="form-input-enhanced" placeholder="Enter your name...">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input-enhanced" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input-enhanced" placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <div class="phone-input-demo">
+                        <div class="country-code-demo">
+                            <span>🇺🇸</span>
+                            <span>+1</span>
+                        </div>
+                        <input type="tel" class="form-input-enhanced" placeholder="000 000 000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Error State</label>
+                    <input type="text" class="form-input-enhanced error" placeholder="This field has an error">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-dropdowns-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Searchable Dropdowns</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive dropdown components with search functionality.</p>
+            
+            <div class="dropdown-container-demo">
+                <input type="text" class="form-input-enhanced dropdown-input-demo" placeholder="Select State" readonly>
+                <span class="dropdown-arrow-demo">▼</span>
+                <div class="dropdown-menu-demo" style="display: block; position: relative; margin-top: var(--space-sm);">
+                    <input type="text" class="dropdown-search-demo" placeholder="Search states...">
+                    <div class="dropdown-option-demo">California</div>
+                    <div class="dropdown-option-demo">New York</div>
+                    <div class="dropdown-option-demo">Texas</div>
+                    <div class="dropdown-option-demo">Florida</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-verification-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">OTP Verification</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">6-digit verification code input with auto-focus and validation.</p>
+            
+            <div class="code-inputs-demo">
+                <input type="text" class="code-input-demo filled" value="2" readonly>
+                <input type="text" class="code-input-demo filled" value="5" readonly>
+                <input type="text" class="code-input-demo" placeholder="">
+                <input type="text" class="code-input-demo" placeholder="">
+                <input type="text" class="code-input-demo" placeholder="">
+                <input type="text" class="code-input-demo" placeholder="">
+            </div>
+            
+            <p class="text-caption text-muted" style="text-align: center;">
+                Auto-focus moves to next field • Paste support • Backspace navigation
+            </p>
+        </div>
+    </div>
+
+    <div id="form-validation-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Validation States</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Success and error message patterns for form feedback.</p>
+            
+            <div class="validation-demo">
+                <div class="message-demo success">
+                    ✓ Account successfully created and verified!
+                </div>
+                <div class="message-demo error">
+                    ✕ Invalid verification code. Please try again.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-modals-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Modal Overlays</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Modal patterns for forms and user interactions.</p>
+            
+            <div class="modal-overlay-demo">
+                <div class="signup-modal-demo">
+                    <h3 class="text-title">Register Now</h3>
+                    <p class="text-caption text-muted">Let's create an account for you, before you continue.</p>
+                    <div style="margin-top: var(--space-md);">
+                        <button class="btn btn-primary" style="width: 100%; padding: 8px 16px;">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="form-notifications-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Notification Modals</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Status notifications and confirmation dialogs.</p>
+            
+            <div class="notification-modal-demo">
+                <div class="notification-icon-demo">📧</div>
+                <h3 class="text-title">Code Sent!</h3>
+                <p class="text-caption text-muted">A verification code has been sent to your email address.</p>
             </div>
         </div>
     </div>
