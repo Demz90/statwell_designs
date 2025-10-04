@@ -133,6 +133,43 @@
         .nav-link.active::before {
             height: 20px;
         }
+
+        /* Sidebar Component */
+        .sidebar-demo {
+            width: 280px;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            color: var(--white);
+            padding: var(--space-xl);
+            border-radius: 16px;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+        }
+        .sidebar-demo .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        .sidebar-demo .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .sidebar-demo .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-demo .nav-item {
+            margin-bottom: var(--space-sm);
+        }
         
         /* Color Palette Display */
         .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-lg); }
@@ -2055,6 +2092,7 @@
                     <button class="btn btn-secondary" onclick="openModal('core-input-field-modal')">Input Field</button>
                     <button class="btn btn-secondary" onclick="openModal('core-pill-tags-modal')">Pill Tags</button>
                     <button class="btn btn-secondary" onclick="openModal('core-progress-bar-modal')">Progress Bar</button>
+                    <button class="btn btn-secondary" onclick="openModal('sidebar-demo-modal')">Sidebar</button>
                 </div>
             </div>
         </section>
@@ -2446,6 +2484,31 @@
             <span class="close-modal" onclick="closeAllModals()">&times;</span>
             <div id="core-progress-bar-component" class="progress-bar-container">
                 <div class="progress-bar-fill" style="width: 75%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar-demo-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Sidebar Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Dark-themed sidebar navigation with gradient background and modern styling.</p>
+            <div class="sidebar-demo">
+                <div class="logo">
+                    <div class="logo-icon">UC</div>
+                    <div>
+                        <div>Urgent Care</div>
+                        <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Data LLC</div>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link active">🏠 Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">🩺 Conditions</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">📋 Encounters</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">📅 Appointments</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">⚙️ Settings</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">❓ Support</a></li>
+                </ul>
             </div>
         </div>
     </div>
