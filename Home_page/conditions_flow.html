@@ -56,12 +56,128 @@
         .welcome-text { font-size: 14px; color: var(--text-secondary); }
         .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
 
+        /* Progress Navigation */
+        .progress-navigation {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+        }
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border-secondary);
+            z-index: 1;
+        }
+        .progress-step.completed:not(:last-child)::after {
+            background: var(--primary);
+        }
+        .progress-step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            background: var(--light-gray);
+            color: var(--text-secondary);
+            border: 2px solid var(--border-secondary);
+            position: relative;
+            z-index: 2;
+            transition: all var(--anim-normal);
+        }
+        .progress-step.active .progress-step-icon {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        .progress-step.completed .progress-step-icon {
+            background: var(--success);
+            color: var(--white);
+            border-color: var(--success);
+        }
+        .progress-step-label {
+            margin-top: var(--space-sm);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        .progress-step.active .progress-step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .progress-step.completed .progress-step-label {
+            color: var(--success);
+        }
+
         /* Buttons */
-        .btn { display: inline-flex; align-items: center; gap: var(--space-sm); padding: 12px 24px; border-radius: 12px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: 8px 16px; border-radius: 8px; font-weight: 500; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; }
         .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
         .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(93, 120, 255, 0.3); }
-        .btn-secondary { background: var(--white); color: var(--primary); border-color: var(--primary); }
-        .btn-secondary:hover { background: var(--light-gray); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
+        .btn-secondary { background: var(--bg-primary); color: var(--primary); border-color: var(--primary); }
+        .btn-secondary:hover { background: var(--statwell-teal-light); color: var(--text-primary); border-color: var(--statwell-teal-light); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+        /* Condition Selector Controls */
+        .condition-selector-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            border: 1px solid var(--border-secondary);
+            background: var(--white);
+        }
+        .filter-tab.active {
+            background: var(--statwell-navy);
+            color: var(--white);
+            border-color: var(--statwell-navy);
+        }
+        .condition-search-wrapper {
+            flex-grow: 1;
+            min-width: 250px;
+        }
+        .condition-search {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            font-size: 16px;
+        }
 
         /* Condition Cards */
         .condition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-xl); }
@@ -243,26 +359,249 @@
         .key-fact-value { font-weight: 700; font-size: 14px; color: var(--text-primary); }
         .key-fact-label { font-size: 10px; color: var(--text-secondary); }
 
-        /* Follow-up Questions */
-        .statbot-header { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-lg); padding: var(--space-md); background: var(--light-gray); border-radius: 12px; }
-        .statbot-avatar { width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 20px; font-weight: 700; }
-        .statbot-info h3 { margin: 0; font-size: 18px; }
-        .statbot-info p { margin: 0; font-size: 14px; color: var(--text-secondary); }
-        .questions-form { display: flex; flex-direction: column; gap: var(--space-lg); }
-        .question-item { padding: var(--space-lg); background: var(--white); border-radius: 12px; border: 1px solid var(--border-secondary); }
-        .question-text { font-weight: 600; margin-bottom: var(--space-md); }
-        .question-options { display: flex; gap: var(--space-md); }
-        .question-option { display: flex; align-items: center; gap: var(--space-sm); }
-        .question-option input[type="radio"] { width: 18px; height: 18px; }
+        /* Selected Condition Header */
+        .selected-condition-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: var(--white); 
+            padding: var(--space-lg); 
+            border-radius: 16px; 
+            margin-bottom: var(--space-lg); 
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); 
+            border: 1px solid var(--border-secondary); 
+        }
+        .condition-badge { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-md); 
+        }
+        .condition-icon { 
+            font-size: 32px; 
+        }
+        .condition-name { 
+            font-size: 20px; 
+            font-weight: 700; 
+            font-family: var(--font-primary); 
+            color: var(--text-primary); 
+        }
+        .condition-type { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            margin-top: 2px; 
+        }
+        .consultation-fee { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: var(--primary); 
+        }
+
+        
+        /* Questions Container */
+        .questions-container { 
+            background: var(--white); 
+            border-radius: 16px; 
+            padding: var(--space-xl); 
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); 
+            border: 1px solid var(--border-secondary); 
+        }
+        .questions-header { 
+            text-align: center; 
+            margin-bottom: var(--space-xl); 
+        }
+        .questions-header h2 { 
+            font-size: 24px; 
+            font-weight: 700; 
+            font-family: var(--font-primary); 
+            margin-bottom: var(--space-sm); 
+            color: var(--text-primary); 
+        }
+        .questions-header p { 
+            color: var(--text-secondary); 
+            margin-bottom: var(--space-lg); 
+        }
+        .progress-indicator { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            background: var(--light-gray); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+        }
+        .progress-indicator #current-question { 
+            color: var(--primary); 
+        }
+
+        /* Question Cards */
+        .question-card { 
+            display: none; 
+            padding: var(--space-lg); 
+            background: var(--bg-secondary); 
+            border-radius: 12px; 
+            border: 1px solid var(--border-secondary); 
+            margin-bottom: var(--space-lg); 
+        }
+        .question-card.active { 
+            display: block; 
+            animation: slideInQuestion 0.3s ease; 
+        }
+        @keyframes slideInQuestion {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 32px; 
+            height: 32px; 
+            background: var(--primary); 
+            color: var(--white); 
+            border-radius: 50%; 
+            font-weight: 700; 
+            font-size: 14px; 
+            margin-bottom: var(--space-md); 
+        }
+        .question-content h3 { 
+            font-size: 18px; 
+            font-weight: 600; 
+            margin-bottom: var(--space-sm); 
+            color: var(--text-primary); 
+        }
+        .question-subtext { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            margin-bottom: var(--space-lg); 
+            line-height: 1.5; 
+        }
+        .question-options { 
+            display: flex; 
+            gap: var(--space-lg); 
+        }
+        .option-label { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            cursor: pointer; 
+            padding: var(--space-md); 
+            border-radius: 8px; 
+            transition: all var(--anim-normal); 
+            flex: 1; 
+            justify-content: center; 
+        }
+        .option-label:hover { 
+            background: var(--light-gray); 
+        }
+        .option-label input[type="radio"] { 
+            width: 18px; 
+            height: 18px; 
+            accent-color: var(--primary); 
+        }
+        .option-text { 
+            font-weight: 500; 
+            font-size: 16px; 
+        }
+
+        /* Questions Navigation */
+        .questions-navigation { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: var(--space-xl); 
+            padding-top: var(--space-lg); 
+            border-top: 1px solid var(--border-secondary); 
+        }
 
         /* Urgent Banner */
-        .urgent-banner { background: var(--warning); color: var(--white); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
-        .urgent-icon { font-size: 24px; }
-        .urgent-content h3 { margin: 0 0 var(--space-sm) 0; }
-        .urgent-content p { margin: 0; font-size: 14px; }
-        .urgent-actions { display: flex; gap: var(--space-md); margin-top: var(--space-md); }
-        .btn-white { background: var(--white); color: var(--warning); border-color: var(--white); }
-        .btn-white:hover { background: var(--light-gray); }
+        .urgent-banner { 
+            background: linear-gradient(135deg, var(--error) 0%, #e53e3e 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            border-radius: 16px; 
+            margin-bottom: var(--space-lg); 
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .urgent-icon { 
+            font-size: 48px; 
+            margin-bottom: var(--space-md); 
+        }
+        .urgent-content h3 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 24px; 
+            font-weight: 700; 
+        }
+        .urgent-content p { 
+            margin: 0 0 var(--space-lg) 0; 
+            font-size: 16px; 
+            line-height: 1.5; 
+        }
+        .urgent-recommendation { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: var(--space-lg); 
+            border-radius: 12px; 
+            margin: var(--space-lg) 0; 
+        }
+        .urgent-recommendation h4 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 18px; 
+            font-weight: 600; 
+        }
+        .urgent-recommendation ul { 
+            margin: 0; 
+            padding-left: var(--space-lg); 
+        }
+        .urgent-recommendation li { 
+            margin-bottom: var(--space-sm); 
+            font-size: 14px; 
+            line-height: 1.4; 
+        }
+        .triggered-questions { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: var(--space-lg); 
+            border-radius: 12px; 
+            margin-top: var(--space-lg); 
+        }
+        .triggered-questions h4 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 16px; 
+            font-weight: 600; 
+        }
+        .triggered-question-item { 
+            background: rgba(255, 255, 255, 0.2); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 8px; 
+            margin-bottom: var(--space-sm); 
+            font-size: 14px; 
+        }
+        .urgent-actions { 
+            display: flex; 
+            gap: var(--space-md); 
+            margin-top: var(--space-lg); 
+            flex-wrap: wrap; 
+        }
+        .btn-white { 
+            background: var(--white); 
+            color: var(--error); 
+            border-color: var(--white); 
+            font-weight: 600; 
+        }
+        .btn-white:hover { 
+            background: var(--light-gray); 
+            transform: translateY(-2px); 
+        }
+        .urgent-call-btn { 
+            background: var(--white) !important; 
+            color: var(--error) !important; 
+            font-weight: 700; 
+            text-decoration: none; 
+        }
+        .urgent-call-btn:hover { 
+            background: var(--light-gray) !important; 
+            transform: translateY(-2px); 
+        }
 
         /* Consent Step */
         .consent-form { display: flex; flex-direction: column; gap: var(--space-lg); }
@@ -347,101 +686,274 @@
                     <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Browse through conditions we treat and be on your path to wellness</p>
                 </div>
 
-                <div class="condition-grid">
-                    <div class="condition-card" onclick="selectCondition('asthma')">
-                        <img src="https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asthma" class="condition-card-img">
-                        <h4 class="condition-card-title">Asthma</h4>
-                        <div class="condition-card-overlay">
-                            <p>Breathe easier with a personalized treatment plan.</p>
-                            <span class="btn btn-primary">Select</span>
-                        </div>
+                <!-- Condition Selector Controls -->
+                <div class="condition-selector-controls">
+                    <div class="filter-tabs" id="filter-tabs">
+                        <!-- Tabs will be dynamically generated -->
                     </div>
-                    <div class="condition-card" onclick="selectCondition('uti')">
-                        <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" alt="UTI" class="condition-card-img">
-                        <h4 class="condition-card-title">UTI</h4>
-                        <div class="condition-card-overlay">
-                            <p>Includes diagnosis & prescription for antibiotics.</p>
-                            <span class="btn btn-primary">Select</span>
-                        </div>
+                    <div class="condition-search-wrapper">
+                        <input type="text" placeholder="Search conditions..." class="condition-search" id="condition-search">
                     </div>
-                    <div class="condition-card" onclick="selectCondition('cold-flu')">
-                        <img src="https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cold & Flu" class="condition-card-img">
-                        <h4 class="condition-card-title">Cold & Flu</h4>
-                        <div class="condition-card-overlay">
-                            <p>Get relief from cough, congestion, and fever.</p>
-                            <span class="btn btn-primary">Select</span>
-                        </div>
-                    </div>
-                    <div class="condition-card" onclick="selectCondition('acne')">
-                        <img src="https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Acne" class="condition-card-img">
-                        <h4 class="condition-card-title">Acne</h4>
-                        <div class="condition-card-overlay">
-                            <p>Personalized treatment plans for clearer skin.</p>
-                            <span class="btn btn-primary">Select</span>
-                        </div>
-                    </div>
+                </div>
+
+                <div class="condition-grid" id="condition-grid">
+                    <!-- Conditions will be populated dynamically -->
                 </div>
             </div>
 
             <!-- Follow-up Questions State -->
             <div class="state" id="follow-up-questions-state">
-                <div class="statbot-header">
-                    <div class="statbot-avatar">SB</div>
-                    <div class="statbot-info">
-                        <h3>Talk to StatBot MD</h3>
-                        <p>Your AI health assistant</p>
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Select Condition</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">2</div>
+                            <div class="progress-step-label">Health Assessment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">3</div>
+                            <div class="progress-step-label">Consent</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg);">
-                    <p style="margin-bottom: var(--space-md);">Hi, Thanks for signing up, I'm here to help you feel better.</p>
-                    <p style="margin-bottom: var(--space-md);">To proceed, let's answer some follow up questions.</p>
-                    <p style="background: var(--primary); color: var(--white); padding: var(--space-sm) var(--space-md); border-radius: 8px; display: inline-block; margin-left: auto; margin-top: var(--space-md);">Asthma</p>
+                <!-- Selected Condition Header -->
+                <div class="selected-condition-header">
+                    <div class="condition-badge">
+                        <span class="condition-icon">🩺</span>
+                        <div class="condition-info">
+                            <div class="condition-name" id="selected-condition-name">Asthma</div>
+                            <div class="condition-type">Respiratory Condition</div>
+                        </div>
+                    </div>
+                    <div class="consultation-fee">$49.99</div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg);">
-                    <p>Please review your consent.</p>
-                    <p style="background: var(--light-gray); padding: var(--space-sm) var(--space-md); border-radius: 8px; display: inline-block; margin-left: auto; margin-top: var(--space-md);">I have read the details and giving my consent to proceed with consultation.</p>
-                </div>
 
-                <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg);">
-                    <p style="margin-bottom: var(--space-lg);">Great! You've passed the initial checks. Go ahead and make payment to consult with a doctor — they'll guide you from here.</p>
-                    
-                    <div style="background: var(--warning); padding: var(--space-md); border-radius: 8px; margin-bottom: var(--space-lg);">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span>Medical Consultation</span>
-                            <span style="font-weight: 700;">$50.00</span>
+                <!-- Questions Form -->
+                <div class="questions-container">
+                    <div class="questions-header">
+                        <h2>Health Assessment Questions</h2>
+                        <p>Please answer these questions to help us provide the best care for your condition.</p>
+                        <div class="progress-indicator">
+                            <span id="current-question">1</span> of <span id="total-questions">5</span>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary" style="width: 100%;" onclick="showState('payment-confirmation')">Proceed to consultation payment</button>
+                    <form class="questions-form" id="questions-form">
+                        <!-- Question 1 -->
+                        <div class="question-card active" data-question="1">
+                            <div class="question-number">1</div>
+                            <div class="question-content">
+                                <h3>Are you experiencing severe chest pain or pressure?</h3>
+                                <p class="question-subtext">This includes crushing chest pain, tightness, or pressure that spreads to your arm, jaw, or back.</p>
+                                <div class="question-options">
+                                    <label class="option-label">
+                                        <input type="radio" name="question1" value="yes" onchange="handleQuestionAnswer(1, 'yes')">
+                                        <span class="option-text">Yes</span>
+                                    </label>
+                                    <label class="option-label">
+                                        <input type="radio" name="question1" value="no" onchange="handleQuestionAnswer(1, 'no')">
+                                        <span class="option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="question-card" data-question="2">
+                            <div class="question-number">2</div>
+                            <div class="question-content">
+                                <h3>Are you having difficulty breathing or shortness of breath at rest?</h3>
+                                <p class="question-subtext">This means you feel short of breath even when sitting or lying down, not just during activity.</p>
+                                <div class="question-options">
+                                    <label class="option-label">
+                                        <input type="radio" name="question2" value="yes" onchange="handleQuestionAnswer(2, 'yes')">
+                                        <span class="option-text">Yes</span>
+                                    </label>
+                                    <label class="option-label">
+                                        <input type="radio" name="question2" value="no" onchange="handleQuestionAnswer(2, 'no')">
+                                        <span class="option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="question-card" data-question="3">
+                            <div class="question-number">3</div>
+                            <div class="question-content">
+                                <h3>Are you experiencing severe dizziness or fainting?</h3>
+                                <p class="question-subtext">This includes feeling like you might pass out, severe lightheadedness, or actual loss of consciousness.</p>
+                                <div class="question-options">
+                                    <label class="option-label">
+                                        <input type="radio" name="question3" value="yes" onchange="handleQuestionAnswer(3, 'yes')">
+                                        <span class="option-text">Yes</span>
+                                    </label>
+                                    <label class="option-label">
+                                        <input type="radio" name="question3" value="no" onchange="handleQuestionAnswer(3, 'no')">
+                                        <span class="option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="question-card" data-question="4">
+                            <div class="question-number">4</div>
+                            <div class="question-content">
+                                <h3>Do you have a high fever (over 102°F or 39°C)?</h3>
+                                <p class="question-subtext">A high fever that doesn't respond to over-the-counter medications or persists for more than 48 hours.</p>
+                                <div class="question-options">
+                                    <label class="option-label">
+                                        <input type="radio" name="question4" value="yes" onchange="handleQuestionAnswer(4, 'yes')">
+                                        <span class="option-text">Yes</span>
+                                    </label>
+                                    <label class="option-label">
+                                        <input type="radio" name="question4" value="no" onchange="handleQuestionAnswer(4, 'no')">
+                                        <span class="option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="question-card" data-question="5">
+                            <div class="question-number">5</div>
+                            <div class="question-content">
+                                <h3>Are you experiencing severe allergic reactions?</h3>
+                                <p class="question-subtext">This includes difficulty breathing, swelling of face/lips, hives, or signs of anaphylaxis.</p>
+                                <div class="question-options">
+                                    <label class="option-label">
+                                        <input type="radio" name="question5" value="yes" onchange="handleQuestionAnswer(5, 'yes')">
+                                        <span class="option-text">Yes</span>
+                                    </label>
+                                    <label class="option-label">
+                                        <input type="radio" name="question5" value="no" onchange="handleQuestionAnswer(5, 'no')">
+                                        <span class="option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="questions-navigation">
+                            <button type="button" class="btn btn-secondary" id="prev-question" onclick="previousQuestion()" disabled>Previous</button>
+                            <button type="button" class="btn btn-primary" id="next-question" onclick="nextQuestion()" disabled>Next Question</button>
+                            <button type="button" class="btn btn-primary" id="submit-questions" onclick="submitQuestions()" style="display: none;">Complete Assessment</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
             <!-- Urgent Banner State -->
             <div class="state" id="urgent-banner-state">
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Select Condition</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">⚠</div>
+                            <div class="progress-step-label">Urgent Care Required</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">3</div>
+                            <div class="progress-step-label">Consent</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Condition Header -->
+                <div class="selected-condition-header">
+                    <div class="condition-badge">
+                        <span class="condition-icon">🩺</span>
+                        <div class="condition-info">
+                            <div class="condition-name" id="urgent-condition-name">Asthma</div>
+                            <div class="condition-type">Respiratory Condition</div>
+                        </div>
+                    </div>
+                    <div class="consultation-fee">$49.99</div>
+                </div>
+
+                <!-- Urgent Banner -->
                 <div class="urgent-banner">
                     <div class="urgent-icon">⚠️</div>
                     <div class="urgent-content">
-                        <h3>Urgent Attention Needed</h3>
-                        <p>Based on your response, we've identified a symptom that could indicate a serious medical issue. Please seek emergency medical care immediately.</p>
-                        <p style="margin-top: var(--space-sm); font-size: 12px;">If this was a mistake, you can choose to retry this red flag question. Otherwise, you may delete this session from your records.</p>
+                        <h3>Urgent Medical Attention Required</h3>
+                        <p>Based on your responses, we've identified symptoms that could indicate a serious medical condition requiring immediate attention.</p>
+                        
+                        <div class="urgent-recommendation">
+                            <h4>What you should do:</h4>
+                            <ul>
+                                <li>Call 911 or go to your nearest emergency room immediately</li>
+                                <li>Do not drive yourself if you're experiencing severe symptoms</li>
+                                <li>Inform emergency personnel about your current symptoms</li>
+                            </ul>
+                        </div>
+
+                        <div class="triggered-questions">
+                            <h4>Questions that triggered this alert:</h4>
+                            <div id="triggered-questions-list">
+                                <!-- Questions will be populated here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="urgent-actions">
-                    <button class="btn btn-white" onclick="showState('follow-up-questions')">Retry question</button>
-                    <button class="btn btn-secondary" onclick="showDeleteConfirmation()">Delete session</button>
+                    <button class="btn btn-secondary" onclick="retryQuestions()">Retry Assessment</button>
+                    <button class="btn btn-white" onclick="showDeleteConfirmation()">Delete Session</button>
+                    <a href="tel:911" class="btn btn-primary urgent-call-btn">Call 911</a>
                 </div>
             </div>
 
             <!-- Consent Step State -->
             <div class="state" id="consent-step-state">
-                <div class="statbot-header">
-                    <div class="statbot-avatar">SB</div>
-                    <div class="statbot-info">
-                        <h3>Talk to StatBot MD</h3>
-                        <p>Your AI health assistant</p>
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Select Condition</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Health Assessment</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">3</div>
+                            <div class="progress-step-label">Consent</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
                     </div>
                 </div>
 
@@ -463,6 +975,32 @@
 
             <!-- Payment Confirmation State -->
             <div class="state" id="payment-confirmation-state">
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Select Condition</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Health Assessment</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Consent</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 500px; margin: 0 auto;">
                     <h2 style="text-align: center; margin-bottom: var(--space-lg);">Payment Confirmation</h2>
                     
@@ -487,6 +1025,32 @@
 
             <!-- Payment Success State -->
             <div class="state" id="payment-success-state">
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Select Condition</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Health Assessment</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Consent</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">✓</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 500px; margin: 0 auto;">
                     <div class="success-content">
                         <div class="success-icon">
@@ -637,11 +1201,62 @@
 
     <script>
         let currentState = 'conditions-listing';
+        let currentQuestion = 1;
+        let totalQuestions = 5;
+        let selectedCondition = null;
+        let questionAnswers = {};
+        let triggeredQuestions = [];
+
+        // Conditions data from homepage.html
+        const conditionsData = {
+            "General": [
+                { name: "UTI", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
+                { name: "Cold & Flu", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
+                { name: "Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "General" },
+                { name: "Allergies", snippet: "Manage seasonal or chronic allergy symptoms.", img: "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" },
+                { name: "Pink Eye", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Eye Infection" },
+                { name: "Sinus Infection", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
+                { name: "Migraines", snippet: "Personalized plans to manage migraine headaches.", img: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Neurological" },
+                { name: "COVID-19", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
+                { name: "Acid Reflux", snippet: "Manage heartburn and GERD symptoms.", img: "https://images.pexels.com/photos/5793649/pexels-photo-5793649.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Digestive" }
+            ],
+            "Skin": [
+                { name: "Acne", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
+                { name: "Skin Rashes", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
+                { name: "Eczema", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
+                { name: "Dandruff", snippet: "Effective treatments for a healthier scalp.", img: "https://images.pexels.com/photos/7262444/pexels-photo-7262444.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Skin Condition" },
+                { name: "Rosacea", snippet: "Control redness and breakouts from rosacea.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
+                { name: "Hives", snippet: "Relief from itchy welts and allergic reactions.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" },
+                { name: "Cold Sores", snippet: "Prescription antiviral medication for cold sores.", img: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
+                { name: "Poison Ivy", snippet: "Soothe itching and inflammation from poison ivy.", img: "https://images.pexels.com/photos/4752857/pexels-photo-4752857.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" }
+            ],
+            "Women's Health": [
+                { name: "Birth Control", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Reproductive Health" },
+                { name: "Yeast Infection", snippet: "Fast and effective treatment for yeast infections.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
+                { name: "Bacterial Vaginosis", snippet: "Discreet and effective BV treatment.", img: "https://images.pexels.com/photos/6729579/pexels-photo-6729579.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
+                { name: "Morning After Pill", snippet: "Emergency contraception, delivered fast.", img: "https://images.pexels.com/photos/7880998/pexels-photo-7880998.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Reproductive Health" }
+            ],
+            "Men's Health": [
+                { name: "Erectile Dysfunction", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Men's Health" },
+                { name: "Hair Loss", snippet: "Clinically-proven treatments for hair loss.", img: "https://images.pexels.com/photos/2533682/pexels-photo-2533682.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Men's Health" },
+                { name: "Genital Herpes", snippet: "Manage outbreaks with prescription medication.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "STI" },
+                { name: "Jock Itch", snippet: "Fast relief from itching and irritation.", img: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Skin Condition" }
+            ],
+            "Other": [
+                { name: "Asthma", snippet: "Refills and management for your asthma condition.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Respiratory Condition" },
+                { name: "Gout", snippet: "Manage gout flare-ups with effective treatment.", img: "https://images.pexels.com/photos/6128189/pexels-photo-6128189.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Metabolic" },
+                { name: "Thyroid Conditions", snippet: "Medication management for thyroid disorders.", img: "https://images.pexels.com/photos/325633/pexels-photo-325633.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Endocrine" },
+                { name: "High Blood Pressure", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Cardiovascular" },
+                { name: "High Cholesterol", snippet: "Prescription management for high cholesterol.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Metabolic" }
+            ]
+        };
 
         function showState(state) {
             // Update demo buttons
             document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
 
             // Hide all states
             document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
@@ -651,62 +1266,44 @@
             currentState = state;
         }
 
-        function selectCondition(condition) {
+        function selectCondition(conditionKey) {
+            // Find condition in data
+            let condition = null;
+            for (const category in conditionsData) {
+                const found = conditionsData[category].find(c => c.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === conditionKey);
+                if (found) {
+                    condition = found;
+                    break;
+                }
+            }
+            
+            if (!condition) return;
+            
+            selectedCondition = condition;
+            
             // Update condition details based on selection
             updateConditionDetails(condition);
             document.getElementById('condition-detail-modal').style.display = 'block';
         }
 
         function updateConditionDetails(condition) {
-            const conditionData = {
-                'asthma': {
-                    name: 'Asthma',
-                    tagline: 'Breathe easier with a personalized treatment plan.',
-                    price: '$49.99',
-                    time: '~1-2 Hours',
-                    type: 'Chronic Condition'
-                },
-                'uti': {
-                    name: 'UTI',
-                    tagline: 'Includes diagnosis & prescription for antibiotics.',
-                    price: '$35.99',
-                    time: '~1-2 Hours',
-                    type: 'Infection'
-                },
-                'cold-flu': {
-                    name: 'Cold & Flu',
-                    tagline: 'Get relief from cough, congestion, and fever.',
-                    price: '$35.99',
-                    time: '~1-2 Hours',
-                    type: 'Viral Infection'
-                },
-                'acne': {
-                    name: 'Acne',
-                    tagline: 'Personalized treatment plans for clearer skin.',
-                    price: '$49.99',
-                    time: '~1-2 Hours',
-                    type: 'Skin Condition'
-                }
-            };
-
-            const data = conditionData[condition] || conditionData['asthma'];
-            document.getElementById('condition-detail-name').textContent = data.name;
-            document.getElementById('condition-detail-tagline').textContent = data.tagline;
+            document.getElementById('condition-detail-name').textContent = condition.name;
+            document.getElementById('condition-detail-tagline').textContent = condition.snippet;
             
             // Update key facts
             const factsContainer = document.getElementById('condition-detail-facts');
             if (factsContainer) {
                 factsContainer.innerHTML = `
                     <div class="key-fact">
-                        <div class="key-fact-value">${data.price}</div>
+                        <div class="key-fact-value">${condition.price}</div>
                         <div class="key-fact-label">Visit Fee</div>
                     </div>
                     <div class="key-fact">
-                        <div class="key-fact-value">${data.time}</div>
+                        <div class="key-fact-value">~1-2 Hours</div>
                         <div class="key-fact-label">Avg. Response</div>
                     </div>
                     <div class="key-fact">
-                        <div class="key-fact-value">${data.type}</div>
+                        <div class="key-fact-value">${condition.type}</div>
                         <div class="key-fact-label">Condition Type</div>
                     </div>`;
             }
@@ -714,7 +1311,124 @@
 
         function startConsultation() {
             closeModal('condition-detail-modal');
+            
+            // Update selected condition display
+            if (selectedCondition) {
+                document.getElementById('selected-condition-name').textContent = selectedCondition.name;
+                document.getElementById('urgent-condition-name').textContent = selectedCondition.name;
+                
+                // Reset questions
+                currentQuestion = 1;
+                questionAnswers = {};
+                triggeredQuestions = [];
+                resetQuestions();
+            }
+            
             showState('follow-up-questions');
+        }
+
+        // Question handling functions
+        function handleQuestionAnswer(questionNum, answer) {
+            questionAnswers[questionNum] = answer;
+            
+            // Check if this is a "yes" answer that triggers urgent care
+            if (answer === 'yes') {
+                triggeredQuestions.push({
+                    number: questionNum,
+                    question: document.querySelector(`[data-question="${questionNum}"] h3`).textContent
+                });
+            }
+            
+            // Enable next button
+            document.getElementById('next-question').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+                updateProgressIndicator();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+                updateProgressIndicator();
+            }
+        }
+
+        function showQuestion(questionNum) {
+            // Hide all questions
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Show current question
+            document.querySelector(`[data-question="${questionNum}"]`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prev-question').disabled = questionNum === 1;
+            
+            if (questionNum === totalQuestions) {
+                document.getElementById('next-question').style.display = 'none';
+                document.getElementById('submit-questions').style.display = 'inline-flex';
+            } else {
+                document.getElementById('next-question').style.display = 'inline-flex';
+                document.getElementById('submit-questions').style.display = 'none';
+            }
+            
+            // Check if current question is answered
+            const currentAnswer = questionAnswers[questionNum];
+            if (currentAnswer) {
+                const radioButton = document.querySelector(`input[name="question${questionNum}"][value="${currentAnswer}"]`);
+                if (radioButton) {
+                    radioButton.checked = true;
+                }
+            }
+        }
+
+        function updateProgressIndicator() {
+            document.getElementById('current-question').textContent = currentQuestion;
+        }
+
+        function resetQuestions() {
+            currentQuestion = 1;
+            showQuestion(currentQuestion);
+            updateProgressIndicator();
+            
+            // Clear all answers
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Reset navigation
+            document.getElementById('next-question').disabled = true;
+            document.getElementById('submit-questions').style.display = 'none';
+        }
+
+        function submitQuestions() {
+            // Check if any "yes" answers triggered urgent care
+            if (triggeredQuestions.length > 0) {
+                // Show triggered questions in urgent banner
+                const triggeredList = document.getElementById('triggered-questions-list');
+                triggeredList.innerHTML = triggeredQuestions.map(tq => 
+                    `<div class="triggered-question-item">Question ${tq.number}: ${tq.question}</div>`
+                ).join('');
+                
+                showState('urgent-banner');
+            } else {
+                // All answers were "no", proceed to consent
+                showState('consent-step');
+            }
+        }
+
+        function retryQuestions() {
+            triggeredQuestions = [];
+            questionAnswers = {};
+            showState('follow-up-questions');
+            resetQuestions();
         }
 
         function closeModal(modalId) {
@@ -740,8 +1454,89 @@
             showState('conditions-listing');
         }
 
+        // Populate conditions grid
+        function populateConditionsGrid(filterCategory = 'All', searchTerm = '') {
+            const gridContainer = document.getElementById('condition-grid');
+            gridContainer.innerHTML = '';
+            
+            // Get conditions based on filter
+            let conditionsToShow = [];
+            if (filterCategory === 'All') {
+                // Get all conditions from all categories
+                for (const category in conditionsData) {
+                    conditionsToShow.push(...conditionsData[category]);
+                }
+            } else {
+                conditionsToShow = conditionsData[filterCategory] || [];
+            }
+            
+            // Filter by search term
+            if (searchTerm) {
+                conditionsToShow = conditionsToShow.filter(condition => 
+                    condition.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+            
+            // Create condition cards
+            conditionsToShow.forEach(condition => {
+                const conditionKey = condition.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                const card = document.createElement('div');
+                card.className = 'condition-card';
+                card.onclick = () => selectCondition(conditionKey);
+                card.innerHTML = `
+                    <img src="${condition.img}" alt="${condition.name}" class="condition-card-img">
+                    <h4 class="condition-card-title">${condition.name}</h4>
+                    <div class="condition-card-overlay">
+                        <p>${condition.snippet}</p>
+                        <span class="btn btn-primary">Select</span>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Setup filtering and search
+        function setupConditionFilters() {
+            const conditionTabs = document.getElementById('filter-tabs');
+            const searchInput = document.getElementById('condition-search');
+            
+            // Create filter tabs
+            const categories = ['All', ...Object.keys(conditionsData)];
+            conditionTabs.innerHTML = categories.map(cat => 
+                `<div class="filter-tab ${cat === 'All' ? 'active' : ''}" data-category="${cat}">${cat}</div>`
+            ).join('');
+            
+            // Add event listeners for tabs
+            conditionTabs.addEventListener('click', e => {
+                if (e.target.classList.contains('filter-tab')) {
+                    // Update active tab
+                    conditionTabs.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // Clear search and filter
+                    searchInput.value = '';
+                    populateConditionsGrid(e.target.dataset.category);
+                }
+            });
+            
+            // Add event listener for search
+            searchInput.addEventListener('input', e => {
+                // Update active tab to "All" when searching
+                conditionTabs.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+                conditionTabs.querySelector('[data-category="All"]').classList.add('active');
+                
+                populateConditionsGrid('All', e.target.value);
+            });
+        }
+
         // Condition detail modal tabs
         document.addEventListener('DOMContentLoaded', () => {
+            // Setup filtering and search
+            setupConditionFilters();
+            
+            // Populate conditions grid
+            populateConditionsGrid();
+            
             const tabs = document.querySelectorAll('.tab-item');
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {

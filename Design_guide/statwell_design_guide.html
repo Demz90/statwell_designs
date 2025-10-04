@@ -773,6 +773,325 @@
         .dashboard-task-card.completed .dashboard-task-title { text-decoration: line-through; color: var(--text-secondary); }
         .dashboard-task-card.completed .dashboard-task-date { color: var(--success); }
 
+        /* Progress Navigation Components */
+        .progress-navigation {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+        }
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border-secondary);
+            z-index: 1;
+        }
+        .progress-step.completed:not(:last-child)::after {
+            background: var(--primary);
+        }
+        .progress-step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            background: var(--light-gray);
+            color: var(--text-secondary);
+            border: 2px solid var(--border-secondary);
+            position: relative;
+            z-index: 2;
+            transition: all var(--anim-normal);
+        }
+        .progress-step.active .progress-step-icon {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        .progress-step.completed .progress-step-icon {
+            background: var(--success);
+            color: var(--white);
+            border-color: var(--success);
+        }
+        .progress-step-label {
+            margin-top: var(--space-sm);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        .progress-step.active .progress-step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .progress-step.completed .progress-step-label {
+            color: var(--success);
+        }
+
+        /* Selected Condition Header */
+        .selected-condition-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: var(--white); 
+            padding: var(--space-lg); 
+            border-radius: 16px; 
+            margin-bottom: var(--space-lg); 
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); 
+            border: 1px solid var(--border-secondary); 
+        }
+        .condition-badge { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-md); 
+        }
+        .condition-icon { 
+            font-size: 32px; 
+        }
+        .condition-name { 
+            font-size: 20px; 
+            font-weight: 700; 
+            font-family: var(--font-primary); 
+            color: var(--text-primary); 
+        }
+        .condition-type { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            margin-top: 2px; 
+        }
+        .consultation-fee { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: var(--primary); 
+        }
+
+        /* Questions Container */
+        .questions-container { 
+            background: var(--white); 
+            border-radius: 16px; 
+            padding: var(--space-xl); 
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); 
+            border: 1px solid var(--border-secondary); 
+        }
+        .questions-header { 
+            text-align: center; 
+            margin-bottom: var(--space-xl); 
+        }
+        .questions-header h2 { 
+            font-size: 24px; 
+            font-weight: 700; 
+            font-family: var(--font-primary); 
+            margin-bottom: var(--space-sm); 
+            color: var(--text-primary); 
+        }
+        .questions-header p { 
+            color: var(--text-secondary); 
+            margin-bottom: var(--space-lg); 
+        }
+        .progress-indicator { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            background: var(--light-gray); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+        }
+        .progress-indicator #current-question { 
+            color: var(--primary); 
+        }
+
+        /* Question Cards */
+        .question-card { 
+            display: none; 
+            padding: var(--space-lg); 
+            background: var(--bg-secondary); 
+            border-radius: 12px; 
+            border: 1px solid var(--border-secondary); 
+            margin-bottom: var(--space-lg); 
+        }
+        .question-card.active { 
+            display: block; 
+            animation: slideInQuestion 0.3s ease; 
+        }
+        @keyframes slideInQuestion {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 32px; 
+            height: 32px; 
+            background: var(--primary); 
+            color: var(--white); 
+            border-radius: 50%; 
+            font-weight: 700; 
+            font-size: 14px; 
+            margin-bottom: var(--space-md); 
+        }
+        .question-content h3 { 
+            font-size: 18px; 
+            font-weight: 600; 
+            margin-bottom: var(--space-sm); 
+            color: var(--text-primary); 
+        }
+        .question-subtext { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            margin-bottom: var(--space-lg); 
+            line-height: 1.5; 
+        }
+        .question-options { 
+            display: flex; 
+            gap: var(--space-lg); 
+        }
+        .option-label { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            cursor: pointer; 
+            padding: var(--space-md); 
+            border-radius: 8px; 
+            transition: all var(--anim-normal); 
+            flex: 1; 
+            justify-content: center; 
+        }
+        .option-label:hover { 
+            background: var(--light-gray); 
+        }
+        .option-label input[type="radio"] { 
+            width: 18px; 
+            height: 18px; 
+            accent-color: var(--primary); 
+        }
+        .option-text { 
+            font-weight: 500; 
+            font-size: 16px; 
+        }
+
+        /* Questions Navigation */
+        .questions-navigation { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: var(--space-xl); 
+            padding-top: var(--space-lg); 
+            border-top: 1px solid var(--border-secondary); 
+        }
+
+        /* Urgent Banner */
+        .urgent-banner { 
+            background: linear-gradient(135deg, var(--error) 0%, #e53e3e 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            border-radius: 16px; 
+            margin-bottom: var(--space-lg); 
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .urgent-icon { 
+            font-size: 48px; 
+            margin-bottom: var(--space-md); 
+        }
+        .urgent-content h3 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 24px; 
+            font-weight: 700; 
+        }
+        .urgent-content p { 
+            margin: 0 0 var(--space-lg) 0; 
+            font-size: 16px; 
+            line-height: 1.5; 
+        }
+        .urgent-recommendation { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: var(--space-lg); 
+            border-radius: 12px; 
+            margin: var(--space-lg) 0; 
+        }
+        .urgent-recommendation h4 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 18px; 
+            font-weight: 600; 
+        }
+        .urgent-recommendation ul { 
+            margin: 0; 
+            padding-left: var(--space-lg); 
+        }
+        .urgent-recommendation li { 
+            margin-bottom: var(--space-sm); 
+            font-size: 14px; 
+            line-height: 1.4; 
+        }
+        .triggered-questions { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: var(--space-lg); 
+            border-radius: 12px; 
+            margin-top: var(--space-lg); 
+        }
+        .triggered-questions h4 { 
+            margin: 0 0 var(--space-md) 0; 
+            font-size: 16px; 
+            font-weight: 600; 
+        }
+        .triggered-question-item { 
+            background: rgba(255, 255, 255, 0.2); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 8px; 
+            margin-bottom: var(--space-sm); 
+            font-size: 14px; 
+        }
+        .urgent-actions { 
+            display: flex; 
+            gap: var(--space-md); 
+            margin-top: var(--space-lg); 
+            flex-wrap: wrap; 
+        }
+        .btn-white { 
+            background: var(--white); 
+            color: var(--error); 
+            border-color: var(--white); 
+            font-weight: 600; 
+        }
+        .btn-white:hover { 
+            background: var(--light-gray); 
+            transform: translateY(-2px); 
+        }
+        .urgent-call-btn { 
+            background: var(--white) !important; 
+            color: var(--error) !important; 
+            font-weight: 700; 
+            text-decoration: none; 
+        }
+        .urgent-call-btn:hover { 
+            background: var(--light-gray) !important; 
+            transform: translateY(-2px); 
+        }
+
         /* Form Components */
         .form-row {
             display: grid;
@@ -1018,6 +1337,7 @@
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
             <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
             <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
+            <li><a href="#conditions-flow" class="nav-link">Conditions Flow</a></li>
             <li><a href="#animations" class="nav-link">Animations</a></li>
         </ul>
     </nav>
@@ -1237,6 +1557,24 @@
                     <button class="btn btn-secondary" onclick="openModal('dashboard-empty-state-modal')">Empty State</button>
                     <button class="btn btn-secondary" onclick="openModal('dashboard-review-state-modal')">Review State</button>
                     <button class="btn btn-secondary" onclick="openModal('dashboard-session-tabs-modal')">Session Tabs</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="conditions-flow">
+            <div class="section-header">
+                <h2 class="section-title">Conditions Flow Components</h2>
+                <p class="section-subtitle">Progress navigation, health assessment, and consultation flow components.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Conditions Flow Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of conditions flow components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('progress-navigation-modal')">Progress Navigation</button>
+                    <button class="btn btn-secondary" onclick="openModal('selected-condition-header-modal')">Condition Header</button>
+                    <button class="btn btn-secondary" onclick="openModal('questions-container-modal')">Questions Container</button>
+                    <button class="btn btn-secondary" onclick="openModal('question-card-modal')">Question Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('urgent-banner-modal')">Urgent Banner</button>
                 </div>
             </div>
         </section>
@@ -2043,6 +2381,136 @@
                     </div>
                 </div>
                 <p class="text-caption text-muted" style="margin-top: var(--space-lg);">Task content would appear below the tabs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conditions Flow Component Modals -->
+    <div id="progress-navigation-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Progress Navigation Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Step-by-step progress indicator for multi-step flows.</p>
+            <div class="progress-navigation">
+                <div class="progress-steps">
+                    <div class="progress-step completed">
+                        <div class="progress-step-icon">✓</div>
+                        <div class="progress-step-label">Select Condition</div>
+                    </div>
+                    <div class="progress-step completed">
+                        <div class="progress-step-icon">✓</div>
+                        <div class="progress-step-label">Health Assessment</div>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="progress-step-icon">3</div>
+                        <div class="progress-step-label">Consent</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-icon">4</div>
+                        <div class="progress-step-label">Payment</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-icon">5</div>
+                        <div class="progress-step-label">Complete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="selected-condition-header-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Selected Condition Header</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Header displaying selected condition information and consultation fee.</p>
+            <div class="selected-condition-header">
+                <div class="condition-badge">
+                    <span class="condition-icon">🩺</span>
+                    <div class="condition-info">
+                        <div class="condition-name">Asthma</div>
+                        <div class="condition-type">Respiratory Condition</div>
+                    </div>
+                </div>
+                <div class="consultation-fee">$49.99</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="questions-container-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Questions Container</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Container for health assessment questions with progress indicator.</p>
+            <div class="questions-container">
+                <div class="questions-header">
+                    <h2>Health Assessment Questions</h2>
+                    <p>Please answer these questions to help us provide the best care for your condition.</p>
+                    <div class="progress-indicator">
+                        <span id="current-question">1</span> of <span id="total-questions">5</span>
+                    </div>
+                </div>
+                <p class="text-caption text-muted" style="text-align: center; margin-top: var(--space-lg);">Question cards would appear here in the actual flow.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="question-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Question Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Individual question card with options for health assessment.</p>
+            <div class="question-card active">
+                <div class="question-number">1</div>
+                <div class="question-content">
+                    <h3>Are you experiencing severe chest pain or pressure?</h3>
+                    <p class="question-subtext">This includes crushing chest pain, tightness, or pressure that spreads to your arm, jaw, or back.</p>
+                    <div class="question-options">
+                        <label class="option-label">
+                            <input type="radio" name="demo-question" value="yes">
+                            <span class="option-text">Yes</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="demo-question" value="no">
+                            <span class="option-text">No</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="urgent-banner-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Urgent Banner Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Emergency alert banner for urgent medical situations.</p>
+            <div class="urgent-banner">
+                <div class="urgent-icon">⚠️</div>
+                <div class="urgent-content">
+                    <h3>Urgent Medical Attention Required</h3>
+                    <p>Based on your responses, we've identified symptoms that could indicate a serious medical condition requiring immediate attention.</p>
+                    
+                    <div class="urgent-recommendation">
+                        <h4>What you should do:</h4>
+                        <ul>
+                            <li>Call 911 or go to your nearest emergency room immediately</li>
+                            <li>Do not drive yourself if you're experiencing severe symptoms</li>
+                            <li>Inform emergency personnel about your current symptoms</li>
+                        </ul>
+                    </div>
+
+                    <div class="triggered-questions">
+                        <h4>Questions that triggered this alert:</h4>
+                        <div class="triggered-question-item">Question 1: Are you experiencing severe chest pain or pressure?</div>
+                        <div class="triggered-question-item">Question 2: Are you having difficulty breathing at rest?</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="urgent-actions" style="margin-top: var(--space-lg);">
+                <button class="btn btn-secondary">Retry Assessment</button>
+                <button class="btn btn-white">Delete Session</button>
+                <a href="tel:911" class="btn btn-primary urgent-call-btn">Call 911</a>
             </div>
         </div>
     </div>
