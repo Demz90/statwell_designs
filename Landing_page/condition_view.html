@@ -46,20 +46,62 @@
         h1, h2, h3, h4 { font-family: var(--font-primary); font-weight: 700; }
         .text-muted { color: var(--text-secondary); }
         .text-display { font-size: 40px; line-height: 1.1; margin-bottom: var(--space-sm); }
-        .btn { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: 10px 16px; border-radius: 10px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; width: 100%; max-width: 250px; }
-        .btn-primary { background: var(--statwell-coral); color: var(--white); box-shadow: 0 4px 8px rgba(255, 107, 107, 0.25); }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3); }
+        .btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: var(--space-sm); 
+            padding: 12px 20px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 14px; 
+            width: 100%; 
+            max-width: 250px;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--anim-normal);
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--statwell-coral), #e53e3e); 
+            color: var(--white); 
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
 
         .condition-view-container { 
             background-color: var(--bg-primary); 
-            border-radius: 24px; 
+            border-radius: 20px; 
             width: 100%; 
             max-width: 700px;
-            border: 1px solid var(--border-secondary); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(93, 120, 255, 0.12); 
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: all var(--anim-normal);
+        }
+        .condition-view-container:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
         }
         
         .modal-header {
@@ -82,23 +124,36 @@
         .tabs-container { 
             display: flex; 
             gap: var(--space-sm); 
-            padding: 4px; 
+            padding: 6px; 
             background: var(--light-gray); 
-            border-radius: 12px; 
+            border-radius: 16px; 
             margin: 0 var(--space-md) var(--space-md);
             align-self: center;
+            border: 1px solid rgba(93, 120, 255, 0.08);
         }
         .tab-item { 
-            padding: 6px 14px; 
-            border-radius: 8px; 
+            padding: 8px 16px; 
+            border-radius: 12px; 
             font-weight: 500; 
             cursor: pointer; 
             transition: all var(--anim-normal); 
             white-space: nowrap; 
             font-size: 14px;
         }
-        .tab-item.active { background: var(--white); color: var(--text-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .tab-item:not(.active) { background: transparent; color: var(--text-secondary); }
+        .tab-item.active { 
+            background: linear-gradient(135deg, var(--primary), #4c63d2); 
+            color: var(--white); 
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        .tab-item:not(.active) { 
+            background: transparent; 
+            color: var(--text-secondary); 
+        }
+        .tab-item:hover:not(.active) {
+            background: rgba(93, 120, 255, 0.05);
+            color: var(--text-primary);
+        }
 
         .tab-content {
             padding: var(--space-md);
