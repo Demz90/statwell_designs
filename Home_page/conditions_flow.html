@@ -39,7 +39,16 @@
 
         /* Layout */
         .dashboard-container { display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: var(--statwell-navy); color: var(--white); padding: var(--space-xl); position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto; 
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
         .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
 
         /* Sidebar - Dark Theme */
