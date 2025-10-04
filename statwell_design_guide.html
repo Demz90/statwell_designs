@@ -910,6 +910,97 @@
             color: var(--error);
             border: 1px solid rgba(255, 107, 107, 0.2);
         }
+
+        /* Login Flow Components */
+        .login-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s var(--smooth); }
+        .login-modal.active { opacity: 1; visibility: visible; }
+        .login-modal-content { background: var(--white); border-radius: 20px; padding: var(--space-xl); width: 90%; max-width: 400px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); border: 1px solid var(--border-secondary); transform: translateY(20px); transition: transform 0.3s var(--smooth); position: relative; }
+        .login-modal.active .login-modal-content { transform: translateY(0); }
+
+        /* Back Button */
+        .back-button { position: absolute; top: var(--space-md); left: var(--space-md); width: 32px; height: 32px; border-radius: 50%; background: var(--light-gray); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--anim-normal); color: var(--text-secondary); }
+        .back-button:hover { background: var(--statwell-teal-light); color: var(--text-primary); }
+        .back-button svg { width: 16px; height: 16px; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: var(--space-lg); }
+        .form-label { display: block; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary); }
+        .form-input { width: 100%; padding: 12px 16px; border: 1px solid var(--border-secondary); border-radius: 12px; font-size: 16px; font-family: var(--font-secondary); background: var(--white); transition: all var(--anim-normal); outline: none; }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1); }
+        .form-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1); }
+
+        /* OTP Input */
+        .otp-container { display: flex; gap: var(--space-sm); justify-content: center; margin: var(--space-lg) 0; }
+        .otp-input { width: 48px; height: 48px; border: 1px solid var(--border-secondary); border-radius: 12px; text-align: center; font-size: 18px; font-weight: 600; font-family: var(--font-secondary); background: var(--white); transition: all var(--anim-normal); outline: none; }
+        .otp-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1); }
+        .otp-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1); }
+
+        /* Error Message */
+        .error-message { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md); background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 12px; margin-bottom: var(--space-lg); color: var(--error); font-size: 14px; }
+        .error-message.hidden { display: none; }
+        .error-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--error); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .error-close { margin-left: auto; background: none; border: none; color: var(--error); cursor: pointer; padding: 4px; border-radius: 4px; transition: background-color var(--anim-normal); }
+        .error-close:hover { background: rgba(255, 107, 107, 0.1); }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); margin-top: var(--space-md); font-size: 14px; color: var(--text-secondary); }
+        .timer { font-weight: 600; color: var(--text-primary); }
+        .resend-link { color: var(--primary); text-decoration: none; font-weight: 500; cursor: pointer; transition: color var(--anim-normal); }
+        .resend-link:hover { color: var(--statwell-navy); }
+        .resend-link.disabled { color: var(--text-secondary); cursor: not-allowed; }
+
+        /* Success State */
+        .success-state { text-align: center; padding: var(--space-xl) 0; }
+        .success-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); }
+        .success-icon svg { width: 40px; height: 40px; stroke: white; stroke-width: 3; }
+
+        /* Footer Links */
+        .modal-footer { text-align: center; margin-top: var(--space-lg); font-size: 14px; color: var(--text-secondary); }
+        .footer-link { color: var(--primary); text-decoration: none; font-weight: 500; transition: color var(--anim-normal); }
+        .footer-link:hover { color: var(--statwell-navy); }
+
+        /* Dashboard Components */
+        .dashboard-session-card { background: var(--white); border-radius: 16px; margin-bottom: var(--space-lg); box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .dashboard-session-header { padding: var(--space-lg); border-bottom: 1px solid var(--border-secondary); display: flex; align-items: center; justify-content: space-between; }
+        .dashboard-session-info { display: flex; align-items: center; gap: var(--space-md); }
+        .dashboard-session-progress-line { position: relative; width: 4px; background: var(--primary); border-radius: 2px; margin-right: var(--space-md); }
+        .dashboard-session-progress-line::before { content: ''; position: absolute; top: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .dashboard-session-progress-line::after { content: ''; position: absolute; bottom: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .dashboard-session-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .dashboard-session-title { font-weight: 600; font-size: 16px; }
+        .dashboard-session-badge { background: var(--warning); color: var(--white); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .dashboard-collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+
+        .dashboard-task-card { background: var(--white); border-radius: 12px; margin-bottom: var(--space-md); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .dashboard-task-header { padding: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
+        .dashboard-task-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .dashboard-task-icon.pending { border: 2px solid var(--primary); color: var(--primary); background: var(--white); }
+        .dashboard-task-icon.completed { background: var(--success); color: var(--white); border: none; }
+        .dashboard-task-content-wrapper { display: flex; flex-direction: column; flex: 1; }
+        .dashboard-task-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .dashboard-task-title { font-weight: 600; font-size: 16px; }
+        .dashboard-priority-badge { background: var(--warning); color: var(--white); padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .dashboard-task-date { font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: var(--space-sm); }
+
+        .dashboard-session-tabs { display: flex; border-bottom: 1px solid var(--border-secondary); margin-bottom: var(--space-lg); }
+        .dashboard-session-tab { flex: 1; padding: var(--space-md) var(--space-lg); text-align: center; cursor: pointer; border-bottom: 3px solid transparent; transition: all var(--anim-normal); font-weight: 500; color: var(--text-secondary); }
+        .dashboard-session-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(16, 185, 129, 0.05); }
+        .dashboard-session-tab:hover:not(.active) { color: var(--text-primary); background: var(--light-gray); }
+        .dashboard-session-task-counter { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-sm); }
+
+        .dashboard-empty-state { text-align: center; padding: var(--space-xl); color: var(--text-secondary); }
+        .dashboard-empty-state-icon { font-size: 48px; margin-bottom: var(--space-md); }
+        .dashboard-empty-state-title { font-weight: 600; margin-bottom: var(--space-sm); }
+        .dashboard-empty-state-description { font-size: 14px; }
+
+        .dashboard-review-state { padding: var(--space-xl); text-align: center; background: var(--light-gray); border-radius: 12px; margin: var(--space-lg); }
+        .dashboard-review-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--primary); margin: 0 auto var(--space-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 24px; }
+        .dashboard-review-title { font-weight: 600; margin-bottom: var(--space-sm); font-size: 18px; }
+        .dashboard-review-description { color: var(--text-secondary); font-size: 14px; }
+
+        .dashboard-task-card.completed { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+        .dashboard-task-card.completed .dashboard-task-title { text-decoration: line-through; color: var(--text-secondary); }
+        .dashboard-task-card.completed .dashboard-task-date { color: var(--success); }
     </style>
 </head>
 <body>
@@ -926,6 +1017,8 @@
             <li><a href="#components" class="nav-link">Components</a></li>
             <li><a href="#forms" class="nav-link">Forms</a></li>
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
+            <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
+            <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
             <li><a href="#animations" class="nav-link">Animations</a></li>
         </ul>
     </nav>
@@ -1085,6 +1178,42 @@
                     <button class="btn btn-secondary" onclick="openModal('form-validation-modal')">Validation States</button>
                     <button class="btn btn-secondary" onclick="openModal('form-modals-modal')">Modal Overlays</button>
                     <button class="btn btn-secondary" onclick="openModal('form-notifications-modal')">Notifications</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="login-flow">
+            <div class="section-header">
+                <h2 class="section-title">Login Flow Components</h2>
+                <p class="section-subtitle">Complete authentication flow with email verification and OTP input.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Login Flow Patterns</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of the login flow components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('login-email-modal')">Email Input</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-email-error-modal')">Email Error</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-otp-modal')">OTP Input</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-otp-error-modal')">OTP Error</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-success-modal')">Success State</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="dashboard-components">
+            <div class="section-header">
+                <h2 class="section-title">Dashboard Components</h2>
+                <p class="section-subtitle">Session cards, task components, and dashboard-specific UI patterns.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Dashboard Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of dashboard components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-session-card-modal')">Session Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-task-card-modal')">Task Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-empty-state-modal')">Empty State</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-review-state-modal')">Review State</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-session-tabs-modal')">Session Tabs</button>
                 </div>
             </div>
         </section>
@@ -1661,6 +1790,260 @@
                 <div class="notification-icon-demo">📧</div>
                 <h3 class="text-title">Code Sent!</h3>
                 <p class="text-caption text-muted">A verification code has been sent to your email address.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Flow Modals -->
+    <div id="login-email-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+            <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                Enter the email you registered with and we will send you a 6 digit code to login with
+            </p>
+            
+            <div class="form-group">
+                <label class="form-label" for="demo-email-input">Email address</label>
+                <input type="email" id="demo-email-input" class="form-input" placeholder="Enter your email address">
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue</button>
+
+            <div class="modal-footer">
+                Don't have an account? <a href="#" class="footer-link">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-email-error-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+            <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                Enter the email you registered with and we will send you a 6 digit code to login with
+            </p>
+            
+            <div class="form-group">
+                <label class="form-label" for="demo-email-error-input">Email address</label>
+                <input type="email" id="demo-email-error-input" class="form-input error" placeholder="Enter your email address" value="Maurice">
+            </div>
+
+            <div class="error-message">
+                <div class="error-icon">!</div>
+                <span>We couldn't locate this email address in our records.</span>
+                <button class="error-close">&times;</button>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue</button>
+
+            <div class="modal-footer">
+                Don't have an account? <a href="#" class="footer-link">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-otp-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div style="position: relative;">
+                <button class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer">00:30</span>
+                    <a href="#" class="resend-link disabled">Resend code</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-otp-error-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div style="position: relative;">
+                <button class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                </div>
+
+                <div class="error-message">
+                    <div class="error-icon">!</div>
+                    <span>Invalid or expired OTP. Please try again.</span>
+                    <button class="error-close">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer">00:30</span>
+                    <a href="#" class="resend-link disabled">Resend code</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-success-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="success-state">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h2 class="text-heading" style="margin-bottom: var(--space-sm);">Verification Successful!</h2>
+                <p class="text-muted" style="margin-bottom: var(--space-lg);">
+                    Your account has been verified. You will be redirected to your dashboard shortly.
+                </p>
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Component Modals -->
+    <div id="dashboard-session-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Session Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">A collapsible session card with progress indicator and task management.</p>
+            <div class="dashboard-session-card">
+                <div class="dashboard-session-header">
+                    <div class="dashboard-session-info">
+                        <div class="dashboard-session-progress-line"></div>
+                        <div>
+                            <div class="dashboard-session-title-row">
+                                <div class="dashboard-session-title"># Session 1</div>
+                                <div class="dashboard-session-badge">Ongoing</div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="dashboard-collapse-icon">▼</span>
+                </div>
+                <div style="padding: var(--space-lg);">
+                    <div class="dashboard-session-tabs">
+                        <div class="dashboard-session-tab active">
+                            To-do <span class="dashboard-session-task-counter">2</span>
+                        </div>
+                        <div class="dashboard-session-tab">
+                            Completed <span class="dashboard-session-task-counter">0</span>
+                        </div>
+                    </div>
+                    <p class="text-caption text-muted">Session content with task tabs would appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-task-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Task Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive task cards with status indicators and expandable content.</p>
+            <div class="dashboard-task-card">
+                <div class="dashboard-task-header">
+                    <div class="dashboard-task-icon pending">○</div>
+                    <div class="dashboard-task-content-wrapper">
+                        <div class="dashboard-task-title-row">
+                            <div class="dashboard-task-title">Complete Your Health Profile</div>
+                            <span class="dashboard-priority-badge">Priority</span>
+                        </div>
+                        <div class="dashboard-task-date">🕐 Friday, October 3, 2025</div>
+                    </div>
+                    <button class="btn btn-primary">Get started</button>
+                </div>
+            </div>
+            <div class="dashboard-task-card completed" style="margin-top: var(--space-md);">
+                <div class="dashboard-task-header">
+                    <div class="dashboard-task-icon completed">✓</div>
+                    <div class="dashboard-task-content-wrapper">
+                        <div class="dashboard-task-title-row">
+                            <div class="dashboard-task-title">Pay for Medication Refill</div>
+                        </div>
+                        <div class="dashboard-task-date">Completed: Friday, September 26, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-empty-state-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Empty State Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Used when there are no tasks or content to display.</p>
+            <div class="dashboard-empty-state">
+                <div class="dashboard-empty-state-icon">📝</div>
+                <div class="dashboard-empty-state-title">No completed tasks yet</div>
+                <div class="dashboard-empty-state-description">Complete your pending tasks to see them here.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-review-state-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Review State Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Shown when a session is under medical review.</p>
+            <div class="dashboard-review-state">
+                <div class="dashboard-review-icon">⏳</div>
+                <div class="dashboard-review-title">Review in Progress</div>
+                <div class="dashboard-review-description">
+                    Your refill is being reviewed by our medical team. You'll receive a task shortly.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-session-tabs-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Session Tabs Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Navigation tabs within session cards for organizing tasks.</p>
+            <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px; border: 1px solid var(--border-secondary);">
+                <div class="dashboard-session-tabs">
+                    <div class="dashboard-session-tab active">
+                        To-do <span class="dashboard-session-task-counter">3</span>
+                    </div>
+                    <div class="dashboard-session-tab">
+                        Completed <span class="dashboard-session-task-counter">1</span>
+                    </div>
+                </div>
+                <p class="text-caption text-muted" style="margin-top: var(--space-lg);">Task content would appear below the tabs.</p>
             </div>
         </div>
     </div>
