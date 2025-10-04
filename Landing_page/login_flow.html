@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Login Flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF;
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6;
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: var(--font-secondary); 
+            line-height: 1.6; 
+            background: var(--bg-secondary); 
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Background Blur Effect */
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, var(--statwell-navy) 0%, var(--statwell-blue) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .background-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            z-index: -1;
+        }
+
+        .background-left {
+            background: var(--statwell-navy);
+            opacity: 0.8;
+        }
+
+        .background-right {
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-xl);
+            opacity: 0.9;
+        }
+
+        .background-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .background-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--statwell-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .background-content-blocks {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .content-block {
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            opacity: 0.6;
+        }
+
+        .content-block.small {
+            height: 40px;
+            width: 60%;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--smooth);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-secondary);
+            transform: translateY(20px);
+            transition: transform 0.3s var(--smooth);
+            position: relative;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        /* Typography */
+        .text-display { font-size: 32px; font-weight: 800; font-family: var(--font-primary); }
+        .text-heading { font-size: 24px; font-weight: 700; font-family: var(--font-primary); }
+        .text-title { font-size: 18px; font-weight: 600; font-family: var(--font-primary); }
+        .text-body { font-size: 16px; font-weight: 400; }
+        .text-caption { font-size: 14px; font-weight: 500; }
+        .text-muted { color: var(--text-secondary); }
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            color: var(--text-secondary);
+        }
+
+        .back-button:hover {
+            background: var(--statwell-teal-light);
+            color: var(--text-primary);
+        }
+
+        .back-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: var(--font-secondary);
+            background: var(--white);
+            transition: all var(--anim-normal);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        /* OTP Input */
+        .otp-container {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin: var(--space-lg) 0;
+        }
+
+        .otp-input {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: var(--font-secondary);
+            background: var(--white);
+            transition: all var(--anim-normal);
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .otp-input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: var(--font-secondary);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--anim-normal) var(--smooth);
+            text-decoration: none;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(93, 120, 255, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2);
+        }
+
+        /* Error Message */
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 12px;
+            margin-bottom: var(--space-lg);
+            color: var(--error);
+            font-size: 14px;
+        }
+
+        .error-message.hidden {
+            display: none;
+        }
+
+        .error-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--error);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .error-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color var(--anim-normal);
+        }
+
+        .error-close:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        /* Timer */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .timer {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .resend-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color var(--anim-normal);
+        }
+
+        .resend-link:hover {
+            color: var(--statwell-navy);
+        }
+
+        .resend-link.disabled {
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Footer Links */
+        .modal-footer {
+            text-align: center;
+            margin-top: var(--space-lg);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--anim-normal);
+        }
+
+        .footer-link:hover {
+            color: var(--statwell-navy);
+        }
+
+        /* Demo Controls */
+        .demo-controls {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            background: var(--white);
+            padding: var(--space-md);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-secondary);
+            z-index: 1001;
+        }
+
+        .demo-controls h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .demo-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .demo-btn {
+            padding: 8px 12px;
+            background: var(--light-gray);
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all var(--anim-normal);
+        }
+
+        .demo-btn:hover {
+            background: var(--statwell-teal-light);
+            border-color: var(--statwell-teal-light);
+        }
+
+        .demo-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Hidden States */
+        .state {
+            display: none;
+        }
+
+        .state.active {
+            display: block;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.3s var(--smooth) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Blur Effect -->
+    <div class="background-blur"></div>
+    
+    <!-- Background Content -->
+    <div class="background-content">
+        <div class="background-left"></div>
+        <div class="background-right">
+            <div class="background-header">
+                <div class="background-avatar">M</div>
+                <div class="content-block small"></div>
+            </div>
+            <div class="background-content-blocks">
+                <div class="content-block"></div>
+                <div class="content-block"></div>
+                <div class="content-block small"></div>
+                <div class="content-block"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h3>Login Flow States</h3>
+        <div class="demo-buttons">
+            <button class="demo-btn" onclick="showState('email-input')">Email Input</button>
+            <button class="demo-btn" onclick="showState('email-error')">Email Error</button>
+            <button class="demo-btn" onclick="showState('otp-input')">OTP Input</button>
+            <button class="demo-btn" onclick="showState('otp-error')">OTP Error</button>
+            <button class="demo-btn" onclick="showState('otp-success')">OTP Success</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal active" id="login-modal">
+        <div class="modal-content">
+            
+            <!-- Email Input State -->
+            <div class="state active" id="email-input-state">
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    Enter the email you registered with and we will send you a 6 digit code to login with
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email-input">Email address</label>
+                    <input 
+                        type="email" 
+                        id="email-input" 
+                        class="form-input" 
+                        placeholder="Enter your email address"
+                        value=""
+                    >
+                </div>
+
+                <div class="error-message hidden" id="email-error-message">
+                    <div class="error-icon">!</div>
+                    <span id="email-error-text">We couldn't locate this email address in our records.</span>
+                    <button class="error-close" onclick="hideEmailError()">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" onclick="validateEmail()">Continue</button>
+
+                <div class="modal-footer">
+                    Don't have an account? <a href="#" class="footer-link">Register</a>
+                </div>
+            </div>
+
+            <!-- Email Error State -->
+            <div class="state" id="email-error-state">
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    Enter the email you registered with and we will send you a 6 digit code to login with
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email-input-error">Email address</label>
+                    <input 
+                        type="email" 
+                        id="email-input-error" 
+                        class="form-input error" 
+                        placeholder="Enter your email address"
+                        value="Maurice"
+                    >
+                </div>
+
+                <div class="error-message" id="email-error-message-show">
+                    <div class="error-icon">!</div>
+                    <span>We couldn't locate this email address in our records.</span>
+                    <button class="error-close" onclick="hideEmailError()">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" onclick="validateEmail()">Continue</button>
+
+                <div class="modal-footer">
+                    Don't have an account? <a href="#" class="footer-link">Register</a>
+                </div>
+            </div>
+
+            <!-- OTP Input State -->
+            <div class="state" id="otp-input-state">
+                <button class="back-button" onclick="goBackToEmail()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 0)" onkeydown="handleOTPInput(this, 0, event)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 1)" onkeydown="handleOTPInput(this, 1, event)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 2)" onkeydown="handleOTPInput(this, 2, event)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 3)" onkeydown="handleOTPInput(this, 3, event)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 4)" onkeydown="handleOTPInput(this, 4, event)">
+                    <input type="text" class="otp-input" maxlength="1" oninput="handleOTPInput(this, 5)" onkeydown="handleOTPInput(this, 5, event)">
+                </div>
+
+                <div class="error-message hidden" id="otp-error-message">
+                    <div class="error-icon">!</div>
+                    <span id="otp-error-text">Invalid or expired OTP. Please try again.</span>
+                    <button class="error-close" onclick="hideOTPError()">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" onclick="validateOTP()">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer" id="timer-display">00:30</span>
+                    <a href="#" class="resend-link disabled" id="resend-link" onclick="resendOTP()">Resend code</a>
+                </div>
+            </div>
+
+            <!-- OTP Error State -->
+            <div class="state" id="otp-error-state">
+                <button class="back-button" onclick="goBackToEmail()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 0)" onkeydown="handleOTPInput(this, 0, event)">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 1)" onkeydown="handleOTPInput(this, 1, event)">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 2)" onkeydown="handleOTPInput(this, 2, event)">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 3)" onkeydown="handleOTPInput(this, 3, event)">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 4)" onkeydown="handleOTPInput(this, 4, event)">
+                    <input type="text" class="otp-input error" maxlength="1" value="2" oninput="handleOTPInput(this, 5)" onkeydown="handleOTPInput(this, 5, event)">
+                </div>
+
+                <div class="error-message" id="otp-error-message-show">
+                    <div class="error-icon">!</div>
+                    <span>Invalid or expired OTP. Please try again.</span>
+                    <button class="error-close" onclick="hideOTPError()">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" onclick="validateOTP()">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer" id="timer-display-error">00:30</span>
+                    <a href="#" class="resend-link disabled" id="resend-link-error" onclick="resendOTP()">Resend code</a>
+                </div>
+            </div>
+
+            <!-- OTP Success State -->
+            <div class="state" id="otp-success-state">
+                <div style="text-align: center; padding: var(--space-xl) 0;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg);">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-heading" style="margin-bottom: var(--space-sm);">Verification Successful!</h2>
+                    <p class="text-muted" style="margin-bottom: var(--space-lg);">
+                        Your account has been verified. You will be redirected to your dashboard shortly.
+                    </p>
+                    <button class="btn btn-primary" onclick="proceedToDashboard()">Continue to Dashboard</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentState = 'email-input';
+        let otpTimer = null;
+        let timeLeft = 30; // seconds
+
+        // Demo Controls
+        function showState(state) {
+            // Update demo buttons
+            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Hide all states
+            document.querySelectorAll('.state').forEach(state => state.classList.remove('active'));
+            
+            // Show selected state
+            document.getElementById(state + '-state').classList.add('active');
+            currentState = state;
+
+            // Reset timer for OTP states
+            if (state.includes('otp')) {
+                startTimer();
+            } else {
+                stopTimer();
+            }
+        }
+
+        // Email Validation
+        function validateEmail() {
+            const emailInput = document.getElementById('email-input');
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                showEmailError('Please enter your email address.');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showEmailError('Please enter a valid email address.');
+                return;
+            }
+
+            // Check if email exists (mock validation)
+            if (email === 'maurice' || email === 'test@example.com' || email === 'invalid@test.com') {
+                showEmailError('We couldn\'t locate this email address in our records.');
+                return;
+            }
+
+            // Success - proceed to OTP
+            hideEmailError();
+            showState('otp-input');
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showEmailError(message) {
+            const errorMessage = document.getElementById('email-error-message');
+            const errorText = document.getElementById('email-error-text');
+            const emailInput = document.getElementById('email-input');
+            
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            emailInput.classList.add('error');
+            emailInput.classList.add('shake');
+            
+            setTimeout(() => {
+                emailInput.classList.remove('shake');
+            }, 500);
+        }
+
+        function hideEmailError() {
+            const errorMessage = document.getElementById('email-error-message');
+            const emailInput = document.getElementById('email-input');
+            
+            errorMessage.classList.add('hidden');
+            emailInput.classList.remove('error');
+        }
+
+        // OTP Handling
+        function handleOTPInput(input, index, event) {
+            // Handle backspace
+            if (event && event.key === 'Backspace') {
+                if (!input.value && index > 0) {
+                    // Move to previous input and clear it
+                    const prevInput = input.parentNode.children[index - 1];
+                    prevInput.focus();
+                    prevInput.value = '';
+                }
+                return;
+            }
+            
+            // Only allow numbers
+            input.value = input.value.replace(/[^0-9]/g, '');
+            
+            // Auto-advance to next input
+            if (input.value && index < 5) {
+                const nextInput = input.parentNode.children[index + 1];
+                nextInput.focus();
+            }
+
+            // Check if all fields are filled
+            const otpInputs = input.parentNode.querySelectorAll('.otp-input');
+            const allFilled = Array.from(otpInputs).every(inp => inp.value);
+            
+            if (allFilled) {
+                // Auto-submit after a short delay
+                setTimeout(() => {
+                    validateOTP();
+                }, 300);
+            }
+        }
+
+        function validateOTP() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 6) {
+                showOTPError('Please enter all 6 digits.');
+                return;
+            }
+
+            // Mock validation - "222222" is invalid
+            if (otp === '222222') {
+                showOTPError('Invalid or expired OTP. Please try again.');
+                return;
+            }
+
+            // Success - show success state
+            showOTPSuccess();
+        }
+
+        function showOTPError(message) {
+            const errorMessage = document.getElementById('otp-error-message');
+            const errorText = document.getElementById('otp-error-text');
+            const otpInputs = document.querySelectorAll('.otp-input');
+            
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            
+            otpInputs.forEach(input => {
+                input.classList.add('error');
+                input.classList.add('shake');
+            });
+            
+            setTimeout(() => {
+                otpInputs.forEach(input => {
+                    input.classList.remove('shake');
+                });
+            }, 500);
+        }
+
+        function hideOTPError() {
+            const errorMessage = document.getElementById('otp-error-message');
+            const otpInputs = document.querySelectorAll('.otp-input');
+            
+            errorMessage.classList.add('hidden');
+            otpInputs.forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        function showOTPSuccess() {
+            // Stop the timer
+            stopTimer();
+            
+            // Show success state
+            showState('otp-success');
+        }
+
+        // Navigation
+        function goBackToEmail() {
+            showState('email-input');
+        }
+
+        // Timer Functions
+        function startTimer() {
+            timeLeft = 30;
+            updateTimerDisplay();
+            
+            otpTimer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    enableResend();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (otpTimer) {
+                clearInterval(otpTimer);
+                otpTimer = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timer-display').textContent = timeString;
+            document.getElementById('timer-display-error').textContent = timeString;
+            
+            // Stop timer at 00:00
+            if (timeLeft <= 0) {
+                stopTimer();
+                enableResend();
+            }
+        }
+
+        function enableResend() {
+            document.getElementById('resend-link').classList.remove('disabled');
+            document.getElementById('resend-link-error').classList.remove('disabled');
+        }
+
+        function resendOTP() {
+            const resendLink = document.getElementById('resend-link');
+            const resendLinkError = document.getElementById('resend-link-error');
+            
+            if (resendLink.classList.contains('disabled')) {
+                return;
+            }
+
+            // Reset timer
+            startTimer();
+            
+            // Disable resend link
+            resendLink.classList.add('disabled');
+            resendLinkError.classList.add('disabled');
+            
+            // Clear OTP inputs
+            document.querySelectorAll('.otp-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('error');
+            });
+            
+            // Hide any error messages
+            hideOTPError();
+            
+            // Focus first input
+            document.querySelector('.otp-input').focus();
+            
+            alert('New OTP sent! (This is a demo)');
+        }
+
+        function proceedToDashboard() {
+            alert('Redirecting to dashboard... (This is a demo)');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial demo button state
+            document.querySelector('.demo-btn').classList.add('active');
+            
+            // Start timer for initial OTP state
+            startTimer();
+        });
+
+        // Handle Enter key on email input
+        document.getElementById('email-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                validateEmail();
+            }
+        });
+
+        // Handle Enter key on OTP inputs
+        document.querySelectorAll('.otp-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateOTP();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

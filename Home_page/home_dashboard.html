@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Home Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.3s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+
+        /* Layout */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--statwell-navy); color: var(--white); padding: var(--space-xl); position: fixed; height: 100vh; overflow-y: auto; }
+        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+
+        /* Sidebar */
+        .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .logo-icon { width: 40px; height: 40px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--statwell-navy); font-weight: 700; }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: var(--space-sm); }
+        .nav-link { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-md); border-radius: 8px; color: var(--white); text-decoration: none; transition: all var(--anim-normal); }
+        .nav-link:hover, .nav-link.active { background: rgba(255, 255, 255, 0.1); }
+        .nav-icon { width: 20px; height: 20px; }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .welcome-text { font-size: 14px; color: var(--text-secondary); }
+        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+        .header-actions { display: flex; gap: var(--space-md); }
+
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; gap: var(--space-sm); padding: 12px 24px; border-radius: 12px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(93, 120, 255, 0.3); }
+        .btn-secondary { background: var(--white); color: var(--primary); border-color: var(--primary); }
+        .btn-secondary:hover { background: var(--light-gray); }
+
+        /* Tabs */
+        .tabs-container { display: flex; gap: var(--space-md); margin-bottom: var(--space-xl); }
+        .tab { padding: var(--space-sm) var(--space-lg); cursor: pointer; transition: all var(--anim-normal); position: relative; background: transparent; border-bottom: 3px solid transparent; }
+        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab:not(.active) { color: var(--text-secondary); }
+        .tab:not(.active):hover { color: var(--text-primary); }
+        .tab-badge { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-sm); }
+
+        /* Session Task Tabs */
+        .session-task-tabs { display: flex; gap: var(--space-sm); margin-bottom: var(--space-lg); padding: 0 var(--space-lg); }
+        .session-task-tab { padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all var(--anim-normal); font-size: 14px; font-weight: 500; position: relative; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: var(--space-sm); }
+        .session-task-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .session-task-tab:not(.active) { color: var(--text-secondary); }
+        .session-task-tab:not(.active):hover { color: var(--text-primary); }
+        .session-task-counter { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+
+        /* Session Cards */
+        .session-card { background: var(--white); border-radius: 16px; margin-bottom: var(--space-lg); box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .session-header { padding: var(--space-lg); border-bottom: 1px solid var(--border-secondary); display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .session-info { display: flex; align-items: center; gap: var(--space-md); }
+        .session-progress-line { position: relative; width: 4px; background: var(--primary); border-radius: 2px; margin-right: var(--space-md); }
+        .session-progress-line::before { content: ''; position: absolute; top: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .session-progress-line::after { content: ''; position: absolute; bottom: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .session-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .session-title { font-weight: 600; font-size: 16px; }
+        .session-badge { background: var(--warning); color: var(--white); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .session-stats { display: flex; gap: var(--space-lg); font-size: 14px; color: var(--text-secondary); }
+        .collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+        .session-card.expanded .collapse-icon { transform: rotate(180deg); }
+
+        /* Session Task Tabs */
+        .session-task-tabs { display: flex; border-bottom: 1px solid var(--border-secondary); margin-bottom: var(--space-lg); }
+        .session-task-tab { flex: 1; padding: var(--space-md) var(--space-lg); text-align: center; cursor: pointer; border-bottom: 3px solid transparent; transition: all var(--anim-normal); font-weight: 500; color: var(--text-secondary); }
+        .session-task-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(16, 185, 129, 0.05); }
+        .session-task-tab:hover:not(.active) { color: var(--text-primary); background: var(--light-gray); }
+        .session-task-counter { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-xs); }
+
+        /* Task Cards */
+        .task-card { background: var(--white); border-radius: 12px; margin-bottom: var(--space-md); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .task-header { padding: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); cursor: pointer; }
+        .task-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .task-icon.pending { border: 2px solid var(--primary); color: var(--primary); background: var(--white); }
+        .task-icon.completed { background: var(--success); color: var(--white); border: none; }
+        .task-content-wrapper { display: flex; flex-direction: column; flex: 1; }
+        .task-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .task-title { font-weight: 600; font-size: 16px; }
+        .priority-badge { background: var(--warning); color: var(--white); padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .task-date { font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: var(--space-sm); }
+        .task-actions { display: flex; align-items: center; gap: var(--space-sm); }
+        .task-collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+        .task-card.expanded .task-collapse-icon { transform: rotate(180deg); }
+
+        .task-content { padding: 0 var(--space-lg) var(--space-lg); display: none; }
+        .task-card.expanded .task-content { display: block; }
+        .task-description { margin-bottom: var(--space-md); color: var(--text-secondary); line-height: 1.5; }
+        .task-details { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-md); }
+        .task-detail { display: flex; justify-content: space-between; align-items: center; }
+        .task-detail-label { font-weight: 600; font-size: 14px; }
+        .task-detail-value { font-size: 14px; color: var(--text-secondary); }
+        .support-link { font-size: 14px; color: var(--text-secondary); margin-top: var(--space-md); }
+
+        /* Review State */
+        .review-state { padding: var(--space-xl); text-align: center; background: var(--light-gray); border-radius: 12px; margin: var(--space-lg); }
+        .review-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--primary); margin: 0 auto var(--space-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 24px; }
+        .review-title { font-weight: 600; margin-bottom: var(--space-sm); font-size: 18px; }
+        .review-description { color: var(--text-secondary); font-size: 14px; }
+
+        /* Demo Controls */
+        .demo-controls { position: fixed; top: var(--space-lg); left: calc(280px + var(--space-lg)); background: var(--white); padding: var(--space-md); border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); z-index: 1000; border: 1px solid var(--border-secondary); }
+        .demo-controls h3 { font-size: 14px; font-weight: 600; margin-bottom: var(--space-sm); }
+        .demo-buttons { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .demo-btn { padding: 8px 12px; background: var(--light-gray); border: 1px solid var(--border-secondary); border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all var(--anim-normal); }
+        .demo-btn:hover { background: var(--statwell-teal); color: var(--white); }
+        .demo-btn.active { background: var(--primary); color: var(--white); }
+
+        /* Hidden States */
+        .state { display: none; }
+        .state.active { display: block; }
+
+        /* Completed Task Styles */
+        .task-card.completed { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+        .task-card.completed .task-title { text-decoration: line-through; color: var(--text-secondary); }
+        .task-card.completed .task-date { color: var(--success); }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: var(--space-xl); color: var(--text-secondary); }
+        .empty-state-icon { font-size: 48px; margin-bottom: var(--space-md); }
+        .empty-state-title { font-weight: 600; margin-bottom: var(--space-sm); }
+        .empty-state-description { font-size: 14px; }
+
+        /* Get Started Section */
+        .get-started-section { padding: var(--space-xl) 0 var(--space-lg) 0; margin-top: var(--space-xl); }
+        .get-started-title { font-size: 24px; font-weight: 700; font-family: var(--font-primary); margin-bottom: var(--space-sm); color: var(--text-primary); }
+        .get-started-subtext { font-size: 14px; font-weight: 400; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+
+    </style>
+</head>
+<body>
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h3>Dashboard States</h3>
+        <div class="demo-buttons">
+            <button class="demo-btn active" onclick="showState('new-user')">New User</button>
+            <button class="demo-btn" onclick="showState('active-user')">Active User</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">UC</div>
+                <div>
+                    <div>Urgent Care</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Data LLC</div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link active"><span class="nav-icon">🏠</span>Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">🩺</span>Conditions</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">📋</span>Encounters</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">📅</span>Appointments</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">⚙️</span>Settings</a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">❓</span>Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <div class="welcome-text">Welcome, Henry</div>
+                    <div class="page-title">Home</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary">+ Create New Refill</button>
+                    <button class="btn btn-primary">Start a Treatment</button>
+                </div>
+            </div>
+
+
+            <!-- New User State -->
+            <div class="state active" id="new-user-state">
+                <div class="task-card expanded" data-task="health-profile">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">○</div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Complete Your Health Profile</div>
+                                <span class="priority-badge">Priority</span>
+                            </div>
+                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Get started</button>
+                            <span class="task-collapse-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Before we begin, we need to collect a few key details about your health, allergies, medications, and medical history. This helps us ensure your safety and accuracy in your treatment.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                            <div class="task-detail">
+                                <span class="task-detail-label">Required</span>
+                                <span class="task-detail-value">Yes, before medication</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="get-started-section">
+                    <div class="get-started-title">Get Started</div>
+                    <div class="get-started-subtext">Perform any of these tasks to start your first session.</div>
+                </div>
+
+                <div class="task-card" data-task="diagnosis">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">○</div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Get diagnosed with Alfie</div>
+                            </div>
+                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Talk to Alfie</button>
+                            <span class="task-collapse-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Begin your chat with Alfie to get a preliminary diagnosis. This step helps us understand your symptoms and guide you to the right care.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task="condition">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">○</div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Select a Condition Manually</div>
+                            </div>
+                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Select condition</button>
+                            <span class="task-collapse-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            If you already know your condition, you can select it directly to speed up the process. This helps us quickly match you with the right treatment plan.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task="refill">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">○</div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Start a Medication Refill</div>
+                            </div>
+                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Start refill</button>
+                            <span class="task-collapse-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Need more of your prescribed medication? Request a refill here to stay on track with your treatment and avoid interruptions.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active User State -->
+            <div class="state" id="active-user-state">
+                <div class="session-card expanded" data-session="session-1">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 1</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="collapse-icon">▼</span>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <div class="task-card" data-task="diagnosis">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon pending">○</div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Get diagnosed with Alfie</div>
+                                    </div>
+                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary">Talk to Alfie</button>
+                                    <span class="task-collapse-icon">▼</span>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    Begin your chat with Alfie to get a preliminary diagnosis. This step helps us understand your symptoms and guide you to the right care.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail">
+                                        <span class="task-detail-label">Estimated Time</span>
+                                        <span class="task-detail-value">2-3 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card" data-task="condition">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon pending">○</div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Select a Condition Manually</div>
+                                    </div>
+                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary">Select condition</button>
+                                    <span class="task-collapse-icon">▼</span>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    If you already know your condition, you can select it directly to speed up the process. This helps us quickly match you with the right treatment plan.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail">
+                                        <span class="task-detail-label">Estimated Time</span>
+                                        <span class="task-detail-value">2-3 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card" data-task="refill">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon pending">○</div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Start a Medication Refill</div>
+                                    </div>
+                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary">Start refill</button>
+                                    <span class="task-collapse-icon">▼</span>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    Need more of your prescribed medication? Request a refill here to stay on track with your treatment and avoid interruptions.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail">
+                                        <span class="task-detail-label">Estimated Time</span>
+                                        <span class="task-detail-value">2-3 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="session-card" data-session="session-2">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 2</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="collapse-icon">▼</span>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg); display: none;">
+                        <div class="session-task-tabs">
+                            <div class="session-task-tab active" onclick="switchSessionTab(this, 'todo')">
+                                To-do <span class="session-task-counter">1</span>
+                            </div>
+                            <div class="session-task-tab" onclick="switchSessionTab(this, 'completed')">
+                                Completed <span class="session-task-counter">0</span>
+                            </div>
+                        </div>
+                        <div class="session-todo-content">
+                            <div class="task-card" data-task="payment">
+                                <div class="task-header" onclick="toggleTask(this)">
+                                    <div class="task-icon pending">○</div>
+                                    <div class="task-content-wrapper">
+                                        <div class="task-title-row">
+                                            <div class="task-title">Pay for Medication Refill</div>
+                                        </div>
+                                        <div class="task-date">Due: Friday, September 26, 2025</div>
+                                    </div>
+                                    <div class="task-actions">
+                                        <span class="task-collapse-icon">▼</span>
+                                    </div>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-description">
+                                        Complete payment for your medication refill to proceed with your prescription.
+                                    </div>
+                                    <div class="task-details">
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Estimated Time</span>
+                                            <span class="task-detail-value">2-3 minutes</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Required</span>
+                                            <span class="task-detail-value">Yes</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Amount</span>
+                                            <span class="task-detail-value">$45.99</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="btn btn-primary">Pay Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="session-completed-content" style="display: none;">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📝</div>
+                                <div class="empty-state-title">No completed tasks</div>
+                                <div class="empty-state-description">Complete your pending tasks to see them here.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Card with Completed Tasks -->
+                <div class="session-card expanded" data-session="session-3">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 3</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="collapse-icon">▼</span>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <div class="session-task-tabs">
+                            <div class="session-task-tab" onclick="switchSessionTab(this, 'todo')">
+                                To-do <span class="session-task-counter">0</span>
+                            </div>
+                            <div class="session-task-tab active" onclick="switchSessionTab(this, 'completed')">
+                                Completed <span class="session-task-counter">1</span>
+                            </div>
+                        </div>
+                        <div class="session-todo-content" style="display: none;">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📝</div>
+                                <div class="empty-state-title">No pending tasks</div>
+                                <div class="empty-state-description">All tasks for this session have been completed.</div>
+                            </div>
+                        </div>
+                        <div class="session-completed-content">
+                            <div class="task-card completed" data-task="payment">
+                                <div class="task-header" onclick="toggleTask(this)">
+                                    <div class="task-icon completed">✓</div>
+                                    <div class="task-content-wrapper">
+                                        <div class="task-title-row">
+                                            <div class="task-title">Pay for Medication Refill</div>
+                                        </div>
+                                        <div class="task-date">Completed: Friday, September 26, 2025</div>
+                                    </div>
+                                    <div class="task-actions">
+                                        <span class="task-collapse-icon">▼</span>
+                                    </div>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-description">
+                                        Payment has been successfully processed for your medication refill. Your prescription will be ready for pickup shortly.
+                                    </div>
+                                    <div class="task-details">
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Payment Method</span>
+                                            <span class="task-detail-value">Credit Card ending in 4242</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Amount</span>
+                                            <span class="task-detail-value">$45.99</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Transaction ID</span>
+                                            <span class="task-detail-value">TXN-789012</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Card in Review State -->
+                <div class="session-card expanded" data-session="session-4">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 4</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="collapse-icon">▼</span>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <div class="review-state">
+                            <div class="review-icon">⏳</div>
+                            <div class="review-title">Review in Progress</div>
+                            <div class="review-description">
+                                Your refill is being reviewed by our medical team. You'll receive a task shortly.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentState = 'new-user';
+        let expandedSessions = new Set();
+        let expandedTasks = new Set();
+
+        function showState(state) {
+            // Update demo buttons
+            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Hide all states
+            document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
+            
+            // Show selected state
+            document.getElementById(state + '-state').classList.add('active');
+            currentState = state;
+
+            // Update tab counts
+            updateTabCounts();
+        }
+
+        function updateTabCounts() {
+            if (currentState === 'new-user') {
+                document.getElementById('ongoing-count').textContent = '0';
+                document.getElementById('completed-count').textContent = '0';
+            } else if (currentState === 'active-user') {
+                document.getElementById('ongoing-count').textContent = '2';
+                document.getElementById('completed-count').textContent = '0';
+            } else if (currentState === 'completed-user') {
+                document.getElementById('ongoing-count').textContent = '1';
+                document.getElementById('completed-count').textContent = '0';
+            } else if (currentState === 'review-state') {
+                document.getElementById('ongoing-count').textContent = '1';
+                document.getElementById('completed-count').textContent = '0';
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function switchSessionTab(tabElement, type) {
+            const sessionCard = tabElement.closest('.session-card');
+            const tabs = sessionCard.querySelectorAll('.session-task-tab');
+            const todoContent = sessionCard.querySelector('.session-todo-content');
+            const completedContent = sessionCard.querySelector('.session-completed-content');
+            
+            // Update tab states
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabElement.classList.add('active');
+            
+            // Show/hide content
+            if (type === 'todo') {
+                if (todoContent) todoContent.style.display = 'block';
+                if (completedContent) completedContent.style.display = 'none';
+            } else {
+                if (todoContent) todoContent.style.display = 'none';
+                if (completedContent) completedContent.style.display = 'block';
+            }
+        }
+
+
+        function toggleTask(header) {
+            const card = header.closest('.task-card');
+            const isExpanded = card.classList.contains('expanded');
+            
+            // Toggle the task
+            card.classList.toggle('expanded');
+            
+            if (isExpanded) {
+                expandedTasks.delete(card.dataset.task);
+            } else {
+                expandedTasks.add(card.dataset.task);
+            }
+        }
+
+        function switchSessionTab(tabElement, type) {
+            const sessionCard = tabElement.closest('.session-card');
+            const tabs = sessionCard.querySelectorAll('.session-task-tab');
+            const todoContent = sessionCard.querySelector('.session-todo-content');
+            const completedContent = sessionCard.querySelector('.session-completed-content');
+            
+            // Update tab states
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabElement.classList.add('active');
+            
+            // Show/hide content
+            if (type === 'todo') {
+                if (todoContent) todoContent.style.display = 'block';
+                if (completedContent) completedContent.style.display = 'none';
+            } else {
+                if (todoContent) todoContent.style.display = 'none';
+                if (completedContent) completedContent.style.display = 'block';
+            }
+        }
+
+        function toggleSession(header) {
+            const card = header.closest('.session-card');
+            const isExpanded = card.classList.contains('expanded');
+            const sessionId = card.dataset.session;
+            
+            // Ensure at least one session is expanded
+            if (isExpanded && expandedSessions.size <= 1) {
+                return;
+            }
+
+            card.classList.toggle('expanded');
+            
+            // Show/hide session content
+            const content = card.querySelector('.session-content');
+            if (content) {
+                content.style.display = isExpanded ? 'none' : 'block';
+            }
+            
+            if (isExpanded) {
+                expandedSessions.delete(sessionId);
+            } else {
+                expandedSessions.add(sessionId);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure at least one session is expanded
+            const firstSession = document.querySelector('.session-card');
+            if (firstSession) {
+                expandedSessions.add(firstSession.dataset.session);
+            }
+            
+            // Ensure at least one task is expanded in new user state
+            const firstTask = document.querySelector('.task-card');
+            if (firstTask) {
+                expandedTasks.add(firstTask.dataset.task);
+            }
+            
+            updateTabCounts();
+        });
+    </script>
+</body>
+</html>

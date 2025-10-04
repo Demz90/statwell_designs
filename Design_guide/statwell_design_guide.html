@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD Design Guide - Unified Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF; /* From new image */
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6; /* From new image */
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+        
+        /* Typography */
+        .text-title { font-size: 18px; font-weight: 600; font-family: var(--font-primary); }
+        .text-caption { font-size: 14px; font-weight: 500; }
+        .text-muted { color: var(--text-secondary); }
+        
+        /* Main Structure */
+        .main-content { background-color: var(--bg-primary); }
+        .section { padding: var(--space-xl); max-width: 1400px; margin: 0 auto; border-bottom: 1px solid var(--border-secondary); }
+        .section:last-child { border-bottom: none; }
+        .section-header { margin-bottom: var(--space-lg); text-align: center; }
+        .section-title { font-size: 32px; font-weight: 800; font-family: var(--font-primary); }
+        .section-subtitle { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: var(--space-sm) auto 0; }
+        .component-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-lg); }
+        
+        /* Typography */
+        .text-display { font-size: 32px; font-weight: 800; font-family: var(--font-primary); }
+        .text-heading { font-size: 24px; font-weight: 700; font-family: var(--font-primary); }
+        .text-body { font-size: 16px; font-weight: 400; }
+        
+        /* Navigation */
+        .nav-fixed { position: fixed; top: var(--space-lg); right: var(--space-lg); z-index: 1000; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 12px; padding: var(--space-sm); border: 1px solid var(--border-secondary); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .nav-list { list-style: none; }
+        .nav-link { text-decoration: none; color: var(--text-secondary); font-weight: 500; padding: var(--space-sm) var(--space-md); border-radius: 8px; transition: all var(--anim-normal); display: block; }
+        .nav-link:hover { background: var(--statwell-teal-light); color: var(--text-primary); }
+        .nav-link.active {
+            background: var(--statwell-teal-light);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Color Palette Display */
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-lg); }
+        .color-swatch { border: 1px solid var(--border-primary); border-radius: 12px; overflow: hidden; }
+        .color-blob { height: 80px; }
+        .color-info { padding: var(--space-sm); background: var(--bg-primary); font-weight: 500; font-size: 14px; }
+        .color-info span { display: block; font-size: 12px; color: var(--text-secondary); }
+
+        /* Accordion Styles for Color Palette */
+        .accordion-item {
+            border: 1px solid var(--border-secondary);
+            border-radius: 20px;
+            margin-bottom: var(--space-md);
+            overflow: hidden;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) var(--space-lg);
+            cursor: pointer;
+            background-color: var(--bg-primary);
+            transition: background-color var(--anim-normal);
+        }
+        .accordion-header:hover {
+            background-color: var(--bg-secondary);
+        }
+        .accordion-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-family: var(--font-primary);
+        }
+        .accordion-icon {
+            transition: transform var(--anim-normal) var(--smooth);
+            font-size: 20px;
+        }
+        .accordion-header.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--smooth);
+            background-color: var(--bg-secondary);
+        }
+        .accordion-padding {
+            padding: var(--space-lg);
+        }
+
+        /* Compact Color Swatch Styles */
+        .compact-color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+        .compact-swatch {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            background-color: var(--bg-primary);
+            padding: var(--space-sm);
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+        .compact-swatch:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .compact-swatch-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border-primary);
+            flex-shrink: 0;
+        }
+        .compact-swatch-info {
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .compact-swatch-info span {
+            display: block;
+            color: var(--text-secondary);
+        }
+
+        /* Interactive Card Base Style */
+        .interactive-card {
+            background: var(--bg-primary); border-radius: 20px;
+            border: 1px solid var(--border-secondary); padding: var(--space-lg);
+            transition: all var(--anim-normal) var(--smooth); cursor: pointer;
+            text-align: left;
+        }
+        .interactive-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .interactive-card h4 { margin-bottom: var(--space-sm); font-family: var(--font-primary); }
+        .interactive-card p { margin-bottom: var(--space-md); }
+        :focus-visible { outline: none; box-shadow: 0 0 0 4px var(--statwell-teal-light); }
+
+        /* Logo Section */
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+        .logo-card {
+            border: 1px solid var(--border-secondary);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            text-align: center;
+        }
+        .logo-card-preview {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            border-radius: 8px;
+            padding: var(--space-sm);
+        }
+        .logo-card-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .logo-card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-md);
+        }
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color var(--anim-normal);
+        }
+        .copy-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        /* General Card Style */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+        }
+        
+        /* Core Components */
+        .btn { display: inline-flex; align-items: center; gap: var(--space-sm); padding: 8px 16px; border-radius: 8px; font-weight: 500; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(93, 120, 255, 0.3); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
+        .btn-secondary { background: var(--bg-primary); color: var(--primary); border-color: var(--primary); }
+        .btn-secondary:hover { background: var(--statwell-teal-light); color: var(--text-primary); border-color: var(--statwell-teal-light); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .input-field { padding: 12px 16px; border: 1px solid var(--border-secondary); border-radius: 12px; outline: none; background: var(--white); width: 100%; transition: all var(--anim-normal); font-size: 16px; font-family: var(--font-secondary); }
+        .input-field:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1); }
+        .input-field.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1); }
+        .pill-tag { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 99px; border: 1px solid var(--border-primary); display: inline-block; }
+        .progress-bar-container { width: 100%; background-color: var(--bg-secondary); border-radius: 99px; height: 16px; overflow: hidden; border: 1px solid var(--border-secondary); padding: 2px; }
+        .progress-bar-fill { height: 100%; border-radius: 99px; background-color: var(--primary); transition: width 0.5s ease-in-out; }
+
+        /* Header */
+        .header-preview { display: flex; align-items: center; justify-content: space-between; padding: var(--space-md) var(--space-lg); background: var(--white); border-radius: 12px; border: 1px solid var(--border-secondary); }
+        .header-preview .logo { font-family: var(--font-primary); font-weight: 700; font-size: 20px; color: var(--statwell-teal); }
+        .header-preview .nav-links { display: flex; align-items: center; gap: var(--space-md); }
+        .header-preview .nav-links a { text-decoration: none; color: var(--text-primary); font-weight: 500; }
+        
+        /* Tabs */
+        .tabs-container { display: flex; gap: var(--space-sm); padding: 4px; background: var(--light-gray); border-radius: 12px; overflow-x: auto; }
+        .tab-item { padding: 8px 16px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all var(--anim-normal); white-space: nowrap; }
+        .tab-item.active { background: var(--statwell-navy); color: var(--white); }
+        .tab-item:not(.active) { background: transparent; color: var(--text-primary); }
+
+        /* Pricing Grid */
+        .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border-secondary); border-radius: 12px; overflow: hidden;}
+        .pricing-row { display: contents; }
+        .pricing-row > div { padding: var(--space-md); }
+        .pricing-row:not(:last-child) > div { border-bottom: 1px solid var(--border-secondary); }
+        .pricing-row > div:nth-child(odd) { border-right: 1px solid var(--border-secondary); }
+        .pricing-row > div:nth-child(4n+1), .pricing-row > div:nth-child(4n+2) { background: var(--bg-secondary); }
+
+        /* How it works */
+        .how-it-works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); }
+        .how-it-works-card { text-align: center; }
+        .how-it-works-card .icon-wrapper { margin: 0 auto var(--space-md); width: 64px; height: 64px; border-radius: 50%; background: var(--light-gray); display: flex; align-items: center; justify-content: center; }
+        .how-it-works-card .step-title { color: var(--statwell-coral); font-weight: 700; }
+
+        /* FAQ Accordion */
+        .faq-accordion .accordion-item { border: none; border-bottom: 1px solid var(--border-secondary); border-radius: 0; margin-bottom: 0;}
+        .faq-accordion .accordion-header { padding: var(--space-md) 0; }
+        .faq-accordion .accordion-content { background: var(--white); }
+        .faq-accordion .accordion-padding { font-size: 14px; color: var(--text-secondary); }
+
+        /* CTA Banner */
+        .cta-banner { background: var(--statwell-navy); color: var(--white); padding: var(--space-xl); border-radius: 16px; text-align: center; }
+        .cta-banner .text-heading { color: var(--white); }
+
+        /* Footer */
+        .footer-preview { background: var(--light-gray); padding: var(--space-xl); border-radius: 16px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-lg); }
+        .footer-column h4 { font-family: var(--font-primary); margin-bottom: var(--space-md); }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: var(--space-sm); }
+        .footer-column a { text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 14px; }
+
+        /* Animation Keyframes & Classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s var(--smooth) forwards;
+        }
+
+        /* Interactive Card with Glow Effect */
+        .card-interactive {
+            transition: all 0.3s var(--smooth);
+        }
+        .card-interactive:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(42, 59, 84, 0.1), 0 0 15px rgba(93, 120, 255, 0.2);
+        }
+
+        /* Card Pulse Shadow */
+        .card-pulse:hover {
+            animation: pulse-shadow 1.5s infinite;
+        }
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08), 0 0 0 0 rgba(93, 120, 255, 0.3); }
+            70% { box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08), 0 0 0 10px rgba(93, 120, 255, 0); }
+            100% { box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08), 0 0 0 0 rgba(93, 120, 255, 0); }
+        }
+
+        /* Card Color Fill from Bottom */
+        .card-fill-bottom {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-fill-bottom::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(93, 120, 255, 0.1);
+            transition: height 0.3s ease-out;
+            z-index: 0;
+        }
+        .card-fill-bottom:hover::before {
+            height: 100%;
+        }
+        .card-fill-bottom > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Nav Link with Glowing Underline */
+        .nav-link-underline {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s var(--smooth);
+            box-shadow: 0 0 8px var(--primary);
+        }
+        .nav-link-underline:hover::after,
+        .nav-link-underline.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Modals */
+        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); animation: fadeInModal 0.3s ease; }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content { background-color: var(--bg-primary); margin: 5% auto; padding: var(--space-xl); border-radius: 20px; width: 90%; position: relative; border: 1px solid var(--border-secondary); box-shadow: 0 8px 24px rgba(0,0,0,0.1); animation: slideIn 0.4s var(--smooth); }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-sm { max-width: 400px; } .modal-md { max-width: 600px; } .modal-lg { max-width: 800px; } .modal-xl { max-width: 1000px; } .modal-full { max-width: 90vw; }
+        .close-modal { position: absolute; top: var(--space-md); right: var(--space-lg); font-size: 28px; font-weight: bold; cursor: pointer; color: var(--text-secondary); transition: transform 0.2s; }
+        .close-modal:hover { transform: scale(1.1); }
+
+        /* Login Flow Components */
+        .login-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s var(--smooth); }
+        .login-modal.active { opacity: 1; visibility: visible; }
+        .login-modal-content { background: var(--white); border-radius: 20px; padding: var(--space-xl); width: 90%; max-width: 400px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); border: 1px solid var(--border-secondary); transform: translateY(20px); transition: transform 0.3s var(--smooth); position: relative; }
+        .login-modal.active .login-modal-content { transform: translateY(0); }
+
+        /* Back Button */
+        .back-button { position: absolute; top: var(--space-md); left: var(--space-md); width: 32px; height: 32px; border-radius: 50%; background: var(--light-gray); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--anim-normal); color: var(--text-secondary); }
+        .back-button:hover { background: var(--statwell-teal-light); color: var(--text-primary); }
+        .back-button svg { width: 16px; height: 16px; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: var(--space-lg); }
+        .form-label { display: block; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary); }
+        .form-input { width: 100%; padding: 12px 16px; border: 1px solid var(--border-secondary); border-radius: 12px; font-size: 16px; font-family: var(--font-secondary); background: var(--white); transition: all var(--anim-normal); outline: none; }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1); }
+        .form-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1); }
+
+        /* OTP Input */
+        .otp-container { display: flex; gap: var(--space-sm); justify-content: center; margin: var(--space-lg) 0; }
+        .otp-input { width: 48px; height: 48px; border: 1px solid var(--border-secondary); border-radius: 12px; text-align: center; font-size: 18px; font-weight: 600; font-family: var(--font-secondary); background: var(--white); transition: all var(--anim-normal); outline: none; }
+        .otp-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1); }
+        .otp-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1); }
+
+        /* Error Message */
+        .error-message { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md); background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 12px; margin-bottom: var(--space-lg); color: var(--error); font-size: 14px; }
+        .error-message.hidden { display: none; }
+        .error-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--error); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .error-close { margin-left: auto; background: none; border: none; color: var(--error); cursor: pointer; padding: 4px; border-radius: 4px; transition: background-color var(--anim-normal); }
+        .error-close:hover { background: rgba(255, 107, 107, 0.1); }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); margin-top: var(--space-md); font-size: 14px; color: var(--text-secondary); }
+        .timer { font-weight: 600; color: var(--text-primary); }
+        .resend-link { color: var(--primary); text-decoration: none; font-weight: 500; cursor: pointer; transition: color var(--anim-normal); }
+        .resend-link:hover { color: var(--statwell-navy); }
+        .resend-link.disabled { color: var(--text-secondary); cursor: not-allowed; }
+
+        /* Success State */
+        .success-state { text-align: center; padding: var(--space-xl) 0; }
+        .success-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); }
+        .success-icon svg { width: 40px; height: 40px; stroke: white; stroke-width: 3; }
+
+        /* Footer Links */
+        .modal-footer { text-align: center; margin-top: var(--space-lg); font-size: 14px; color: var(--text-secondary); }
+        .footer-link { color: var(--primary); text-decoration: none; font-weight: 500; transition: color var(--anim-normal); }
+        .footer-link:hover { color: var(--statwell-navy); }
+        
+        /* New Animation Styles */
+        .card-greyscale { filter: grayscale(100%); transition: filter 0.3s ease; }
+        .card-greyscale:hover { filter: grayscale(0%); }
+        .card-shadow-inset:hover { box-shadow: inset 0 0 15px rgba(42, 59, 84, 0.2); }
+        .card-bg-pan { background-image: url('https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); background-size: 150%; background-position: center; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .card-bg-pan:hover { background-position: top left; }
+        .card-text-underline .text-title::after { content: ''; display: block; width: 0; height: 2px; background: var(--statwell-coral); transition: width .3s; }
+        .card-text-underline:hover .text-title::after { width: 100%; }
+        .card-color-overlay { overflow: hidden; }
+        .card-color-overlay::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--statwell-navy); opacity: 0; transition: opacity 0.3s ease; z-index: 1; }
+        .card-color-overlay:hover::before { opacity: 0.8; }
+        .card-color-overlay:hover .text-title, .card-color-overlay:hover .text-caption { color: var(--white); }
+        .card-color-overlay > * { position: relative; z-index: 2; }
+        .card-tada.animate { animation: tada 1s; }
+        @keyframes tada {
+            0% {transform: scale3d(1, 1, 1);}
+            10%, 20% {transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);}
+            30%, 50%, 70%, 90% {transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);}
+            40%, 60%, 80% {transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);}
+            100% {transform: scale3d(1, 1, 1);}
+        }
+        .card-ghost:hover { opacity: 0.7; border-color: var(--statwell-blue); }
+        .card-icon-color .icon-placeholder { filter: grayscale(100%); transition: filter 0.3s ease; background: var(--light-gray); width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 12px; }
+        .card-icon-color:hover .icon-placeholder { filter: grayscale(0%); background: var(--statwell-coral); }
+        .card-cut-corners { background-clip: padding-box; border: solid 5px transparent; }
+        .card-cut-corners::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; margin: -5px; border-radius: inherit; background: linear-gradient(to right, var(--statwell-coral), var(--statwell-blue)); }
+        .card-cut-corners:hover { transform: scale(1.02); background: none; }
+
+        /* Hero Components */
+        .symptom-checker-container {
+            display: flex;
+            gap: var(--space-sm);
+            background-color: var(--white);
+            padding: var(--space-sm);
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            max-width: 500px;
+        }
+        .symptom-checker-input {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .symptom-checker-icon {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+        }
+
+        .outcome-graphic-container {
+            padding: var(--space-xl);
+            background-color: var(--light-gray);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .phone-mockup {
+            width: 250px;
+            height: 500px;
+            background: var(--statwell-navy);
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 3px solid #334562;
+        }
+        .phone-screen {
+            background: var(--white);
+            height: 100%;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-bubble {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: 12px;
+            width: 90%;
+            animation: slideUpIn 0.8s 0.5s var(--smooth) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes slideUpIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .notification-icon {
+            font-size: 24px;
+        }
+        .notification-text strong {
+            display: block;
+            font-size: 14px;
+        }
+        .notification-text span {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        /* Condition Selector */
+        .condition-selector-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            border: 1px solid var(--border-secondary);
+            background: var(--white);
+        }
+        .filter-tab.active {
+            background: var(--statwell-navy);
+            color: var(--white);
+            border-color: var(--statwell-navy);
+        }
+        .condition-search-wrapper {
+            flex-grow: 1;
+            min-width: 250px;
+        }
+        .condition-search {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-secondary);
+            font-size: 16px;
+        }
+        .condition-grid {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 250px;
+            grid-template-rows: repeat(2, 1fr);
+            gap: var(--space-lg);
+            overflow-x: auto;
+            padding-bottom: var(--space-md);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-secondary) var(--light-gray);
+        }
+        .condition-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        .condition-grid::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 4px;
+        }
+        .condition-grid::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: 4px;
+        }
+        .condition-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-gray);
+        }
+        .condition-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+            transition: all 0.3s var(--smooth);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .condition-card:hover {
+            transform: translateY(-4px);
+        }
+        .condition-card-img {
+            width: 100%;
+            flex-grow: 1;
+            height: 0;
+            object-fit: cover;
+            display: block;
+        }
+        .condition-card-title {
+            padding: var(--space-md);
+            font-weight: 600;
+            background: var(--white);
+            flex-shrink: 0;
+            margin: 0;
+        }
+        .condition-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 59, 84, 0.85);
+            color: var(--white);
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .condition-card:hover .condition-card-overlay, .condition-card.is-active .condition-card-overlay {
+            opacity: 1;
+        }
+        .condition-card-overlay p {
+            font-size: 14px;
+            margin-bottom: var(--space-md);
+        }
+        .condition-card.is-coming-soon .condition-card-overlay {
+            background: rgba(42, 59, 84, 0.9);
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: var(--statwell-coral);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Hero Condition Selector */
+        .hero-selector .condition-search-wrapper {
+            max-width: 600px;
+            margin: 0 auto var(--space-lg);
+        }
+        .hero-selector .filter-tabs {
+            justify-content: center;
+        }
+        .hero-selector .filter-tab {
+            font-size: 14px;
+            padding: 6px 14px;
+        }
+
+        /* Value Prop Hero */
+        .value-hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: var(--space-xl);
+            padding: var(--space-xl);
+        }
+        .value-props-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-lg) 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        .value-props-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-weight: 500;
+        }
+        .value-prop-icon {
+            background-color: var(--statwell-teal-light);
+            color: var(--statwell-navy);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .hero-image-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(42, 59, 84, 0.1);
+            background-color: var(--bg-secondary);
+            padding: var(--space-xl);
+        }
+        .hero-image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Dashboard Components */
+        .dashboard-session-card { background: var(--white); border-radius: 16px; margin-bottom: var(--space-lg); box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .dashboard-session-header { padding: var(--space-lg); border-bottom: 1px solid var(--border-secondary); display: flex; align-items: center; justify-content: space-between; }
+        .dashboard-session-info { display: flex; align-items: center; gap: var(--space-md); }
+        .dashboard-session-progress-line { position: relative; width: 4px; background: var(--primary); border-radius: 2px; margin-right: var(--space-md); }
+        .dashboard-session-progress-line::before { content: ''; position: absolute; top: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .dashboard-session-progress-line::after { content: ''; position: absolute; bottom: 0; left: -2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .dashboard-session-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .dashboard-session-title { font-weight: 600; font-size: 16px; }
+        .dashboard-session-badge { background: var(--warning); color: var(--white); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .dashboard-collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+
+        .dashboard-task-card { background: var(--white); border-radius: 12px; margin-bottom: var(--space-md); border: 1px solid var(--border-secondary); overflow: hidden; }
+        .dashboard-task-header { padding: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
+        .dashboard-task-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .dashboard-task-icon.pending { border: 2px solid var(--primary); color: var(--primary); background: var(--white); }
+        .dashboard-task-icon.completed { background: var(--success); color: var(--white); border: none; }
+        .dashboard-task-content-wrapper { display: flex; flex-direction: column; flex: 1; }
+        .dashboard-task-title-row { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+        .dashboard-task-title { font-weight: 600; font-size: 16px; }
+        .dashboard-priority-badge { background: var(--warning); color: var(--white); padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .dashboard-task-date { font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: var(--space-sm); }
+
+        .dashboard-session-tabs { display: flex; border-bottom: 1px solid var(--border-secondary); margin-bottom: var(--space-lg); }
+        .dashboard-session-tab { flex: 1; padding: var(--space-md) var(--space-lg); text-align: center; cursor: pointer; border-bottom: 3px solid transparent; transition: all var(--anim-normal); font-weight: 500; color: var(--text-secondary); }
+        .dashboard-session-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(16, 185, 129, 0.05); }
+        .dashboard-session-tab:hover:not(.active) { color: var(--text-primary); background: var(--light-gray); }
+        .dashboard-session-task-counter { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-sm); }
+
+        .dashboard-empty-state { text-align: center; padding: var(--space-xl); color: var(--text-secondary); }
+        .dashboard-empty-state-icon { font-size: 48px; margin-bottom: var(--space-md); }
+        .dashboard-empty-state-title { font-weight: 600; margin-bottom: var(--space-sm); }
+        .dashboard-empty-state-description { font-size: 14px; }
+
+        .dashboard-review-state { padding: var(--space-xl); text-align: center; background: var(--light-gray); border-radius: 12px; margin: var(--space-lg); }
+        .dashboard-review-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--primary); margin: 0 auto var(--space-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 24px; }
+        .dashboard-review-title { font-weight: 600; margin-bottom: var(--space-sm); font-size: 18px; }
+        .dashboard-review-description { color: var(--text-secondary); font-size: 14px; }
+
+        .dashboard-task-card.completed { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+        .dashboard-task-card.completed .dashboard-task-title { text-decoration: line-through; color: var(--text-secondary); }
+        .dashboard-task-card.completed .dashboard-task-date { color: var(--success); }
+
+        /* Step Process Layout */
+        .step-process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .step-card {
+            text-align: center;
+        }
+        .step-number {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--statwell-teal-light);
+            color: var(--statwell-navy);
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: var(--space-md);
+            border: 2px solid var(--statwell-navy);
+        }
+        .step-card h4 {
+            margin-bottom: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <header style="background: var(--statwell-navy); color: var(--white); text-align: center; padding: var(--space-xl);">
+        <h1 class="section-title" style="color: var(--white);">StatwellMD Design System</h1>
+        <p class="section-subtitle" style="color: var(--statwell-gray);">A design language for accessible and efficient telehealth.</p>
+    </header>
+
+    <nav class="nav-fixed">
+        <ul class="nav-list">
+            <li><a href="#brand" class="nav-link">Design</a></li>
+            <li><a href="#colors" class="nav-link">Colors</a></li>
+            <li><a href="#typography" class="nav-link">Typography</a></li>
+            <li><a href="#components" class="nav-link">Components</a></li>
+            <li><a href="#patterns" class="nav-link">Patterns</a></li>
+            <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
+            <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
+            <li><a href="#animations" class="nav-link">Animations</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <section class="section" id="brand">
+            <div class="section-header">
+                <h2 class="section-title">Design Identity</h2>
+                <p class="section-subtitle">Guiding principles for a trustworthy, accessible, and efficient experience.</p>
+            </div>
+            <div class="component-showcase">
+                <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
+                    <h3 class="text-title">Trustworthy 🛡️</h3>
+                    <p class="text-caption text-muted">Build confidence with a clear, professional, and reliable interface.</p>
+                </div>
+                <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
+                    <h3 class="text-title">Accessible 🌐</h3>
+                    <p class="text-caption text-muted">Ensure everyone can access care with an inclusive and easy-to-navigate app.</p>
+                </div>
+                <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
+                    <h3 class="text-title">Efficient ⚡</h3>
+                    <p class="text-caption text-muted">Streamline the path to care with a fast, intuitive, and frictionless user experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="logos">
+            <div class="section-header">
+                <h2 class="section-title">Logo Options</h2>
+                <p class="section-subtitle">The official logos for the StatwellMD brand. Click the copy icon to get the URL for each asset.</p>
+            </div>
+            <div class="logo-grid">
+                <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--white);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Primary Logo">
+                    </div>
+                    <div class="logo-card-info">
+                        <span class="text-caption text-muted">Primary Logo (Teal)</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png', 'URL')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--white);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatwellMD Blue Logo">
+                    </div>
+                    <div class="logo-card-info">
+                        <span class="text-caption text-muted">Blue Logo</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png', 'URL')">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--statwell-navy);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatwellMD White Logo">
+                    </div>
+                     <div class="logo-card-info">
+                        <span class="text-caption text-muted">White Logo</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png', 'URL')">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--white);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075013/STATWELLMD_LOGO_BLACK_vydwez.png" alt="StatwellMD Black Logo">
+                    </div>
+                     <div class="logo-card-info">
+                        <span class="text-caption text-muted">Black Logo</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075013/STATWELLMD_LOGO_BLACK_vydwez.png', 'URL')">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--white);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_GREY_vaf91o.png" alt="StatwellMD Grey Logo">
+                    </div>
+                     <div class="logo-card-info">
+                        <span class="text-caption text-muted">Grey Logo</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_GREY_vaf91o.png', 'URL')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                 <div class="logo-card">
+                    <div class="logo-card-preview" style="background-color: var(--white);">
+                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_ICON_usaj0e.png" alt="StatwellMD Icon">
+                    </div>
+                     <div class="logo-card-info">
+                        <span class="text-caption text-muted">Icon</span>
+                        <button class="copy-btn" onclick="copyToClipboard('https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_ICON_usaj0e.png', 'URL')">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="colors">
+             <div class="section-header">
+                <h2 class="section-title">Color Palette</h2>
+                <p class="section-subtitle">The StatwellMD palette is clean and professional, instilling trust and clarity. Click any swatch to copy its CSS variable.</p>
+            </div>
+            <div id="color-palette-accordion-container">
+                <!-- Accordion will be injected here by JS -->
+            </div>
+        </section>
+        
+        <section class="section" id="typography">
+            <div class="section-header">
+                <h2 class="section-title">Typography</h2>
+                <p class="section-subtitle">Avenir Next for impactful headings and Inter for clear, legible body text.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Typography Styles</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of the typographic hierarchy.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('typography-display-modal')">Display Text</button>
+                    <button class="btn btn-secondary" onclick="openModal('typography-heading-modal')">Heading Text</button>
+                    <button class="btn btn-secondary" onclick="openModal('typography-title-modal')">Title Text</button>
+                    <button class="btn btn-secondary" onclick="openModal('typography-body-modal')">Body Text</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="components">
+            <div class="section-header">
+                <h2 class="section-title">Core Components</h2>
+                <p class="section-subtitle">The fundamental building blocks of the UI. Click any button to see the component in a modal.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Component Library</h4>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('core-buttons-modal')">Buttons</button>
+                    <button class="btn btn-secondary" onclick="openModal('core-input-field-modal')">Input Field</button>
+                    <button class="btn btn-secondary" onclick="openModal('core-pill-tags-modal')">Pill Tags</button>
+                    <button class="btn btn-secondary" onclick="openModal('core-progress-bar-modal')">Progress Bar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="patterns">
+            <div class="section-header">
+                <h2 class="section-title">UI Patterns</h2>
+                <p class="section-subtitle">Complex, pre-composed components for building application views.</p>
+            </div>
+            <div class="interactive-card">
+                 <h4 class="text-title">Pattern Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of common UI patterns.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('pattern-header-modal')">Header</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-tabs-modal')">Tabs</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-pricing-grid-modal')">Pricing Grid</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-how-it-works-modal')">"How It Works" Cards</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-faq-accordion-modal')">FAQ Accordion</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-cta-banner-modal')">CTA Banner</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-footer-modal')">Footer</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-hero-components-modal')">Hero Components</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-condition-selector-modal')">Condition Selector</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-hero-selector-modal')">Hero Selector (New)</button>
+                    <button class="btn btn-secondary" onclick="openModal('pattern-value-hero-modal')">Value Prop Hero</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="login-flow">
+            <div class="section-header">
+                <h2 class="section-title">Login Flow Components</h2>
+                <p class="section-subtitle">Complete authentication flow with email verification and OTP input.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Login Flow Patterns</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of the login flow components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('login-email-modal')">Email Input</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-email-error-modal')">Email Error</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-otp-modal')">OTP Input</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-otp-error-modal')">OTP Error</button>
+                    <button class="btn btn-secondary" onclick="openModal('login-success-modal')">Success State</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="dashboard-components">
+            <div class="section-header">
+                <h2 class="section-title">Dashboard Components</h2>
+                <p class="section-subtitle">Session cards, task components, and dashboard-specific UI patterns.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Dashboard Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of dashboard components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-session-card-modal')">Session Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-task-card-modal')">Task Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-empty-state-modal')">Empty State</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-review-state-modal')">Review State</button>
+                    <button class="btn btn-secondary" onclick="openModal('dashboard-session-tabs-modal')">Session Tabs</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="animations">
+            <div class="section-header">
+                <h2 class="section-title">Interactivity & Animations</h2>
+                <p class="section-subtitle">Bringing the interface to life with playful, modern, and sleek motion design.</p>
+            </div>
+            <div class="component-showcase">
+                <div class="interactive-card">
+                    <h4 class="text-title">Animation Demos</h4>
+                    <p class="text-caption text-muted">Click to see live examples of our core animation patterns.</p>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                        <button class="btn btn-secondary" onclick="openModal('anim-button-modal')">Button Hover Effect</button>
+                        <button class="btn btn-secondary" onclick="openModal('anim-card-modal')">Card Hover Effect</button>
+                        <button class="btn btn-secondary" onclick="openModal('anim-underline-modal')">Active Underline</button>
+                        <button class="btn btn-secondary" onclick="openModal('anim-scroll-modal')">Scroll Animation</button>
+                    </div>
+                </div>
+                <div class="interactive-card">
+                    <h4 class="text-title">Core Ideas for Engagement</h4>
+                    <p class="text-caption text-muted">Ten principles to guide the creation of a more dynamic and impressive user experience.</p>
+                     <ul class="text-caption" style="list-style-position: inside; padding-top: var(--space-md); columns: 2;">
+                        <li>Icon Microinteractions</li>
+                        <li>Animated Form Feedback</li>
+                        <li>Elegant Loading States</li>
+                        <li>Staggered List Animations</li>
+                        <li>Satisfying Action Confirmations</li>
+                        <li>Smooth Modal Transitions</li>
+                        <li>Interactive Toggles</li>
+                        <li>Hover-to-Reveal Actions</li>
+                        <li>Smooth Accordion Motion</li>
+                        <li>Seamless Theme Transitions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Typography Modals -->
+    <div id="typography-display-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="typography-display-component">
+                <p class="text-display">Display Text</p>
+                <p class="text-caption text-muted" style="margin-top: 8px;">For major page titles and marketing headlines.</p>
+            </div>
+        </div>
+    </div>
+    <div id="typography-heading-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="typography-heading-component">
+                <p class="text-heading">Heading Text</p>
+                <p class="text-caption text-muted" style="margin-top: 8px;">For section titles and major headings within a page.</p>
+            </div>
+        </div>
+    </div>
+    <div id="typography-title-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="typography-title-component">
+                <p class="text-title">Title Text</p>
+                <p class="text-caption text-muted" style="margin-top: 8px;">For card titles and subheadings.</p>
+            </div>
+        </div>
+    </div>
+    <div id="typography-body-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="typography-body-component">
+                <p class="text-body">Body Text</p>
+                <p class="text-caption text-muted" style="margin-top: 8px;">The default style for all paragraph text.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Component Modals -->
+    <div id="core-buttons-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="core-buttons-component" style="display: flex; gap: 16px; align-items: center;">
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary</button>
+            </div>
+        </div>
+    </div>
+    <div id="core-input-field-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <input id="core-input-field-component" type="text" placeholder="Enter your name..." class="input-field">
+        </div>
+    </div>
+    <div id="core-pill-tags-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="core-pill-tags-component" style="display: flex; gap: 8px;">
+                <span class="pill-tag" style="background-color: var(--bg-secondary);">BETA</span>
+                <span class="pill-tag" style="background-color: var(--bg-secondary);">Urgent</span>
+            </div>
+        </div>
+    </div>
+    <div id="core-progress-bar-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div id="core-progress-bar-component" class="progress-bar-container">
+                <div class="progress-bar-fill" style="width: 75%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Pattern Modals -->
+    <div id="pattern-header-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="header-preview">
+                <div class="logo">StatwellMD</div>
+                <div class="nav-links">
+                    <a href="#">Start Visit</a>
+                    <a href="#">Prescription Refill</a>
+                    <button class="btn btn-secondary" style="padding: 8px 16px;">Contact Us</button>
+                    <button class="btn btn-primary" style="background-color: var(--statwell-coral); padding: 8px 16px;">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-tabs-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="tabs-container">
+                <div class="tab-item active">Urgent Care</div>
+                <div class="tab-item">STD/STI</div>
+                <div class="tab-item">Women's Health</div>
+                <div class="tab-item">Men's Health</div>
+                <div class="tab-item">Mental Health</div>
+                <div class="tab-item">Primary Care</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-pricing-grid-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="card">
+                <div class="pricing-grid">
+                    <div class="pricing-row">
+                        <div>Abscess/Boil</div>
+                        <div>$49.99</div>
+                        <div>Acute Bronchitis</div>
+                        <div>$39.99</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>Cold Sore</div>
+                        <div>$39.99</div>
+                        <div>Cough & Congestion</div>
+                        <div>$39.99</div>
+                    </div>
+                     <div class="pricing-row">
+                        <div>Ear Infection</div>
+                        <div>$39.99</div>
+                        <div>Food Poisoning</div>
+                        <div>$39.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-how-it-works-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="how-it-works-grid">
+                <div class="card how-it-works-card">
+                    <div class="icon-wrapper">📱</div>
+                    <p class="step-title">Step 1</p>
+                    <h4 class="text-title">Answer questions about your health</h4>
+                    <p class="text-caption text-muted">Enter patient information and medical history as well as answer questions relating to your symptoms.</p>
+                </div>
+                <div class="card how-it-works-card">
+                    <div class="icon-wrapper">🖥️</div>
+                    <p class="step-title">Step 2</p>
+                    <h4 class="text-title">Our providers will review your visit</h4>
+                    <p class="text-caption text-muted">Our board-certified medical providers will create a custom treatment plan based on your condition.</p>
+                </div>
+                <div class="card how-it-works-card">
+                    <div class="icon-wrapper">💊</div>
+                    <p class="step-title">Step 3</p>
+                    <h4 class="text-title">Get Rx delivered to your pharmacy</h4>
+                    <p class="text-caption text-muted">Pick up your prescription at your pharmacy of choice within 1-2 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-faq-accordion-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="faq-accordion" id="faq-accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">What is Call-On-Doc?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Call-On-Doc is a telehealth platform that provides quick, easy, and affordable access to medical care online 7 days a week.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Are the doctors at Call-On-Doc licensed and board-certified?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Yes, all of our medical providers are licensed and board-certified in their respective fields.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="pattern-cta-banner-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="cta-banner">
+                <h2 class="text-heading">Consult Now</h2>
+                <button class="btn btn-primary" style="background-color: var(--statwell-coral); margin-top: var(--space-md);">Start Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-footer-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="footer-preview">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h4 class="text-title">Services</h4>
+                        <ul>
+                            <li><a href="#">Urgent Care</a></li>
+                            <li><a href="#">Men's Health</a></li>
+                            <li><a href="#">Women's Health</a></li>
+                            <li><a href="#">Primary Care</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="text-title">Products</h4>
+                        <ul>
+                            <li><a href="#">Lab Kits</a></li>
+                            <li><a href="#">Shop Medications</a></li>
+                            <li><a href="#">Prescription Refill</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="text-title">Popular</h4>
+                        <ul>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Partnerships</a></li>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="text-title">Join Our Email List</h4>
+                        <p class="text-caption text-muted">Be the first to know when we offer deals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-hero-components-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Hero Section Components</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Components designed for a high-conversion hero section.</p>
+            <div class="component-showcase">
+                <div class="card">
+                    <h4 class="text-title">Symptom Checker</h4>
+                    <p class="text-caption text-muted" style="margin-bottom: var(--space-md);">An interactive element to guide users to the right care, fast.</p>
+                    <div class="symptom-checker-container">
+                        <div class="symptom-checker-input">
+                            <svg class="symptom-checker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <span>Search conditions (e.g., UTI, Cold...)</span>
+                        </div>
+                        <button class="btn btn-primary" style="padding: 10px 18px;">Search</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4 class="text-title">"Clear Outcome" Graphic</h4>
+                    <p class="text-caption text-muted" style="margin-bottom: var(--space-md);">An animated graphic to build trust and show the result.</p>
+                    <div class="outcome-graphic-container">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="notification-bubble">
+                                    <div class="notification-icon">💊</div>
+                                    <div class="notification-text">
+                                        <strong>Your prescription is ready!</strong>
+                                        <span>Sent to CVS Pharmacy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-condition-selector-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Condition Selector</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">A full component for filtering and selecting a condition to treat.</p>
+            
+            <div class="condition-selector-controls">
+                <div class="filter-tabs">
+                    <div class="filter-tab active">All</div>
+                    <div class="filter-tab">Cold & Flu</div>
+                    <div class="filter-tab">Skin Issues</div>
+                    <div class="filter-tab">Stomach Problems</div>
+                </div>
+                <div class="condition-search-wrapper">
+                    <input type="text" placeholder="Search conditions..." class="condition-search">
+                </div>
+            </div>
+
+            <div class="condition-grid">
+                <div class="condition-card">
+                    <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="UTI" class="condition-card-img">
+                    <h4 class="condition-card-title">UTI</h4>
+                    <div class="condition-card-overlay">
+                        <p>Includes diagnosis & prescription for antibiotics.</p>
+                        <a href="#" class="btn btn-primary">Start Visit for $35.99</a>
+                    </div>
+                </div>
+                 <div class="condition-card">
+                    <img src="https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Cold & Flu" class="condition-card-img">
+                    <h4 class="condition-card-title">Cold & Flu</h4>
+                    <div class="condition-card-overlay">
+                        <p>Get relief from cough, congestion, and fever.</p>
+                        <a href="#" class="btn btn-primary">Start Visit for $35.99</a>
+                    </div>
+                </div>
+                 <div class="condition-card">
+                    <img src="https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Acne" class="condition-card-img">
+                    <h4 class="condition-card-title">Acne</h4>
+                    <div class="condition-card-overlay">
+                        <p>Personalized treatment plans for clearer skin.</p>
+                        <a href="#" class="btn btn-primary">Start Visit for $35.99</a>
+                    </div>
+                </div>
+                <div class="condition-card is-coming-soon">
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <img src="https://images.pexels.com/photos/4167541/pexels-photo-4167541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="General Consultation" class="condition-card-img">
+                    <h4 class="condition-card-title">General Consultation</h4>
+                    <div class="condition-card-overlay">
+                        <p>Soon, you'll be able to set up video calls with one of our specially trained physicians.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-hero-selector-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="hero-selector" style="text-align: center;">
+                 <h1 class="text-display">Find the right treatment, right now.</h1>
+                 <p class="hero-subheadline" style="margin: var(--space-md) auto var(--space-xl); max-width: 600px;">Start by searching for your symptom or selecting a common condition below.</p>
+                <div class="condition-search-wrapper">
+                    <input type="text" placeholder="Search for your condition..." class="condition-search">
+                </div>
+                 <div class="filter-tabs" style="margin-bottom: var(--space-xl);">
+                    <div class="filter-tab active">All</div>
+                    <div class="filter-tab">General</div>
+                    <div class="filter-tab">Skin</div>
+                    <div class="filter-tab">Men's Health</div>
+                    <div class="filter-tab">Women's Health</div>
+                </div>
+                <div class="condition-grid">
+                    <a href="#" class="condition-card">
+                        <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" alt="UTI" class="condition-card-img">
+                        <h4 class="condition-card-title">UTI</h4>
+                        <div class="condition-card-overlay">
+                            <p>Includes diagnosis & prescription for antibiotics.</p>
+                        </div>
+                    </a>
+                    <a href="#" class="condition-card">
+                        <img src="https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cold & Flu" class="condition-card-img">
+                        <h4 class="condition-card-title">Cold & Flu</h4>
+                        <div class="condition-card-overlay">
+                            <p>Get relief from cough, congestion, and fever.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pattern-value-hero-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="value-hero-section">
+                <div>
+                    <h1 class="text-display">Online Urgent Care, Right When You Need It.</h1>
+                    <p class="hero-subheadline" style="margin: var(--space-md) 0 var(--space-xl); max-width: 500px;">Get fast, affordable care from a board-certified doctor. Prescriptions sent to your pharmacy in hours.</p>
+                    <ul class="value-props-list">
+                        <li><span class="value-prop-icon">💲</span><span>Visits for just <strong>$35.99</strong> — no insurance needed.</span></li>
+                        <li><span class="value-prop-icon">⏱️</span><span>Prescriptions ready in <strong>under 2 hours</strong>.</span></li>
+                        <li><span class="value-prop-icon">🌎</span><span>Available <strong>24/7, nationwide</strong> in all 50 states.</span></li>
+                    </ul>
+                    <a href="#" class="btn btn-coral">Find Your Condition</a>
+                </div>
+                <div class="hero-image-container">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758081314/statwell_rx_icij7g.png" alt="Prescription Notification">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Flow Modals -->
+    <div id="login-email-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+            <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                Enter the email you registered with and we will send you a 6 digit code to login with
+            </p>
+            
+            <div class="form-group">
+                <label class="form-label" for="demo-email-input">Email address</label>
+                <input type="email" id="demo-email-input" class="form-input" placeholder="Enter your email address">
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue</button>
+
+            <div class="modal-footer">
+                Don't have an account? <a href="#" class="footer-link">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-email-error-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm);">Welcome back</h2>
+            <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                Enter the email you registered with and we will send you a 6 digit code to login with
+            </p>
+            
+            <div class="form-group">
+                <label class="form-label" for="demo-email-error-input">Email address</label>
+                <input type="email" id="demo-email-error-input" class="form-input error" placeholder="Enter your email address" value="Maurice">
+            </div>
+
+            <div class="error-message">
+                <div class="error-icon">!</div>
+                <span>We couldn't locate this email address in our records.</span>
+                <button class="error-close">&times;</button>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue</button>
+
+            <div class="modal-footer">
+                Don't have an account? <a href="#" class="footer-link">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-otp-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div style="position: relative;">
+                <button class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                    <input type="text" class="otp-input" maxlength="1">
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer">00:30</span>
+                    <a href="#" class="resend-link disabled">Resend code</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-otp-error-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div style="position: relative;">
+                <button class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-heading" style="text-align: center; margin-bottom: var(--space-sm); margin-top: var(--space-lg);">Verify your account</h2>
+                <p class="text-muted" style="text-align: center; margin-bottom: var(--space-lg);">
+                    We sent a 6 digit OTP to <strong>Mauriceumoh47@gmail.com</strong>, Please input it below to proceed.
+                </p>
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                    <input type="text" class="otp-input error" maxlength="1" value="2">
+                </div>
+
+                <div class="error-message">
+                    <div class="error-icon">!</div>
+                    <span>Invalid or expired OTP. Please try again.</span>
+                    <button class="error-close">&times;</button>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Confirm code</button>
+
+                <div class="timer-container">
+                    <span class="timer">00:30</span>
+                    <a href="#" class="resend-link disabled">Resend code</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-success-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <div class="success-state">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h2 class="text-heading" style="margin-bottom: var(--space-sm);">Verification Successful!</h2>
+                <p class="text-muted" style="margin-bottom: var(--space-lg);">
+                    Your account has been verified. You will be redirected to your dashboard shortly.
+                </p>
+                <button class="btn btn-primary" style="width: 100%; padding: 12px 24px; font-size: 16px; justify-content: center;">Continue to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Component Modals -->
+    <div id="dashboard-session-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Session Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">A collapsible session card with progress indicator and task management.</p>
+            <div class="dashboard-session-card">
+                <div class="dashboard-session-header">
+                    <div class="dashboard-session-info">
+                        <div class="dashboard-session-progress-line"></div>
+                        <div>
+                            <div class="dashboard-session-title-row">
+                                <div class="dashboard-session-title"># Session 1</div>
+                                <div class="dashboard-session-badge">Ongoing</div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="dashboard-collapse-icon">▼</span>
+                </div>
+                <div style="padding: var(--space-lg);">
+                    <div class="dashboard-session-tabs">
+                        <div class="dashboard-session-tab active">
+                            To-do <span class="dashboard-session-task-counter">2</span>
+                        </div>
+                        <div class="dashboard-session-tab">
+                            Completed <span class="dashboard-session-task-counter">0</span>
+                        </div>
+                    </div>
+                    <p class="text-caption text-muted">Session content with task tabs would appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-task-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Task Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive task cards with status indicators and expandable content.</p>
+            <div class="dashboard-task-card">
+                <div class="dashboard-task-header">
+                    <div class="dashboard-task-icon pending">○</div>
+                    <div class="dashboard-task-content-wrapper">
+                        <div class="dashboard-task-title-row">
+                            <div class="dashboard-task-title">Complete Your Health Profile</div>
+                            <span class="dashboard-priority-badge">Priority</span>
+                        </div>
+                        <div class="dashboard-task-date">🕐 Friday, October 3, 2025</div>
+                    </div>
+                    <button class="btn btn-primary">Get started</button>
+                </div>
+            </div>
+            <div class="dashboard-task-card completed" style="margin-top: var(--space-md);">
+                <div class="dashboard-task-header">
+                    <div class="dashboard-task-icon completed">✓</div>
+                    <div class="dashboard-task-content-wrapper">
+                        <div class="dashboard-task-title-row">
+                            <div class="dashboard-task-title">Pay for Medication Refill</div>
+                        </div>
+                        <div class="dashboard-task-date">Completed: Friday, September 26, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-empty-state-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Empty State Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Used when there are no tasks or content to display.</p>
+            <div class="dashboard-empty-state">
+                <div class="dashboard-empty-state-icon">📝</div>
+                <div class="dashboard-empty-state-title">No completed tasks yet</div>
+                <div class="dashboard-empty-state-description">Complete your pending tasks to see them here.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-review-state-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Review State Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Shown when a session is under medical review.</p>
+            <div class="dashboard-review-state">
+                <div class="dashboard-review-icon">⏳</div>
+                <div class="dashboard-review-title">Review in Progress</div>
+                <div class="dashboard-review-description">
+                    Your refill is being reviewed by our medical team. You'll receive a task shortly.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-session-tabs-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Session Tabs Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Navigation tabs within session cards for organizing tasks.</p>
+            <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px; border: 1px solid var(--border-secondary);">
+                <div class="dashboard-session-tabs">
+                    <div class="dashboard-session-tab active">
+                        To-do <span class="dashboard-session-task-counter">3</span>
+                    </div>
+                    <div class="dashboard-session-tab">
+                        Completed <span class="dashboard-session-task-counter">1</span>
+                    </div>
+                </div>
+                <p class="text-caption text-muted" style="margin-top: var(--space-lg);">Task content would appear below the tabs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animation Modals -->
+    <div id="anim-button-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Button Hover: Lift & Shadow</h4>
+            <p class="text-caption text-muted">On hover, buttons lift slightly and gain a more pronounced shadow, providing clear, tangible feedback.</p>
+            <div style="margin-top: var(--space-lg); display: flex; gap: var(--space-md);">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+            </div>
+        </div>
+    </div>
+    <div id="anim-card-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Card Hover Effects</h4>
+            <p class="text-caption text-muted">A selection of hover effects for interactive cards.</p>
+            <div class="component-showcase" style="margin-top: var(--space-lg); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <div class="card card-interactive">
+                    <h4 class="text-title">Lift & Glow</h4>
+                    <p class="text-caption text-muted">The card lifts and emits a soft glow.</p>
+                </div>
+                <div class="card card-pulse">
+                    <h4 class="text-title">Pulse Shadow</h4>
+                    <p class="text-caption text-muted">The shadow animates in a pulsing motion.</p>
+                </div>
+                <div class="card card-fill-bottom">
+                    <h4 class="text-title">Color Fill</h4>
+                    <p class="text-caption text-muted">A color wash fills the card from the bottom.</p>
+                </div>
+                <div class="card card-greyscale" style="background-color: var(--statwell-teal-light);">
+                    <h4 class="text-title">Greyscale to Color</h4>
+                    <p class="text-caption text-muted">Becomes vibrant on hover.</p>
+                </div>
+                <div class="card card-shadow-inset">
+                    <h4 class="text-title">Shadow Inset</h4>
+                    <p class="text-caption text-muted">An inner shadow appears.</p>
+                </div>
+                <div class="card card-bg-pan">
+                    <h4 class="text-title">Background Pan</h4>
+                    <p class="text-caption text-muted">Image position changes.</p>
+                </div>
+                <div class="card card-text-underline">
+                    <h4 class="text-title">Text Underline</h4>
+                    <p class="text-caption text-muted">Underline animates on hover.</p>
+                </div>
+                <div class="card card-color-overlay">
+                    <h4 class="text-title">Color Overlay</h4>
+                    <p class="text-caption text-muted">A dark overlay appears.</p>
+                </div>
+                <div class="card card-tada">
+                    <h4 class="text-title">Tada</h4>
+                    <p class="text-caption text-muted">A playful attention-seeker.</p>
+                </div>
+                <div class="card card-ghost">
+                    <h4 class="text-title">Quick Ghost</h4>
+                    <p class="text-caption text-muted">Becomes semi-transparent.</p>
+                </div>
+                <div class="card card-icon-color">
+                    <div class="icon-placeholder"></div>
+                    <h4 class="text-title">Colorize Icon</h4>
+                    <p class="text-caption text-muted">Icon becomes colorful.</p>
+                </div>
+                <div class="card card-cut-corners">
+                    <h4 class="text-title">Cut Corners</h4>
+                    <p class="text-caption text-muted">A gradient border appears.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="anim-underline-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Active State: Glowing Underline</h4>
+            <p class="text-caption text-muted">Active navigation links and tabs get a glowing underline, making the current selection clear and prominent.</p>
+            <div style="margin-top: var(--space-lg); display: flex; gap: var(--space-xl);">
+                <a href="#" class="nav-link-underline active">Active Link</a>
+                <a href="#" class="nav-link-underline">Hover Link</a>
+            </div>
+        </div>
+    </div>
+    <div id="anim-scroll-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Scroll Animation: Fade In</h4>
+            <p class="text-caption text-muted">As users scroll, content fades in smoothly. This effect is applied live on the main design guide page.</p>
+            <div class="card anim-fade-in" style="margin-top: var(--space-lg);">
+                <p>This card just faded in.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categorizedColors = {
+            "Primary Colors": {
+                '--statwell-teal': '#40BFAA',
+                '--statwell-blue': '#5D78FF',
+                '--statwell-gray': '#94A49A',
+            },
+            "Secondary Colors": {
+                '--statwell-teal-light': '#65D5B8',
+                '--statwell-navy': '#2A3B54',
+                '--statwell-coral': '#FF6B6B',
+                '--statwell-white': '#F5F7FA'
+            }
+        };
+
+        function populateColors() {
+            const container = document.getElementById('color-palette-accordion-container');
+            if (!container) return;
+
+            let accordionHtml = '';
+            Object.keys(categorizedColors).forEach((category, index) => {
+                const colors = categorizedColors[category];
+                let swatchesHtml = '<div class="accordion-padding"><div class="compact-color-grid">';
+                for (const [name, hex] of Object.entries(colors)) {
+                     swatchesHtml += `
+                        <div class="compact-swatch" onclick="copyColorToClipboard('${name}')">
+                            <div class="compact-swatch-circle" style="background-color: var(${name});"></div>
+                            <div class="compact-swatch-info">
+                                <strong>${name}</strong>
+                            <span>${hex}</span>
+                        </div>
+                    </div>
+                `;
+            }
+                swatchesHtml += '</div></div>';
+
+                const isActive = index === 0 ? 'active' : '';
+                accordionHtml += `
+                    <div class="accordion-item">
+                        <div class="accordion-header ${isActive}">
+                            <h3>${category}</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content" style="${isActive ? 'max-height: initial;' : ''}">
+                            ${swatchesHtml}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = accordionHtml;
+
+            const headers = container.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const wasActive = header.classList.contains('active');
+
+                    headers.forEach(h => {
+                        h.classList.remove('active');
+                        const c = h.nextElementSibling;
+                        c.style.maxHeight = null;
+                    });
+
+                    if (!wasActive) {
+                        header.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+                if (header.classList.contains('active')) {
+                    const content = header.nextElementSibling;
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+
+        function setupFaqAccordion() {
+            const container = document.getElementById('faq-accordion-container');
+            if (!container) return;
+            const headers = container.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const wasActive = header.classList.contains('active');
+                    
+                    if (!wasActive) {
+                        header.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        header.classList.remove('active');
+                        content.style.maxHeight = null;
+                    }
+                });
+            });
+        }
+
+        function copyColorToClipboard(variableName) {
+            const textToCopy = `var(${variableName})`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert(`Copied "${textToCopy}" to clipboard!`);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        function copyToClipboard(text, type) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToastExample(`${type} copied to clipboard!`, 'success');
+            }).catch(err => {
+                console.error(`Failed to copy ${type}: `, err);
+                showToastExample(`Failed to copy ${type}.`, 'error');
+            });
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).style.display = 'block'; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+        }
+
+        window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeAllModals(); } }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            populateColors();
+            setupFaqAccordion();
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                        // Add fade-in animation to the section
+                        entry.target.classList.add('anim-fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        function showToastExample(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠';
+            toast.innerHTML = `<span class="toast-icon">${icon}</span> <span class="text-caption">${message}</span>`;
+
+            document.getElementById('toast-container').appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        document.querySelectorAll('.card-tada').forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.classList.add('animate');
+            });
+            card.addEventListener('animationend', () => {
+                card.classList.remove('animate');
+            });
+        });
+    </script>
+</body>
+</html>
