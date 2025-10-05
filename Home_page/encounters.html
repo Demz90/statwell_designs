@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Encounters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.3s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+
+        /* Layout */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto; 
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .main-content { 
+            flex: 1; 
+            padding: var(--space-xl); 
+            margin-left: 280px; 
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        /* Sidebar - Dark Theme */
+        .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content.show {
+            display: block;
+        }
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Attachments */
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            background: rgba(93, 120, 255, 0.05);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            border-radius: 8px;
+            margin-bottom: var(--space-sm);
+        }
+        .attachment-icon {
+            width: 16px;
+            height: 16px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 2;
+        }
+        .attachment-name {
+            font-size: 14px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        /* Delete Button */
+        .delete-button {
+            background: none;
+            border: none;
+            color: rgba(255, 107, 107, 0.7);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all var(--anim-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .delete-button:hover {
+            color: var(--error);
+            background: rgba(255, 107, 107, 0.15);
+        }
+        .delete-icon {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* Delete Confirmation Modal */
+        .delete-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .delete-modal-content {
+            background: var(--white);
+            margin: 15% auto;
+            padding: var(--space-xl);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .delete-modal h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        .delete-modal p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        .delete-modal-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+        }
+
+        /* Diagnosis Content */
+        .diagnosis-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+        .diagnosis-header {
+            text-align: center;
+        }
+        .diagnosis-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        .diagnosis-images img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+        .diagnosis-key-facts {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: space-around;
+            margin-top: var(--space-lg);
+            padding: var(--space-lg);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+        .key-fact {
+            text-align: center;
+            padding: var(--space-sm);
+        }
+        .key-fact-value {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .key-fact-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal)); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--white); 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: var(--space-sm); }
+        .nav-link { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 12px; 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            transition: all var(--anim-normal); 
+            position: relative;
+        }
+        .nav-link:hover { 
+            background: rgba(93, 120, 255, 0.1); 
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .nav-link.active { 
+            background: rgba(93, 120, 255, 0.15); 
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: inset 0 0 20px rgba(93, 120, 255, 0.1);
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--primary), var(--statwell-teal));
+            border-radius: 2px;
+            transition: height var(--anim-normal);
+        }
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            height: 20px;
+        }
+        .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .nav-badge { 
+            background: var(--warning); 
+            color: var(--white); 
+            padding: 2px 6px; 
+            border-radius: 10px; 
+            font-size: 12px; 
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Main Content Layout */
+        .content-left { flex: 1; }
+        .content-right { flex: 1; min-width: 400px; display: flex; flex-direction: column; gap: var(--space-lg); }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .welcome-text { font-size: 14px; color: var(--text-secondary); }
+        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+        .header-actions { display: flex; gap: var(--space-md); }
+
+        /* Buttons */
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: var(--space-sm); 
+            padding: 12px 24px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--anim-normal);
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary), #4c63d2); 
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);
+        }
+        .btn-secondary { 
+            background: var(--white); 
+            color: var(--primary); 
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .btn-secondary:hover { 
+            background: rgba(93, 120, 255, 0.05); 
+            border-color: var(--primary);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2);
+        }
+
+        /* Tabs */
+        .tabs-container { 
+            display: flex; 
+            gap: var(--space-md); 
+            margin-bottom: var(--space-xl);
+            padding: 4px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+        .tab { 
+            padding: var(--space-sm) var(--space-lg); 
+            cursor: pointer; 
+            transition: all var(--anim-normal); 
+            position: relative; 
+            background: transparent; 
+            border-radius: 8px;
+            font-weight: 500;
+            flex: 1;
+            text-align: center;
+        }
+        .tab.active { 
+            color: var(--white); 
+            background: linear-gradient(135deg, var(--primary), #4c63d2);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        .tab:not(.active) { 
+            color: var(--text-secondary);
+        }
+        .tab:not(.active):hover { 
+            color: var(--text-primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+
+        /* Filters */
+        .filters-container {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--white);
+            transition: all var(--anim-normal);
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+        .filter-dropdown {
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            background: var(--white);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            min-width: 140px;
+        }
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        /* Encounter Cards */
+        .encounters-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        .encounter-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-md);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            box-shadow: 0 2px 8px rgba(42, 59, 84, 0.06);
+        }
+        .encounter-card:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .encounter-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2);
+            background: linear-gradient(135deg, rgba(93, 120, 255, 0.02), rgba(93, 120, 255, 0.05));
+        }
+        .encounter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .encounter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        .encounter-date {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .encounter-status {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            align-items: flex-end;
+        }
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-badge.closed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .status-badge.in-progress {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+        .status-badge.action-needed {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        .status-badge.treatment-completed {
+            background: rgba(139, 69, 255, 0.1);
+            color: #8b45ff;
+        }
+        .status-badge.red-flagged {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+        }
+
+        /* Action Buttons Panel */
+        .action-buttons-panel {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-md);
+            padding: 0;
+        }
+
+        /* Right Panel */
+        .details-panel {
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            padding: var(--space-lg);
+            height: fit-content;
+            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
+        }
+        .details-header {
+            border-bottom: 1px solid var(--border-secondary);
+            padding-bottom: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        .details-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        .details-status {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .details-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Detail Tabs */
+        .detail-tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-secondary);
+            padding: 0 4px;
+        }
+        .detail-tab {
+            padding: var(--space-sm) var(--space-md);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all var(--anim-normal);
+            border-radius: 8px 8px 0 0;
+        }
+        .detail-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .detail-tab:not(.active) {
+            color: var(--text-secondary);
+        }
+        .detail-tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(93, 120, 255, 0.02);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            min-height: 200px;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Prescription Content */
+        .prescription-item {
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: var(--space-sm);
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+        .prescription-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .prescription-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Refill Details */
+        .detail-group {
+            margin-bottom: var(--space-lg);
+        }
+        .detail-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        .detail-value {
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+
+        /* Appointments */
+        .appointment-item {
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: var(--space-sm);
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+        .appointment-date {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .appointment-status {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Demo Controls */
+        .demo-controls { 
+            position: fixed; 
+            top: var(--space-lg); 
+            right: var(--space-lg); 
+            background: var(--white); 
+            padding: var(--space-md); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            z-index: 1000; 
+            border: 1px solid var(--border-secondary); 
+        }
+        .demo-controls h3 { font-size: 14px; font-weight: 600; margin-bottom: var(--space-sm); }
+        .demo-buttons { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .demo-btn { 
+            padding: 8px 12px; 
+            background: var(--light-gray); 
+            border: 1px solid var(--border-secondary); 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: 500; 
+            transition: all var(--anim-normal); 
+        }
+        .demo-btn:hover { background: var(--statwell-teal); color: var(--white); }
+        .demo-btn.active { background: var(--primary); color: var(--white); }
+
+        /* Hidden States */
+        .state { display: none; }
+        .state.active { display: block; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.08);
+        }
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-md);
+            opacity: 0.6;
+        }
+        .empty-state-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+        .empty-state-description {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h3>Encounter Types</h3>
+        <div class="demo-buttons">
+            <button class="demo-btn active" onclick="showEncounterType('all')">All Encounters</button>
+            <button class="demo-btn" onclick="showEncounterType('medication-refill')">Medication Refill</button>
+            <button class="demo-btn" onclick="showEncounterType('condition-consultation')">Condition Consultation</button>
+            <button class="demo-btn" onclick="showEncounterType('external-refill')">External Refill</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="platform-dropdown">
+                    <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="logo-icon">UC</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                                <span>Urgent Care</span>
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Maurice Umoh</span>
+                            </div>
+                        </div>
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content" id="platform-dropdown">
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Medicals
+                        </a>
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                    Home <span class="nav-badge">21</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Conditions</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                    Encounters</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Appointment <span class="nav-badge">21</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Content -->
+            <div class="content-left">
+                <!-- Header -->
+                <div class="header">
+                    <div>
+                        <div class="welcome-text">Welcome, Maurice</div>
+                        <div class="page-title">Encounters</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; margin-top: var(--space-sm);">View and manage your encounter sessions</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <div class="tab active" onclick="switchTab('ongoing')">Ongoing</div>
+                    <div class="tab" onclick="switchTab('completed')">Completed</div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <input type="text" placeholder="Search" class="search-input" id="search-input">
+                    <select class="filter-dropdown" id="type-filter">
+                        <option value="all">Type: All</option>
+                        <option value="medication-refill">Medication Refill</option>
+                        <option value="condition-consultation">Condition Consultation</option>
+                        <option value="external-refill">External Refill</option>
+                    </select>
+                    <select class="filter-dropdown" id="date-filter">
+                        <option value="all">Date: All time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This week</option>
+                        <option value="month">This month</option>
+                        <option value="year">This year</option>
+                        <option value="last-3-months">Last 3 months</option>
+                        <option value="last-6-months">Last 6 months</option>
+                    </select>
+                </div>
+
+                <!-- Encounters List -->
+                <div class="encounters-list" id="encounters-list">
+                    <!-- Encounters will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="content-right">
+                <!-- Action Buttons Panel -->
+                <div class="action-buttons-panel">
+                    <button class="btn btn-secondary">+ Create New Refill</button>
+                    <button class="btn btn-primary">Start a Treatment</button>
+                </div>
+
+                <!-- Details Panel -->
+                <div class="details-panel" id="details-panel">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <div class="empty-state-title">Select an Encounter</div>
+                        <div class="empty-state-description">Choose an encounter from the list to view details</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="delete-modal">
+        <div class="delete-modal-content">
+            <h3>Delete Encounter</h3>
+            <p>Are you sure you want to delete this encounter? This action cannot be undone.</p>
+            <div class="delete-modal-actions">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'ongoing';
+        let selectedEncounter = null;
+        let filteredEncounters = [];
+
+        // Sample encounter data
+        const encountersData = [
+            {
+                id: 'encounter-1',
+                title: 'Asthma / Asthma Exacerbation',
+                date: '5/20/2024',
+                type: 'condition-consultation',
+                statuses: ['closed', 'treatment-completed'],
+                tab: 'completed',
+                canDelete: false,
+                details: {
+                    started: '5/20/2024',
+                    status: 'Completed',
+                    cost: '$50.00',
+                    condition: 'Asthma / Asthma Exacerbation',
+                    prescription: {
+                        medication: 'Albuterol Inhaler',
+                        dosage: '90 mcg, 2 puffs as needed',
+                        instructions: 'Use when experiencing shortness of breath or wheezing'
+                    },
+                    appointments: [
+                        { date: '5/22/2024 2:00 PM', status: 'Completed' }
+                    ]
+                }
+            },
+            {
+                id: 'encounter-2',
+                title: '#562 Session 1',
+                date: '5/20/2024',
+                type: 'condition-consultation',
+                statuses: ['in-progress', 'action-needed'],
+                tab: 'ongoing',
+                canDelete: true,
+                details: {
+                    started: '5/20/2024',
+                    status: 'In Progress',
+                    cost: '$50.00',
+                    condition: 'UTI Consultation',
+                    prescription: null,
+                    appointments: []
+                }
+            },
+            {
+                id: 'encounter-3',
+                title: 'Cold & Flu Symptoms',
+                date: '5/20/2024',
+                type: 'condition-consultation',
+                statuses: ['closed', 'red-flagged'],
+                tab: 'completed',
+                canDelete: false,
+                details: {
+                    started: '5/20/2024',
+                    status: 'Red Flagged',
+                    cost: '$50.00',
+                    condition: 'Cold & Flu Symptoms',
+                    prescription: null,
+                    appointments: []
+                }
+            },
+            {
+                id: 'encounter-4',
+                title: '#562 Session 1',
+                date: '5/20/2024',
+                type: 'condition-consultation',
+                statuses: ['in-progress'],
+                tab: 'ongoing',
+                details: {
+                    started: '5/20/2024',
+                    status: 'In Progress',
+                    cost: '$50.00',
+                    condition: 'Migraine Consultation',
+                    prescription: null,
+                    appointments: []
+                }
+            },
+            {
+                id: 'encounter-5',
+                title: 'Lisinopril Refill',
+                date: '5/18/2024',
+                type: 'medication-refill',
+                statuses: ['closed', 'treatment-completed'],
+                tab: 'completed',
+                details: {
+                    started: '5/18/2024',
+                    status: 'Completed',
+                    cost: '$29.99',
+                    medication: 'Lisinopril',
+                    dosage: '10mg daily',
+                    prescription: {
+                        medication: 'Lisinopril',
+                        dosage: '10mg daily',
+                        instructions: 'Take once daily with or without food'
+                    },
+                    appointments: []
+                }
+            },
+            {
+                id: 'encounter-6',
+                title: 'Metformin Refill',
+                date: '5/15/2024',
+                type: 'external-refill',
+                statuses: ['in-progress', 'action-needed'],
+                tab: 'ongoing',
+                details: {
+                    started: '5/15/2024',
+                    status: 'Action Needed',
+                    cost: '$39.99',
+                    medication: 'Metformin',
+                    dosage: '500mg twice daily',
+                    duration: '30 days',
+                    refillNumber: '1st refill',
+                    labReport: 'attached',
+                    medicationImage: 'attached',
+                    prescription: null,
+                    appointments: []
+                }
+            },
+            {
+                id: 'encounter-4',
+                title: 'Medication Refill - Metformin',
+                date: '5/18/2024',
+                type: 'medication-refill',
+                statuses: ['in-progress'],
+                tab: 'ongoing',
+                canDelete: true,
+                details: {
+                    started: '5/18/2024',
+                    status: 'Under Review',
+                    cost: '$29.99',
+                    medicationName: 'Metformin',
+                    dosage: '500mg',
+                    duration: '30 days',
+                    refillNumber: 'Refill #3',
+                    labReports: [
+                        { name: 'diabetes_lab_results_2024.pdf' },
+                        { name: 'blood_sugar_test.pdf' },
+                        { name: 'hba1c_report.pdf' },
+                        { name: 'kidney_function_test.pdf' },
+                        { name: 'lipid_panel_results.pdf' }
+                    ],
+                    medicationImages: [
+                        { name: 'metformin_bottle_front.jpg' },
+                        { name: 'metformin_bottle_back.jpg' },
+                        { name: 'medication_label_closeup.jpg' },
+                        { name: 'prescription_bottle_side.jpg' },
+                        { name: 'medication_stock_photo.jpg' }
+                    ],
+                    prescription: null,
+                    appointments: []
+                }
+            }
+        ];
+
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab states
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter and display encounters
+            filterAndDisplayEncounters();
+        }
+
+        function showEncounterType(type) {
+            // Update demo buttons
+            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter encounters by type
+            if (type === 'all') {
+                filteredEncounters = encountersData;
+            } else {
+                filteredEncounters = encountersData.filter(encounter => encounter.type === type);
+            }
+            
+            filterAndDisplayEncounters();
+        }
+
+        function filterAndDisplayEncounters() {
+            let encounters = filteredEncounters.length > 0 ? filteredEncounters : encountersData;
+            
+            // Filter by current tab
+            encounters = encounters.filter(encounter => encounter.tab === currentTab);
+            
+            // Apply search filter
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            if (searchTerm) {
+                encounters = encounters.filter(encounter => 
+                    encounter.title.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply type filter
+            const typeFilter = document.getElementById('type-filter').value;
+            if (typeFilter !== 'all') {
+                encounters = encounters.filter(encounter => encounter.type === typeFilter);
+            }
+            
+            displayEncounters(encounters);
+        }
+
+        function displayEncounters(encounters) {
+            const encountersList = document.getElementById('encounters-list');
+            
+            if (encounters.length === 0) {
+                encountersList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <div class="empty-state-title">No encounters found</div>
+                        <div class="empty-state-description">${currentTab === 'ongoing' ? 'You have no ongoing encounters at this time.' : 'You have no completed encounters yet.'}</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            encountersList.innerHTML = encounters.map(encounter => `
+                <div class="encounter-card" onclick="selectEncounter('${encounter.id}')">
+                    <div class="encounter-header">
+                        <div>
+                            <div class="encounter-title">${encounter.title}</div>
+                            <div class="encounter-date">${encounter.date}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="encounter-status">
+                                ${encounter.statuses.map(status => `
+                                    <div class="status-badge ${status}">
+                                        <span>${getStatusIcon(status)}</span>
+                                        <span>${getStatusText(status)}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${encounter.canDelete ? `<button class="delete-button" onclick="event.stopPropagation(); showDeleteModal('${encounter.id}')">
+                                <svg class="delete-icon" viewBox="0 0 24 24">
+                                    <polyline points="3,6 5,6 21,6"/>
+                                    <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                    <line x1="10" y1="11" x2="10" y2="17"/>
+                                    <line x1="14" y1="11" x2="14" y2="17"/>
+                                </svg>
+                            </button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusIcon(status) {
+            const icons = {
+                'closed': '<svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>',
+                'in-progress': '●',
+                'action-needed': '●',
+                'treatment-completed': '<svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>',
+                'red-flagged': '🚩'
+            };
+            return icons[status] || '●';
+        }
+
+        function getStatusText(status) {
+            const texts = {
+                'closed': 'Closed',
+                'in-progress': 'In progress',
+                'action-needed': 'Action needed',
+                'treatment-completed': 'Treatment completed',
+                'red-flagged': 'Red Flagged'
+            };
+            return texts[status] || status;
+        }
+
+        function selectEncounter(encounterId) {
+            selectedEncounter = encountersData.find(e => e.id === encounterId);
+            
+            // Update card selection
+            document.querySelectorAll('.encounter-card').forEach(card => card.classList.remove('selected'));
+            
+            // Find and select the clicked card
+            const clickedCard = document.querySelector(`[onclick*="selectEncounter('${encounterId}')"]`);
+            if (clickedCard) {
+                clickedCard.classList.add('selected');
+            }
+            
+            // Display encounter details
+            displayEncounterDetails(selectedEncounter);
+        }
+
+        function displayEncounterDetails(encounter) {
+            const detailsPanel = document.getElementById('details-panel');
+            
+            if (!encounter) return;
+            
+            const isExternalRefill = encounter.type === 'external-refill';
+            
+            detailsPanel.innerHTML = `
+                <div class="details-header">
+                    <div class="details-title">${encounter.title}</div>
+                    <div class="details-status">
+                        ${encounter.statuses.map(status => `
+                            <div class="status-badge ${status}">
+                                <span>${getStatusIcon(status)}</span>
+                                <span>${getStatusText(status)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="details-info">
+                        <div>Started: ${encounter.details.started}</div>
+                        <div>Status: ${encounter.details.status}</div>
+                        <div>Cost: ${encounter.details.cost}</div>
+                    </div>
+                </div>
+                
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="switchDetailTab('prescription')">Prescription</div>
+                    ${(encounter.type === 'medication-refill' || encounter.type === 'external-refill') ? '<div class="detail-tab" onclick="switchDetailTab(\'refill-details\')">Refill Details</div>' : ''}
+                    ${encounter.type === 'condition-consultation' ? '<div class="detail-tab" onclick="switchDetailTab(\'diagnosis\')">Diagnosis</div>' : ''}
+                    <div class="detail-tab" onclick="switchDetailTab('appointments')">Appointments</div>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="prescription-tab" class="tab-pane active">
+                        ${encounter.details.prescription ? `
+                            <div class="prescription-item">
+                                <div class="prescription-info">
+                                    <h4>${encounter.details.prescription.medication}</h4>
+                                    <p>${encounter.details.prescription.dosage}</p>
+                                    <p style="margin-top: 4px; font-size: 13px;">${encounter.details.prescription.instructions}</p>
+                                </div>
+                            </div>
+                        ` : `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <circle cx="9" cy="9" r="2"/>
+                                        <path d="M21 15.16A8 8 0 0 0 5.84 3"/>
+                                        <path d="M3 8.84A8 8 0 0 0 18.16 21"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">No prescription yet</div>
+                                <div class="empty-state-description">Prescription details will appear here once available</div>
+                            </div>
+                        `}
+                    </div>
+                    
+                    <div id="diagnosis-tab" class="tab-pane">
+                        ${encounter.details.condition ? `
+                            <div class="diagnosis-content">
+                                <div class="diagnosis-header">
+                                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: var(--space-sm); color: var(--text-primary);">${encounter.details.condition}</h3>
+                                    <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">${getConditionTagline(encounter.details.condition)}</p>
+                                    ${getConditionImages(encounter.details.condition)}
+                                </div>
+                                <div class="diagnosis-details">
+                                    <div class="detail-group">
+                                        <div class="detail-label">Condition Type</div>
+                                        <div class="detail-value">${getConditionType(encounter.details.condition)}</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Key Symptoms</div>
+                                        <div class="detail-value">${getConditionSymptoms(encounter.details.condition)}</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Common Causes</div>
+                                        <div class="detail-value">${getConditionCauses(encounter.details.condition)}</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Treatment Approach</div>
+                                        <div class="detail-value">${getTreatmentApproach(encounter.details.condition)}</div>
+                                    </div>
+                                    <div class="diagnosis-key-facts">
+                                        <div class="key-fact">
+                                            <div class="key-fact-value">${getConditionPrice(encounter.details.condition)}</div>
+                                            <div class="key-fact-label">Visit Fee</div>
+                                        </div>
+                                        <div class="key-fact">
+                                            <div class="key-fact-value">${getConditionResponseTime(encounter.details.condition)}</div>
+                                            <div class="key-fact-label">Avg. Response</div>
+                                        </div>
+                                        <div class="key-fact">
+                                            <div class="key-fact-value">${getConditionType(encounter.details.condition)}</div>
+                                            <div class="key-fact-label">Condition Type</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">No diagnosis available</div>
+                                <div class="empty-state-description">Diagnosis details will appear here once available</div>
+                            </div>
+                        `}
+                    </div>
+                    
+                    ${isExternalRefill ? `
+                    <div id="refill-details-tab" class="tab-pane">
+                        <div class="detail-group">
+                            <div class="detail-label">Medication Name</div>
+                            <div class="detail-value">${encounter.details.medication}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Dosage</div>
+                            <div class="detail-value">${encounter.details.dosage}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Duration</div>
+                            <div class="detail-value">${encounter.details.duration}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Refill Number</div>
+                            <div class="detail-value">${encounter.details.refillNumber}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Laboratory Reports</div>
+                            <div class="detail-value">
+                                <div class="attachment-item">
+                                    <svg class="attachment-icon" viewBox="0 0 24 24">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                                    </svg>
+                                    <span class="attachment-name">lab_report_sample.pdf</span>
+                                </div>
+                                <div class="attachment-item">
+                                    <svg class="attachment-icon" viewBox="0 0 24 24">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                                    </svg>
+                                    <span class="attachment-name">blood_test_results.pdf</span>
+                                </div>
+                                <div class="attachment-item">
+                                    <svg class="attachment-icon" viewBox="0 0 24 24">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                                    </svg>
+                                    <span class="attachment-name">diagnostic_report.pdf</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Medication Images</div>
+                            <div class="detail-value">
+                                <div class="attachment-item">
+                                    <svg class="attachment-icon" viewBox="0 0 24 24">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                                    </svg>
+                                    <span class="attachment-name">medication_bottle.jpg</span>
+                                </div>
+                                <div class="attachment-item">
+                                    <svg class="attachment-icon" viewBox="0 0 24 24">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                                    </svg>
+                                    <span class="attachment-name">prescription_label.jpg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <div id="appointments-tab" class="tab-pane">
+                        ${encounter.details.appointments && encounter.details.appointments.length > 0 ? `
+                            ${encounter.details.appointments.map(appointment => `
+                                <div class="appointment-item">
+                                    <div class="appointment-date">${appointment.date}</div>
+                                    <div class="appointment-status">Status: ${appointment.status}</div>
+                                </div>
+                            `).join('')}
+                        ` : `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">No appointments</div>
+                                <div class="empty-state-description">No appointments are scheduled for this encounter</div>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function switchDetailTab(tabName) {
+            // Update tab states
+            document.querySelectorAll('.detail-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update tab panes
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function getConsultationType(type) {
+            const types = {
+                'condition-consultation': 'Condition Consultation',
+                'medication-refill': 'Medication Refill',
+                'external-refill': 'External Medication Refill'
+            };
+            return types[type] || type;
+        }
+
+        function getConditionType(condition) {
+            const conditionTypes = {
+                'Asthma / Asthma Exacerbation': 'Chronic Respiratory Condition',
+                'UTI Consultation': 'Bacterial Infection',
+                'Cold & Flu Symptoms': 'Viral Infection',
+                'Migraine Consultation': 'Neurological Condition'
+            };
+            return conditionTypes[condition] || 'Medical Condition';
+        }
+
+        function getConditionSymptoms(condition) {
+            const symptoms = {
+                'Asthma / Asthma Exacerbation': 'Wheezing, shortness of breath, chest tightness, coughing',
+                'UTI Consultation': 'Burning sensation, frequent urination, cloudy urine, pelvic pain',
+                'Cold & Flu Symptoms': 'Runny nose, sore throat, cough, fever, body aches',
+                'Migraine Consultation': 'Severe headache, nausea, sensitivity to light and sound'
+            };
+            return symptoms[condition] || 'Symptoms vary by condition';
+        }
+
+        function getTreatmentApproach(condition) {
+            const treatments = {
+                'Asthma / Asthma Exacerbation': 'Inhaler medications, trigger avoidance, lifestyle modifications',
+                'UTI Consultation': 'Antibiotic treatment, increased fluid intake, pain management',
+                'Cold & Flu Symptoms': 'Symptom relief, rest, hydration, antiviral if indicated',
+                'Migraine Consultation': 'Pain management, preventive medications, trigger identification'
+            };
+            return treatments[condition] || 'Individualized treatment plan';
+        }
+
+        function getConditionTagline(condition) {
+            const taglines = {
+                'Asthma / Asthma Exacerbation': 'Breathe easier with a personalized treatment plan.',
+                'UTI Consultation': 'Get relief from urinary tract infections with expert care.',
+                'Cold & Flu Symptoms': 'Comprehensive care for respiratory infections.',
+                'Migraine Consultation': 'Effective treatment for severe headaches and migraines.'
+            };
+            return taglines[condition] || 'Professional medical consultation and treatment.';
+        }
+
+        function getConditionImages(condition) {
+            const images = {
+                'Asthma / Asthma Exacerbation': [
+                    'https://images.pexels.com/photos/4173115/pexels-photo-4173115.jpeg?auto=compress&cs=tinysrgb&w=600',
+                    'https://images.pexels.com/photos/4127521/pexels-photo-4127521.jpeg?auto=compress&cs=tinysrgb&w=600'
+                ],
+                'UTI Consultation': [
+                    'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=600',
+                    'https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg?auto=compress&cs=tinysrgb&w=600'
+                ],
+                'Cold & Flu Symptoms': [
+                    'https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=600',
+                    'https://images.pexels.com/photos/4386465/pexels-photo-4386465.jpeg?auto=compress&cs=tinysrgb&w=600'
+                ],
+                'Migraine Consultation': [
+                    'https://images.pexels.com/photos/4386468/pexels-photo-4386468.jpeg?auto=compress&cs=tinysrgb&w=600',
+                    'https://images.pexels.com/photos/4386469/pexels-photo-4386469.jpeg?auto=compress&cs=tinysrgb&w=600'
+                ]
+            };
+            const imageUrls = images[condition] || [];
+            if (imageUrls.length > 0) {
+                return `<div class="diagnosis-images">${imageUrls.map(url => `<img src="${url}" alt="${condition}">`).join('')}</div>`;
+            }
+            return '';
+        }
+
+        function getConditionCauses(condition) {
+            const causes = {
+                'Asthma / Asthma Exacerbation': 'Allergens (pollen, dust, pet dander), smoke and air pollution, colds and flu, exercise or physical activity',
+                'UTI Consultation': 'Bacterial infection, sexual activity, certain contraceptives, menopause, urinary tract abnormalities',
+                'Cold & Flu Symptoms': 'Viral infections (rhinovirus, influenza), weakened immune system, close contact with infected individuals',
+                'Migraine Consultation': 'Genetic factors, hormonal changes, stress, certain foods, sleep disturbances, environmental factors'
+            };
+            return causes[condition] || 'Various factors depending on individual condition';
+        }
+
+        function getConditionPrice(condition) {
+            return '$49.99';
+        }
+
+        function getConditionResponseTime(condition) {
+            return '~1-2 Hours';
+        }
+
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        let encounterToDelete = null;
+
+        function showDeleteModal(encounterId) {
+            encounterToDelete = encounterId;
+            document.getElementById('delete-modal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').style.display = 'none';
+            encounterToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (encounterToDelete) {
+                // Remove encounter from data
+                const index = encountersData.findIndex(e => e.id === encounterToDelete);
+                if (index > -1) {
+                    encountersData.splice(index, 1);
+                }
+                
+                // Refresh the display
+                filterEncounters();
+                
+                // Clear details panel if deleted encounter was selected
+                if (selectedEncounter === encounterToDelete) {
+                    document.getElementById('encounter-details').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                            <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                            <div class="empty-state-title">Select an Encounter</div>
+                            <div class="empty-state-description">Choose an encounter from the list to view details</div>
+                        </div>
+                    `;
+                    selectedEncounter = null;
+                }
+                
+                closeDeleteModal();
+            }
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.platform-switcher') && !event.target.closest('.platform-dropdown')) {
+                const dropdown = document.getElementById('platform-dropdown');
+                const switcher = document.querySelector('.platform-switcher');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    switcher.classList.remove('open');
+                }
+            }
+            
+            // Close delete modal when clicking outside
+            if (event.target.classList.contains('delete-modal')) {
+                closeDeleteModal();
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize with all encounters
+            filteredEncounters = encountersData;
+            filterAndDisplayEncounters();
+            
+            // Search functionality
+            document.getElementById('search-input').addEventListener('input', filterAndDisplayEncounters);
+            
+            // Filter functionality
+            document.getElementById('type-filter').addEventListener('change', filterAndDisplayEncounters);
+            document.getElementById('date-filter').addEventListener('change', filterAndDisplayEncounters);
+        });
+    </script>
+</body>
+</html>

@@ -105,7 +105,106 @@
         .nav-link.active::before {
             height: 20px;
         }
-        .nav-icon { width: 20px; height: 20px; }
+        .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .nav-badge { 
+            background: var(--warning); 
+            color: var(--white); 
+            padding: 2px 6px; 
+            border-radius: 10px; 
+            font-size: 12px; 
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Platform Switcher */
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content.show {
+            display: block;
+        }
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
 
         /* Header */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
@@ -194,15 +293,49 @@
             box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
         }
         .session-stats { display: flex; gap: var(--space-lg); font-size: 14px; color: var(--text-secondary); }
-        .collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+        .collapse-icon { transition: transform var(--anim-normal); }
         .session-card.expanded .collapse-icon { transform: rotate(180deg); }
 
         /* Session Task Tabs */
-        .session-task-tabs { display: flex; border-bottom: 1px solid var(--border-secondary); margin-bottom: var(--space-lg); }
-        .session-task-tab { flex: 1; padding: var(--space-md) var(--space-lg); text-align: center; cursor: pointer; border-bottom: 3px solid transparent; transition: all var(--anim-normal); font-weight: 500; color: var(--text-secondary); }
-        .session-task-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(16, 185, 129, 0.05); }
-        .session-task-tab:hover:not(.active) { color: var(--text-primary); background: var(--light-gray); }
-        .session-task-counter { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-xs); }
+        .session-task-tabs { 
+            display: flex; 
+            gap: var(--space-sm); 
+            margin-bottom: var(--space-md); 
+            padding: 0 var(--space-lg); 
+            margin-top: var(--space-sm);
+        }
+        .session-task-tab { 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all var(--anim-normal); 
+            font-weight: 500; 
+            font-size: 14px;
+            color: var(--text-secondary); 
+            background: var(--light-gray);
+            border: 1px solid transparent;
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm);
+        }
+        .session-task-tab.active { 
+            color: var(--primary); 
+            background: rgba(93, 120, 255, 0.1); 
+            border-color: rgba(93, 120, 255, 0.2);
+        }
+        .session-task-tab:hover:not(.active) { 
+            color: var(--text-primary); 
+            background: var(--white);
+            border-color: var(--border-secondary);
+        }
+        .session-task-counter { 
+            background: var(--warning); 
+            color: var(--white); 
+            padding: 2px 6px; 
+            border-radius: 10px; 
+            font-size: 11px; 
+            font-weight: 600;
+        }
 
         /* Task Cards */
         .task-card { 
@@ -256,7 +389,7 @@
         }
         .task-date { font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: var(--space-sm); }
         .task-actions { display: flex; align-items: center; gap: var(--space-sm); }
-        .task-collapse-icon { transition: transform var(--anim-normal); font-size: 14px; }
+        .task-collapse-icon { transition: transform var(--anim-normal); }
         .task-card.expanded .task-collapse-icon { transform: rotate(180deg); }
 
         .task-content { padding: 0 var(--space-lg) var(--space-lg); display: none; }
@@ -317,20 +450,58 @@
     <div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">UC</div>
-                <div>
-                    <div>Urgent Care</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Data LLC</div>
+            <div class="user-info">
+                <div class="platform-dropdown">
+                    <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="logo-icon">UC</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                                <span>Urgent Care</span>
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Maurice Umoh</span>
+                            </div>
+                        </div>
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content" id="platform-dropdown">
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Medicals
+                        </a>
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
                 </div>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#" class="nav-link active"><span class="nav-icon">🏠</span>Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">🩺</span>Conditions</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">📋</span>Encounters</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">📅</span>Appointments</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">⚙️</span>Settings</a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span class="nav-icon">❓</span>Support</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                    Home <span class="nav-badge">21</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Conditions</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                    Encounters</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Appointments</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Support</a></li>
             </ul>
         </div>
 
@@ -353,17 +524,29 @@
             <div class="state active" id="new-user-state">
                 <div class="task-card expanded" data-task="health-profile">
                     <div class="task-header" onclick="toggleTask(this)">
-                        <div class="task-icon pending">○</div>
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                         <div class="task-content-wrapper">
                             <div class="task-title-row">
                                 <div class="task-title">Complete Your Health Profile</div>
                                 <span class="priority-badge">Priority</span>
                             </div>
-                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                         </div>
                         <div class="task-actions">
                             <button class="btn btn-primary">Get started</button>
-                            <span class="task-collapse-icon">▼</span>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="task-content">
@@ -393,16 +576,28 @@
 
                 <div class="task-card" data-task="diagnosis">
                     <div class="task-header" onclick="toggleTask(this)">
-                        <div class="task-icon pending">○</div>
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                         <div class="task-content-wrapper">
                             <div class="task-title-row">
                                 <div class="task-title">Get diagnosed with Alfie</div>
                             </div>
-                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                         </div>
                         <div class="task-actions">
                             <button class="btn btn-primary">Talk to Alfie</button>
-                            <span class="task-collapse-icon">▼</span>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="task-content">
@@ -423,16 +618,28 @@
 
                 <div class="task-card" data-task="condition">
                     <div class="task-header" onclick="toggleTask(this)">
-                        <div class="task-icon pending">○</div>
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                         <div class="task-content-wrapper">
                             <div class="task-title-row">
                                 <div class="task-title">Select a Condition Manually</div>
                             </div>
-                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                         </div>
                         <div class="task-actions">
                             <button class="btn btn-primary">Select condition</button>
-                            <span class="task-collapse-icon">▼</span>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="task-content">
@@ -453,16 +660,28 @@
 
                 <div class="task-card" data-task="refill">
                     <div class="task-header" onclick="toggleTask(this)">
-                        <div class="task-icon pending">○</div>
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                         <div class="task-content-wrapper">
                             <div class="task-title-row">
                                 <div class="task-title">Start a Medication Refill</div>
                             </div>
-                            <div class="task-date">🕐 Friday, October 3, 2025</div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                         </div>
                         <div class="task-actions">
                             <button class="btn btn-primary">Start refill</button>
-                            <span class="task-collapse-icon">▼</span>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="task-content">
@@ -495,21 +714,35 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="collapse-icon">▼</span>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
                     </div>
                     <div class="session-content" style="padding: var(--space-lg);">
                         <div class="task-card" data-task="diagnosis">
                             <div class="task-header" onclick="toggleTask(this)">
-                                <div class="task-icon pending">○</div>
+                                <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                                 <div class="task-content-wrapper">
                                     <div class="task-title-row">
                                         <div class="task-title">Get diagnosed with Alfie</div>
                                     </div>
-                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                    <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                                 </div>
                                 <div class="task-actions">
                                     <button class="btn btn-primary">Talk to Alfie</button>
-                                    <span class="task-collapse-icon">▼</span>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                                 </div>
                             </div>
                             <div class="task-content">
@@ -530,16 +763,28 @@
 
                         <div class="task-card" data-task="condition">
                             <div class="task-header" onclick="toggleTask(this)">
-                                <div class="task-icon pending">○</div>
+                                <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                                 <div class="task-content-wrapper">
                                     <div class="task-title-row">
                                         <div class="task-title">Select a Condition Manually</div>
                                     </div>
-                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                    <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                                 </div>
                                 <div class="task-actions">
                                     <button class="btn btn-primary">Select condition</button>
-                                    <span class="task-collapse-icon">▼</span>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                                 </div>
                             </div>
                             <div class="task-content">
@@ -560,16 +805,28 @@
 
                         <div class="task-card" data-task="refill">
                             <div class="task-header" onclick="toggleTask(this)">
-                                <div class="task-icon pending">○</div>
+                                <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                                 <div class="task-content-wrapper">
                                     <div class="task-title-row">
                                         <div class="task-title">Start a Medication Refill</div>
                                     </div>
-                                    <div class="task-date">🕐 Friday, October 3, 2025</div>
+                                    <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
                                 </div>
                                 <div class="task-actions">
                                     <button class="btn btn-primary">Start refill</button>
-                                    <span class="task-collapse-icon">▼</span>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                                 </div>
                             </div>
                             <div class="task-content">
@@ -601,7 +858,9 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="collapse-icon">▼</span>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
                     </div>
                     <div class="session-content" style="padding: var(--space-lg); display: none;">
                         <div class="session-task-tabs">
@@ -615,7 +874,11 @@
                         <div class="session-todo-content">
                             <div class="task-card" data-task="payment">
                                 <div class="task-header" onclick="toggleTask(this)">
-                                    <div class="task-icon pending">○</div>
+                                    <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
                                     <div class="task-content-wrapper">
                                         <div class="task-title-row">
                                             <div class="task-title">Pay for Medication Refill</div>
@@ -623,7 +886,9 @@
                                         <div class="task-date">Due: Friday, September 26, 2025</div>
                                     </div>
                                     <div class="task-actions">
-                                        <span class="task-collapse-icon">▼</span>
+                                        <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                                     </div>
                                 </div>
                                 <div class="task-content">
@@ -652,7 +917,15 @@
                         </div>
                         <div class="session-completed-content" style="display: none;">
                             <div class="empty-state">
-                                <div class="empty-state-icon">📝</div>
+                                <div class="empty-state-icon">
+                                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14,2 14,8 20,8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10,9 9,9 8,9"/>
+                                    </svg>
+                                </div>
                                 <div class="empty-state-title">No completed tasks</div>
                                 <div class="empty-state-description">Complete your pending tasks to see them here.</div>
                             </div>
@@ -672,7 +945,9 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="collapse-icon">▼</span>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
                     </div>
                     <div class="session-content" style="padding: var(--space-lg);">
                         <div class="session-task-tabs">
@@ -685,7 +960,15 @@
                         </div>
                         <div class="session-todo-content" style="display: none;">
                             <div class="empty-state">
-                                <div class="empty-state-icon">📝</div>
+                                <div class="empty-state-icon">
+                                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14,2 14,8 20,8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10,9 9,9 8,9"/>
+                                    </svg>
+                                </div>
                                 <div class="empty-state-title">No pending tasks</div>
                                 <div class="empty-state-description">All tasks for this session have been completed.</div>
                             </div>
@@ -693,7 +976,11 @@
                         <div class="session-completed-content">
                             <div class="task-card completed" data-task="payment">
                                 <div class="task-header" onclick="toggleTask(this)">
-                                    <div class="task-icon completed">✓</div>
+                                    <div class="task-icon completed">
+                                        <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <polyline points="20,6 9,17 4,12"/>
+                                        </svg>
+                                    </div>
                                     <div class="task-content-wrapper">
                                         <div class="task-title-row">
                                             <div class="task-title">Pay for Medication Refill</div>
@@ -701,7 +988,9 @@
                                         <div class="task-date">Completed: Friday, September 26, 2025</div>
                                     </div>
                                     <div class="task-actions">
-                                        <span class="task-collapse-icon">▼</span>
+                                        <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                                     </div>
                                 </div>
                                 <div class="task-content">
@@ -740,11 +1029,18 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="collapse-icon">▼</span>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
                     </div>
                     <div class="session-content" style="padding: var(--space-lg);">
                         <div class="review-state">
-                            <div class="review-icon">⏳</div>
+                            <div class="review-icon">
+                                <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
                             <div class="review-title">Review in Progress</div>
                             <div class="review-description">
                                 Your refill is being reviewed by our medical team. You'll receive a task shortly.
@@ -876,6 +1172,26 @@
                 expandedSessions.delete(sessionId);
             } else {
                 expandedSessions.add(sessionId);
+            }
+        }
+
+        // Platform dropdown functions
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.platform-switcher') && !event.target.closest('.platform-dropdown')) {
+                const dropdown = document.getElementById('platform-dropdown');
+                const switcher = document.querySelector('.platform-switcher');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    switcher.classList.remove('open');
+                }
             }
         }
 

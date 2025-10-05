@@ -170,6 +170,24 @@
         .sidebar-demo .nav-item {
             margin-bottom: var(--space-sm);
         }
+        .sidebar-demo         .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .nav-badge { 
+            background: var(--warning); 
+            color: var(--white); 
+            padding: 2px 6px; 
+            border-radius: 10px; 
+            font-size: 12px; 
+            font-weight: 600;
+            margin-left: auto;
+        }
         
         /* Color Palette Display */
         .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-lg); }
@@ -1932,6 +1950,221 @@
         .step-card h4 {
             margin-bottom: var(--space-sm);
         }
+
+        /* Encounters Components */
+        .encounter-card-demo {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-md);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            box-shadow: 0 2px 8px rgba(42, 59, 84, 0.06);
+            margin-bottom: var(--space-md);
+        }
+        .encounter-card-demo:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .encounter-card-demo.selected {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.15);
+        }
+        .encounter-header-demo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+        .encounter-title-demo {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .encounter-date-demo {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .encounter-status-demo {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
+        .status-badge-demo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .status-badge-demo.in-progress {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+        .status-badge-demo.action-needed {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        .status-badge-demo.completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .status-badge-demo.red-flagged {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+        }
+
+        .delete-button-demo {
+            background: none;
+            border: none;
+            color: rgba(255, 107, 107, 0.7);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all var(--anim-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .delete-button-demo:hover {
+            color: var(--error);
+            background: rgba(255, 107, 107, 0.15);
+        }
+        .delete-icon-demo {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .attachment-item-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            background: rgba(93, 120, 255, 0.05);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            border-radius: 8px;
+            margin-bottom: var(--space-sm);
+        }
+        .attachment-icon-demo {
+            width: 16px;
+            height: 16px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 2;
+        }
+        .attachment-name-demo {
+            font-size: 14px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .platform-switcher-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            padding: 4px 8px;
+            border-radius: 6px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .platform-switcher-demo:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown-demo {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content-demo {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content-demo.show {
+            display: block;
+        }
+        .platform-dropdown-item-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item-demo:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon-demo {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+        .chevron-icon-demo {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            stroke-width: 2;
+            transition: transform var(--anim-normal);
+        }
+
+        .delete-modal-demo {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .delete-modal-content-demo {
+            background: var(--white);
+            margin: 15% auto;
+            padding: var(--space-xl);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .delete-modal-demo h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        .delete-modal-demo p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        .delete-modal-actions-demo {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -1964,15 +2197,29 @@
             </div>
             <div class="component-showcase">
                 <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
-                    <h3 class="text-title">Trustworthy 🛡️</h3>
+                    <h3 class="text-title">Trustworthy 
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; display: inline-block; vertical-align: middle; margin-left: 4px;" viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </h3>
                     <p class="text-caption text-muted">Build confidence with a clear, professional, and reliable interface.</p>
                 </div>
                 <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
-                    <h3 class="text-title">Accessible 🌐</h3>
+                    <h3 class="text-title">Accessible 
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; display: inline-block; vertical-align: middle; margin-left: 4px;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </h3>
                     <p class="text-caption text-muted">Ensure everyone can access care with an inclusive and easy-to-navigate app.</p>
                 </div>
                 <div class="interactive-card" style="background-color: var(--bg-secondary); text-align: center;">
-                    <h3 class="text-title">Efficient ⚡</h3>
+                    <h3 class="text-title">Efficient 
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; display: inline-block; vertical-align: middle; margin-left: 4px;" viewBox="0 0 24 24">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/>
+                        </svg>
+                    </h3>
                     <p class="text-caption text-muted">Streamline the path to care with a fast, intuitive, and frictionless user experience.</p>
                 </div>
             </div>
@@ -2347,6 +2594,23 @@
             </div>
         </section>
 
+        <section class="section" id="encounters-components">
+            <div class="section-header">
+                <h2 class="section-title">Encounters Components</h2>
+                <p class="section-subtitle">Interactive encounter cards, attachment displays, and platform switching components.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Encounters Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of encounters components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('encounter-card-modal')">Encounter Cards</button>
+                    <button class="btn btn-secondary" onclick="openModal('attachment-display-modal')">Attachment Display</button>
+                    <button class="btn btn-secondary" onclick="openModal('platform-switcher-modal')">Platform Switcher</button>
+                    <button class="btn btn-secondary" onclick="openModal('delete-modal-modal')">Delete Confirmation</button>
+                </div>
+            </div>
+        </section>
+
         <section class="section" id="animations">
             <div class="section-header">
                 <h2 class="section-title">Interactivity & Animations</h2>
@@ -2502,12 +2766,24 @@
                     </div>
                 </div>
                 <ul class="nav-menu">
-                    <li class="nav-item"><a href="#" class="nav-link active">🏠 Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">🩺 Conditions</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">📋 Encounters</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">📅 Appointments</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">⚙️ Settings</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">❓ Support</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                        Home <span class="nav-badge">21</span></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">
+                            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            Conditions</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                        Encounters</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Appointments</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Settings</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        Support</a></li>
                 </ul>
             </div>
         </div>
@@ -2738,7 +3014,14 @@
                         <div class="phone-mockup">
                             <div class="phone-screen">
                                 <div class="notification-bubble">
-                                    <div class="notification-icon">💊</div>
+                                    <div class="notification-icon">
+                                        <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                            <circle cx="9" cy="9" r="2"/>
+                                            <path d="M21 15.16A8 8 0 0 0 5.84 3"/>
+                                            <path d="M3 8.84A8 8 0 0 0 18.16 21"/>
+                                        </svg>
+                                    </div>
                                     <div class="notification-text">
                                         <strong>Your prescription is ready!</strong>
                                         <span>Sent to CVS Pharmacy</span>
@@ -2851,9 +3134,25 @@
                     <h1 class="text-display">Online Urgent Care, Right When You Need It.</h1>
                     <p class="hero-subheadline" style="margin: var(--space-md) 0 var(--space-xl); max-width: 500px;">Get fast, affordable care from a board-certified doctor. Prescriptions sent to your pharmacy in hours.</p>
                     <ul class="value-props-list">
-                        <li><span class="value-prop-icon">💲</span><span>Visits for just <strong>$35.99</strong> — no insurance needed.</span></li>
-                        <li><span class="value-prop-icon">⏱️</span><span>Prescriptions ready in <strong>under 2 hours</strong>.</span></li>
-                        <li><span class="value-prop-icon">🌎</span><span>Available <strong>24/7, nationwide</strong> in all 50 states.</span></li>
+                        <li><span class="value-prop-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </span><span>Visits for just <strong>$35.99</strong> — no insurance needed.</span></li>
+                        <li><span class="value-prop-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                        </span><span>Prescriptions ready in <strong>under 2 hours</strong>.</span></li>
+                        <li><span class="value-prop-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </span><span>Available <strong>24/7, nationwide</strong> in all 50 states.</span></li>
                     </ul>
                     <a href="#" class="btn btn-coral">Find Your Condition</a>
                 </div>
@@ -2892,7 +3191,11 @@
                     <label class="form-label">Phone Number</label>
                     <div class="phone-input-demo">
                         <div class="country-code-demo">
-                            <span>🇺🇸</span>
+                            <svg style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="12" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <path d="M3 15h18"/>
+                            </svg>
                             <span>+1</span>
                         </div>
                         <input type="tel" class="form-input-enhanced" placeholder="000 000 000">
@@ -3183,20 +3486,34 @@
             <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive task cards with status indicators and expandable content.</p>
             <div class="dashboard-task-card">
                 <div class="dashboard-task-header">
-                    <div class="dashboard-task-icon pending">○</div>
+                    <div class="dashboard-task-icon pending">
+                        <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
                     <div class="dashboard-task-content-wrapper">
                         <div class="dashboard-task-title-row">
                             <div class="dashboard-task-title">Complete Your Health Profile</div>
                             <span class="dashboard-priority-badge">Priority</span>
                         </div>
-                        <div class="dashboard-task-date">🕐 Friday, October 3, 2025</div>
+                        <div class="dashboard-task-date">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                            Friday, October 3, 2025
+                        </div>
                     </div>
                     <button class="btn btn-primary">Get started</button>
                 </div>
             </div>
             <div class="dashboard-task-card completed" style="margin-top: var(--space-md);">
                 <div class="dashboard-task-header">
-                    <div class="dashboard-task-icon completed">✓</div>
+                    <div class="dashboard-task-icon completed">
+                        <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                    </div>
                     <div class="dashboard-task-content-wrapper">
                         <div class="dashboard-task-title-row">
                             <div class="dashboard-task-title">Pay for Medication Refill</div>
@@ -3214,7 +3531,15 @@
             <h4 class="text-title">Empty State Component</h4>
             <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Used when there are no tasks or content to display.</p>
             <div class="dashboard-empty-state">
-                <div class="dashboard-empty-state-icon">📝</div>
+                <div class="dashboard-empty-state-icon">
+                    <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                </div>
                 <div class="dashboard-empty-state-title">No completed tasks yet</div>
                 <div class="dashboard-empty-state-description">Complete your pending tasks to see them here.</div>
             </div>
@@ -3264,11 +3589,19 @@
             <div class="progress-navigation">
                 <div class="progress-steps">
                     <div class="progress-step completed">
-                        <div class="progress-step-icon">✓</div>
+                        <div class="progress-step-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12"/>
+                            </svg>
+                        </div>
                         <div class="progress-step-label">Select Condition</div>
                     </div>
                     <div class="progress-step completed">
-                        <div class="progress-step-icon">✓</div>
+                        <div class="progress-step-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12"/>
+                            </svg>
+                        </div>
                         <div class="progress-step-label">Health Assessment</div>
                     </div>
                     <div class="progress-step active">
@@ -3295,7 +3628,9 @@
             <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Header displaying selected condition information and consultation fee.</p>
             <div class="selected-condition-header">
                 <div class="condition-badge">
-                    <span class="condition-icon">🩺</span>
+                    <span class="condition-icon">
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </span>
                     <div class="condition-info">
                         <div class="condition-name">Asthma</div>
                         <div class="condition-type">Respiratory Condition</div>
@@ -3355,7 +3690,13 @@
             <h4 class="text-title">Urgent Banner Component</h4>
             <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Emergency alert banner for urgent medical situations.</p>
             <div class="urgent-banner">
-                <div class="urgent-icon">⚠️</div>
+                <div class="urgent-icon">
+                    <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
                 <div class="urgent-content">
                     <h3>Urgent Medical Attention Required</h3>
                     <p>Based on your responses, we've identified symptoms that could indicate a serious medical condition requiring immediate attention.</p>
@@ -3381,6 +3722,178 @@
                 <button class="btn btn-secondary">Retry Assessment</button>
                 <button class="btn btn-white">Delete Session</button>
                 <a href="tel:911" class="btn btn-primary urgent-call-btn">Call 911</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Encounters Components -->
+    <div id="encounter-card-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Encounter Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive encounter cards with status badges and delete functionality.</p>
+            
+            <div class="encounter-card-demo">
+                <div class="encounter-header-demo">
+                    <div>
+                        <div class="encounter-title-demo">Medication Refill - Metformin</div>
+                        <div class="encounter-date-demo">5/18/2024</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div class="encounter-status-demo">
+                            <div class="status-badge-demo in-progress">
+                                <span>⏳</span>
+                                <span>In Progress</span>
+                            </div>
+                        </div>
+                        <button class="delete-button-demo">
+                            <svg class="delete-icon-demo" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                <line x1="10" y1="11" x2="10" y2="17"/>
+                                <line x1="14" y1="11" x2="14" y2="17"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="encounter-card-demo">
+                <div class="encounter-header-demo">
+                    <div>
+                        <div class="encounter-title-demo">Asthma / Asthma Exacerbation</div>
+                        <div class="encounter-date-demo">5/20/2024</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div class="encounter-status-demo">
+                            <div class="status-badge-demo completed">
+                                <span>✓</span>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="encounter-card-demo">
+                <div class="encounter-header-demo">
+                    <div>
+                        <div class="encounter-title-demo">Cold & Flu Symptoms</div>
+                        <div class="encounter-date-demo">5/20/2024</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div class="encounter-status-demo">
+                            <div class="status-badge-demo red-flagged">
+                                <span>
+                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                        <line x1="12" y1="9" x2="12" y2="13"/>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                    </svg>
+                                </span>
+                                <span>Red Flagged</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="attachment-display-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Attachment Display Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">File attachment displays with paperclip icons and proper styling.</p>
+            
+            <div style="margin-bottom: var(--space-lg);">
+                <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Laboratory Reports</h5>
+                <div class="attachment-item-demo">
+                    <svg class="attachment-icon-demo" viewBox="0 0 24 24">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                    </svg>
+                    <span class="attachment-name-demo">lab_report_sample.pdf</span>
+                </div>
+                <div class="attachment-item-demo">
+                    <svg class="attachment-icon-demo" viewBox="0 0 24 24">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                    </svg>
+                    <span class="attachment-name-demo">blood_test_results.pdf</span>
+                </div>
+            </div>
+
+            <div>
+                <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Medication Images</h5>
+                <div class="attachment-item-demo">
+                    <svg class="attachment-icon-demo" viewBox="0 0 24 24">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                    </svg>
+                    <span class="attachment-name-demo">medication_bottle.jpg</span>
+                </div>
+                <div class="attachment-item-demo">
+                    <svg class="attachment-icon-demo" viewBox="0 0 24 24">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.64 16.2a2 2 0 0 1-2.83-2.83l8.49-8.49"/>
+                    </svg>
+                    <span class="attachment-name-demo">prescription_label.jpg</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="platform-switcher-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Platform Switcher Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Sidebar platform switching with dropdown functionality.</p>
+            
+            <div style="background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); padding: var(--space-lg); border-radius: 12px; color: var(--white);">
+                <div class="platform-dropdown-demo">
+                    <div class="platform-switcher-demo">
+                        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                            <span>Urgent Care</span>
+                            <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Maurice Umoh</span>
+                        </div>
+                        <svg class="chevron-icon-demo" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content-demo">
+                        <a href="#" class="platform-dropdown-item-demo">
+                            <svg class="dropdown-icon-demo" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Medicals
+                        </a>
+                        <a href="#" class="platform-dropdown-item-demo">
+                            <svg class="dropdown-icon-demo" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Delete Confirmation Modal</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Confirmation dialog for deleting encounters.</p>
+            
+            <div class="delete-modal-demo" style="display: block; position: relative; background: transparent; backdrop-filter: none;">
+                <div class="delete-modal-content-demo" style="margin: 0; position: relative;">
+                    <h3>Delete Encounter</h3>
+                    <p>Are you sure you want to delete this encounter? This action cannot be undone.</p>
+                    <div class="delete-modal-actions-demo">
+                        <button class="btn btn-secondary">Cancel</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3637,7 +4150,14 @@
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
             
-            const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠';
+            let icon;
+            if (type === 'success') {
+                icon = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>';
+            } else if (type === 'error') {
+                icon = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+            } else {
+                icon = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+            }
             toast.innerHTML = `<span class="toast-icon">${icon}</span> <span class="text-caption">${message}</span>`;
 
             document.getElementById('toast-container').appendChild(toast);
