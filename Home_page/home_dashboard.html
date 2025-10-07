@@ -395,7 +395,16 @@
         .task-content { padding: 0 var(--space-lg) var(--space-lg); display: none; }
         .task-card.expanded .task-content { display: block; }
         .task-description { margin-bottom: var(--space-md); color: var(--text-secondary); line-height: 1.5; }
-        .task-details { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-md); }
+        .task-details { 
+            display: flex; 
+            flex-direction: column; 
+            gap: var(--space-sm); 
+            margin-bottom: var(--space-md); 
+            background: rgba(93, 120, 255, 0.05);
+            padding: var(--space-md);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.1);
+        }
         .task-detail { display: flex; justify-content: space-between; align-items: center; }
         .task-detail-label { font-weight: 600; font-size: 14px; }
         .task-detail-value { font-size: 14px; color: var(--text-secondary); }
