@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Complete Health Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.3s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+
+        /* Layout */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto; 
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+
+        /* Sidebar */
+        .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal)); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--white); 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: var(--space-sm); }
+        .nav-link { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 12px; 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            transition: all var(--anim-normal);
+            position: relative;
+        }
+        .nav-link:hover { 
+            background: rgba(93, 120, 255, 0.1); 
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .nav-link.active { 
+            background: rgba(93, 120, 255, 0.15); 
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: inset 0 0 20px rgba(93, 120, 255, 0.1);
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--primary), var(--statwell-teal));
+            border-radius: 2px;
+            transition: height var(--anim-normal);
+        }
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            height: 20px;
+        }
+        .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Platform Switcher */
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content.show {
+            display: block;
+        }
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .welcome-text { font-size: 14px; color: var(--text-secondary); }
+        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+
+        /* Progress Navigation - Matching conditions_flow.html */
+        .progress-navigation {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+        }
+        .progress-navigation:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border-secondary);
+            z-index: 1;
+        }
+        .progress-step.completed:not(:last-child)::after {
+            background: var(--primary);
+        }
+        .progress-step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            background: var(--light-gray);
+            color: var(--text-secondary);
+            border: 2px solid var(--border-secondary);
+            position: relative;
+            z-index: 2;
+            transition: all var(--anim-normal);
+        }
+        .progress-step.active .progress-step-icon {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        .progress-step.completed .progress-step-icon {
+            background: var(--success);
+            color: var(--white);
+            border-color: var(--success);
+        }
+        .progress-step-label {
+            margin-top: var(--space-sm);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        .progress-step.active .progress-step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .progress-step.completed .progress-step-label {
+            color: var(--success);
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+            margin-bottom: var(--space-lg);
+        }
+        .form-container:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        .form-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        .form-header p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg-primary);
+            transition: all var(--anim-normal);
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+        .form-input:disabled {
+            background: var(--light-gray);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        .form-input.error {
+            border-color: var(--error);
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+        .form-row-three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        /* Buttons */
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: var(--space-sm); 
+            padding: 12px 20px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 14px; 
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, #4F46E5 100%); 
+            color: var(--white); 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3), 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(93, 120, 255, 0.4), 0 4px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-primary:active { 
+            transform: translateY(0); 
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-primary:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            transform: none; 
+            box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-secondary { 
+            background: var(--white); 
+            color: var(--primary); 
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .btn-secondary:hover { 
+            background: var(--primary); 
+            color: var(--white); 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 16px rgba(93, 120, 255, 0.25); 
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Navigation */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        .checkbox, .radio {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--primary);
+        }
+        .checkbox-label, .radio-label {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .radio-input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        .radio-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Pharmacy Selection */
+        .pharmacy-list {
+            display: grid;
+            gap: var(--space-md);
+        }
+        .pharmacy-scroll-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-teal);
+        }
+        .pharmacy-no-results {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+            font-style: italic;
+            display: none;
+        }
+        .pharmacy-item {
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+        .pharmacy-item:hover {
+            border-color: var(--primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .pharmacy-item.selected {
+            border-color: var(--primary);
+            background: rgba(93, 120, 255, 0.1);
+        }
+        .pharmacy-radio {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+        .pharmacy-info {
+            flex: 1;
+        }
+        .pharmacy-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: var(--space-xs);
+        }
+        .pharmacy-type {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .pharmacy-address {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Condition Selection */
+        .condition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        .condition-item {
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-md);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            text-align: center;
+            position: relative;
+        }
+        .condition-item:hover {
+            border-color: var(--primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .condition-item.selected {
+            border-color: var(--primary);
+            background: rgba(93, 120, 255, 0.1);
+        }
+        .condition-checkbox {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        .condition-name {
+            font-weight: 500;
+            font-size: 14px;
+            margin-top: var(--space-sm);
+        }
+
+        /* Condition Details */
+        .condition-detail-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+        }
+        .condition-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        .condition-detail-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+        .remove-condition-btn {
+            background: var(--error);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+        .remove-condition-btn:hover {
+            background: #e53e3e;
+            transform: translateY(-1px);
+        }
+
+        /* Vitals Input */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        /* Allergies */
+        .allergy-item {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            border: 1px solid var(--border-secondary);
+        }
+        .allergy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        .allergy-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+        .remove-allergy-btn {
+            background: var(--error);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+        .remove-allergy-btn:hover {
+            background: #e53e3e;
+            transform: translateY(-1px);
+        }
+        .add-allergy-btn {
+            width: 100%;
+            border: 2px dashed var(--border-secondary);
+            background: transparent;
+            color: var(--text-secondary);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            margin-bottom: var(--space-lg);
+        }
+        .add-allergy-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+
+        /* Success State */
+        .success-container {
+            text-align: center;
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+        }
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+        }
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        .success-message {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+            line-height: 1.6;
+        }
+        .success-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+        }
+
+        /* Dashboard Task Styles */
+        .task-card {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: var(--space-sm);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            overflow: hidden;
+            transition: all var(--anim-normal);
+        }
+        .task-card:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+        .task-header {
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+        }
+        .task-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all var(--anim-normal);
+        }
+        .task-icon.pending {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 2px rgba(93, 120, 255, 0.1);
+        }
+        .task-content-wrapper {
+            flex: 1;
+        }
+        .task-title-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+        .task-content {
+            padding: 0 var(--space-lg) var(--space-lg);
+            display: none;
+        }
+        .task-card.expanded .task-content {
+            display: block;
+        }
+        .task-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .task-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        .priority-badge {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+        }
+        .task-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+        .task-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .task-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-detail-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .task-detail-value {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .support-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: var(--space-md);
+        }
+
+        /* Get Started Section */
+        .get-started-section { padding: var(--space-xl) 0 var(--space-lg) 0; margin-top: var(--space-xl); }
+        .get-started-title { font-size: 24px; font-weight: 700; font-family: var(--font-primary); margin-bottom: var(--space-sm); color: var(--text-primary); }
+        .get-started-subtext { font-size: 14px; font-weight: 400; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+
+        /* Hidden States */
+        .step { display: none; }
+        .step.active { display: block; }
+
+        /* Demo Controls */
+        .demo-controls { 
+            position: fixed; 
+            top: var(--space-lg); 
+            right: var(--space-lg); 
+            background: var(--white); 
+            padding: var(--space-md); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            z-index: 1000; 
+            border: 1px solid var(--border-secondary); 
+        }
+        .demo-controls h3 { 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-bottom: var(--space-sm); 
+        }
+        .demo-buttons { 
+            display: flex; 
+            flex-direction: column; 
+            gap: var(--space-sm); 
+        }
+        .demo-btn { 
+            padding: 8px 12px; 
+            background: var(--light-gray); 
+            border: 1px solid var(--border-secondary); 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: 500; 
+            transition: all var(--anim-normal); 
+        }
+        .demo-btn:hover { 
+            background: var(--statwell-teal); 
+            color: var(--white); 
+        }
+        .demo-btn.active { 
+            background: var(--primary); 
+            color: var(--white); 
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .form-row, .form-row-three, .vitals-grid {
+                grid-template-columns: 1fr;
+            }
+            .condition-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .demo-controls { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h3>Health Profile Flow</h3>
+        <div class="demo-buttons">
+            <button class="demo-btn active" onclick="showStep('dashboard-task')">Dashboard Task</button>
+            <button class="demo-btn" onclick="showStep('step1')">Step 1: Registration</button>
+            <button class="demo-btn" onclick="showStep('step2')">Step 2: Pharmacy</button>
+            <button class="demo-btn" onclick="showStep('step3')">Step 3: Conditions</button>
+            <button class="demo-btn" onclick="showStep('step4')">Step 4: Details</button>
+            <button class="demo-btn" onclick="showStep('step5')">Step 5: Vitals</button>
+            <button class="demo-btn" onclick="showStep('step6')">Step 6: Allergies</button>
+            <button class="demo-btn" onclick="showStep('step7')">Step 7: Complete</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="platform-dropdown">
+                    <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="logo-icon">UC</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                                <span>Urgent Care</span>
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Maurice Umoh</span>
+                            </div>
+                        </div>
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content" id="platform-dropdown">
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Medicals
+                        </a>
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                    Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    Conditions</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                    Encounters</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Appointments</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <div class="welcome-text">Welcome, Maurice</div>
+                    <div class="page-title">Complete Health Profile</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Task View -->
+            <div class="step active" id="dashboard-task">
+                <div class="task-card" data-task="health-profile">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Complete Your Health Profile</div>
+                                <span class="priority-badge">Priority</span>
+                            </div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary" onclick="startHealthProfileFlow(event)">Get started</button>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Before we begin, we need to collect a few key details about your health, allergies, medications, and medical history. This helps us ensure your safety and accuracy in your treatment.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                            <div class="task-detail">
+                                <span class="task-detail-label">Required</span>
+                                <span class="task-detail-value">Yes, before medication</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="get-started-section">
+                    <div class="get-started-title">Get Started</div>
+                    <div class="get-started-subtext">Perform any of these tasks to start your first session.</div>
+                </div>
+
+                <div class="task-card" data-task="diagnosis">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Get diagnosed with Alfie</div>
+                            </div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Talk to Alfie</button>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Begin your chat with Alfie to get a preliminary diagnosis. This step helps us understand your symptoms and guide you to the right care.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task="condition">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Select a Condition Manually</div>
+                            </div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Select condition</button>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            If you already know your condition, you can select it directly to speed up the process. This helps us quickly match you with the right treatment plan.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card" data-task="refill">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                        <div class="task-content-wrapper">
+                            <div class="task-title-row">
+                                <div class="task-title">Start a Medication Refill</div>
+                            </div>
+                            <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary">Start refill</button>
+                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-description">
+                            Need more of your prescribed medication? Request a refill here to stay on track with your treatment and avoid interruptions.
+                        </div>
+                        <div class="task-details">
+                            <div class="task-detail">
+                                <span class="task-detail-label">Estimated Time</span>
+                                <span class="task-detail-value">2-3 minutes</span>
+                            </div>
+                        </div>
+                        <div class="support-link">
+                            Contact Support: Need help? Reach out to our support team appointments@proxymedicine.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Navigation -->
+            <div class="progress-navigation">
+                <div class="progress-steps">
+                    <div class="progress-step" id="progress-step-1">
+                        <div class="progress-step-icon">1</div>
+                        <div class="progress-step-label">Registration Details</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-2">
+                        <div class="progress-step-icon">2</div>
+                        <div class="progress-step-label">Pharmacy</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-3">
+                        <div class="progress-step-icon">3</div>
+                        <div class="progress-step-label">Conditions</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-4">
+                        <div class="progress-step-icon">4</div>
+                        <div class="progress-step-label">Condition Details</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-5">
+                        <div class="progress-step-icon">5</div>
+                        <div class="progress-step-label">Vitals</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-6">
+                        <div class="progress-step-icon">6</div>
+                        <div class="progress-step-label">Allergies</div>
+                    </div>
+                    <div class="progress-step" id="progress-step-7">
+                        <div class="progress-step-icon">7</div>
+                        <div class="progress-step-label">Complete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Registration Details -->
+            <div class="step active" id="step1">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Confirm Your Registration Details</h2>
+                        <p>Please review and update your personal information. Email addresses cannot be changed.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" value="Maurice" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" value="Umoh" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" value="maurice.umoh@email.com" disabled>
+                        <small style="color: var(--text-secondary); font-size: 12px; margin-top: var(--space-xs); display: block;">Email addresses cannot be changed</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" value="+1 (555) 123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-input" value="1965-06-15" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-input" value="123 Main Street" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-input" value="New York" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">State</label>
+                            <select class="form-input" required>
+                                <option value="NY" selected>New York</option>
+                                <option value="CA">California</option>
+                                <option value="TX">Texas</option>
+                                <option value="FL">Florida</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">ZIP Code</label>
+                            <input type="text" class="form-input" value="10001" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <select class="form-input" required>
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="showStep('dashboard-task')">Back to Dashboard</button>
+                        <button class="btn btn-primary" onclick="nextStep('step2')">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Pharmacy Selection -->
+            <div class="step" id="step2">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Select Your Preferred Pharmacy</h2>
+                        <p>Choose where you'd like to receive your prescriptions. You can change this later in your settings.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Search Pharmacies</label>
+                        <input type="text" class="form-input" id="pharmacy-search" placeholder="Search by name, type, or address..." onkeyup="filterPharmacies()">
+                    </div>
+
+                    <div class="pharmacy-scroll-container">
+                        <div class="pharmacy-list">
+                            <div class="pharmacy-item selected" onclick="selectPharmacy(this, 'quickcare')">
+                                <input type="radio" name="pharmacy" value="quickcare" class="pharmacy-radio" checked>
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">QuickCare Pharmacy</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">123 Main St, New York, NY 10001</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'healthplus')">
+                                <input type="radio" name="pharmacy" value="healthplus" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">HealthPlus Pharmacy</div>
+                                    <div class="pharmacy-type">Specialty Pharmacy</div>
+                                    <div class="pharmacy-address">456 Oak Ave, New York, NY 10003</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'medexpress')">
+                                <input type="radio" name="pharmacy" value="medexpress" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">MedExpress Pharmacy</div>
+                                    <div class="pharmacy-type">Mail-Order Pharmacy</div>
+                                    <div class="pharmacy-address">789 Pine St, New York, NY 10005</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'wellness')">
+                                <input type="radio" name="pharmacy" value="wellness" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">Wellness Central</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">321 Elm St, New York, NY 10007</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'citypharm')">
+                                <input type="radio" name="pharmacy" value="citypharm" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">City Pharmacy & Health</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">555 Broadway, New York, NY 10009</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'careplus')">
+                                <input type="radio" name="pharmacy" value="careplus" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">CarePlus Specialty</div>
+                                    <div class="pharmacy-type">Specialty Pharmacy</div>
+                                    <div class="pharmacy-address">777 5th Ave, New York, NY 10010</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'metrohealth')">
+                                <input type="radio" name="pharmacy" value="metrohealth" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">Metro Health Pharmacy</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">999 Park Ave, New York, NY 10012</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'familymed')">
+                                <input type="radio" name="pharmacy" value="familymed" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">Family Medicine Pharmacy</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">111 Lexington Ave, New York, NY 10014</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'healthfirst')">
+                                <input type="radio" name="pharmacy" value="healthfirst" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">HealthFirst Community</div>
+                                    <div class="pharmacy-type">Community Pharmacy</div>
+                                    <div class="pharmacy-address">333 3rd Ave, New York, NY 10016</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'prescriptionsplus')">
+                                <input type="radio" name="pharmacy" value="prescriptionsplus" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">Prescriptions Plus</div>
+                                    <div class="pharmacy-type">Mail-Order Pharmacy</div>
+                                    <div class="pharmacy-address">444 Madison Ave, New York, NY 10018</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'wellnessrx')">
+                                <input type="radio" name="pharmacy" value="wellnessrx" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">WellnessRx Pharmacy</div>
+                                    <div class="pharmacy-type">Retail Pharmacy</div>
+                                    <div class="pharmacy-address">666 6th Ave, New York, NY 10020</div>
+                                </div>
+                            </div>
+
+                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'medcenter')">
+                                <input type="radio" name="pharmacy" value="medcenter" class="pharmacy-radio">
+                                <div class="pharmacy-info">
+                                    <div class="pharmacy-name">Medical Center Pharmacy</div>
+                                    <div class="pharmacy-type">Hospital Pharmacy</div>
+                                <div class="pharmacy-address">888 8th Ave, New York, NY 10022</div>
+                            </div>
+                        </div>
+                        <div class="pharmacy-no-results" id="pharmacy-no-results">
+                            No pharmacies found matching your search. Try a different search term.
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="prevStep('step1')">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep('step3')">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Medical Conditions Selection -->
+            <div class="step" id="step3">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Select Your Medical Conditions</h2>
+                        <p>Please select all conditions that apply to you. This helps us provide better care and treatment recommendations.</p>
+                    </div>
+
+                    <div class="condition-grid" id="condition-grid">
+                        <!-- Conditions will be populated by JavaScript -->
+                    </div>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="prevStep('step2')">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep('step4')" id="continue-conditions" disabled>Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Condition Details -->
+            <div class="step" id="step4">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Provide Details About Your Conditions</h2>
+                        <p>Please provide additional information about the conditions you selected. This helps us create a personalized treatment plan.</p>
+                    </div>
+
+                    <div id="condition-details-container">
+                        <!-- Condition details will be populated by JavaScript -->
+                    </div>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="prevStep('step3')">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep('step5')">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Vitals -->
+            <div class="step" id="step5">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Your Current Vitals</h2>
+                        <p>Please provide your current vital signs if you know them. This information is optional but helps us provide better care.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Do you know your current vital signs?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="know-vitals" value="yes" class="radio-input" onchange="toggleVitalsInput(true)">
+                                <span class="radio-text">Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="know-vitals" value="no" class="radio-input" onchange="toggleVitalsInput(false)" checked>
+                                <span class="radio-text">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="vitals-input" style="display: none;">
+                        <div class="vitals-grid">
+                            <div class="form-group">
+                                <label class="form-label">Blood Pressure (systolic/diastolic)</label>
+                                <input type="text" class="form-input" placeholder="e.g., 120/80" id="blood-pressure">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Heart Rate (BPM)</label>
+                                <input type="number" class="form-input" placeholder="e.g., 72" id="heart-rate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="prevStep('step4')">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep('step6')">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Allergies -->
+            <div class="step" id="step6">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Your Allergies</h2>
+                        <p>Please provide information about any allergies you have. This is important for your safety and treatment planning.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Do you have any allergies?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="have-allergies" value="yes" class="radio-input" onchange="toggleAllergiesInput(true)">
+                                <span class="radio-text">Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="have-allergies" value="no" class="radio-input" onchange="toggleAllergiesInput(false)" checked>
+                                <span class="radio-text">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="allergies-container">
+                        <!-- Allergies will be populated by JavaScript -->
+                    </div>
+
+                    <button type="button" class="add-allergy-btn" onclick="addAllergy()" id="add-allergy-btn" style="display: none;">
+                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: var(--space-sm);" viewBox="0 0 24 24">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Another Allergy
+                    </button>
+
+                    <div class="form-navigation">
+                        <button class="btn btn-secondary" onclick="prevStep('step5')">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep('step7')">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Completion -->
+            <div class="step" id="step7">
+                <div class="success-container">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <h2 class="success-title">Health Profile Complete!</h2>
+                    <p class="success-message">
+                        Thank you for completing your health profile. Your medical dashboard has been updated with all the information you provided. This will help our healthcare providers deliver personalized and effective care tailored to your specific needs and medical history.
+                    </p>
+                    
+                    <div class="success-actions">
+                        <button class="btn btn-secondary" onclick="goToHome()">Return to Home Dashboard</button>
+                        <button class="btn btn-primary" onclick="goToMedicals()">Go to Medical Dashboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentStep = 'dashboard-task';
+        let selectedConditions = [];
+        let conditionDetails = {};
+        let allergies = [];
+        let allergyCounter = 0;
+
+        // Medical conditions data
+        const medicalConditions = [
+            'Diabetes', 'Hypertension', 'High Cholesterol', 'Asthma', 'COPD', 'Heart Disease',
+            'Thyroid Conditions', 'Depression', 'Anxiety', 'Migraines', 'Arthritis', 'Cancer',
+            'Kidney Disease', 'Liver Disease', 'Epilepsy', 'Stroke', 'Heart Attack',
+            'Ulcer', 'GERD', 'IBS', 'Crohn\'s Disease', 'Ulcerative Colitis', 'HIV/AIDS',
+            'Hepatitis B', 'Hepatitis C', 'Tuberculosis', 'Sickle Cell', 'Lupus',
+            'Multiple Sclerosis', 'Parkinson\'s Disease', 'Alzheimer\'s Disease', 'Dementia'
+        ];
+
+        // Treatment status options
+        const treatmentStatusOptions = [
+            'Treated and resolved',
+            'No longer active or requiring ongoing treatment',
+            'Being treated but not well managed',
+            'Receiving treatment but condition is not fully controlled',
+            'Being treated and well managed',
+            'Currently under treatment and under control',
+            'Not currently being treated',
+            'No active treatment or medication for this condition',
+            'Diagnosed, but unsure about treatment',
+            'You\'ve been told you have this condition, but not sure'
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            populateConditionsGrid();
+            updateProgressSteps();
+        });
+
+        // Step navigation functions
+        function showStep(stepId) {
+            // Update demo buttons
+            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            
+            // Show selected step
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+            updateProgressSteps();
+        }
+
+        function nextStep(nextStepId) {
+            if (validateCurrentStep()) {
+                showStep(nextStepId);
+            }
+        }
+
+        function prevStep(prevStepId) {
+            showStep(prevStepId);
+        }
+
+        // Validation function
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById(currentStep);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+
+            // Special validation for conditions step
+            if (currentStep === 'step3') {
+                const selectedCheckboxes = document.querySelectorAll('.condition-checkbox:checked');
+                if (selectedCheckboxes.length === 0) {
+                    isValid = false;
+                    alert('Please select at least one medical condition.');
+                }
+            }
+
+            return isValid;
+        }
+
+        // Progress steps update
+        function updateProgressSteps() {
+            // If we're on dashboard task, hide progress navigation
+            if (currentStep === 'dashboard-task') {
+                document.querySelector('.progress-navigation').style.display = 'none';
+                return;
+            }
+            
+            // Show progress navigation for actual steps
+            document.querySelector('.progress-navigation').style.display = 'block';
+            
+            const stepNumber = parseInt(currentStep.replace('step', ''));
+            
+            for (let i = 1; i <= 7; i++) {
+                const stepElement = document.getElementById(`progress-step-${i}`);
+                const iconElement = stepElement.querySelector('.progress-step-icon');
+                
+                stepElement.classList.remove('active', 'completed');
+                
+                if (i < stepNumber) {
+                    stepElement.classList.add('completed');
+                    iconElement.innerHTML = '<svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>';
+                } else if (i === stepNumber) {
+                    stepElement.classList.add('active');
+                    iconElement.textContent = i;
+                } else {
+                    iconElement.textContent = i;
+                }
+            }
+        }
+
+        // Pharmacy selection
+        function selectPharmacy(element, pharmacyId) {
+            // Remove selected class from all pharmacy items
+            document.querySelectorAll('.pharmacy-item').forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('.pharmacy-radio').checked = false;
+            });
+            
+            // Add selected class to clicked item
+            element.classList.add('selected');
+            element.querySelector('.pharmacy-radio').checked = true;
+        }
+
+        // Populate conditions grid
+        function populateConditionsGrid() {
+            const gridContainer = document.getElementById('condition-grid');
+            gridContainer.innerHTML = '';
+
+            medicalConditions.forEach(condition => {
+                const conditionItem = document.createElement('div');
+                conditionItem.className = 'condition-item';
+                conditionItem.innerHTML = `
+                    <input type="checkbox" class="condition-checkbox" value="${condition}" onchange="toggleCondition('${condition}')">
+                    <div class="condition-name">${condition}</div>
+                `;
+                gridContainer.appendChild(conditionItem);
+            });
+        }
+
+        // Toggle condition selection
+        function toggleCondition(conditionName) {
+            const checkbox = document.querySelector(`input[value="${conditionName}"]`);
+            
+            if (checkbox.checked) {
+                if (!selectedConditions.includes(conditionName)) {
+                    selectedConditions.push(conditionName);
+                }
+            } else {
+                selectedConditions = selectedConditions.filter(c => c !== conditionName);
+                // Remove condition details if they exist
+                delete conditionDetails[conditionName];
+            }
+            
+            // Enable/disable continue button
+            const continueBtn = document.getElementById('continue-conditions');
+            continueBtn.disabled = selectedConditions.length === 0;
+            
+            // Update condition details container
+            updateConditionDetailsContainer();
+        }
+
+        // Update condition details container
+        function updateConditionDetailsContainer() {
+            const container = document.getElementById('condition-details-container');
+            container.innerHTML = '';
+
+            selectedConditions.forEach(condition => {
+                const detailCard = document.createElement('div');
+                detailCard.className = 'condition-detail-card';
+                detailCard.innerHTML = generateConditionDetailHTML(condition);
+                container.appendChild(detailCard);
+            });
+        }
+
+        // Generate condition detail HTML
+        function generateConditionDetailHTML(condition) {
+            const isDiabetes = condition === 'Diabetes';
+            
+            return `
+                <div class="condition-detail-header">
+                    <div class="condition-detail-name">${condition}</div>
+                    <button type="button" class="remove-condition-btn" onclick="removeCondition('${condition}')">Remove</button>
+                </div>
+                
+                ${isDiabetes ? generateDiabetesDetails(condition) : generateGeneralConditionDetails(condition)}
+            `;
+        }
+
+        // Generate diabetes-specific details
+        function generateDiabetesDetails(condition) {
+            return `
+                <div class="form-group">
+                    <label class="form-label">Are you on insulin?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-insulin" value="yes" class="radio-input" onchange="updateConditionDetail('${condition}', 'insulin', true)">
+                            <span class="radio-text">Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-insulin" value="no" class="radio-input" onchange="updateConditionDetail('${condition}', 'insulin', false)" checked>
+                            <span class="radio-text">No</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Any other diabetic medication?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-other-meds" value="yes" class="radio-input" onchange="toggleOtherMeds('${condition}', true)">
+                            <span class="radio-text">Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-other-meds" value="no" class="radio-input" onchange="toggleOtherMeds('${condition}', false)" checked>
+                            <span class="radio-text">No</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="${condition}-other-meds-details" style="display: none;">
+                    <label class="form-label">Please specify medications:</label>
+                    <input type="text" class="form-input" placeholder="Enter other diabetic medication" onchange="updateConditionDetail('${condition}', 'otherMeds', this.value)">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">What's your last HbA1c value? (Optional)</label>
+                    <input type="text" class="form-input" placeholder="E.g. 6.5%" onchange="updateConditionDetail('${condition}', 'hba1c', this.value)">
+                </div>
+            `;
+        }
+
+        // Generate general condition details
+        function generateGeneralConditionDetails(condition) {
+            return `
+                <div class="form-group">
+                    <label class="form-label">Have you been formally diagnosed with ${condition}?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-diagnosed" value="yes" class="radio-input" onchange="toggleDiagnosedDetails('${condition}', true)">
+                            <span class="radio-text">Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="${condition}-diagnosed" value="no" class="radio-input" onchange="toggleDiagnosedDetails('${condition}', false)" checked>
+                            <span class="radio-text">No</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="${condition}-diagnosed-details" style="display: none;">
+                    <label class="form-label">When did you get diagnosed?</label>
+                    <input type="date" class="form-input" onchange="updateConditionDetail('${condition}', 'diagnosisDate', this.value)">
+                </div>
+                
+                <div class="form-group" id="${condition}-medication-details" style="display: none;">
+                    <label class="form-label">What medication(s) are you taking?</label>
+                    <input type="text" class="form-input" placeholder="Enter medication names" onchange="updateConditionDetail('${condition}', 'medications', this.value)">
+                </div>
+                
+                <div class="form-group" id="${condition}-status-details" style="display: none;">
+                    <label class="form-label">Current treatment status:</label>
+                    <select class="form-input" onchange="updateConditionDetail('${condition}', 'status', this.value)">
+                        <option value="">Select status</option>
+                        ${treatmentStatusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}
+                    </select>
+                </div>
+            `;
+        }
+
+        // Toggle other medications input for diabetes
+        function toggleOtherMeds(condition, checked) {
+            const detailsDiv = document.getElementById(`${condition}-other-meds-details`);
+            detailsDiv.style.display = checked ? 'block' : 'none';
+            updateConditionDetail(condition, 'hasOtherMeds', checked);
+        }
+
+        // Toggle diagnosed details for general conditions
+        function toggleDiagnosedDetails(condition, checked) {
+            const diagnosedDetails = document.getElementById(`${condition}-diagnosed-details`);
+            const medicationDetails = document.getElementById(`${condition}-medication-details`);
+            const statusDetails = document.getElementById(`${condition}-status-details`);
+            
+            diagnosedDetails.style.display = checked ? 'block' : 'none';
+            medicationDetails.style.display = checked ? 'block' : 'none';
+            statusDetails.style.display = checked ? 'block' : 'none';
+            
+            updateConditionDetail(condition, 'diagnosed', checked);
+        }
+
+        // Update condition detail
+        function updateConditionDetail(condition, field, value) {
+            if (!conditionDetails[condition]) {
+                conditionDetails[condition] = {};
+            }
+            conditionDetails[condition][field] = value;
+        }
+
+        // Remove condition
+        function removeCondition(condition) {
+            selectedConditions = selectedConditions.filter(c => c !== condition);
+            delete conditionDetails[condition];
+            
+            // Uncheck the checkbox
+            const checkbox = document.querySelector(`input[value="${condition}"]`);
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+            
+            updateConditionDetailsContainer();
+            
+            // Update continue button
+            const continueBtn = document.getElementById('continue-conditions');
+            continueBtn.disabled = selectedConditions.length === 0;
+        }
+
+        // Toggle vitals input
+        function toggleVitalsInput(show) {
+            const vitalsInput = document.getElementById('vitals-input');
+            vitalsInput.style.display = show ? 'block' : 'none';
+        }
+
+        // Toggle allergies input
+        function toggleAllergiesInput(show) {
+            const allergiesContainer = document.getElementById('allergies-container');
+            const addAllergyBtn = document.getElementById('add-allergy-btn');
+            
+            if (show) {
+                addAllergyBtn.style.display = 'block';
+                if (allergies.length === 0) {
+                    addAllergy();
+                }
+            } else {
+                addAllergyBtn.style.display = 'none';
+                allergiesContainer.innerHTML = '';
+                allergies = [];
+                allergyCounter = 0;
+            }
+        }
+
+        // Add allergy
+        function addAllergy() {
+            allergyCounter++;
+            const allergyId = `allergy-${allergyCounter}`;
+            
+            const allergyItem = document.createElement('div');
+            allergyItem.className = 'allergy-item';
+            allergyItem.id = allergyId;
+            allergyItem.innerHTML = `
+                <div class="allergy-header">
+                    <div class="allergy-title">Allergy ${allergyCounter}</div>
+                    <button type="button" class="remove-allergy-btn" onclick="removeAllergy('${allergyId}')">Remove</button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Allergy Type</label>
+                    <select class="form-input" onchange="updateAllergy('${allergyId}', 'type', this.value)">
+                        <option value="">Select type</option>
+                        <option value="drug">Drug Allergy</option>
+                        <option value="food">Food Allergy</option>
+                        <option value="environmental">Environmental Allergy</option>
+                        <option value="insect">Insect Allergy</option>
+                        <option value="latex">Latex Allergy</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Allergy Name</label>
+                    <input type="text" class="form-input" placeholder="e.g., Penicillin, Peanuts, Pollen" onchange="updateAllergy('${allergyId}', 'name', this.value)">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-input" onchange="updateAllergy('${allergyId}', 'status', this.value)">
+                            <option value="">Select status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Severity</label>
+                        <select class="form-input" onchange="updateAllergy('${allergyId}', 'severity', this.value)">
+                            <option value="">Select severity</option>
+                            <option value="mild">Mild</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="severe">Severe</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Reactions/Symptoms</label>
+                    <input type="text" class="form-input" placeholder="e.g., Rash, difficulty breathing, nausea" onchange="updateAllergy('${allergyId}', 'reactions', this.value)">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Onset Date (Optional)</label>
+                    <input type="date" class="form-input" onchange="updateAllergy('${allergyId}', 'onsetDate', this.value)">
+                </div>
+            `;
+            
+            document.getElementById('allergies-container').appendChild(allergyItem);
+            
+            // Initialize allergy data
+            allergies.push({
+                id: allergyId,
+                name: '',
+                status: '',
+                severity: '',
+                reactions: '',
+                onsetDate: ''
+            });
+        }
+
+        // Update allergy
+        function updateAllergy(allergyId, field, value) {
+            const allergy = allergies.find(a => a.id === allergyId);
+            if (allergy) {
+                allergy[field] = value;
+            }
+        }
+
+        // Remove allergy
+        function removeAllergy(allergyId) {
+            allergies = allergies.filter(a => a.id !== allergyId);
+            document.getElementById(allergyId).remove();
+            
+            // Hide add button if no allergies left
+            if (allergies.length === 0) {
+                document.getElementById('add-allergy-btn').style.display = 'none';
+                document.getElementById('have-allergies').checked = false;
+            }
+        }
+
+        // Navigation functions
+        function goToHome() {
+            alert('Redirecting to Home Dashboard...');
+            // In a real app, this would redirect to the home dashboard
+        }
+
+        function goToMedicals() {
+            alert('Redirecting to Medical Dashboard...');
+            // In a real app, this would redirect to the medical dashboard
+        }
+
+        // Platform dropdown functions
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.platform-switcher') && !event.target.closest('.platform-dropdown')) {
+                const dropdown = document.getElementById('platform-dropdown');
+                const switcher = document.querySelector('.platform-switcher');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    switcher.classList.remove('open');
+                }
+            }
+        };
+
+        // Start health profile flow from dashboard task
+        function startHealthProfileFlow(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            showStep('step1');
+            updateProgressSteps();
+        }
+
+        // Toggle task expansion (for other task cards)
+        function toggleTask(header) {
+            const card = header.closest('.task-card');
+            card.classList.toggle('expanded');
+        }
+
+        // Filter pharmacies based on search input
+        function filterPharmacies() {
+            const searchInput = document.getElementById('pharmacy-search');
+            const filter = searchInput.value.toLowerCase();
+            const pharmacyItems = document.querySelectorAll('.pharmacy-item');
+            const noResults = document.getElementById('pharmacy-no-results');
+            let visibleCount = 0;
+            
+            pharmacyItems.forEach(item => {
+                const name = item.querySelector('.pharmacy-name').textContent.toLowerCase();
+                const type = item.querySelector('.pharmacy-type').textContent.toLowerCase();
+                const address = item.querySelector('.pharmacy-address').textContent.toLowerCase();
+                
+                if (name.includes(filter) || type.includes(filter) || address.includes(filter)) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            if (visibleCount === 0 && filter !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
