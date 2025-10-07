@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - StatwellMD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF;
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6;
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: var(--font-secondary); 
+            line-height: 1.6; 
+            background: var(--bg-primary); 
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 700; }
+        .text-title { font-size: 18px; font-weight: 600; font-family: var(--font-primary); }
+        .text-caption { font-size: 14px; font-weight: 500; }
+        .text-muted { color: var(--text-secondary); }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            color: var(--white);
+            padding: var(--space-lg);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* User Info */
+        .user-info {
+            margin-bottom: var(--space-xl);
+        }
+
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .platform-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .platform-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-name {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+
+        .platform-dropdown {
+            position: relative;
+        }
+
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+        }
+
+        .platform-dropdown-content.show {
+            display: block;
+        }
+
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all var(--anim-normal);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-badge {
+            background: var(--warning);
+            color: var(--white);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: var(--space-xl);
+            background: var(--bg-secondary);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Settings Sections */
+        .settings-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: start;
+        }
+
+        .settings-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+
+        .settings-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+        }
+
+        .settings-section:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-select {
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color var(--anim-normal);
+            background: var(--white);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-input:disabled {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Phone Input */
+        .phone-input-group {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .country-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            background: var(--white);
+            cursor: pointer;
+            transition: border-color var(--anim-normal);
+        }
+
+        .country-selector:focus-within {
+            border-color: var(--primary);
+        }
+
+        .flag-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .phone-input {
+            flex: 1;
+        }
+
+        /* Toggle Switches */
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .toggle-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .toggle-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .toggle-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: var(--border-secondary);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background-color var(--anim-normal);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform var(--anim-normal);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--anim-normal);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #4c63d2);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--primary);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(93, 120, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Pharmacy Section */
+        .pharmacy-current {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .pharmacy-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .pharmacy-address {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .pharmacy-type {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pharmacy-search-container {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+
+        .pharmacy-search {
+            width: 100%;
+            padding: var(--space-md) var(--space-md) var(--space-md) 48px;
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all var(--anim-normal);
+            background: var(--white);
+        }
+
+        .pharmacy-search:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .pharmacy-search-container.active .pharmacy-search {
+            border-color: var(--primary);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .pharmacy-search-container.active .search-icon {
+            stroke: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .pharmacy-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 350px;
+            overflow-y: auto;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            background: var(--white);
+            display: none;
+            box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
+            z-index: 100;
+            margin-top: -2px;
+        }
+
+        .pharmacy-results::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .pharmacy-results::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+
+        .pharmacy-results::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .pharmacy-results::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-teal);
+        }
+
+        .pharmacy-results.show {
+            display: block;
+        }
+
+        .pharmacy-result-item {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-secondary);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+
+        .pharmacy-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .pharmacy-result-item:hover {
+            background: rgba(93, 120, 255, 0.05);
+        }
+
+        .pharmacy-result-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        .pharmacy-result-address {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .pharmacy-result-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 13px;
+        }
+
+        .pharmacy-distance {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .pharmacy-result-type {
+            color: var(--text-secondary);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color var(--anim-normal);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-secondary);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .modal-message {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        /* Delete Confirmation */
+        .delete-input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            margin: var(--space-md) 0;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .delete-input:focus {
+            outline: none;
+            border-color: var(--error);
+        }
+
+        .delete-input.error {
+            border-color: var(--error);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            background: var(--success);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform var(--anim-normal);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--error);
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--anim-normal);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-lg);
+            }
+
+            .settings-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="user-info">
+            <div class="platform-dropdown">
+                <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div class="logo-icon">UC</div>
+                        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                            <span>Urgent Care</span>
+                            <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Maurice Umoh</span>
+                        </div>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="platform-dropdown-content" id="platform-dropdown">
+                    <a href="#" class="platform-dropdown-item">
+                        <svg class="dropdown-icon" viewBox="0 0 24 24">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Switch to Medicals
+                    </a>
+                    <a href="#" class="platform-dropdown-item" onclick="showLogoutModal()">
+                        <svg class="dropdown-icon" viewBox="0 0 24 24">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16,17 21,12 16,7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="home_dashboard.html" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                Home <span class="nav-badge">21</span></a></li>
+            <li class="nav-item"><a href="conditions_flow.html" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                Conditions</a></li>
+            <li class="nav-item"><a href="encounters.html" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                Encounters</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Appointments</a></li>
+            <li class="nav-item"><a href="settings.html" class="nav-link active">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Manage your account settings and preferences</p>
+        </div>
+
+        <div class="settings-container">
+            <!-- Left Column: Personal Details + Change Pharmacy -->
+            <div class="settings-column">
+                <!-- Personal Details Section -->
+                <section class="settings-section">
+                    <h2 class="section-title">Personal Details</h2>
+                    <form id="personal-details-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" value="Henry" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" value="Tom" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" value="onwunemehenrietta7+test@gmail.com" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <div class="phone-input-group">
+                                    <div class="country-selector">
+                                        <svg class="flag-icon" viewBox="0 0 24 24">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" fill="#B22234"/>
+                                            <rect x="1" y="4" width="22" height="1.6" fill="#FFFFFF"/>
+                                            <rect x="1" y="7.2" width="22" height="1.6" fill="#FFFFFF"/>
+                                            <rect x="1" y="10.4" width="22" height="1.6" fill="#FFFFFF"/>
+                                            <rect x="1" y="13.6" width="22" height="1.6" fill="#FFFFFF"/>
+                                            <rect x="1" y="16.8" width="22" height="1.6" fill="#FFFFFF"/>
+                                            <rect x="1" y="4" width="9.6" height="8" fill="#3C3B6E"/>
+                                        </svg>
+                                        <span>+1</span>
+                                    </div>
+                                    <input type="tel" class="form-input phone-input" value="301 558 5548">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-input" value="2006-08-11">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select">
+                                    <option value="female" selected>Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">State</label>
+                                <select class="form-select">
+                                    <option value="nebraska" selected>Nebraska</option>
+                                    <option value="california">California</option>
+                                    <option value="texas">Texas</option>
+                                    <option value="florida">Florida</option>
+                                    <option value="new-york">New York</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-input" value="Omaha">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Street Address</label>
+                                <input type="text" class="form-input" value="2223 Dodge Street City">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">ZIP Code</label>
+                                <input type="text" class="form-input" value="68120">
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+
+            <!-- Pharmacy Section -->
+            <section class="settings-section">
+                <h2 class="section-title">Change Pharmacy</h2>
+                
+                <div class="pharmacy-current">
+                    <div class="pharmacy-name">WALGREENS DRUG STORE #11203</div>
+                    <div class="pharmacy-address">17909 BURKE ST, OMAHA, NE</div>
+                    <div class="pharmacy-type">Retail, EPCS</div>
+                </div>
+
+                <div style="margin-bottom: var(--space-md);">
+                    <label class="form-label">Search for a New Pharmacy</label>
+                    <p class="text-muted" style="font-size: 14px; margin-bottom: var(--space-sm);">Search by pharmacy name or enter a ZIP code to find nearby pharmacies</p>
+                </div>
+
+                <div class="pharmacy-search-container">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="pharmacy-search" placeholder="Search by name or ZIP code..." id="pharmacy-search">
+                    <div class="pharmacy-results" id="pharmacy-results">
+                        <!-- Results will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" id="save-pharmacy-btn" disabled>Save Changes</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Notifications + Actions -->
+            <div class="settings-column">
+                <!-- Email Notifications Section -->
+                <section class="settings-section">
+                    <h2 class="section-title">Email Notifications</h2>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Appointment Reminders</div>
+                                <div class="toggle-description">Get notified about upcoming appointments</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Prescription Refill Reminders</div>
+                                <div class="toggle-description">Get notified when prescriptions need refilling</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SMS Notifications Section -->
+                <section class="settings-section">
+                    <h2 class="section-title">SMS Notifications</h2>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Appointment Reminders</div>
+                                <div class="toggle-description">Get SMS notifications about upcoming appointments</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Prescription Refill Reminders</div>
+                                <div class="toggle-description">Get SMS notifications when prescriptions need refilling</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sign Out Section -->
+                <section class="settings-section">
+                    <h2 class="section-title">Sign Out</h2>
+                    <p class="text-muted" style="margin-bottom: var(--space-lg);">You can sign back in anytime.</p>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="showLogoutModal()">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Delete Account Section -->
+                <section class="settings-section">
+                    <h2 class="section-title">Delete Account</h2>
+                    <p class="text-muted" style="margin-bottom: var(--space-lg);">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-danger" onclick="showDeleteModal()">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                <line x1="10" y1="11" x2="10" y2="17"/>
+                                <line x1="14" y1="11" x2="14" y2="17"/>
+                            </svg>
+                            Delete
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Logout Modal -->
+    <div class="modal" id="logout-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('logout-modal')">&times;</button>
+            <h3 class="modal-title">Sign Out</h3>
+            <p class="modal-message">Are you sure you want to sign out? You can sign back in anytime.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmLogout()">Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('delete-modal')">&times;</button>
+            <h3 class="modal-title">Delete Account</h3>
+            <p class="modal-message">This action cannot be undone. This will permanently delete your account and remove all data from our servers.</p>
+            <p class="modal-message" style="font-weight: 600; color: var(--error);">Type <strong>DELETE</strong> to confirm:</p>
+            <input type="text" class="delete-input" id="delete-confirmation" placeholder="Type DELETE here">
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('delete-modal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()" id="delete-confirm-btn" disabled>Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script>
+        // Sample pharmacy data with ZIP codes
+        const pharmacies = [
+            { name: "WALGREENS DRUG STORE #11203", address: "17909 BURKE ST, OMAHA, NE", zip: "68120", type: "Retail, EPCS", distance: "0.5 miles" },
+            { name: "CVS PHARMACY #1234", address: "123 MAIN ST, OMAHA, NE", zip: "68102", type: "Retail", distance: "2.3 miles" },
+            { name: "WALMART PHARMACY #5678", address: "456 OAK ST, OMAHA, NE", zip: "68114", type: "Retail", distance: "3.1 miles" },
+            { name: "TARGET PHARMACY #9012", address: "789 PINE ST, OMAHA, NE", zip: "68118", type: "Retail", distance: "4.5 miles" },
+            { name: "RITE AID PHARMACY #3456", address: "321 ELM ST, OMAHA, NE", zip: "68105", type: "Retail", distance: "5.2 miles" },
+            { name: "SAFEWAY PHARMACY #7890", address: "654 MAPLE ST, OMAHA, NE", zip: "68106", type: "Retail", distance: "6.0 miles" },
+            { name: "WALGREENS DRUG STORE #11204", address: "1500 FARNAM ST, OMAHA, NE", zip: "68102", type: "Retail, EPCS", distance: "2.8 miles" },
+            { name: "CVS PHARMACY #5678", address: "7890 DODGE ST, OMAHA, NE", zip: "68114", type: "Retail", distance: "3.5 miles" },
+            { name: "KOHLL'S PHARMACY", address: "9876 PACIFIC ST, OMAHA, NE", zip: "68114", type: "Independent", distance: "3.7 miles" },
+            { name: "HY-VEE PHARMACY", address: "5432 CENTER ST, OMAHA, NE", zip: "68106", type: "Retail", distance: "5.8 miles" }
+        ];
+
+        let selectedPharmacy = null;
+
+        // Platform dropdown toggle
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.platform-dropdown')) {
+                document.getElementById('platform-dropdown').classList.remove('show');
+            }
+        }
+
+        // Toggle switch functionality
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+
+        // Pharmacy search functionality - Search by name or ZIP code
+        const pharmacySearchInput = document.getElementById('pharmacy-search');
+        const pharmacySearchContainer = document.querySelector('.pharmacy-search-container');
+        const pharmacyResults = document.getElementById('pharmacy-results');
+
+        pharmacySearchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length < 2) {
+                pharmacyResults.classList.remove('show');
+                pharmacySearchContainer.classList.remove('active');
+                return;
+            }
+
+            pharmacySearchContainer.classList.add('active');
+
+            // Check if query is a ZIP code (5 digits)
+            const isZipCode = /^\d{1,5}$/.test(query);
+            
+            let filteredPharmacies;
+            
+            if (isZipCode) {
+                // Search by ZIP code - show pharmacies in or near that ZIP
+                filteredPharmacies = pharmacies.filter(pharmacy => 
+                    pharmacy.zip.startsWith(query)
+                );
+                
+                // Sort by distance if searching by ZIP
+                filteredPharmacies.sort((a, b) => {
+                    const distA = parseFloat(a.distance);
+                    const distB = parseFloat(b.distance);
+                    return distA - distB;
+                });
+            } else {
+                // Search by pharmacy name or address
+                filteredPharmacies = pharmacies.filter(pharmacy => 
+                    pharmacy.name.toLowerCase().includes(query) || 
+                    pharmacy.address.toLowerCase().includes(query)
+                );
+            }
+
+            if (filteredPharmacies.length > 0) {
+                pharmacyResults.innerHTML = filteredPharmacies.map(pharmacy => `
+                    <div class="pharmacy-result-item" onclick="selectPharmacy('${pharmacy.name}', '${pharmacy.address}', '${pharmacy.type}', '${pharmacy.distance}')">
+                        <div class="pharmacy-result-name">${pharmacy.name}</div>
+                        <div class="pharmacy-result-address">${pharmacy.address}</div>
+                        <div class="pharmacy-result-meta">
+                            <div class="pharmacy-distance">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                ${pharmacy.distance}
+                            </div>
+                            <div class="pharmacy-result-type">${pharmacy.type}</div>
+                        </div>
+                    </div>
+                `).join('');
+                pharmacyResults.classList.add('show');
+            } else {
+                const searchType = isZipCode ? 'ZIP code' : 'search term';
+                pharmacyResults.innerHTML = `<div class="pharmacy-result-item" style="text-align: center; color: var(--text-secondary); cursor: default;">No pharmacies found for this ${searchType}</div>`;
+                pharmacyResults.classList.add('show');
+            }
+        });
+
+        // Select pharmacy
+        function selectPharmacy(name, address, type, distance) {
+            selectedPharmacy = { name, address, type, distance };
+            
+            // Update current pharmacy display
+            const currentPharmacy = document.querySelector('.pharmacy-current');
+            currentPharmacy.innerHTML = `
+                <div class="pharmacy-name">${name}</div>
+                <div class="pharmacy-address">${address}</div>
+                <div class="pharmacy-type">${type}</div>
+            `;
+
+            // Hide results and clear search
+            pharmacyResults.classList.remove('show');
+            pharmacySearchContainer.classList.remove('active');
+            pharmacySearchInput.value = '';
+            
+            // Enable save button
+            document.getElementById('save-pharmacy-btn').disabled = false;
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!pharmacySearchContainer.contains(e.target) && !e.target.closest('.pharmacy-results')) {
+                pharmacyResults.classList.remove('show');
+                pharmacySearchContainer.classList.remove('active');
+            }
+        });
+
+        // Show dropdown on focus if there's text
+        pharmacySearchInput.addEventListener('focus', function() {
+            if (this.value.trim().length >= 2) {
+                pharmacySearchContainer.classList.add('active');
+                pharmacyResults.classList.add('show');
+            }
+        });
+
+        // Save pharmacy changes
+        document.getElementById('save-pharmacy-btn').addEventListener('click', function() {
+            if (selectedPharmacy) {
+                showToast('Pharmacy updated successfully!', 'success');
+                this.disabled = true;
+                selectedPharmacy = null;
+            }
+        });
+
+        // Personal details form - track changes
+        const personalDetailsForm = document.getElementById('personal-details-form');
+        const personalDetailsSaveBtn = personalDetailsForm.querySelector('.btn-primary');
+        const personalDetailsInputs = personalDetailsForm.querySelectorAll('input:not([disabled]), select');
+        
+        // Store initial values
+        const initialValues = {};
+        personalDetailsInputs.forEach(input => {
+            initialValues[input.name || input.id || input.placeholder] = input.value;
+        });
+        
+        // Disable save button initially
+        personalDetailsSaveBtn.disabled = true;
+        
+        // Check for changes on input
+        personalDetailsInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                let hasChanges = false;
+                personalDetailsInputs.forEach(inp => {
+                    const key = inp.name || inp.id || inp.placeholder;
+                    if (inp.value !== initialValues[key]) {
+                        hasChanges = true;
+                    }
+                });
+                personalDetailsSaveBtn.disabled = !hasChanges;
+            });
+        });
+        
+        // Personal details form submission
+        personalDetailsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('Personal details updated successfully!', 'success');
+            
+            // Update initial values after save
+            personalDetailsInputs.forEach(input => {
+                initialValues[input.name || input.id || input.placeholder] = input.value;
+            });
+            
+            // Disable save button again
+            personalDetailsSaveBtn.disabled = true;
+        });
+
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logout-modal').classList.add('show');
+        }
+
+        function showDeleteModal() {
+            document.getElementById('delete-modal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+            if (modalId === 'delete-modal') {
+                document.getElementById('delete-confirmation').value = '';
+                document.getElementById('delete-confirm-btn').disabled = true;
+            }
+        }
+
+        // Delete confirmation input validation
+        document.getElementById('delete-confirmation').addEventListener('input', function(e) {
+            const confirmBtn = document.getElementById('delete-confirm-btn');
+            const input = e.target;
+            
+            if (e.target.value === 'DELETE') {
+                confirmBtn.disabled = false;
+                input.classList.remove('error');
+            } else {
+                confirmBtn.disabled = true;
+                if (e.target.value.length > 0) {
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            }
+        });
+
+        // Confirm logout
+        function confirmLogout() {
+            closeModal('logout-modal');
+            // Navigate to homepage with success message
+            window.location.href = '../Landing_page/homepage.html?message=logout_success';
+        }
+
+        // Confirm delete
+        function confirmDelete() {
+            closeModal('delete-modal');
+            // Navigate to homepage with success message
+            window.location.href = '../Landing_page/homepage.html?message=delete_success';
+        }
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Check for URL parameters on homepage load
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            
+            if (message === 'logout_success') {
+                showToast('You have been successfully signed out.', 'success');
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else if (message === 'delete_success') {
+                showToast('Your account has been permanently deleted.', 'success');
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+</html>

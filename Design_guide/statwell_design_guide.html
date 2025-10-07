@@ -2364,6 +2364,250 @@
             color: var(--text-secondary);
             margin-top: var(--space-md);
         }
+
+        /* Settings Components */
+        .settings-container-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: start;
+        }
+        .settings-column-demo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+        .settings-section-demo {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+        }
+        .settings-section-demo:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+        .settings-section-title-demo {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+        .toggle-group-demo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+        .toggle-item-demo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+        .toggle-info-demo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        .toggle-title-demo {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+        .toggle-description-demo {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .toggle-switch-demo {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: var(--border-secondary);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background-color var(--anim-normal);
+        }
+        .toggle-switch-demo.active {
+            background: var(--primary);
+        }
+        .toggle-switch-demo::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform var(--anim-normal);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-switch-demo.active::after {
+            transform: translateX(22px);
+        }
+        .pharmacy-current-demo {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-lg);
+        }
+        .pharmacy-name-demo-settings {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: var(--space-sm);
+        }
+        .pharmacy-address-demo-settings {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: var(--space-sm);
+        }
+        .pharmacy-type-demo-settings {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .pharmacy-search-container-demo {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+        .pharmacy-search-demo-settings {
+            width: 100%;
+            padding: var(--space-md) var(--space-md) var(--space-md) 48px;
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all var(--anim-normal);
+            background: var(--white);
+        }
+        .pharmacy-search-demo-settings:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+        .pharmacy-search-container-demo.active .pharmacy-search-demo-settings {
+            border-color: var(--primary);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .pharmacy-search-container-demo.active .search-icon-demo {
+            stroke: var(--primary);
+        }
+        .search-icon-demo {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .pharmacy-results-demo {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 350px;
+            overflow-y: auto;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            background: var(--white);
+            display: none;
+            box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
+            z-index: 100;
+            margin-top: -2px;
+        }
+        .pharmacy-results-demo::-webkit-scrollbar {
+            width: 6px;
+        }
+        .pharmacy-results-demo::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .pharmacy-results-demo::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .pharmacy-results-demo::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-teal);
+        }
+        .pharmacy-results-demo.show {
+            display: block;
+        }
+        .pharmacy-result-item-demo {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-secondary);
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+        .pharmacy-result-item-demo:last-child {
+            border-bottom: none;
+        }
+        .pharmacy-result-item-demo:hover {
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .pharmacy-result-name-demo {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: var(--space-xs);
+        }
+        .pharmacy-result-address-demo {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+        .pharmacy-result-type-demo {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .pharmacy-result-meta-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 13px;
+        }
+        .pharmacy-distance-demo {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        .delete-input-demo {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            margin: var(--space-md) 0;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .delete-input-demo:focus {
+            outline: none;
+            border-color: var(--error);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -2386,6 +2630,7 @@
             <li><a href="#conditions-flow" class="nav-link">Conditions Flow</a></li>
             <li><a href="#encounters-components" class="nav-link">Encounters</a></li>
             <li><a href="#health-profile-components" class="nav-link">Health Profile</a></li>
+            <li><a href="#settings-components" class="nav-link">Settings</a></li>
             <li><a href="#animations" class="nav-link">Animations</a></li>
         </ul>
     </nav>
@@ -2824,6 +3069,23 @@
                     <button class="btn btn-secondary" onclick="openModal('scrollable-list-modal')">Scrollable Lists</button>
                     <button class="btn btn-secondary" onclick="openModal('task-card-modal')">Task Card</button>
                     <button class="btn btn-secondary" onclick="openModal('progress-steps-modal')">Progress Steps</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="settings-components">
+            <div class="section-header">
+                <h2 class="section-title">Settings Components</h2>
+                <p class="section-subtitle">Account management, preferences, and settings page components with two-column layout.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Settings Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of settings components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('settings-layout-modal')">Two-Column Layout</button>
+                    <button class="btn btn-secondary" onclick="openModal('settings-toggle-modal')">Toggle Switches</button>
+                    <button class="btn btn-secondary" onclick="openModal('settings-pharmacy-modal')">Pharmacy Management</button>
+                    <button class="btn btn-secondary" onclick="openModal('settings-delete-modal')">Delete Confirmation</button>
                 </div>
             </div>
         </section>
@@ -4628,6 +4890,249 @@
                         </div>
                         <div class="progress-step-label">Complete</div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Components Modals -->
+    <div id="settings-layout-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Settings Two-Column Layout</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Settings page with two-column grid layout for organized content presentation.</p>
+            
+            <div class="settings-container-demo">
+                <!-- Left Column -->
+                <div class="settings-column-demo">
+                    <div class="settings-section-demo">
+                        <h3 class="settings-section-title-demo">Personal Details</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                            <div>
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" value="Henry">
+                            </div>
+                            <div>
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" value="Tom">
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-lg);">
+                            <button class="btn btn-primary" disabled>Save Changes</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section-demo">
+                        <h3 class="settings-section-title-demo">Change Pharmacy</h3>
+                        <div class="pharmacy-current-demo">
+                            <div class="pharmacy-name-demo-settings">WALGREENS DRUG STORE #11203</div>
+                            <div class="pharmacy-address-demo-settings">17909 BURKE ST, OMAHA, NE</div>
+                            <div class="pharmacy-type-demo-settings">Retail, EPCS</div>
+                        </div>
+
+                        <div style="margin-bottom: var(--space-md);">
+                            <label class="form-label" style="display: block; margin-bottom: var(--space-sm);">Search for a New Pharmacy</label>
+                            <p class="text-muted" style="font-size: 14px; margin-bottom: var(--space-sm);">Search by pharmacy name or enter a ZIP code to find nearby pharmacies</p>
+                        </div>
+
+                        <div class="pharmacy-search-container-demo">
+                            <svg class="search-icon-demo" viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                            <input type="text" class="pharmacy-search-demo-settings" placeholder="Search by name or ZIP code...">
+                            <div class="pharmacy-results-demo show">
+                                <div class="pharmacy-result-item-demo">
+                                    <div class="pharmacy-result-name-demo">WALGREENS DRUG STORE #11203</div>
+                                    <div class="pharmacy-result-address-demo">17909 BURKE ST, OMAHA, NE</div>
+                                    <div class="pharmacy-result-meta-demo">
+                                        <div class="pharmacy-distance-demo">
+                                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                                <circle cx="12" cy="10" r="3"/>
+                                            </svg>
+                                            0.5 miles
+                                        </div>
+                                        <div class="pharmacy-result-type-demo">Retail, EPCS</div>
+                                    </div>
+                                </div>
+                                <div class="pharmacy-result-item-demo">
+                                    <div class="pharmacy-result-name-demo">WALGREENS DRUG STORE #11204</div>
+                                    <div class="pharmacy-result-address-demo">20201 MANDERSON ST, OMAHA, NE</div>
+                                    <div class="pharmacy-result-meta-demo">
+                                        <div class="pharmacy-distance-demo">
+                                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                                <circle cx="12" cy="10" r="3"/>
+                                            </svg>
+                                            2.8 miles
+                                        </div>
+                                        <div class="pharmacy-result-type-demo">Retail, EPCS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons-demo" style="display: flex; gap: var(--space-md); margin-top: var(--space-lg);">
+                            <button class="btn btn-primary" disabled style="flex: 1;">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="settings-column-demo">
+                    <div class="settings-section-demo">
+                        <h3 class="settings-section-title-demo">Email Notifications</h3>
+                        <div class="toggle-group-demo">
+                            <div class="toggle-item-demo">
+                                <div class="toggle-info-demo">
+                                    <div class="toggle-title-demo">Appointment Reminders</div>
+                                    <div class="toggle-description-demo">Get notified about upcoming appointments</div>
+                                </div>
+                                <div class="toggle-switch-demo active"></div>
+                            </div>
+                            <div class="toggle-item-demo">
+                                <div class="toggle-info-demo">
+                                    <div class="toggle-title-demo">Prescription Refill Reminders</div>
+                                    <div class="toggle-description-demo">Get notified when prescriptions need refilling</div>
+                                </div>
+                                <div class="toggle-switch-demo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section-demo">
+                        <h3 class="settings-section-title-demo">Sign Out</h3>
+                        <p class="text-muted" style="margin-bottom: var(--space-lg);">You can sign back in anytime.</p>
+                        <button class="btn btn-secondary">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-toggle-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Toggle Switch Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive toggle switches for notification preferences and settings.</p>
+            
+            <div class="toggle-group-demo">
+                <div class="toggle-item-demo">
+                    <div class="toggle-info-demo">
+                        <div class="toggle-title-demo">Appointment Reminders</div>
+                        <div class="toggle-description-demo">Get notified about upcoming appointments</div>
+                    </div>
+                    <div class="toggle-switch-demo active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="toggle-item-demo">
+                    <div class="toggle-info-demo">
+                        <div class="toggle-title-demo">Prescription Refill Reminders</div>
+                        <div class="toggle-description-demo">Get notified when prescriptions need refilling</div>
+                    </div>
+                    <div class="toggle-switch-demo" onclick="this.classList.toggle('active')"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-pharmacy-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Pharmacy Management Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Display current pharmacy and search for new pharmacies with real-time dropdown filtering that appears directly under the search input.</p>
+            
+            <div class="pharmacy-current-demo">
+                <div class="pharmacy-name-demo-settings">WALGREENS DRUG STORE #11203</div>
+                <div class="pharmacy-address-demo-settings">17909 BURKE ST, OMAHA, NE</div>
+                <div class="pharmacy-type-demo-settings">Retail, EPCS</div>
+            </div>
+
+            <div style="margin-bottom: var(--space-md);">
+                <label class="form-label" style="display: block; margin-bottom: var(--space-sm);">Search for a New Pharmacy</label>
+                <p class="text-muted" style="font-size: 14px; margin-bottom: var(--space-sm);">Search by pharmacy name or enter a ZIP code to find nearby pharmacies</p>
+            </div>
+
+            <div class="pharmacy-search-container-demo">
+                <svg class="search-icon-demo" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" class="pharmacy-search-demo-settings" placeholder="Search by name or ZIP code...">
+                <div class="pharmacy-results-demo show">
+                    <div class="pharmacy-result-item-demo">
+                        <div class="pharmacy-result-name-demo">WALGREENS DRUG STORE #11203</div>
+                        <div class="pharmacy-result-address-demo">17909 BURKE ST, OMAHA, NE</div>
+                        <div class="pharmacy-result-meta-demo">
+                            <div class="pharmacy-distance-demo">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                0.5 miles
+                            </div>
+                            <div class="pharmacy-result-type-demo">Retail, EPCS</div>
+                        </div>
+                    </div>
+                    <div class="pharmacy-result-item-demo">
+                        <div class="pharmacy-result-name-demo">WALGREENS DRUG STORE #11204</div>
+                        <div class="pharmacy-result-address-demo">20201 MANDERSON ST, OMAHA, NE</div>
+                        <div class="pharmacy-result-meta-demo">
+                            <div class="pharmacy-distance-demo">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                2.8 miles
+                            </div>
+                            <div class="pharmacy-result-type-demo">Retail, EPCS</div>
+                        </div>
+                    </div>
+                    <div class="pharmacy-result-item-demo">
+                        <div class="pharmacy-result-name-demo">CHI Health Pharmacy - 132 & Center</div>
+                        <div class="pharmacy-result-address-demo">13315 W. Center Road, Omaha, NE</div>
+                        <div class="pharmacy-result-meta-demo">
+                            <div class="pharmacy-distance-demo">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                3.2 miles
+                            </div>
+                            <div class="pharmacy-result-type-demo">Retail, EPCS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons-demo" style="display: flex; gap: var(--space-md); margin-top: var(--space-lg);">
+                <button class="btn btn-primary" disabled style="flex: 1;">Save Changes</button>
+            </div>
+            <p class="text-caption text-muted" style="margin-top: var(--space-md);">Button activates only after selecting a new pharmacy from search results.</p>
+        </div>
+    </div>
+
+    <div id="settings-delete-modal" class="modal">
+        <div class="modal-content modal-md">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Delete Account Confirmation</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Two-step confirmation for permanent account deletion with type-to-confirm pattern.</p>
+            
+            <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; border: 1px solid var(--border-secondary); text-align: center;">
+                <h3 style="margin-bottom: var(--space-md); color: var(--text-primary);">Delete Account</h3>
+                <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">This action cannot be undone. This will permanently delete your account and remove all data from our servers.</p>
+                <p style="font-weight: 600; color: var(--error); margin-bottom: var(--space-md);">Type <strong>DELETE</strong> to confirm:</p>
+                <input type="text" class="delete-input-demo" placeholder="Type DELETE here">
+                <div style="display: flex; gap: var(--space-md); justify-content: center; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary">Cancel</button>
+                    <button class="btn btn-danger" disabled>Delete Account</button>
                 </div>
             </div>
         </div>
