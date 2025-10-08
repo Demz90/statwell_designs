@@ -2919,6 +2919,158 @@
             stroke-linecap: round;
             stroke-linejoin: round;
         }
+
+        /* Conditions & Allergies Components */
+        .section-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+            min-height: 400px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title-ca {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .count-badge {
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .item-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+        }
+
+        .condition-item {
+            border-left: 4px solid #ef4444;
+        }
+
+        .allergy-item {
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .edit-btn, .delete-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            border: none;
+        }
+
+        .edit-btn {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .edit-btn:hover {
+            background: rgba(93, 120, 255, 0.2);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .item-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .item-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-lg);
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: var(--space-lg);
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -3327,6 +3479,9 @@
                     <button class="btn btn-secondary" onclick="openModal('medicals-patient-summary-modal')">Patient Summary Card</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-payment-history-modal')">Payment History Table</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-sidebar-nav-modal')">Medicals Sidebar</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-conditions-card-modal')">Conditions Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-allergies-card-modal')">Allergies Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-empty-state-modal')">Empty State</button>
                 </div>
             </div>
         </section>
@@ -5838,6 +5993,191 @@
                         </svg>
                         Support
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conditions & Allergies Modals -->
+    <div id="medicals-conditions-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medical Conditions Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Individual condition card with edit/delete actions and status information.</p>
+            
+            <div class="item-card condition-item">
+                <div class="item-header">
+                    <div>
+                        <div class="item-title">Asthma</div>
+                        <div class="item-details">
+                            <div class="item-detail">Diagnosed: September 2025</div>
+                            <div class="item-detail">Status: Treated and resolved</div>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="edit-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <button class="delete-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-card condition-item" style="margin-top: var(--space-md);">
+                <div class="item-header">
+                    <div>
+                        <div class="item-title">Diabetes Type 2</div>
+                        <div class="item-details">
+                            <div class="item-detail">Diagnosed: January 2023</div>
+                            <div class="item-detail">Insulin: Yes</div>
+                            <div class="item-detail">HbA1c: 6.5%</div>
+                            <div class="item-detail">Status: Being treated and well managed</div>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="edit-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <button class="delete-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicals-allergies-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Allergies Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Individual allergy card with edit/delete actions and reaction information.</p>
+            
+            <div class="item-card allergy-item">
+                <div class="item-header">
+                    <div>
+                        <div class="item-title">Penicillin</div>
+                        <div class="item-details">
+                            <div class="item-detail">Allergy Type: Drug</div>
+                            <div class="item-detail">Status: Active</div>
+                            <div class="item-detail">Reaction: Rashes, itching</div>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="edit-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <button class="delete-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-card allergy-item" style="margin-top: var(--space-md);">
+                <div class="item-header">
+                    <div>
+                        <div class="item-title">Peanuts</div>
+                        <div class="item-details">
+                            <div class="item-detail">Allergy Type: Food</div>
+                            <div class="item-detail">Status: Active</div>
+                            <div class="item-detail">Reaction: Anaphylaxis</div>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="edit-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <button class="delete-btn">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicals-empty-state-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Empty State Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Empty state displays with icons and call-to-action buttons.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title-ca">
+                            Medical Conditions
+                            <div class="count-badge">0</div>
+                        </div>
+                    </div>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <div class="empty-state-title">No Medical Conditions</div>
+                        <div class="empty-state-text">You haven't added any medical conditions yet. Click the "Add" button to get started.</div>
+                        <button class="btn btn-primary">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Condition
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title-ca">
+                            Allergies
+                            <div class="count-badge">0</div>
+                        </div>
+                    </div>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div class="empty-state-title">No Allergies</div>
+                        <div class="empty-state-text">You haven't added any allergies yet. Click the "Add" button to get started.</div>
+                        <button class="btn btn-primary">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Allergy
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

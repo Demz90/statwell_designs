@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Conditions & Allergies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.3s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+
+        /* Layout */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto; 
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+
+        /* Sidebar */
+        .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal)); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--white); 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: var(--space-sm); }
+        .nav-link { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 12px; 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            transition: all var(--anim-normal);
+            position: relative;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .nav-link:hover { 
+            background: rgba(93, 120, 255, 0.1); 
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .nav-link.active { 
+            background: rgba(93, 120, 255, 0.15); 
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: inset 0 0 20px rgba(93, 120, 255, 0.1);
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--primary), var(--statwell-teal));
+            border-radius: 2px;
+            transition: height var(--anim-normal);
+        }
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            height: 20px;
+        }
+        .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Platform Switcher */
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content.show {
+            display: block;
+        }
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .welcome-text { font-size: 14px; color: var(--text-secondary); }
+        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+
+        /* Patient Summary Card */
+        .patient-summary-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+        }
+        .patient-name {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        .patient-details {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .patient-details .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+        }
+        .patient-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+        .metric-card {
+            background: var(--white);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-md);
+            text-align: center;
+            transition: all var(--anim-normal);
+        }
+        .metric-card:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-primary);
+        }
+
+        /* Main Content Sections */
+        .content-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+        }
+
+        .section-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+            min-height: 400px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .count-badge {
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: var(--space-sm); 
+            padding: 8px 16px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 14px; 
+            position: relative;
+            overflow: hidden;
+            min-height: 36px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, #4F46E5 100%); 
+            color: var(--white); 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3), 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(93, 120, 255, 0.4), 0 4px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-secondary { 
+            background: var(--white); 
+            color: var(--primary); 
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .btn-secondary:hover { 
+            background: rgba(93, 120, 255, 0.05); 
+            border-color: var(--primary);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            min-height: 28px;
+        }
+
+        /* Condition/Allergy Items */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .item-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+            position: relative;
+        }
+
+        .condition-item {
+            border-left: 4px solid #ef4444;
+        }
+
+        .allergy-item {
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .edit-btn, .delete-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            border: none;
+        }
+
+        .edit-btn {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .edit-btn:hover {
+            background: rgba(93, 120, 255, 0.2);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .item-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .item-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-lg);
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: var(--space-lg);
+            line-height: 1.5;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+            padding: var(--space-xl) 0;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: var(--space-xl);
+            padding-bottom: 80px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            margin-bottom: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color var(--anim-normal);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-secondary);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color var(--anim-normal);
+            background: var(--white);
+            font-family: var(--font-secondary);
+        }
+        
+        .form-select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        /* Force dropdown to open downward on all browsers */
+        .form-group {
+            position: relative;
+        }
+        
+        select.form-select option {
+            direction: ltr;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-sm);
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .radio-input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .radio-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Conditional Fields */
+        .conditional-field {
+            display: none;
+        }
+
+        .conditional-field.show {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--anim-normal);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .content-sections {
+                grid-template-columns: 1fr;
+            }
+            .patient-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="platform-dropdown">
+                    <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="logo-icon">MD</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                                <span>Medicals</span>
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Henry Tom</span>
+                            </div>
+                        </div>
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content" id="platform-dropdown">
+                        <a href="../Home_page/home_dashboard.html" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Urgent Care
+                        </a>
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M10 2h4l2 2v16l-2 2h-4l-2-2V4l2-2z"/>
+                        <path d="M10 6h4"/>
+                        <path d="M10 10h4"/>
+                        <path d="M10 14h4"/>
+                    </svg>
+                    Medications</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    Conditions & Allergies</a></li>
+                <li class="nav-item"><a href="payment_history.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Payment History</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <div class="welcome-text">Welcome, Henry</div>
+                    <div class="page-title">Conditions & Allergies</div>
+                </div>
+                <div style="display: flex; gap: var(--space-sm);">
+                    <button class="btn btn-secondary btn-sm" onclick="showEmptyState()">Show Empty State</button>
+                    <button class="btn btn-secondary btn-sm" onclick="showDataState()">Show Data State</button>
+                </div>
+            </div>
+
+            <!-- Patient Summary Card -->
+            <div class="patient-summary-card">
+                <div class="patient-name">Henry Tom</div>
+                <div class="patient-details">
+                    <span>Urgent Care Program</span>
+                    <div class="dot"></div>
+                    <span>19 Years</span>
+                    <div class="dot"></div>
+                    <span>Female</span>
+                </div>
+                <div class="patient-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Active encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Appointments</div>
+                        <div class="metric-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Active Meds</div>
+                        <div class="metric-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Medical Conditions Section -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">
+                            Medical Conditions
+                            <div class="count-badge" id="conditions-count">1</div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openAddConditionModal()">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add
+                        </button>
+                    </div>
+                    
+                    <div class="item-list" id="conditions-list">
+                        <!-- Empty state - will be shown when no conditions exist -->
+                        <div class="empty-state" id="conditions-empty-state">
+                            <div class="empty-state-icon">
+                                <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                            <div class="empty-state-title">No Medical Conditions</div>
+                            <div class="empty-state-text">You haven't added any medical conditions yet. Click the "Add" button to get started.</div>
+                            <button class="btn btn-primary" onclick="openAddConditionModal()">
+                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Add Condition
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Allergies Section -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">
+                            Allergies
+                            <div class="count-badge" id="allergies-count">1</div>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openAddAllergyModal()">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add
+                        </button>
+                    </div>
+                    
+                    <div class="item-list" id="allergies-list">
+                        <!-- Empty state - will be shown when no allergies exist -->
+                        <div class="empty-state" id="allergies-empty-state">
+                            <div class="empty-state-icon">
+                                <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="empty-state-title">No Allergies</div>
+                            <div class="empty-state-text">You haven't added any allergies yet. Click the "Add" button to get started.</div>
+                            <button class="btn btn-primary" onclick="openAddAllergyModal()">
+                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Add Allergy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Condition Modal -->
+    <div class="modal" id="add-condition-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('add-condition-modal')">&times;</button>
+            <h3 class="modal-title">Add Medical condition</h3>
+            
+            <form id="add-condition-form">
+                <div class="form-group">
+                    <label class="form-label">Select Condition</label>
+                    <select class="form-select" id="condition-select" onchange="showConditionFields()" required>
+                        <option value="">Select condition</option>
+                        <option value="Diabetes">Diabetes</option>
+                        <option value="Hypertension">Hypertension</option>
+                        <option value="High Cholesterol">High Cholesterol</option>
+                        <option value="Asthma">Asthma</option>
+                        <option value="COPD">COPD</option>
+                        <option value="Heart Disease">Heart Disease</option>
+                        <option value="Thyroid Conditions">Thyroid Conditions</option>
+                        <option value="Depression">Depression</option>
+                        <option value="Anxiety">Anxiety</option>
+                        <option value="Migraines">Migraines</option>
+                        <option value="Arthritis">Arthritis</option>
+                        <option value="Cancer">Cancer</option>
+                        <option value="Kidney Disease">Kidney Disease</option>
+                        <option value="Liver Disease">Liver Disease</option>
+                        <option value="Epilepsy">Epilepsy</option>
+                        <option value="Stroke">Stroke</option>
+                        <option value="Heart Attack">Heart Attack</option>
+                        <option value="Ulcer">Ulcer</option>
+                        <option value="GERD">GERD</option>
+                        <option value="IBS">IBS</option>
+                        <option value="Crohn's Disease">Crohn's Disease</option>
+                        <option value="Ulcerative Colitis">Ulcerative Colitis</option>
+                        <option value="HIV/AIDS">HIV/AIDS</option>
+                        <option value="Hepatitis B">Hepatitis B</option>
+                        <option value="Hepatitis C">Hepatitis C</option>
+                        <option value="Tuberculosis">Tuberculosis</option>
+                        <option value="Sickle Cell">Sickle Cell</option>
+                        <option value="Lupus">Lupus</option>
+                        <option value="Multiple Sclerosis">Multiple Sclerosis</option>
+                        <option value="Parkinson's Disease">Parkinson's Disease</option>
+                        <option value="Alzheimer's Disease">Alzheimer's Disease</option>
+                        <option value="Dementia">Dementia</option>
+                    </select>
+                </div>
+
+                <!-- Diabetes-specific fields -->
+                <div class="conditional-field" id="diabetes-fields">
+                    <div class="form-group">
+                        <label class="form-label">Are you on Insulin?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="insulin-yes" name="insulin" value="yes" class="radio-input">
+                                <label for="insulin-yes" class="radio-label">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="insulin-no" name="insulin" value="no" class="radio-input" checked>
+                                <label for="insulin-no" class="radio-label">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Any other diabetic medication?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="other-meds-yes" name="other-meds" value="yes" class="radio-input" onchange="toggleOtherMedsField(true)">
+                                <label for="other-meds-yes" class="radio-label">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="other-meds-no" name="other-meds" value="no" class="radio-input" checked onchange="toggleOtherMedsField(false)">
+                                <label for="other-meds-no" class="radio-label">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conditional-field" id="other-meds-field">
+                        <div class="form-group">
+                            <label class="form-label">Please specify below</label>
+                            <textarea class="form-textarea" placeholder="Enter other diabetic medication"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What's your last HbA1c value? (Optional)</label>
+                        <input type="text" class="form-input" placeholder="E.g. 6.5%">
+                    </div>
+                </div>
+
+                <!-- General condition fields -->
+                <div class="conditional-field" id="general-fields">
+                    <div class="form-group">
+                        <label class="form-label">When were you formally diagnosed?</label>
+                        <input type="date" class="form-input" id="diagnosis-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What medication(s) are you taking?</label>
+                        <input type="text" class="form-input" placeholder="E.g. Lisinopril, Metformin">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-select">
+                            <option value="">Select</option>
+                            <option value="Treated and resolved">Treated and resolved</option>
+                            <option value="No longer active or requiring ongoing treatment">No longer active or requiring ongoing treatment</option>
+                            <option value="Being treated but not well managed">Being treated but not well managed</option>
+                            <option value="Receiving treatment but condition is not fully controlled">Receiving treatment but condition is not fully controlled</option>
+                            <option value="Being treated and well managed">Being treated and well managed</option>
+                            <option value="Currently under treatment and under control">Currently under treatment and under control</option>
+                            <option value="Not currently being treated">Not currently being treated</option>
+                            <option value="No active treatment or medication for this condition">No active treatment or medication for this condition</option>
+                            <option value="Diagnosed, but unsure about treatment">Diagnosed, but unsure about treatment</option>
+                            <option value="You've been told you have this condition, but not sure">You've been told you have this condition, but not sure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Allergy Modal -->
+    <div class="modal" id="add-allergy-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('add-allergy-modal')">&times;</button>
+            <h3 class="modal-title">Add Allergy</h3>
+            
+            <form id="add-allergy-form">
+                <div class="form-group">
+                    <label class="form-label">Allergy Type*</label>
+                    <select class="form-select" id="allergy-type" onchange="showAllergyFields()" required>
+                        <option value="">Select allergy type</option>
+                        <option value="Drug Allergies">Drug Allergies</option>
+                        <option value="Food Allergies">Food Allergies</option>
+                        <option value="Environmental Allergies">Environmental Allergies</option>
+                        <option value="Insect Allergies">Insect Allergies</option>
+                        <option value="Latex Allergies">Latex Allergies</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Drug name*</label>
+                    <input type="text" class="form-input" placeholder="E.g. Penicillin" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status*</label>
+                    <select class="form-select" required>
+                        <option value="">Select status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Reaction Type*</label>
+                    <select class="form-select" required>
+                        <option value="">Select reaction type</option>
+                        <option value="allergy">Allergy</option>
+                        <option value="intolerance">Intolerance</option>
+                        <option value="sensitivity">Sensitivity</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Reaction/Symptoms</label>
+                    <input type="text" class="form-input" placeholder="E.g. Rashes, itching">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Onset Date</label>
+                    <input type="date" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let conditions = [];
+        let allergies = [];
+
+        // Function to show data state (for demonstration)
+        function showDataState() {
+            // Add sample conditions
+            conditions = [
+                {
+                    id: 'asthma',
+                    name: 'Asthma',
+                    diagnosed: 'September 2025',
+                    status: 'Treated and resolved'
+                }
+            ];
+
+            // Add sample allergies
+            allergies = [
+                {
+                    id: 'penicillin',
+                    name: 'Penicillin',
+                    type: 'Drug',
+                    status: 'Active',
+                    reaction: 'Rashes'
+                }
+            ];
+
+            renderConditions();
+            renderAllergies();
+            updateCounts();
+        }
+
+        // Function to show empty state
+        function showEmptyState() {
+            conditions = [];
+            allergies = [];
+            renderConditions();
+            renderAllergies();
+            updateCounts();
+        }
+
+        // Platform dropdown functions
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.platform-switcher') && !event.target.closest('.platform-dropdown')) {
+                const dropdown = document.getElementById('platform-dropdown');
+                const switcher = document.querySelector('.platform-switcher');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    switcher.classList.remove('open');
+                }
+            }
+        }
+
+        // Modal functions
+        function openAddConditionModal() {
+            document.getElementById('add-condition-modal').classList.add('show');
+        }
+
+        function openAddAllergyModal() {
+            document.getElementById('add-allergy-modal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const conditionModal = document.getElementById('add-condition-modal');
+            const allergyModal = document.getElementById('add-allergy-modal');
+            
+            if (event.target === conditionModal) {
+                closeModal('add-condition-modal');
+            }
+            if (event.target === allergyModal) {
+                closeModal('add-allergy-modal');
+            }
+        });
+
+        // Condition field logic
+        function showConditionFields() {
+            const selectedCondition = document.getElementById('condition-select').value;
+            const diabetesFields = document.getElementById('diabetes-fields');
+            const generalFields = document.getElementById('general-fields');
+
+            // Hide all conditional fields first
+            diabetesFields.classList.remove('show');
+            generalFields.classList.remove('show');
+
+            // Show appropriate fields based on selection
+            if (selectedCondition === 'Diabetes') {
+                diabetesFields.classList.add('show');
+            } else if (selectedCondition) {
+                generalFields.classList.add('show');
+            }
+        }
+
+        function toggleOtherMedsField(show) {
+            const otherMedsField = document.getElementById('other-meds-field');
+            if (show) {
+                otherMedsField.classList.add('show');
+            } else {
+                otherMedsField.classList.remove('show');
+            }
+        }
+
+        function showAllergyFields() {
+            const selectedType = document.getElementById('allergy-type').value;
+            const drugNameField = document.querySelector('#add-allergy-form input[type="text"]');
+            
+            // Update placeholder based on allergy type
+            if (selectedType === 'Drug Allergies') {
+                drugNameField.placeholder = 'E.g. Penicillin';
+            } else if (selectedType === 'Food Allergies') {
+                drugNameField.placeholder = 'E.g. Peanuts, Shellfish';
+            } else if (selectedType === 'Environmental Allergies') {
+                drugNameField.placeholder = 'E.g. Pollen, Dust';
+            } else {
+                drugNameField.placeholder = 'E.g. Specific allergen name';
+            }
+        }
+
+        // Form submission handlers
+        document.getElementById('add-condition-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedCondition = document.getElementById('condition-select').value;
+            
+            // Remove selected condition from dropdown
+            const option = document.querySelector(`#condition-select option[value="${selectedCondition}"]`);
+            if (option) {
+                option.remove();
+            }
+
+            // Add condition to list (simplified for demo)
+            alert(`Condition "${selectedCondition}" added successfully!`);
+            closeModal('add-condition-modal');
+            
+            // Reset form
+            this.reset();
+            document.getElementById('diabetes-fields').classList.remove('show');
+            document.getElementById('general-fields').classList.remove('show');
+        });
+
+        document.getElementById('add-allergy-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Allergy added successfully!');
+            closeModal('add-allergy-modal');
+            this.reset();
+        });
+
+        // Edit/Delete functions
+        function editCondition(id) {
+            alert(`Edit condition: ${id}`);
+        }
+
+        function deleteCondition(id) {
+            if (confirm('Are you sure you want to delete this condition?')) {
+                alert(`Condition ${id} deleted`);
+            }
+        }
+
+        function editAllergy(id) {
+            alert(`Edit allergy: ${id}`);
+        }
+
+        function deleteAllergy(id) {
+            if (confirm('Are you sure you want to delete this allergy?')) {
+                alert(`Allergy ${id} deleted`);
+            }
+        }
+
+        // Render functions
+        function renderConditions() {
+            const container = document.getElementById('conditions-list');
+            const emptyState = document.getElementById('conditions-empty-state');
+            
+            if (conditions.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Clear existing content (except empty state)
+            const existingItems = container.querySelectorAll('.item-card');
+            existingItems.forEach(item => item.remove());
+            
+            // Render conditions
+            conditions.forEach(condition => {
+                const conditionCard = document.createElement('div');
+                conditionCard.className = 'item-card condition-item';
+                conditionCard.innerHTML = `
+                    <div class="item-header">
+                        <div>
+                            <div class="item-title">${condition.name}</div>
+                            <div class="item-details">
+                                <div class="item-detail">Diagnosed: ${condition.diagnosed}</div>
+                                <div class="item-detail">Status: ${condition.status}</div>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit-btn" onclick="editCondition('${condition.id}')">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="delete-btn" onclick="deleteCondition('${condition.id}')">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="3,6 5,6 21,6"/>
+                                    <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(conditionCard);
+            });
+        }
+
+        function renderAllergies() {
+            const container = document.getElementById('allergies-list');
+            const emptyState = document.getElementById('allergies-empty-state');
+            
+            if (allergies.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Clear existing content (except empty state)
+            const existingItems = container.querySelectorAll('.item-card');
+            existingItems.forEach(item => item.remove());
+            
+            // Render allergies
+            allergies.forEach(allergy => {
+                const allergyCard = document.createElement('div');
+                allergyCard.className = 'item-card allergy-item';
+                allergyCard.innerHTML = `
+                    <div class="item-header">
+                        <div>
+                            <div class="item-title">${allergy.name}</div>
+                            <div class="item-details">
+                                <div class="item-detail">Allergy Type: ${allergy.type}</div>
+                                <div class="item-detail">Status: ${allergy.status}</div>
+                                <div class="item-detail">Reaction: ${allergy.reaction}</div>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit-btn" onclick="editAllergy('${allergy.id}')">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="delete-btn" onclick="deleteAllergy('${allergy.id}')">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="3,6 5,6 21,6"/>
+                                    <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(allergyCard);
+            });
+        }
+
+        // Update counts
+        function updateCounts() {
+            document.getElementById('conditions-count').textContent = conditions.length;
+            document.getElementById('allergies-count').textContent = allergies.length;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show empty state by default
+            showEmptyState();
+            
+            // For demonstration, you can uncomment the line below to show data state instead
+            // showDataState();
+        });
+    </script>
+</body>
+</html>
