@@ -2717,6 +2717,208 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
+
+        /* Medicals Dashboard Components */
+        .patient-summary-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+        }
+        .patient-name {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        .patient-details {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .patient-details .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+        }
+        .patient-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+        .metric-card {
+            background: var(--white);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-md);
+            text-align: center;
+            transition: all var(--anim-normal);
+        }
+        .metric-card:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-primary);
+        }
+
+        /* Payment History Section */
+        .payment-history-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+        }
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--space-lg);
+        }
+        .payment-table th {
+            text-align: left;
+            padding: var(--space-md) 0;
+            border-bottom: 2px solid var(--border-secondary);
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .payment-table td {
+            padding: var(--space-lg) 0;
+            border-bottom: 1px solid var(--border-secondary);
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        .payment-table tbody tr:hover {
+            background: rgba(93, 120, 255, 0.02);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .status-failed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Pagination */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-lg);
+        }
+        .pagination-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .pagination-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        .pagination-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-secondary);
+            background: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            color: var(--text-secondary);
+        }
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Medicals Sidebar Navigation */
+        .medicals-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            color: var(--white);
+            padding: var(--space-xl);
+            border-radius: 16px;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .medicals-nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            position: relative;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-bottom: var(--space-sm);
+        }
+        .medicals-nav-link:hover {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .medicals-nav-link.active {
+            background: rgba(93, 120, 255, 0.15);
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: inset 0 0 20px rgba(93, 120, 255, 0.1);
+        }
+        .medicals-nav-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
     </style>
 </head>
 <body>
@@ -2735,6 +2937,7 @@
             <li><a href="#forms" class="nav-link">Forms</a></li>
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
             <li><a href="#support-components" class="nav-link">Support</a></li>
+            <li><a href="#medicals-components" class="nav-link">Medicals</a></li>
             <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
             <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
             <li><a href="#conditions-flow" class="nav-link">Conditions Flow</a></li>
@@ -3108,6 +3311,22 @@
                     <button class="btn btn-secondary" onclick="openModal('support-emergency-banner-modal')">Emergency Banner</button>
                     <button class="btn btn-secondary" onclick="openModal('support-email-card-modal')">Email Support Card</button>
                     <button class="btn btn-secondary" onclick="openModal('support-faq-modal')">FAQ Section</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="medicals-components">
+            <div class="section-header">
+                <h2 class="section-title">Medicals Dashboard Components</h2>
+                <p class="section-subtitle">Patient summary cards, payment history tables, and medical dashboard navigation components.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Medicals Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of medicals dashboard components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('medicals-patient-summary-modal')">Patient Summary Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-payment-history-modal')">Payment History Table</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-sidebar-nav-modal')">Medicals Sidebar</button>
                 </div>
             </div>
         </section>
@@ -3550,7 +3769,7 @@
                         <span class="accordion-icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required.</div>
+                        <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent.  There are no hidden fees, and insurance is not required.</div>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -5450,7 +5669,7 @@
                             <span class="accordion-icon">+</span>
                         </div>
                         <div class="accordion-content">
-                            <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required.</div>
+                            <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent.  There are no hidden fees, and insurance is not required.</div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -5462,6 +5681,163 @@
                             <div class="accordion-padding">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medicals Dashboard Modals -->
+    <div id="medicals-patient-summary-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Patient Summary Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Patient information display with key metrics and health data.</p>
+            <div class="patient-summary-card">
+                <div class="patient-name">Henry Tom</div>
+                <div class="patient-details">
+                    <span>Urgent Care Program</span>
+                    <div class="dot"></div>
+                    <span>19 Years</span>
+                    <div class="dot"></div>
+                    <span>Female</span>
+                </div>
+                <div class="patient-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Active encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Appointments</div>
+                        <div class="metric-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Active Meds</div>
+                        <div class="metric-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicals-payment-history-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Payment History Table</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Financial transaction history with status indicators and pagination.</p>
+            <div class="payment-history-section">
+                <h2 class="section-title">Payment History</h2>
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prescription</td>
+                            <td>26/09/2025</td>
+                            <td>$517.98</td>
+                            <td><span class="status-badge status-paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>Consultation</td>
+                            <td>20/09/2025</td>
+                            <td>$29.99</td>
+                            <td><span class="status-badge status-paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>Refill</td>
+                            <td>15/09/2025</td>
+                            <td>$45.99</td>
+                            <td><span class="status-badge status-paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>Appointment</td>
+                            <td>10/09/2025</td>
+                            <td>$89.99</td>
+                            <td><span class="status-badge status-paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>Consultation</td>
+                            <td>05/09/2025</td>
+                            <td>$29.99</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <div class="pagination-info">Showing 1 to 5 of 5 Results</div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15,18 9,12 15,6"/>
+                            </svg>
+                        </button>
+                        <button class="pagination-btn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9,18 15,12 9,6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicals-sidebar-nav-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medicals Sidebar Navigation</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Navigation sidebar with medical-specific icons and compact text sizing.</p>
+            <div class="medicals-sidebar">
+                <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl);">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">MD</div>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span>Medicals</span>
+                        <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Henry Tom</span>
+                    </div>
+                </div>
+                <div>
+                    <a href="#" class="medicals-nav-link">
+                        <svg class="medicals-nav-icon" viewBox="0 0 24 24">
+                            <path d="M10 2h4l2 2v16l-2 2h-4l-2-2V4l2-2z"/>
+                            <path d="M10 6h4"/>
+                            <path d="M10 10h4"/>
+                            <path d="M10 14h4"/>
+                        </svg>
+                        Medications
+                    </a>
+                    <a href="#" class="medicals-nav-link">
+                        <svg class="medicals-nav-icon" viewBox="0 0 24 24">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                        Conditions & Allergies
+                    </a>
+                    <a href="#" class="medicals-nav-link active">
+                        <svg class="medicals-nav-icon" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                        Payment History
+                    </a>
+                    <a href="#" class="medicals-nav-link">
+                        <svg class="medicals-nav-icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Support
+                    </a>
                 </div>
             </div>
         </div>
