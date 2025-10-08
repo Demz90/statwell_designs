@@ -538,11 +538,17 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(42, 59, 84, 0.1);
             background-color: var(--bg-secondary);
-            padding: var(--space-xl);
+            padding: var(--space-md);
+            max-width: 500px;
+            margin: 0 auto;
         }
         .hero-image-container img {
             width: 100%;
+            height: auto;
             display: block;
+            border-radius: 12px;
+            aspect-ratio: 4/5;
+            object-fit: cover;
         }
 
         /* Comparison Table */
@@ -585,8 +591,8 @@
         }
 
         /* FAQ Section */
-        .faq-section { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-xl); align-items: center; }
-        .faq-image { height: 300px; border-radius: 16px; object-fit: cover; }
+        .faq-section { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-xl); align-items: flex-start; }
+        .faq-image { width: 100%; height: auto; max-height: 100%; border-radius: 16px; object-fit: cover; position: sticky; top: var(--space-lg); }
         .faq-accordion .accordion-item { border: none; border-bottom: 1px solid var(--border-secondary); border-radius: 0; margin-bottom: 0;}
         .faq-accordion .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) 0; cursor: pointer; }
         .faq-accordion .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
@@ -669,7 +675,7 @@
                         <a href="#condition-selector-section" class="btn btn-coral" id="find-condition-btn">Find Your Condition</a>
                     </div>
                     <div class="hero-image-container">
-                        <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758081314/statwell_rx_icij7g.png" alt="Prescription Notification on a Phone">
+                        <img src="https://images.pexels.com/photos/4167541/pexels-photo-4167541.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&dpr=2" alt="Happy white family with father, mother, and child">
                     </div>
                 </div>
             </div>
@@ -753,29 +759,137 @@
                     <div class="faq-accordion" id="faq-accordion">
                         <div class="accordion-item">
                             <div class="accordion-header">
-                                <h3 class="text-title">What is StatwellMD?</h3>
+                                <h3 class="text-title">What is StatWellMD and how does it work?</h3>
                                 <span class="accordion-icon">+</span>
                             </div>
                             <div class="accordion-content">
-                                <div class="accordion-padding">StatwellMD is a telehealth platform dedicated to making affordable, quality, and fast urgent care available to everyone, with or without insurance. We believe healthcare should be simple, accessible, and stress-free.</div>
+                                <div class="accordion-padding">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <div class="accordion-header">
-                                <h3 class="text-title">Who are the doctors?</h3>
+                                <h3 class="text-title">What conditions can StatWellMD treat?</h3>
                                 <span class="accordion-icon">+</span>
                             </div>
                             <div class="accordion-content">
-                                <div class="accordion-padding">Your consultation will be handled by our dedicated in-house physician, who is a U.S.-licensed and board-certified medical doctor with years of experience in urgent care. He is certified to practice in all 50 states.</div>
+                                <div class="accordion-padding">We treat many common, non-emergency conditions, such as:<br>• Urinary tract infections (UTIs)<br>• Sinus infections, allergies, and cold sores<br>• Acne, eczema, and other skin conditions<br>• Birth control, women's health, and men's health<br>• Anxiety, insomnia, and depression refills<br><br>Each case is reviewed by a state-licensed provider who ensures your treatment is safe and appropriate.</div>
                             </div>
                         </div>
-                         <div class="accordion-item">
+                        <div class="accordion-item">
                             <div class="accordion-header">
-                                <h3 class="text-title">Is StatwellMD available in my state?</h3>
+                                <h3 class="text-title">How much does a StatWellMD visit cost?</h3>
                                 <span class="accordion-icon">+</span>
                             </div>
                             <div class="accordion-content">
-                                <div class="accordion-padding">Yes! Our service is available 24/7 to patients in all 50 states. Please note that prescriptions can only be filled during your local pharmacy's operating hours.</div>
+                                <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Are StatWellMD providers licensed and qualified?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">How are prescriptions sent and can I choose my pharmacy?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">If medication is appropriate, your provider sends your prescription electronically to any pharmacy you choose. You'll receive a confirmation email once it's transmitted, and you can pick it up just like a regular prescription.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Is my information safe and confidential?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Absolutely. StatWellMD uses end-to-end encryption and HIPAA-compliant systems to protect your data. Your personal and medical information is never shared, sold, or disclosed—only your assigned provider and care team can access your file.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">What if the provider decides I don't need medication?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">If your provider determines medication isn't necessary, you'll receive guidance on next steps or home care. In such cases, you are not charged for a prescription. Our focus is on safe, responsible medicine, not over-prescribing.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">What is the refund policy?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">If your visit isn't approved or no prescription is issued, you receive a full refund automatically. Once a provider reviews your consultation and sends a prescription, the service is considered rendered and non-refundable per federal telehealth guidelines.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">How do follow-ups or refills work?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Need a refill? Log into your account and submit a quick follow-up request. Many conditions qualify for discounted refill visits. Your provider may recommend periodic check-ins to ensure your treatment remains effective and safe.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Can StatWellMD prescribe controlled substances or narcotics?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">No. StatWellMD does not prescribe controlled substances, narcotics, or high-risk medications such as Adderall, Xanax, or opioids. We specialize in non-emergency, guideline-based care that prioritizes your safety.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">How quickly will I get a response from a provider?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Most consultations are reviewed within 2–4 hours (often faster). Requests submitted after hours are completed the next morning. You'll be notified by email and text once your provider has reviewed your case.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">What states is StatWellMD available in?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">StatWellMD currently operates in multiple U.S. states, with active expansion underway. When you begin your consultation, the platform automatically verifies if service is available in your state and notifies you as soon as new states are added.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">What if there's an issue with my pharmacy or prescription?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">If your pharmacy doesn't receive your prescription, contact our Support Team through the Help Center or by email. We'll verify and resend it—usually within an hour—so you can get your medication without delay.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Do I need insurance to use StatWellMD?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">No insurance is needed. StatWellMD uses a simple cash-pay model that keeps care affordable and straightforward. You can still use your insurance card at the pharmacy to help cover medication costs if eligible.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="text-title">Can I use StatWellMD on my phone or tablet?</h3>
+                                <span class="accordion-icon">+</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-padding">Yes! StatWellMD is mobile-friendly and works on any device—no app required. Complete your visit, upload photos, and receive your treatment plan directly from your phone, tablet, or computer at statwellmd.com.</div>
                             </div>
                         </div>
                     </div>

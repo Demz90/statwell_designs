@@ -1653,6 +1653,111 @@
             font-size: 24px; 
             font-weight: 700; 
         }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+            color: var(--white);
+            padding: var(--space-md);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            border-radius: 16px;
+        }
+
+        .emergency-banner-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .emergency-title-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .emergency-siren {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .emergency-text {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .emergency-description {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .emergency-number {
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Email Support Section */
+        .email-support-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-lg);
+        }
+
+        .email-support-section:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+
+        .email-icon {
+            background: linear-gradient(135deg, var(--primary), #4c63d2);
+            color: var(--white);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .email-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .email-text {
+            flex: 1;
+        }
+
+        .email-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .email-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
         .urgent-content p { 
             margin: 0 0 var(--space-lg) 0; 
             font-size: 16px; 
@@ -2629,6 +2734,7 @@
             <li><a href="#icons" class="nav-link">Icons</a></li>
             <li><a href="#forms" class="nav-link">Forms</a></li>
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
+            <li><a href="#support-components" class="nav-link">Support</a></li>
             <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
             <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
             <li><a href="#conditions-flow" class="nav-link">Conditions Flow</a></li>
@@ -2986,6 +3092,22 @@
                     <button class="btn btn-secondary" onclick="openModal('pattern-condition-selector-modal')">Condition Selector</button>
                     <button class="btn btn-secondary" onclick="openModal('pattern-hero-selector-modal')">Hero Selector (New)</button>
                     <button class="btn btn-secondary" onclick="openModal('pattern-value-hero-modal')">Value Prop Hero</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="support-components">
+            <div class="section-header">
+                <h2 class="section-title">Support Components</h2>
+                <p class="section-subtitle">Emergency banners, email support cards, and comprehensive FAQ sections for customer support.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Support Component Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of support components.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('support-emergency-banner-modal')">Emergency Banner</button>
+                    <button class="btn btn-secondary" onclick="openModal('support-email-card-modal')">Email Support Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('support-faq-modal')">FAQ Section</button>
                 </div>
             </div>
         </section>
@@ -3399,25 +3521,144 @@
     </div>
 
     <div id="pattern-faq-accordion-modal" class="modal">
-        <div class="modal-content modal-lg">
+        <div class="modal-content modal-full">
             <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">FAQ Accordion Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Comprehensive FAQ section with 15 detailed questions about StatWellMD services.</p>
             <div class="faq-accordion" id="faq-accordion-container">
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3 class="text-title">What is Call-On-Doc?</h3>
+                        <h3 class="text-title">What is StatWellMD and how does it work?</h3>
                         <span class="accordion-icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <div class="accordion-padding">Call-On-Doc is a telehealth platform that provides quick, easy, and affordable access to medical care online 7 days a week.</div>
+                        <div class="accordion-padding">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3 class="text-title">Are the doctors at Call-On-Doc licensed and board-certified?</h3>
+                        <h3 class="text-title">What conditions can StatWellMD treat?</h3>
                         <span class="accordion-icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <div class="accordion-padding">Yes, all of our medical providers are licensed and board-certified in their respective fields.</div>
+                        <div class="accordion-padding">We treat many common, non-emergency conditions, such as:<br>• Urinary tract infections (UTIs)<br>• Sinus infections, allergies, and cold sores<br>• Acne, eczema, and other skin conditions<br>• Birth control, women's health, and men's health<br>• Anxiety, insomnia, and depression refills<br><br>Each case is reviewed by a state-licensed provider who ensures your treatment is safe and appropriate.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">How much does a StatWellMD visit cost?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Are StatWellMD providers licensed and qualified?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">How are prescriptions sent and can I choose my pharmacy?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">If medication is appropriate, your provider sends your prescription electronically to any pharmacy you choose. You'll receive a confirmation email once it's transmitted, and you can pick it up just like a regular prescription.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Is my information safe and confidential?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Absolutely. StatWellMD uses end-to-end encryption and HIPAA-compliant systems to protect your data. Your personal and medical information is never shared, sold, or disclosed—only your assigned provider and care team can access your file.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">What if the provider decides I don't need medication?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">If your provider determines medication isn't necessary, you'll receive guidance on next steps or home care. In such cases, you are not charged for a prescription. Our focus is on safe, responsible medicine, not over-prescribing.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">What is the refund policy?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">If your visit isn't approved or no prescription is issued, you receive a full refund automatically. Once a provider reviews your consultation and sends a prescription, the service is considered rendered and non-refundable per federal telehealth guidelines.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">How do follow-ups or refills work?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Need a refill? Log into your account and submit a quick follow-up request. Many conditions qualify for discounted refill visits. Your provider may recommend periodic check-ins to ensure your treatment remains effective and safe.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Can StatWellMD prescribe controlled substances or narcotics?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">No. StatWellMD does not prescribe controlled substances, narcotics, or high-risk medications such as Adderall, Xanax, or opioids. We specialize in non-emergency, guideline-based care that prioritizes your safety.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">How quickly will I get a response from a provider?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Most consultations are reviewed within 2–4 hours (often faster). Requests submitted after hours are completed the next morning. You'll be notified by email and text once your provider has reviewed your case.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">What states is StatWellMD available in?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">StatWellMD currently operates in multiple U.S. states, with active expansion underway. When you begin your consultation, the platform automatically verifies if service is available in your state and notifies you as soon as new states are added.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">What if there's an issue with my pharmacy or prescription?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">If your pharmacy doesn't receive your prescription, contact our Support Team through the Help Center or by email. We'll verify and resend it—usually within an hour—so you can get your medication without delay.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Do I need insurance to use StatWellMD?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">No insurance is needed. StatWellMD uses a simple cash-pay model that keeps care affordable and straightforward. You can still use your insurance card at the pharmacy to help cover medication costs if eligible.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-title">Can I use StatWellMD on my phone or tablet?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">Yes! StatWellMD is mobile-friendly and works on any device—no app required. Complete your visit, upload photos, and receive your treatment plan directly from your phone, tablet, or computer at statwellmd.com.</div>
                     </div>
                 </div>
             </div>
@@ -5137,6 +5378,90 @@
                 <div style="display: flex; gap: var(--space-md); justify-content: center; margin-top: var(--space-lg);">
                     <button class="btn btn-secondary">Cancel</button>
                     <button class="btn btn-danger" disabled>Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Components Modals -->
+    <div id="support-emergency-banner-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Emergency Banner Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Emergency alert banner with siren icons and call-to-action for medical emergencies.</p>
+            <div class="emergency-banner">
+                <div class="emergency-banner-content">
+                    <div class="emergency-title-row">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1829/1829575.png" alt="Police Siren" class="emergency-siren">
+                        <div class="emergency-text">Medical Emergency</div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1829/1829575.png" alt="Police Siren" class="emergency-siren">
+                    </div>
+                    <div class="emergency-description">
+                        If you're experiencing a medical emergency, please call <span class="emergency-number">911</span> or go to your nearest emergency room immediately.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="support-email-card-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Email Support Card Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Support card with email icon, description, and call-to-action button.</p>
+            <section class="email-support-section">
+                <div class="email-icon">
+                    <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <div class="email-content">
+                    <div class="email-text">
+                        <h2 class="email-title">Email Support</h2>
+                        <p class="email-description">Send us a detailed message about your issue and we'll get back to you within 24 hours.</p>
+                    </div>
+                    <button class="btn btn-primary">Send a mail</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="support-faq-modal" class="modal">
+        <div class="modal-content modal-full">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">FAQ Section Component</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Comprehensive FAQ section with search functionality and expandable accordion items.</p>
+            <div class="faq-section" style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-xl); align-items: flex-start;">
+                <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="A friendly and professional doctor smiling" style="width: 100%; height: auto; max-height: 100%; border-radius: 16px; object-fit: cover; position: sticky; top: var(--space-lg);">
+                <div class="faq-accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3 class="text-title">What is StatWellMD and how does it work?</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-padding">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3 class="text-title">How much does a StatWellMD visit cost?</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-padding">Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3 class="text-title">Are StatWellMD providers licensed and qualified?</h3>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-padding">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

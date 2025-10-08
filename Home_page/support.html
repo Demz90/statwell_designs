@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - StatwellMD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-hero-blue: #007BFF;
+            --statwell-gray: #94A49A;
+            --statwell-teal-light: #65D5B8;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --black: #000000;
+            --light-gray: #f1f3f6;
+
+            /* Base */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: var(--statwell-gray);
+            --border-primary: var(--statwell-gray);
+            --border-secondary: #e0e0e0;
+
+            /* Functional Colors */
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --info: var(--statwell-blue);
+            
+            /* Fonts */
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Spacing & Animation */
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.2s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: var(--font-secondary); 
+            line-height: 1.6; 
+            background: var(--bg-secondary); 
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 700; }
+        .text-title { font-size: 18px; font-weight: 600; font-family: var(--font-primary); }
+        .text-caption { font-size: 14px; font-weight: 500; }
+        .text-muted { color: var(--text-secondary); }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+            color: var(--white);
+            padding: var(--space-md);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            border-radius: 16px;
+        }
+
+        .emergency-banner-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .emergency-title-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .emergency-siren {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .emergency-text {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .emergency-description {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .emergency-number {
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile Emergency Banner */
+        @media (max-width: 768px) {
+            .emergency-siren {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .emergency-text {
+                font-size: 14px;
+            }
+            
+            .emergency-description {
+                font-size: 12px;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            color: var(--white);
+            padding: var(--space-lg);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform var(--anim-normal);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* User Info */
+        .user-info {
+            margin-bottom: var(--space-xl);
+        }
+
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .platform-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .platform-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-name {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+
+        .platform-dropdown {
+            position: relative;
+        }
+
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+        }
+
+        .platform-dropdown-content.show {
+            display: block;
+        }
+
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all var(--anim-normal);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-badge {
+            background: var(--warning);
+            color: var(--white);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: var(--space-xl);
+            background: var(--bg-secondary);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Email Support Section */
+        .email-support-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-lg);
+        }
+
+        .email-support-section:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+
+        .email-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .email-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .email-text {
+            flex: 1;
+        }
+
+        .email-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .email-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--anim-normal);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #4F46E5 100%);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3), 0 2px 4px rgba(93, 120, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 120, 255, 0.4), 0 4px 8px rgba(93, 120, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            transition: all var(--anim-normal);
+        }
+
+        .faq-section:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
+        }
+
+        .faq-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .faq-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .faq-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* FAQ Search */
+        .faq-search-container {
+            position: relative;
+            margin-bottom: var(--space-xl);
+        }
+
+        .faq-search {
+            width: 100%;
+            padding: var(--space-md) var(--space-md) var(--space-md) 48px;
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all var(--anim-normal);
+            background: var(--white);
+        }
+
+        .faq-search:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* FAQ Accordion */
+        .faq-accordion .accordion-item {
+            border: none;
+            border-bottom: 1px solid var(--border-secondary);
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .faq-accordion .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg) 0;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+
+        .faq-accordion .accordion-header:hover {
+            background: rgba(93, 120, 255, 0.05);
+            margin: 0 calc(-1 * var(--space-lg));
+            padding-left: var(--space-lg);
+            padding-right: var(--space-lg);
+            border-radius: 8px;
+        }
+
+        .faq-accordion .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-accordion .accordion-padding {
+            padding: 0 0 var(--space-lg) 0;
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .faq-accordion .accordion-icon {
+            transition: transform 0.3s ease;
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .faq-accordion .accordion-header.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-accordion .accordion-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color var(--anim-normal);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-secondary);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-textarea {
+            padding: var(--space-md);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color var(--anim-normal);
+            background: var(--white);
+            font-family: var(--font-secondary);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-help-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: flex-end;
+            margin-top: var(--space-xl);
+        }
+
+        .modal-actions .btn {
+            padding: 12px 20px;
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--primary);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(93, 120, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            background: var(--success);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform var(--anim-normal);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--error);
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--anim-normal);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-lg);
+            }
+
+            .email-support-section {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .email-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .email-icon {
+                margin-bottom: var(--space-md);
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: var(--space-lg);
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions .btn {
+                max-width: none;
+            }
+
+            .faq-accordion .accordion-header:hover {
+                margin: 0;
+                padding: var(--space-lg) 0;
+                border-radius: 0;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            padding: var(--space-md);
+            cursor: pointer;
+            z-index: 150;
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+            transition: all var(--anim-normal);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);
+        }
+
+        .hamburger-icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-overlay.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <svg class="hamburger-icon" viewBox="0 0 24 24">
+            <path d="M3 12h18"/>
+            <path d="M3 6h18"/>
+            <path d="M3 18h18"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="user-info">
+            <div class="platform-dropdown">
+                <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div class="logo-icon">UC</div>
+                        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                            <span>Urgent Care</span>
+                            <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Henry Tom</span>
+                        </div>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="platform-dropdown-content" id="platform-dropdown">
+                    <a href="#" class="platform-dropdown-item">
+                        <svg class="dropdown-icon" viewBox="0 0 24 24">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Switch to Medicals
+                    </a>
+                    <a href="#" class="platform-dropdown-item" onclick="showLogoutModal()">
+                        <svg class="dropdown-icon" viewBox="0 0 24 24">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16,17 21,12 16,7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                Home <span class="nav-badge">21</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                Conditions</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                Encounters</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Appointments</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings</a></li>
+            <li class="nav-item"><a href="#" class="nav-link active">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Support</h1>
+            <p class="page-subtitle">Get assistance and support here</p>
+        </div>
+
+        <!-- Emergency Banner -->
+        <div class="emergency-banner">
+            <div class="emergency-banner-content">
+                <div class="emergency-title-row">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1829/1829575.png" alt="Police Siren" class="emergency-siren">
+                    <div class="emergency-text">Medical Emergency</div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1829/1829575.png" alt="Police Siren" class="emergency-siren">
+                </div>
+                <div class="emergency-description">
+                    If you're experiencing a medical emergency, please call <span class="emergency-number">911</span> or go to your nearest emergency room immediately.
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Support Section -->
+        <section class="email-support-section">
+            <div class="email-icon">
+                <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            </div>
+            <div class="email-content">
+                <div class="email-text">
+                    <h2 class="email-title">Email Support</h2>
+                    <p class="email-description">Send us a detailed message about your issue and we'll get back to you within 24 hours.</p>
+                </div>
+                <button class="btn btn-primary" onclick="openEmailModal()">Send a mail</button>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="faq-header">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-subtitle">Find answers to common questions about StatWellMD</p>
+            </div>
+
+            <!-- FAQ Search -->
+            <div class="faq-search-container">
+                <svg class="search-icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" class="faq-search" placeholder="Search FAQ..." id="faq-search">
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="faq-accordion" id="faq-accordion">
+                <!-- FAQ items will be populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Email Modal -->
+    <div class="modal" id="email-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+            <h3 class="modal-title">Send us a message</h3>
+            
+            <form id="email-form">
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" id="email-subject" placeholder="Brief description of your issue" required>
+                    <div class="form-help-text">Brief description of your issue.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" id="email-message" placeholder="Describe your issue in detail..." required></textarea>
+                    <div class="form-help-text">Include relevant details to help us assist you.</div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script>
+        // FAQ Data
+        const faqData = [
+            {
+                question: "What is StatWellMD and how does it work?",
+                answer: "StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required."
+            },
+            {
+                question: "What conditions can StatWellMD treat?",
+                answer: "We treat many common, non-emergency conditions, such as:\n• Urinary tract infections (UTIs)\n• Sinus infections, allergies, and cold sores\n• Acne, eczema, and other skin conditions\n• Birth control, women's health, and men's health\n• Anxiety, insomnia, and depression refills\n\nEach case is reviewed by a state-licensed provider who ensures your treatment is safe and appropriate."
+            },
+            {
+                question: "How much does a StatWellMD visit cost?",
+                answer: "Each visit is a flat $29.99 — simple, affordable, and transparent. You only pay if your consultation is approved and reviewed by a licensed provider. There are no hidden fees, and insurance is not required."
+            },
+            {
+                question: "Are StatWellMD providers licensed and qualified?",
+                answer: "Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care."
+            },
+            {
+                question: "How are prescriptions sent and can I choose my pharmacy?",
+                answer: "If medication is appropriate, your provider sends your prescription electronically to any pharmacy you choose. You'll receive a confirmation email once it's transmitted, and you can pick it up just like a regular prescription."
+            },
+            {
+                question: "Is my information safe and confidential?",
+                answer: "Absolutely. StatWellMD uses end-to-end encryption and HIPAA-compliant systems to protect your data. Your personal and medical information is never shared, sold, or disclosed—only your assigned provider and care team can access your file."
+            },
+            {
+                question: "What if the provider decides I don't need medication?",
+                answer: "If your provider determines medication isn't necessary, you'll receive guidance on next steps or home care. In such cases, you are not charged for a prescription. Our focus is on safe, responsible medicine, not over-prescribing."
+            },
+            {
+                question: "What is the refund policy?",
+                answer: "If your visit isn't approved or no prescription is issued, you receive a full refund automatically. Once a provider reviews your consultation and sends a prescription, the service is considered rendered and non-refundable per federal telehealth guidelines."
+            },
+            {
+                question: "How do follow-ups or refills work?",
+                answer: "Need a refill? Log into your account and submit a quick follow-up request. Many conditions qualify for discounted refill visits. Your provider may recommend periodic check-ins to ensure your treatment remains effective and safe."
+            },
+            {
+                question: "Can StatWellMD prescribe controlled substances or narcotics?",
+                answer: "No. StatWellMD does not prescribe controlled substances, narcotics, or high-risk medications such as Adderall, Xanax, or opioids. We specialize in non-emergency, guideline-based care that prioritizes your safety."
+            },
+            {
+                question: "How quickly will I get a response from a provider?",
+                answer: "Most consultations are reviewed within 2–4 hours (often faster). Requests submitted after hours are completed the next morning. You'll be notified by email and text once your provider has reviewed your case."
+            },
+            {
+                question: "What states is StatWellMD available in?",
+                answer: "StatWellMD currently operates in multiple U.S. states, with active expansion underway. When you begin your consultation, the platform automatically verifies if service is available in your state and notifies you as soon as new states are added."
+            },
+            {
+                question: "What if there's an issue with my pharmacy or prescription?",
+                answer: "If your pharmacy doesn't receive your prescription, contact our Support Team through the Help Center or by email. We'll verify and resend it—usually within an hour—so you can get your medication without delay."
+            },
+            {
+                question: "Do I need insurance to use StatWellMD?",
+                answer: "No insurance is needed. StatWellMD uses a simple cash-pay model that keeps care affordable and straightforward. You can still use your insurance card at the pharmacy to help cover medication costs if eligible."
+            },
+            {
+                question: "Can I use StatWellMD on my phone or tablet?",
+                answer: "Yes! StatWellMD is mobile-friendly and works on any device—no app required. Complete your visit, upload photos, and receive your treatment plan directly from your phone, tablet, or computer at statwellmd.com."
+            }
+        ];
+
+        // Platform dropdown toggle
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.platform-dropdown')) {
+                document.getElementById('platform-dropdown').classList.remove('show');
+                document.querySelector('.platform-switcher').classList.remove('open');
+            }
+        }
+
+        // Mobile sidebar functions
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+
+        // Email modal functions
+        function openEmailModal() {
+            document.getElementById('email-modal').classList.add('show');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('email-modal').classList.remove('show');
+            document.getElementById('email-form').reset();
+        }
+
+        // FAQ functionality
+        function renderFAQ(searchTerm = '') {
+            const accordion = document.getElementById('faq-accordion');
+            let filteredFAQs = faqData;
+
+            if (searchTerm) {
+                filteredFAQs = faqData.filter(faq => 
+                    faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            accordion.innerHTML = filteredFAQs.map((faq, index) => `
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 class="accordion-title">${faq.question}</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-padding">${faq.answer.replace(/\n/g, '<br>')}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const wasActive = header.classList.contains('active');
+
+            // Close all other accordions
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.style.maxHeight = null;
+            });
+
+            if (!wasActive) {
+                header.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        // FAQ search functionality
+        document.getElementById('faq-search').addEventListener('input', function(e) {
+            renderFAQ(e.target.value);
+        });
+
+        // Email form submission
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const subject = document.getElementById('email-subject').value;
+            const message = document.getElementById('email-message').value;
+            
+            if (subject && message) {
+                showToast('Your message has been sent successfully! We\'ll get back to you within 24 hours.', 'success');
+                closeEmailModal();
+            }
+        });
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Hide toast after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Initialize FAQ on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFAQ();
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const emailModal = document.getElementById('email-modal');
+            if (event.target === emailModal) {
+                closeEmailModal();
+            }
+        });
+    </script>
+</body>
+</html>
