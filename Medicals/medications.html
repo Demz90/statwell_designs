@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatwellMD - Medications</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* StatwellMD Colors */
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --statwell-white: #F5F7FA;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--statwell-white);
+            --text-primary: var(--statwell-navy);
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --primary: var(--statwell-blue);
+            --secondary: var(--statwell-teal);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: var(--statwell-coral);
+            --font-primary: 'Avenir Next', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+            --anim-normal: 0.3s;
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-secondary); line-height: 1.6; background: var(--bg-secondary); color: var(--text-primary); }
+
+        /* Layout */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%); 
+            color: var(--white); 
+            padding: var(--space-xl); 
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto; 
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+
+        /* Sidebar */
+        .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--primary), var(--statwell-teal)); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--white); 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
+        }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: var(--space-sm); }
+        .nav-link { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            padding: var(--space-sm) var(--space-md); 
+            border-radius: 12px; 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            transition: all var(--anim-normal);
+            position: relative;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .nav-link:hover { 
+            background: rgba(93, 120, 255, 0.1); 
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .nav-link.active { 
+            background: rgba(93, 120, 255, 0.15); 
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: inset 0 0 20px rgba(93, 120, 255, 0.1);
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--primary), var(--statwell-teal));
+            border-radius: 2px;
+            transition: height var(--anim-normal);
+        }
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            height: 20px;
+        }
+        .nav-icon { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Platform Switcher */
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+        .platform-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            width: 100%;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            gap: var(--space-lg);
+        }
+        .platform-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .platform-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(180deg, var(--statwell-navy) 0%, #1a1f3a 100%);
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 8px;
+            padding: var(--space-sm);
+        }
+        .platform-dropdown-content.show {
+            display: block;
+        }
+        .platform-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--anim-normal);
+            border-radius: 8px;
+            margin-bottom: 2px;
+        }
+        .platform-dropdown-item:hover {
+            background: rgba(93, 120, 255, 0.2);
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(255, 255, 255, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform var(--anim-normal);
+        }
+        .platform-switcher.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .welcome-text { font-size: 14px; color: var(--text-secondary); }
+        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+
+        /* Patient Summary Card */
+        .patient-summary-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+        }
+        .patient-name {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+        .patient-details {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .patient-details .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+        }
+        .patient-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+        .metric-card {
+            background: var(--white);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: var(--space-md);
+            text-align: center;
+            transition: all var(--anim-normal);
+        }
+        .metric-card:hover {
+            border-color: rgba(93, 120, 255, 0.25);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-primary);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-xl);
+        }
+
+        .medications-sections {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .count-badge {
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Medication Cards */
+        .medication-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+            margin-bottom: var(--space-md);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.05);
+        }
+
+        .medication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+
+        .medication-info {
+            flex: 1;
+        }
+
+        .medication-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .medication-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .medication-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        .medication-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* Status Indicators */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        .status-active { background: var(--success); }
+        .status-out-of-supply { background: var(--error); }
+        .status-rejected { background: var(--error); }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-md);
+            position: relative;
+        }
+
+        .progress-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-secondary);
+            z-index: 1;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--border-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline-circle.completed {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .timeline-circle.current {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .timeline-circle.step-number {
+            background: var(--white);
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Instructions Box */
+        .instructions-box {
+            background: rgba(93, 120, 255, 0.1);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Medication Info Card */
+        .medication-info-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+        }
+
+        .medication-info-card .medication-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .medication-info-card .medication-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .medication-info-card .medication-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Buttons */
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: var(--space-sm); 
+            padding: 8px 16px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 14px; 
+            position: relative;
+            overflow: hidden;
+            min-height: 36px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, #4F46E5 100%); 
+            color: var(--white); 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3), 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(93, 120, 255, 0.4), 0 4px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-secondary { 
+            background: var(--white); 
+            color: var(--primary); 
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .btn-secondary:hover { 
+            background: rgba(93, 120, 255, 0.05); 
+            border-color: var(--primary);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 16px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            min-height: 28px;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-lg);
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            margin-bottom: var(--space-lg);
+            line-height: 1.5;
+        }
+
+        /* Reminders Section */
+        .reminders-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+            height: fit-content;
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+        }
+
+        .reminder-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: var(--border-secondary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--anim-normal);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform var(--anim-normal);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        /* Medication History Table */
+        .medication-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-md);
+        }
+
+        .medication-history-table th,
+        .medication-history-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+
+        .medication-history-table th {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--light-gray);
+            font-size: 14px;
+        }
+
+        .medication-history-table td {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .medication-history-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        /* Pagination */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .pagination-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-secondary);
+            background: var(--white);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+            color: var(--text-secondary);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+            padding: var(--space-xl) 0;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: var(--space-xl);
+            padding-bottom: 80px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            margin-bottom: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color var(--anim-normal);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-secondary);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--anim-normal);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .patient-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .progress-timeline {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            .progress-timeline::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="platform-dropdown">
+                    <div class="platform-switcher" onclick="togglePlatformDropdown()">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div class="logo-icon">MD</div>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+                                <span>Medicals</span>
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Henry Tom</span>
+                            </div>
+                        </div>
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                    <div class="platform-dropdown-content" id="platform-dropdown">
+                        <a href="../Home_page/home_dashboard.html" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            Switch to Urgent Care
+                        </a>
+                        <a href="#" class="platform-dropdown-item">
+                            <svg class="dropdown-icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16,17 21,12 16,7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                        <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                    </svg>
+                    Medications</a></li>
+                <li class="nav-item"><a href="conditions_allergies.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    Conditions & Allergies</a></li>
+                <li class="nav-item"><a href="payment_history.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Payment History</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <div class="welcome-text">Welcome, Henry</div>
+                    <div class="page-title">Medications</div>
+                </div>
+                <div style="display: flex; gap: var(--space-sm);">
+                    <button class="btn btn-secondary btn-sm" onclick="showEmptyState()">Show Empty State</button>
+                    <button class="btn btn-secondary btn-sm" onclick="showFilledState()">Show Filled State</button>
+                </div>
+            </div>
+
+            <!-- Patient Summary Card -->
+            <div class="patient-summary-card">
+                <div class="patient-name">Henry Tom</div>
+                <div class="patient-details">
+                    <span>Urgent Care Program</span>
+                    <div class="dot"></div>
+                    <span>19 Years</span>
+                    <div class="dot"></div>
+                    <span>Female</span>
+                </div>
+                <div class="patient-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Active encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Appointments</div>
+                        <div class="metric-value">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Active Meds</div>
+                        <div class="metric-value" id="active-meds-count">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total encounter</div>
+                        <div class="metric-value">7</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Layout -->
+            <div class="main-layout">
+                <!-- Left Column - Medications Sections -->
+                <div class="medications-sections">
+                    <!-- Active Medications Section -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-title">
+                                Active medications
+                                <div class="count-badge" id="active-count">0</div>
+                            </div>
+                        </div>
+                        
+                        <div id="active-medications">
+                            <!-- Empty state will be shown by default -->
+                            <div class="empty-state" id="active-empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                                        <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">Nothing yet</div>
+                                <div class="empty-state-text">You have no active medications for your urgent care program.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Currently Processing Medications Section -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-title">
+                                Currently Processing Medications
+                                <div class="count-badge" id="processing-count">0</div>
+                            </div>
+                        </div>
+                        
+                        <div id="processing-medications">
+                            <!-- Empty state will be shown by default -->
+                            <div class="empty-state" id="processing-empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                                        <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">Nothing yet</div>
+                                <div class="empty-state-text">You have no medications currently being processed.</div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination for processing medications -->
+                        <div class="pagination-container" id="processing-pagination" style="display: none;">
+                            <div class="pagination-info">Showing 1 to 1 of 1 Results</div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" disabled>&lt;</button>
+                                <button class="pagination-btn" disabled>&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Past Medications Section -->
+                    <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">
+                            Past medications
+                            <div class="count-badge" id="past-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Refill Processing Fee Note -->
+                    <div id="refill-fee-note" style="display: none; background: rgba(94, 164, 153, 0.1); border: 1px solid rgba(94, 164, 153, 0.2); border-radius: 8px; padding: var(--space-md); margin-bottom: var(--space-lg); color: #000; font-size: 14px;">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                            <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                            <strong>Medication refill processing fee: $29.99 (covers all refills within 30 days)</strong>
+                        </div>
+                        <div id="payment-status-info" style="font-size: 13px; margin-left: 0;">
+                            <!-- Payment status will be populated here -->
+                        </div>
+                    </div>
+                        
+                        <div id="past-medications">
+                            <!-- Empty state will be shown by default -->
+                            <div class="empty-state" id="past-empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                                        <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">Nothing yet</div>
+                                <div class="empty-state-text">You have no past medications for your urgent care program.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medication History Section -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-title">
+                                Medication History
+                                <div class="count-badge" id="history-count">0</div>
+                            </div>
+                        </div>
+                        
+                        <div id="medication-history">
+                            <!-- Empty state will be shown by default -->
+                            <div class="empty-state" id="history-empty-state">
+                                <div class="empty-state-icon">
+                                    <svg style="width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14,2 14,8 20,8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10,9 9,9 8,9"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-state-title">Nothing yet</div>
+                                <div class="empty-state-text">You currently do not have any history yet.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Reminders -->
+                <div class="reminders-card">
+                    <div class="section-title" style="margin-bottom: var(--space-lg);">Reminders</div>
+                    <div class="reminder-item">
+                        <div class="reminder-text">Receive daily reminders to take your medication</div>
+                        <div class="toggle-switch" id="reminder-toggle" onclick="toggleReminder()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery Confirmation Modal -->
+    <div class="modal" id="delivery-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('delivery-modal')">&times;</button>
+            <h3 class="modal-title">Confirm Delivery Status</h3>
+            
+            <!-- Medication Information -->
+            <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                <div class="medication-name" id="delivery-medication-name">Presgen B Oral Liquid</div>
+                <div class="medication-details">
+                    <div class="medication-detail">Ordered: 26/09/2025</div>
+                    <div class="medication-detail">Estimated Delivery: 29/09/2025</div>
+                </div>
+            </div>
+            
+            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">Have you received your medication?</p>
+            
+            <!-- Warning -->
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); margin-bottom: var(--space-xl); color: var(--error); font-size: 14px;">
+                <strong>Warning:</strong> This action cannot be undone. Please confirm only if you have physically received your medication.
+            </div>
+            
+            <div style="display: flex; gap: var(--space-md);">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal('delivery-modal')">Cancel</button>
+                <button class="btn btn-primary" style="flex: 1;" onclick="confirmDelivery(true)">Yes, confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medication Details Modal -->
+    <div class="modal" id="medication-details-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('medication-details-modal')">&times;</button>
+            <h3 class="modal-title">Medication Details</h3>
+            
+            <div id="medication-details-content">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let medications = {
+            active: [],
+            processing: [],
+            past: [],
+            history: []
+        };
+
+        // Function to show filled state (for demonstration)
+        function showFilledState() {
+            // Active medications
+            medications.active = [
+                {
+                    id: 'tirzepatide-1',
+                    name: 'Tirzepatide (30-day supply)',
+                    status: 'active',
+                    prescribed: '5/28/2024',
+                    dosage: '20mg • 1 daily',
+                    duration: '30 days',
+                    refills: '3 refills',
+                    instructions: 'Inject subcutaneously once weekly, same day each week'
+                }
+            ];
+
+            // Processing medications
+            medications.processing = [
+                {
+                    id: 'tirzepatide-processing-1',
+                    name: 'Tirzepatide (30-day supply)',
+                    ordered: '5/28/2024',
+                    estimatedDelivery: '6/2/2024',
+                    currentStep: 4,
+                    steps: [
+                        { name: 'Requested', date: 'Mar 10', completed: true },
+                        { name: 'Approved', date: 'Mar 11', completed: true },
+                        { name: 'Order Placed', date: 'Mar 11', completed: true },
+                        { name: 'Delivered', date: 'Mar 11', completed: false, current: true }
+                    ]
+                },
+                {
+                    id: 'tirzepatide-processing-2',
+                    name: 'Tirzepatide (30-day supply)',
+                    ordered: '5/28/2024',
+                    estimatedDelivery: '6/2/2024',
+                    currentStep: 4,
+                    steps: [
+                        { name: 'Requested', date: 'Mar 10', completed: true },
+                        { name: 'Approved', date: 'Mar 11', completed: true },
+                        { name: 'Order Placed', date: 'Mar 11', completed: true },
+                        { name: 'Delivered', date: 'Mar 11', completed: false, current: true }
+                    ]
+                }
+            ];
+
+            // Past medications
+            medications.past = [
+                {
+                    id: 'tirzepatide-out',
+                    name: 'Tirzepatide (30-day supply)',
+                    status: 'out-of-supply',
+                    prescribed: '5/28/2024',
+                    dosage: '20mg • 1 daily',
+                    duration: '30 days',
+                    refills: '0 refills',
+                    instructions: 'Inject subcutaneously once weekly, same day each week'
+                },
+                {
+                    id: 'tirzepatide-rejected',
+                    name: 'Tirzepatide (30-day supply)',
+                    status: 'rejected',
+                    prescribed: '5/28/2024',
+                    dosage: '20mg • 1 daily',
+                    duration: '30 days',
+                    refills: '2 refills',
+                    instructions: 'Inject subcutaneously once weekly, same day each week'
+                }
+            ];
+
+            // Medication history
+            medications.history = [
+                {
+                    id: 'lisinopril-rejected',
+                    medication: 'Lisinopril',
+                    prescribed: '3/15/2025',
+                    dosage: '10mg • 1 daily',
+                    duration: '30 days',
+                    refills: '2 refills',
+                    ordered: '3/20/2025',
+                    delivered: '3/20/2025',
+                    status: 'rejected',
+                    instructions: 'Take once daily with or without food'
+                },
+                {
+                    id: 'lisinopril-completed',
+                    medication: 'Lisinopril',
+                    prescribed: '3/15/2025',
+                    dosage: '10mg • 1 daily',
+                    duration: '30 days',
+                    refills: '1 refill',
+                    ordered: '3/20/2025',
+                    delivered: '3/21/2025',
+                    status: 'completed',
+                    instructions: 'Take once daily with or without food',
+                    paymentPaid: true,
+                    daysLeft: 15
+                }
+            ];
+
+            renderAllMedications();
+            updateCounts();
+        }
+
+        // Function to show empty state
+        function showEmptyState() {
+            medications = {
+                active: [],
+                processing: [],
+                past: [],
+                history: []
+            };
+            renderAllMedications();
+            updateCounts();
+        }
+
+        // Platform dropdown functions
+        function togglePlatformDropdown() {
+            const dropdown = document.getElementById('platform-dropdown');
+            const switcher = document.querySelector('.platform-switcher');
+            dropdown.classList.toggle('show');
+            switcher.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.platform-switcher') && !event.target.closest('.platform-dropdown')) {
+                const dropdown = document.getElementById('platform-dropdown');
+                const switcher = document.querySelector('.platform-switcher');
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    switcher.classList.remove('open');
+                }
+            }
+        }
+
+        // Toggle reminder
+        function toggleReminder() {
+            const toggle = document.getElementById('reminder-toggle');
+            toggle.classList.toggle('active');
+        }
+
+        // Modal functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const modals = ['delivery-modal', 'medication-details-modal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        });
+
+        // Delivery confirmation
+        function confirmDelivery(received) {
+            alert(received ? 'Delivery confirmed! Your medication status has been updated.' : 'Delivery issue reported. Our support team will contact you.');
+            closeModal('delivery-modal');
+        }
+
+        // View medication details
+        function viewMedicationDetails(medicationId, type) {
+            let medication;
+            if (type === 'history') {
+                // For history items, we need to find by medication name
+                medication = medications.history.find(m => m.medication.toLowerCase().replace(/\s+/g, '') === medicationId);
+                if (medication) {
+                    const content = document.getElementById('medication-details-content');
+                    content.innerHTML = `
+                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                            <div class="medication-name">${medication.medication}</div>
+                            <div class="medication-details">
+                                <div class="medication-detail">Prescribed: ${medication.prescribed}</div>
+                                <div class="medication-detail">Dosage: ${medication.dosage}</div>
+                                <div class="medication-detail">Duration: ${medication.duration}</div>
+                                <div class="medication-detail">Refills: ${medication.refills}</div>
+                                <div class="medication-detail">Ordered: ${medication.ordered}</div>
+                                <div class="medication-detail">Delivered: ${medication.delivered}</div>
+                                <div class="medication-detail">Status: <span class="status-badge status-${medication.status}">${medication.status.charAt(0).toUpperCase() + medication.status.slice(1)}</span></div>
+                            </div>
+                        </div>
+                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                        
+                        ${medication.status === 'completed' ? `
+                            <!-- Refill Processing Fee Information -->
+                            <div style="background: rgba(94, 164, 153, 0.1); border: 1px solid rgba(94, 164, 153, 0.2); border-radius: 8px; padding: var(--space-md); margin-top: var(--space-lg); color: #000; font-size: 14px;">
+                                <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 6v6l4 2"/>
+                                    </svg>
+                                    <strong>Medication refill processing fee: $29.99 (covers all refills within 30 days)</strong>
+                                </div>
+                                ${medication.paymentPaid ? `
+                                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-left: 0;">
+                                        <svg style="width: 16px; height: 16px; stroke: var(--success); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                            <polyline points="22,4 12,14.01 9,11.01"/>
+                                        </svg>
+                                        <span style="color: var(--success);">Payment Status: <strong>Paid</strong> • ${medication.daysLeft} days remaining until next payment required</span>
+                                    </div>
+                                ` : `
+                                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-left: 0;">
+                                        <svg style="width: 16px; height: 16px; stroke: var(--statwell-navy); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 8v4"/>
+                                            <path d="M12 16h.01"/>
+                                        </svg>
+                                        <span style="color: var(--statwell-navy);">Payment Status: <strong>Not paid</strong> • Make a refill request to pay the processing fee</span>
+                                    </div>
+                                `}
+                            </div>
+                            
+                            <!-- Delivery Confirmation -->
+                            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--success); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Delivery Confirmed:</strong> This medication was successfully delivered on ${medication.delivered}. The medication was received and confirmed by the patient.
+                            </div>
+                        ` : medication.status === 'rejected' ? `
+                            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Refill Rejected:</strong> Your request for this refill was rejected. Please contact support for assistance.
+                            </div>
+                        ` : `
+                            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Delivery Issue:</strong> This medication delivery was not completed as expected.
+                            </div>
+                        `}
+                    `;
+                }
+            } else {
+                medication = medications[type].find(m => m.id === medicationId);
+                if (medication) {
+                    const content = document.getElementById('medication-details-content');
+                    content.innerHTML = `
+                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                            <div class="medication-name">${medication.name}</div>
+                            <div class="medication-details">
+                                <div class="medication-detail">Prescribed: ${medication.prescribed || 'N/A'}</div>
+                                <div class="medication-detail">Dosage: ${medication.dosage || 'N/A'}</div>
+                                ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
+                                ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
+                                ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
+                                ${medication.estimatedDelivery ? `<div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>` : ''}
+                                ${medication.status ? `<div class="medication-detail">Status: <span class="status-dot status-${medication.status}"></span>${medication.status}</div>` : ''}
+                            </div>
+                        </div>
+                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                    `;
+                }
+            }
+            document.getElementById('medication-details-modal').classList.add('show');
+        }
+
+        // Request refill
+        function requestRefill(medicationId) {
+            // Redirect to refill flow
+            window.location.href = 'refill_existing_users.html?medication=' + medicationId;
+        }
+
+        // Update status
+        function updateStatus(medicationId) {
+            const medication = medications.processing.find(m => m.id === medicationId);
+            if (medication) {
+                document.getElementById('delivery-medication-name').textContent = medication.name;
+                const detailsContainer = document.querySelector('#delivery-modal .medication-details');
+                detailsContainer.innerHTML = `
+                    <div class="medication-detail">Prescribed: ${medication.prescribed || '5/28/2024'}</div>
+                    <div class="medication-detail">Dosage: ${medication.dosage || '20mg • 1 daily'}</div>
+                    <div class="medication-detail">Duration: ${medication.duration || '30 days'}</div>
+                    <div class="medication-detail">Refills: ${medication.refills || '2 refills'}</div>
+                    <div class="medication-detail">Ordered: ${medication.ordered}</div>
+                    <div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>
+                `;
+            }
+            document.getElementById('delivery-modal').classList.add('show');
+        }
+
+        // Render functions
+        function renderAllMedications() {
+            renderActiveMedications();
+            renderProcessingMedications();
+            renderPastMedications();
+            renderMedicationHistory();
+        }
+
+        function renderActiveMedications() {
+            const container = document.getElementById('active-medications');
+            const emptyState = document.getElementById('active-empty-state');
+            
+            if (medications.active.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Clear existing content (except empty state)
+            const existingCards = container.querySelectorAll('.medication-card');
+            existingCards.forEach(card => card.remove());
+            
+            // Render active medications
+            medications.active.forEach(medication => {
+                const card = document.createElement('div');
+                card.className = 'medication-card';
+                card.innerHTML = `
+                    <div class="medication-header">
+                        <div class="medication-info">
+                            <div class="medication-name">${medication.name}</div>
+                            <div class="medication-details">
+                                <div class="medication-detail">
+                                    <span class="status-dot status-active"></span>Active
+                                </div>
+                                <div class="medication-detail">Prescribed: ${medication.prescribed} • ${medication.dosage}</div>
+                                <div class="medication-detail">Duration: ${medication.duration} • ${medication.refills}</div>
+                            </div>
+                            <div class="instructions-box">
+                                <strong>Doctor's instruction:</strong><br>
+                                ${medication.instructions}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderProcessingMedications() {
+            const container = document.getElementById('processing-medications');
+            const emptyState = document.getElementById('processing-empty-state');
+            const pagination = document.getElementById('processing-pagination');
+            
+            if (medications.processing.length === 0) {
+                emptyState.style.display = 'block';
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            pagination.style.display = 'flex';
+            
+            // Clear existing content (except empty state)
+            const existingCards = container.querySelectorAll('.medication-card');
+            existingCards.forEach(card => card.remove());
+            
+            // Render processing medications
+            medications.processing.forEach(medication => {
+                const card = document.createElement('div');
+                card.className = 'medication-card';
+                
+                const timelineSteps = medication.steps.map((step, index) => `
+                    <div class="timeline-step">
+                        <div class="timeline-circle ${step.completed ? 'completed' : ''} ${step.current ? 'current' : ''} ${step.current && !step.completed ? 'step-number' : ''}">
+                            ${step.completed ? '✓' : (step.current ? (index + 1) : (index + 1))}
+                        </div>
+                        <div class="timeline-label">${step.name}</div>
+                        <div class="timeline-date">${step.date}</div>
+                    </div>
+                `).join('');
+                
+                card.innerHTML = `
+                    <div class="medication-header">
+                        <div class="medication-info">
+                            <div class="medication-name">${medication.name}</div>
+                            <div class="medication-details">
+                                <div class="medication-detail">Ordered: ${medication.ordered} • Est. delivery: ${medication.estimatedDelivery}</div>
+                            </div>
+                            <div class="progress-timeline">
+                                ${timelineSteps}
+                            </div>
+                        </div>
+                        <div class="medication-actions">
+                            ${medication.steps[medication.steps.length - 1].completed ? 
+                                `<button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.id}', 'processing')">View</button>` :
+                                `<button class="btn btn-secondary btn-sm" onclick="updateStatus('${medication.id}')">Update status</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderPastMedications() {
+            const container = document.getElementById('past-medications');
+            const emptyState = document.getElementById('past-empty-state');
+            
+            if (medications.past.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Clear existing content (except empty state)
+            const existingCards = container.querySelectorAll('.medication-card');
+            existingCards.forEach(card => card.remove());
+            
+            // Render past medications
+            medications.past.forEach(medication => {
+                const card = document.createElement('div');
+                card.className = 'medication-card';
+                
+                const statusClass = medication.status === 'out-of-supply' ? 'status-out-of-supply' : 'status-rejected';
+                const statusText = medication.status === 'out-of-supply' ? 'Out of supply' : 'Refill rejected';
+                const buttonDisabled = medication.status === 'rejected' ? 'disabled' : '';
+                
+                card.innerHTML = `
+                    <div class="medication-header">
+                        <div class="medication-info">
+                            <div class="medication-name">${medication.name}</div>
+                            <div class="medication-details">
+                                <div class="medication-detail">
+                                    <span class="status-dot ${statusClass}"></span>${statusText}
+                                </div>
+                                <div class="medication-detail">Prescribed: ${medication.prescribed} • ${medication.dosage}</div>
+                                <div class="medication-detail">Duration: ${medication.duration} • ${medication.refills}</div>
+                            </div>
+                        </div>
+                        <div class="medication-actions">
+                            <button class="btn btn-primary btn-sm" onclick="requestRefill('${medication.id}')" ${buttonDisabled}>Request refill</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                // Add rejection message if applicable
+                if (medication.status === 'rejected') {
+                    const rejectionMessage = document.createElement('div');
+                    rejectionMessage.style.cssText = `
+                        margin-top: var(--space-md);
+                        padding: var(--space-md);
+                        background: rgba(239, 68, 68, 0.1);
+                        border-radius: 8px;
+                        border: 1px solid rgba(239, 68, 68, 0.2);
+                        color: var(--error);
+                        font-size: 14px;
+                        display: flex;
+                        align-items: center;
+                        gap: var(--space-sm);
+                    `;
+                    rejectionMessage.innerHTML = `
+                        <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Your request for this refill was rejected, please contact support
+                    `;
+                    card.appendChild(rejectionMessage);
+                }
+
+                // Show the refill fee note when there are past medications
+                if (medications.past.length > 0) {
+                    document.getElementById('refill-fee-note').style.display = 'block';
+                    updatePaymentStatus();
+                }
+            });
+        }
+
+        function renderMedicationHistory() {
+            const container = document.getElementById('medication-history');
+            const emptyState = document.getElementById('history-empty-state');
+            
+            if (medications.history.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Clear existing content (except empty state)
+            const existingTable = container.querySelector('.medication-history-table');
+            if (existingTable) {
+                existingTable.remove();
+            }
+            
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'medication-history-table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Ordered</th>
+                        <th>Delivered</th>
+                        <th>Status</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${medications.history.map(medication => `
+                        <tr>
+                            <td>${medication.medication}</td>
+                            <td>${medication.ordered}</td>
+                            <td>${medication.delivered}</td>
+                            <td><span class="status-badge status-${medication.status}">${medication.status.charAt(0).toUpperCase() + medication.status.slice(1)}</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.medication.toLowerCase()}', 'history')">View</button></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+            container.appendChild(table);
+        }
+
+        // Update payment status
+        function updatePaymentStatus() {
+            const paymentStatusInfo = document.getElementById('payment-status-info');
+            const paymentPaid = true; // This would be determined by backend logic
+            const daysLeft = 15; // This would be calculated from payment date
+            
+            if (paymentPaid) {
+                paymentStatusInfo.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <svg style="width: 16px; height: 16px; stroke: var(--success); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span style="color: var(--success);">Payment Status: <strong>Paid</strong> • ${daysLeft} days remaining until next payment required</span>
+                    </div>
+                `;
+            } else {
+                paymentStatusInfo.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <svg style="width: 16px; height: 16px; stroke: var(--statwell-navy); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4"/>
+                            <path d="M12 16h.01"/>
+                        </svg>
+                        <span style="color: var(--statwell-navy);">Payment Status: <strong>Not paid</strong> • Make a refill request to pay the processing fee</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Update counts
+        function updateCounts() {
+            document.getElementById('active-count').textContent = medications.active.length;
+            document.getElementById('processing-count').textContent = medications.processing.length;
+            document.getElementById('past-count').textContent = medications.past.length;
+            document.getElementById('history-count').textContent = medications.history.length;
+            document.getElementById('active-meds-count').textContent = medications.active.length;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show empty state by default
+            showEmptyState();
+            
+            // For demonstration, you can uncomment the line below to show filled state instead
+            // showFilledState();
+        });
+    </script>
+</body>
+</html>

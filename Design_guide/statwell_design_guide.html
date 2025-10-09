@@ -3071,6 +3071,240 @@
             margin-bottom: var(--space-lg);
             line-height: 1.5;
         }
+
+        /* Medications Components */
+        .medication-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+            margin-bottom: var(--space-md);
+            position: relative;
+        }
+
+        .medication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+
+        .medication-info {
+            flex: 1;
+        }
+
+        .medication-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .medication-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .medication-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        .medication-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* Status Indicators */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: var(--space-xs);
+        }
+
+        .status-active { background: var(--success); }
+        .status-out-of-supply { background: var(--error); }
+        .status-rejected { background: var(--text-secondary); }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-md);
+            position: relative;
+        }
+
+        .progress-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-secondary);
+            z-index: 1;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--border-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline-circle.completed {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .timeline-circle.current {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Instructions Box */
+        .instructions-box {
+            background: rgba(93, 120, 255, 0.1);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* Medication History Table */
+        .medication-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-md);
+        }
+
+        .medication-history-table th,
+        .medication-history-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+
+        .medication-history-table th {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--light-gray);
+            font-size: 14px;
+        }
+
+        .medication-history-table td {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .medication-history-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        /* Reminders Section */
+        .reminders-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.05);
+            height: fit-content;
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+        }
+
+        .reminder-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: var(--border-secondary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--anim-normal);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform var(--anim-normal);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 <body>
@@ -3482,6 +3716,12 @@
                     <button class="btn btn-secondary" onclick="openModal('medicals-conditions-card-modal')">Conditions Card</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-allergies-card-modal')">Allergies Card</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-empty-state-modal')">Empty State</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-active-card-modal')">Active Medication Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-processing-card-modal')">Processing Medication Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-past-card-modal')">Past Medication Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-history-table-modal')">Medication History Table</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-reminders-modal')">Reminders Section</button>
+                    <button class="btn btn-secondary" onclick="openModal('medications-refill-flow-modal')">Refill Flow Step</button>
                 </div>
             </div>
         </section>
@@ -5962,10 +6202,8 @@
                 <div>
                     <a href="#" class="medicals-nav-link">
                         <svg class="medicals-nav-icon" viewBox="0 0 24 24">
-                            <path d="M10 2h4l2 2v16l-2 2h-4l-2-2V4l2-2z"/>
-                            <path d="M10 6h4"/>
-                            <path d="M10 10h4"/>
-                            <path d="M10 14h4"/>
+                            <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                            <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
                         </svg>
                         Medications
                     </a>
@@ -6178,6 +6416,263 @@
                             Add Allergy
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medications Modals -->
+    <div id="medications-active-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Active Medication Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Active medication card with status indicator and instructions.</p>
+            
+            <div class="medication-card">
+                <div class="medication-header">
+                    <div class="medication-info">
+                        <div class="medication-name">Tirzepatide (30-day supply)</div>
+                        <div class="medication-details">
+                            <div class="medication-detail">
+                                <span class="status-dot status-active"></span>Active
+                            </div>
+                            <div class="medication-detail">Prescribed: 5/28/2024 • 20mg • 1 daily</div>
+                        </div>
+                        <div class="instructions-box">Inject subcutaneously once weekly, same day each week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medications-processing-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Processing Medication Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Processing medication card with progress timeline and action buttons.</p>
+            
+            <div class="medication-card">
+                <div class="medication-header">
+                    <div class="medication-info">
+                        <div class="medication-name">Presgen B Oral Liquid</div>
+                        <div class="medication-details">
+                            <div class="medication-detail">Ordered: 26/09/2025 • Est. delivery: 29/09/2025</div>
+                        </div>
+                        <div class="progress-timeline">
+                            <div class="timeline-step">
+                                <div class="timeline-circle completed">✓</div>
+                                <div class="timeline-label">Requested</div>
+                                <div class="timeline-date">Sep 26</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-circle completed">✓</div>
+                                <div class="timeline-label">Approved</div>
+                                <div class="timeline-date">Jan 1</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-circle completed">✓</div>
+                                <div class="timeline-label">Placed</div>
+                                <div class="timeline-date">Sep 26</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-circle current">4</div>
+                                <div class="timeline-label">Delivered</div>
+                                <div class="timeline-date">Sep 29</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medication-actions">
+                        <button class="btn btn-secondary btn-sm">Update status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medications-past-card-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Past Medication Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Past medication card with status indicators and action buttons.</p>
+            
+            <div class="medication-card">
+                <div class="medication-header">
+                    <div class="medication-info">
+                        <div class="medication-name">Tirzepatide (30-day supply)</div>
+                        <div class="medication-details">
+                            <div class="medication-detail">
+                                <span class="status-dot status-out-of-supply"></span>Out of supply
+                            </div>
+                            <div class="medication-detail">Prescribed: 5/28/2024 • 20mg • 1 daily</div>
+                        </div>
+                    </div>
+                    <div class="medication-actions">
+                        <button class="btn btn-primary btn-sm">Request refill</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="medication-card" style="margin-top: var(--space-md);">
+                <div class="medication-header">
+                    <div class="medication-info">
+                        <div class="medication-name">Tirzepatide (30-day supply)</div>
+                        <div class="medication-details">
+                            <div class="medication-detail">
+                                <span class="status-dot status-rejected"></span>Refill rejected
+                            </div>
+                            <div class="medication-detail">Prescribed: 5/28/2024 • 20mg • 1 daily</div>
+                        </div>
+                    </div>
+                    <div class="medication-actions">
+                        <button class="btn btn-primary btn-sm" disabled>Request refill</button>
+                    </div>
+                </div>
+                <div style="margin-top: var(--space-md); padding: var(--space-md); background: rgba(93, 120, 255, 0.1); border-radius: 8px; border: 1px solid rgba(93, 120, 255, 0.2); color: var(--text-primary); font-size: 14px; display: flex; align-items: center; gap: var(--space-sm);">
+                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Your request for this refill was rejected, please contact support
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medications-history-table-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medication History Table</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Historical medication records in table format with status badges.</p>
+            
+            <table class="medication-history-table">
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Ordered</th>
+                        <th>Delivered</th>
+                        <th>Status</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lisinopril</td>
+                        <td>3/20/2025</td>
+                        <td>3/20/2025</td>
+                        <td><span class="status-badge status-rejected">Rejected</span></td>
+                        <td><button class="btn btn-secondary btn-sm">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Lisinopril</td>
+                        <td>3/20/2025</td>
+                        <td>3/20/2025</td>
+                        <td><span class="status-badge status-completed">Completed</span></td>
+                        <td><button class="btn btn-secondary btn-sm">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="medications-reminders-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Reminders Section</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Medication reminder toggle with interactive switch.</p>
+            
+            <div class="reminders-card">
+                <div class="section-title" style="margin-bottom: var(--space-lg);">Reminders</div>
+                <div class="reminder-item">
+                    <div class="reminder-text">Receive daily reminders to take your medication</div>
+                    <div class="toggle-switch active">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medications-refill-flow-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medication Refill Flow</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Step-by-step refill flow with progress navigation, prefilled medication details, and payment summary.</p>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <!-- Progress Navigation -->
+                <div class="progress-navigation" style="margin-bottom: var(--space-xl);">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Medication Details</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Side Effects</div>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Allergy Screening</div>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Review & Confirm</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medication Info Card (Prefilled) -->
+                <div style="background: var(--light-gray); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg); border: 1px solid var(--border-secondary);">
+                    <div style="font-weight: 600; font-size: 18px; color: var(--text-primary); margin-bottom: var(--space-md);">Tirzepatide (30-day supply)</div>
+                    <div style="display: grid; gap: var(--space-sm); color: var(--text-secondary); font-size: 14px;">
+                        <div><strong style="color: var(--text-primary);">Dosage:</strong> 20mg • 1 daily</div>
+                        <div><strong style="color: var(--text-primary);">Duration:</strong> 30 days</div>
+                        <div><strong style="color: var(--text-primary);">Refills:</strong> 3 refills</div>
+                    </div>
+                    <div class="instructions-box" style="margin-top: var(--space-md);">
+                        <strong>Doctor's instruction:</strong><br>
+                        Inject subcutaneously once weekly, same day each week. Rotate injection sites.
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div style="background: rgba(94, 164, 153, 0.1); border: 1px solid rgba(94, 164, 153, 0.2); border-radius: 12px; padding: var(--space-lg);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); color: #000;">
+                        <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                        <strong>Medication refill processing fee: $29.99</strong>
+                    </div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: var(--space-sm);">
+                        This fee covers all refills within the next 30 days from the date of payment.
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <svg style="width: 16px; height: 16px; stroke: var(--success); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span style="color: var(--success); font-size: 14px;">Payment Status: <strong>Paid</strong> • 15 days remaining until next payment required</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div style="display: flex; justify-content: space-between; margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--border-secondary);">
+                    <button class="btn btn-secondary">Back</button>
+                    <button class="btn btn-primary">Submit Refill Request</button>
                 </div>
             </div>
         </div>
