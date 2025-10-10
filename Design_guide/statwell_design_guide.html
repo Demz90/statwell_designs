@@ -3072,6 +3072,121 @@
             line-height: 1.5;
         }
 
+        /* Multiple Drug Allergies Components */
+        .allergy-list {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: var(--space-sm);
+        }
+
+        .allergy-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .allergy-item-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .allergy-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .allergy-item-detail {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .add-allergy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: var(--space-sm) var(--space-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--anim-normal) var(--smooth);
+            margin-top: var(--space-md);
+        }
+
+        .add-allergy-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .remove-allergy-btn {
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--anim-normal) var(--smooth);
+        }
+
+        .remove-allergy-btn:hover {
+            background: #dc2626;
+        }
+
+        .saved-allergy-item {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            border: 1px solid var(--border-secondary);
+        }
+
+        .saved-allergy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .saved-allergy-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .saved-allergy-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .saved-allergy-detail {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .edit-saved-allergy-btn {
+            background: var(--statwell-teal);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--anim-normal) var(--smooth);
+        }
+
+        .edit-saved-allergy-btn:hover {
+            background: var(--statwell-teal-light);
+        }
+
         /* Medications Components */
         .medication-card {
             background: var(--light-gray);
@@ -3722,6 +3837,7 @@
                     <button class="btn btn-secondary" onclick="openModal('medications-history-table-modal')">Medication History Table</button>
                     <button class="btn btn-secondary" onclick="openModal('medications-reminders-modal')">Reminders Section</button>
                     <button class="btn btn-secondary" onclick="openModal('medications-refill-flow-modal')">Refill Flow Step</button>
+                    <button class="btn btn-secondary" onclick="openModal('multiple-allergies-modal')">Multiple Drug Allergies</button>
                 </div>
             </div>
         </section>
@@ -6674,6 +6790,121 @@
                     <button class="btn btn-secondary">Back</button>
                     <button class="btn btn-primary">Submit Refill Request</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiple Drug Allergies Modal -->
+    <div id="multiple-allergies-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Multiple Drug Allergies Management</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Interactive system for managing multiple drug allergies with preview states and edit functionality.</p>
+            
+            <div style="max-width: 600px; margin: 0 auto;">
+                <!-- Saved Allergies Preview -->
+                <div style="margin-bottom: var(--space-lg);">
+                    <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Saved Allergies</h5>
+                    
+                    <!-- Sample Saved Allergy 1 -->
+                    <div class="saved-allergy-item">
+                        <div class="saved-allergy-header">
+                            <div class="saved-allergy-title">Penicillin</div>
+                            <button class="edit-saved-allergy-btn">
+                                <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="saved-allergy-details">
+                            <div class="saved-allergy-detail"><strong>Status:</strong> Active</div>
+                            <div class="saved-allergy-detail"><strong>Reaction Type:</strong> Severe allergic reaction</div>
+                            <div class="saved-allergy-detail"><strong>Reactions/Symptoms:</strong> Rash, difficulty breathing, swelling</div>
+                            <div class="saved-allergy-detail"><strong>Onset Date:</strong> 2020-05-15</div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Saved Allergy 2 -->
+                    <div class="saved-allergy-item">
+                        <div class="saved-allergy-header">
+                            <div class="saved-allergy-title">Sulfa Drugs</div>
+                            <button class="edit-saved-allergy-btn">
+                                <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="saved-allergy-details">
+                            <div class="saved-allergy-detail"><strong>Status:</strong> Active</div>
+                            <div class="saved-allergy-detail"><strong>Reaction Type:</strong> Mild allergic reaction</div>
+                            <div class="saved-allergy-detail"><strong>Reactions/Symptoms:</strong> Nausea, headache</div>
+                            <div class="saved-allergy-detail"><strong>Onset Date:</strong> 2019-08-22</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Form for New Allergy -->
+                <div style="background: var(--light-gray); border-radius: 12px; padding: var(--space-lg); border: 1px solid var(--border-secondary);">
+                    <div class="allergy-item-header">
+                        <div class="allergy-item-title">Add New Drug Allergy</div>
+                        <button class="remove-allergy-btn">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="3,6 5,6 21,6"/>
+                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                <line x1="10" y1="11" x2="10" y2="17"/>
+                                <line x1="14" y1="11" x2="14" y2="17"/>
+                            </svg>
+                            Remove
+                        </button>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label class="form-label">Drug Name *</label>
+                        <input type="text" class="form-input" placeholder="Enter drug name" value="Aspirin">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label class="form-label">Status *</label>
+                        <select class="form-select">
+                            <option value="">Select status</option>
+                            <option value="active" selected>Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label class="form-label">Reaction Type *</label>
+                        <select class="form-select">
+                            <option value="">Select reaction type</option>
+                            <option value="mild">Mild allergic reaction</option>
+                            <option value="severe" selected>Severe allergic reaction</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label class="form-label">Reactions/Symptoms *</label>
+                        <textarea class="form-textarea" placeholder="Describe your reactions and symptoms" rows="3">Stomach pain, nausea, vomiting</textarea>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: var(--space-md);">
+                        <label class="form-label">Onset Date (Optional)</label>
+                        <input type="date" class="form-input" value="2021-03-10">
+                    </div>
+                </div>
+
+                <!-- Add Another Allergy Button -->
+                <button class="add-allergy-btn" style="width: 100%; margin-top: var(--space-lg);">
+                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: var(--space-sm);" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="16"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                    Add Drug Allergy
+                </button>
             </div>
         </div>
     </div>
