@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to StatWellMD — Your Admin Account is Ready</title>
+    <style>
+        :root {
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-gray: #94A49A;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --text-primary: #2A3B54;
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --warning: #F59E0B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            background: var(--statwell-blue);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .email-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            line-height: 1.2;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .email-content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .main-message {
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .task-details {
+            background: linear-gradient(135deg, rgba(64, 191, 170, 0.1) 0%, rgba(93, 120, 255, 0.1) 100%);
+            border: 2px solid var(--statwell-teal);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .login-info {
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .login-detail {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .login-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .login-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .login-value {
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            background-color: var(--light-gray);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .capabilities-list {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .capability-item {
+            font-size: 16px;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .capability-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--statwell-teal);
+            font-weight: bold;
+        }
+
+        .capability-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .security-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #856404;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--statwell-blue);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 8px 0 24px 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #4c6bff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.4);
+        }
+
+        .closing {
+            font-size: 16px;
+            margin: 32px 0 24px;
+            color: var(--text-primary);
+        }
+
+        .team-signature {
+            font-weight: 600;
+            color: var(--statwell-navy);
+        }
+
+        .email-footer {
+            background-color: var(--light-gray);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .social-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .email-header,
+            .email-content,
+            .email-footer {
+                padding: 24px 20px;
+            }
+            
+            .email-title {
+                font-size: 24px;
+            }
+            
+            .cta-button {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+            <h1 class="email-title">Welcome to StatWellMD — Your Admin Account is Ready</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="email-content">
+            <div class="greeting">Hi [First Name],</div>
+            
+            <div class="main-message">
+                You've been added as an Admin User on the StatWellMD platform.
+            </div>
+
+            <div class="main-message">
+                Your login details are below:
+            </div>
+
+            <div class="task-details">
+                <div class="task-title">
+                    <svg viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                    </svg>
+                    Your Login Details
+                </div>
+                <div class="login-info">
+                    <div class="login-detail">
+                        <span class="login-label">Email:</span> <span class="login-value">[Email Address]</span>
+                    </div>
+                    <div class="login-detail">
+                        <span class="login-label">Temporary Password:</span> <span class="login-value">[Password]</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: var(--space-lg);">
+                <a href="../Home_page/home_dashboard.html" class="cta-button">Log In to Dashboard</a>
+            </div>
+
+            <div class="main-message">
+                Once logged in, you can manage patient encounters, monitor provider actions, and access admin tools.<br>
+                Please change your password immediately after your first login for security reasons.
+            </div>
+
+            <div class="closing">
+                Welcome aboard,<br>
+                <span class="team-signature">The StatWellMD Team</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="social-links">
+                <a href="https://www.instagram.com/statwell_md/profilecard/?igsh=MWc1d2Jud3VnanczZg==" class="social-link">Instagram</a>
+                <a href="https://www.facebook.com/profile.php?id=61578209372583&mibextid=rS40aB7S9Ucbxw6v" class="social-link">Facebook</a>
+                <a href="https://youtube.com/@statwellmd?si=OVpywtD_B1lino4x" class="social-link">YouTube</a>
+                <a href="https://x.com/statwellmd?s=11" class="social-link">X</a>
+                <a href="https://www.tiktok.com/@statwellmd7?_t=ZM-8xwVq3Wlvte&_r=1" class="social-link">TikTok</a>
+                <a href="https://www.linkedin.com/company/statwellmd/" class="social-link">LinkedIn</a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Unsubscribe</a>
+            </div>
+            
+            <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New refill request awaiting review</title>
+    <style>
+        :root {
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-gray: #94A49A;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --text-primary: #2A3B54;
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --warning: #F59E0B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            background: var(--warning);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .email-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            line-height: 1.2;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .email-content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .main-message {
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .refill-details {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .refill-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .refill-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .refill-info {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .refill-info:last-child {
+            margin-bottom: 0;
+        }
+
+        .refill-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .refill-value {
+            color: var(--text-secondary);
+        }
+
+        .action-required {
+            background-color: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #92400e;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--warning);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 8px 0 24px 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .closing {
+            font-size: 16px;
+            margin: 32px 0 24px;
+            color: var(--text-primary);
+        }
+
+        .team-signature {
+            font-weight: 600;
+            color: var(--statwell-navy);
+        }
+
+        .email-footer {
+            background-color: var(--light-gray);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .social-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .email-header,
+            .email-content,
+            .email-footer {
+                padding: 24px 20px;
+            }
+            
+            .email-title {
+                font-size: 24px;
+            }
+            
+            .cta-button {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+            <h1 class="email-title">New refill request awaiting review</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="email-content">
+            <div class="greeting">Hi [Provider Name],</div>
+            
+            <div class="main-message">
+                A patient has submitted a new refill request requiring your review.
+            </div>
+
+            <div class="refill-details">
+                <div class="refill-title">
+                    <svg viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                    </svg>
+                    Refill Request Details
+                </div>
+                <div class="refill-info">
+                    <span class="refill-label">Patient:</span> <span class="refill-value">[Patient Name]</span>
+                </div>
+                <div class="refill-info">
+                    <span class="refill-label">Medication:</span> <span class="refill-value">[Medication Name]</span>
+                </div>
+                <div class="refill-info">
+                    <span class="refill-label">Condition:</span> <span class="refill-value">[Condition Name]</span>
+                </div>
+                <div class="refill-info">
+                    <span class="refill-label">Date Requested:</span> <span class="refill-value">[Date]</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: var(--space-lg);">
+                <a href="../Home_page/home_dashboard.html" class="cta-button">Review Refill Request</a>
+            </div>
+
+            <div class="main-message">
+                Please review and approve or deny the refill as clinically appropriate.
+            </div>
+
+            <div class="closing">
+                Thank you for ensuring safe and responsible prescribing.<br><br>
+                <span class="team-signature">The StatWellMD Team</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="social-links">
+                <a href="https://www.instagram.com/statwell_md/profilecard/?igsh=MWc1d2Jud3VnanczZg==" class="social-link">Instagram</a>
+                <a href="https://www.facebook.com/profile.php?id=61578209372583&mibextid=rS40aB7S9Ucbxw6v" class="social-link">Facebook</a>
+                <a href="https://youtube.com/@statwellmd?si=OVpywtD_B1lino4x" class="social-link">YouTube</a>
+                <a href="https://x.com/statwellmd?s=11" class="social-link">X</a>
+                <a href="https://www.tiktok.com/@statwellmd7?_t=ZM-8xwVq3Wlvte&_r=1" class="social-link">TikTok</a>
+                <a href="https://www.linkedin.com/company/statwellmd/" class="social-link">LinkedIn</a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Unsubscribe</a>
+            </div>
+            
+            <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

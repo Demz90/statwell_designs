@@ -628,6 +628,7 @@
             padding: var(--space-lg);
             margin-bottom: var(--space-md);
             border: 1px solid var(--border-secondary);
+            position: relative;
         }
         .allergy-header {
             display: flex;
@@ -641,34 +642,106 @@
             color: var(--text-primary);
         }
         .remove-allergy-btn {
-            background: var(--error);
-            color: var(--white);
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
             border: none;
             border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 12px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all var(--anim-normal);
         }
         .remove-allergy-btn:hover {
-            background: #e53e3e;
-            transform: translateY(-1px);
+            background: rgba(239, 68, 68, 0.2);
         }
         .add-allergy-btn {
             width: 100%;
             border: 2px dashed var(--border-secondary);
-            background: transparent;
+            background: var(--light-gray);
             color: var(--text-secondary);
             padding: var(--space-lg);
             border-radius: 12px;
             cursor: pointer;
             transition: all var(--anim-normal);
             margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
         }
         .add-allergy-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
             background: rgba(93, 120, 255, 0.05);
+        }
+
+        /* Saved Allergy Preview */
+        .saved-allergy-item {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-secondary);
+            border-left: 4px solid #8b5cf6;
+            position: relative;
+            margin-bottom: var(--space-md);
+            opacity: 0.8;
+        }
+
+        .saved-allergy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .saved-allergy-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .saved-allergy-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .saved-allergy-detail {
+            margin-bottom: var(--space-xs);
+        }
+
+        .edit-saved-allergy-btn {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+
+        .edit-saved-allergy-btn:hover {
+            background: rgba(93, 120, 255, 0.2);
+        }
+
+        .allergy-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
         }
 
         /* Success State */
@@ -1548,6 +1621,7 @@
         let selectedConditions = [];
         let conditionDetails = {};
         let allergies = [];
+        let savedAllergies = [];
         let allergyCounter = 0;
 
         // Medical conditions data
@@ -1879,111 +1953,244 @@
             const addAllergyBtn = document.getElementById('add-allergy-btn');
             
             if (show) {
-                addAllergyBtn.style.display = 'block';
-                if (allergies.length === 0) {
-                    addAllergy();
+                addAllergyBtn.style.display = 'flex';
+                // Add initial form if none exists
+                if (allergiesContainer.children.length === 0) {
+                    addNewAllergyForm();
                 }
             } else {
                 addAllergyBtn.style.display = 'none';
                 allergiesContainer.innerHTML = '';
                 allergies = [];
+                savedAllergies = [];
                 allergyCounter = 0;
             }
         }
 
         // Add allergy
         function addAllergy() {
+            // Save current allergy form if it exists and has data
+            saveCurrentAllergy();
+            
+            // Add new empty allergy form
+            addNewAllergyForm();
+        }
+
+        // Add a new empty allergy form
+        function addNewAllergyForm() {
             allergyCounter++;
             const allergyId = `allergy-${allergyCounter}`;
             
-            const allergyItem = document.createElement('div');
-            allergyItem.className = 'allergy-item';
-            allergyItem.id = allergyId;
-            allergyItem.innerHTML = `
-                <div class="allergy-header">
-                    <div class="allergy-title">Allergy ${allergyCounter}</div>
-                    <button type="button" class="remove-allergy-btn" onclick="removeAllergy('${allergyId}')">Remove</button>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Allergy Type</label>
-                    <select class="form-input" onchange="updateAllergy('${allergyId}', 'type', this.value)">
-                        <option value="">Select type</option>
-                        <option value="drug">Drug Allergy</option>
-                        <option value="food">Food Allergy</option>
-                        <option value="environmental">Environmental Allergy</option>
-                        <option value="insect">Insect Allergy</option>
-                        <option value="latex">Latex Allergy</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Allergy Name</label>
-                    <input type="text" class="form-input" placeholder="e.g., Penicillin, Peanuts, Pollen" onchange="updateAllergy('${allergyId}', 'name', this.value)">
-                </div>
-                
-                <div class="form-row">
+            const allergyFormCard = document.createElement('div');
+            allergyFormCard.className = 'allergy-form-card';
+            allergyFormCard.id = allergyId;
+            
+            allergyFormCard.innerHTML = `
+                <div class="allergy-item">
+                    <button type="button" class="remove-allergy-btn" onclick="removeAllergy('${allergyId}')">
+                        <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                    
                     <div class="form-group">
-                        <label class="form-label">Status</label>
-                        <select class="form-input" onchange="updateAllergy('${allergyId}', 'status', this.value)">
-                            <option value="">Select status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                        <label class="form-label">Allergy Type</label>
+                        <select class="form-input" name="allergy-type">
+                            <option value="">Select type</option>
+                            <option value="drug">Drug Allergy</option>
+                            <option value="food">Food Allergy</option>
+                            <option value="environmental">Environmental Allergy</option>
+                            <option value="insect">Insect Allergy</option>
+                            <option value="latex">Latex Allergy</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Severity</label>
-                        <select class="form-input" onchange="updateAllergy('${allergyId}', 'severity', this.value)">
-                            <option value="">Select severity</option>
-                            <option value="mild">Mild</option>
-                            <option value="moderate">Moderate</option>
-                            <option value="severe">Severe</option>
-                        </select>
+                        <label class="form-label">Allergy Name</label>
+                        <input type="text" class="form-input" name="allergy-name" placeholder="e.g., Penicillin, Peanuts, Pollen">
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Reactions/Symptoms</label>
-                    <input type="text" class="form-input" placeholder="e.g., Rash, difficulty breathing, nausea" onchange="updateAllergy('${allergyId}', 'reactions', this.value)">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Onset Date (Optional)</label>
-                    <input type="date" class="form-input" onchange="updateAllergy('${allergyId}', 'onsetDate', this.value)">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-input" name="allergy-status">
+                                <option value="">Select status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Severity</label>
+                            <select class="form-input" name="allergy-severity">
+                                <option value="">Select severity</option>
+                                <option value="mild">Mild</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="severe">Severe</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Reactions/Symptoms</label>
+                        <input type="text" class="form-input" name="allergy-reactions" placeholder="e.g., Rash, difficulty breathing, nausea">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Onset Date (Optional)</label>
+                        <input type="date" class="form-input" name="allergy-onset-date">
+                    </div>
                 </div>
             `;
             
-            document.getElementById('allergies-container').appendChild(allergyItem);
-            
-            // Initialize allergy data
-            allergies.push({
-                id: allergyId,
-                name: '',
-                status: '',
-                severity: '',
-                reactions: '',
-                onsetDate: ''
-            });
+            document.getElementById('allergies-container').appendChild(allergyFormCard);
         }
 
-        // Update allergy
-        function updateAllergy(allergyId, field, value) {
-            const allergy = allergies.find(a => a.id === allergyId);
-            if (allergy) {
-                allergy[field] = value;
+        // Save current allergy form data
+        function saveCurrentAllergy() {
+            const allergyCards = document.querySelectorAll('.allergy-form-card');
+            const currentForm = allergyCards[allergyCards.length - 1]; // Get the last form
+            
+            if (currentForm) {
+                const allergyName = currentForm.querySelector('input[name="allergy-name"]').value.trim();
+                const allergyType = currentForm.querySelector('select[name="allergy-type"]').value;
+                const status = currentForm.querySelector('select[name="allergy-status"]').value;
+                const severity = currentForm.querySelector('select[name="allergy-severity"]').value;
+                const reactions = currentForm.querySelector('input[name="allergy-reactions"]').value.trim();
+                const onsetDate = currentForm.querySelector('input[name="allergy-onset-date"]').value;
+                
+                if (allergyName) {
+                    const savedAllergy = {
+                        id: currentForm.id,
+                        name: allergyName,
+                        type: allergyType,
+                        status,
+                        severity,
+                        reactions,
+                        onsetDate
+                    };
+                    
+                    // Check if this allergy is already saved
+                    const existingIndex = savedAllergies.findIndex(a => a.id === currentForm.id);
+                    if (existingIndex >= 0) {
+                        savedAllergies[existingIndex] = savedAllergy;
+                    } else {
+                        savedAllergies.push(savedAllergy);
+                    }
+                    
+                    // Convert form to preview
+                    convertToPreview(currentForm, savedAllergy);
+                }
+            }
+        }
+
+        // Convert form to preview state
+        function convertToPreview(formElement, allergyData) {
+            formElement.className = 'allergy-preview-card';
+            formElement.innerHTML = `
+                <div class="saved-allergy-item">
+                    <button type="button" class="edit-saved-allergy-btn" onclick="editSavedAllergy('${allergyData.id}')">
+                        <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="saved-allergy-header">
+                        <div>
+                            <div class="saved-allergy-title">${allergyData.name}</div>
+                            <div class="saved-allergy-details">
+                                <div class="saved-allergy-detail">Type: ${allergyData.type ? allergyData.type.charAt(0).toUpperCase() + allergyData.type.slice(1) + ' Allergy' : 'Not specified'}</div>
+                                <div class="saved-allergy-detail">Status: ${allergyData.status ? allergyData.status.charAt(0).toUpperCase() + allergyData.status.slice(1) : 'Not specified'}</div>
+                                <div class="saved-allergy-detail">Severity: ${allergyData.severity ? allergyData.severity.charAt(0).toUpperCase() + allergyData.severity.slice(1) : 'Not specified'}</div>
+                                ${allergyData.reactions ? `<div class="saved-allergy-detail">Reactions: ${allergyData.reactions}</div>` : ''}
+                                ${allergyData.onsetDate ? `<div class="saved-allergy-detail">Onset Date: ${new Date(allergyData.onsetDate).toLocaleDateString()}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Edit saved allergy
+        function editSavedAllergy(allergyId) {
+            const savedAllergy = savedAllergies.find(a => a.id === allergyId);
+            if (savedAllergy) {
+                const formElement = document.getElementById(allergyId);
+                formElement.className = 'allergy-form-card';
+                
+                formElement.innerHTML = `
+                    <div class="allergy-item">
+                        <button type="button" class="remove-allergy-btn" onclick="removeAllergy('${allergyId}')">
+                            <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Allergy Type</label>
+                            <select class="form-input" name="allergy-type">
+                                <option value="">Select type</option>
+                                <option value="drug" ${savedAllergy.type === 'drug' ? 'selected' : ''}>Drug Allergy</option>
+                                <option value="food" ${savedAllergy.type === 'food' ? 'selected' : ''}>Food Allergy</option>
+                                <option value="environmental" ${savedAllergy.type === 'environmental' ? 'selected' : ''}>Environmental Allergy</option>
+                                <option value="insect" ${savedAllergy.type === 'insect' ? 'selected' : ''}>Insect Allergy</option>
+                                <option value="latex" ${savedAllergy.type === 'latex' ? 'selected' : ''}>Latex Allergy</option>
+                                <option value="other" ${savedAllergy.type === 'other' ? 'selected' : ''}>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Allergy Name</label>
+                            <input type="text" class="form-input" name="allergy-name" placeholder="e.g., Penicillin, Peanuts, Pollen" value="${savedAllergy.name}">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-input" name="allergy-status">
+                                    <option value="">Select status</option>
+                                    <option value="active" ${savedAllergy.status === 'active' ? 'selected' : ''}>Active</option>
+                                    <option value="inactive" ${savedAllergy.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Severity</label>
+                                <select class="form-input" name="allergy-severity">
+                                    <option value="">Select severity</option>
+                                    <option value="mild" ${savedAllergy.severity === 'mild' ? 'selected' : ''}>Mild</option>
+                                    <option value="moderate" ${savedAllergy.severity === 'moderate' ? 'selected' : ''}>Moderate</option>
+                                    <option value="severe" ${savedAllergy.severity === 'severe' ? 'selected' : ''}>Severe</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Reactions/Symptoms</label>
+                            <input type="text" class="form-input" name="allergy-reactions" placeholder="e.g., Rash, difficulty breathing, nausea" value="${savedAllergy.reactions}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Onset Date (Optional)</label>
+                            <input type="date" class="form-input" name="allergy-onset-date" value="${savedAllergy.onsetDate}">
+                        </div>
+                    </div>
+                `;
+                
+                // Remove from saved allergies
+                savedAllergies = savedAllergies.filter(a => a.id !== allergyId);
             }
         }
 
         // Remove allergy
         function removeAllergy(allergyId) {
-            allergies = allergies.filter(a => a.id !== allergyId);
-            document.getElementById(allergyId).remove();
-            
-            // Hide add button if no allergies left
-            if (allergies.length === 0) {
-                document.getElementById('add-allergy-btn').style.display = 'none';
-                document.getElementById('have-allergies').checked = false;
+            const allergyForm = document.getElementById(allergyId);
+            if (allergyForm) {
+                allergyForm.remove();
             }
+            
+            // Remove from saved allergies if it was saved
+            savedAllergies = savedAllergies.filter(a => a.id !== allergyId);
         }
 
         // Navigation functions

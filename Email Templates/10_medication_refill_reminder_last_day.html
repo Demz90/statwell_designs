@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your prescription has reached its final day</title>
+    <style>
+        :root {
+            --statwell-teal: #40BFAA;
+            --statwell-blue: #5D78FF;
+            --statwell-gray: #94A49A;
+            --statwell-navy: #2A3B54;
+            --statwell-coral: #FF6B6B;
+            --white: #FFFFFF;
+            --light-gray: #f1f3f6;
+            --text-primary: #2A3B54;
+            --text-secondary: #94A49A;
+            --border-secondary: #e0e0e0;
+            --error: #FF6B6B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            background: var(--error);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .email-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            line-height: 1.2;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .email-content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .main-message {
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .medication-details {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 138, 138, 0.1) 100%);
+            border: 2px solid var(--error);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .medication-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--error);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .medication-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .medication-info {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .medication-info:last-child {
+            margin-bottom: 0;
+        }
+
+        .medication-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .medication-value {
+            color: var(--text-secondary);
+        }
+
+        .urgent-notice {
+            background-color: #fef2f2;
+            border: 1px solid var(--error);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 14px;
+            color: #991b1b;
+            text-align: center;
+        }
+
+        .process-info {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .process-text {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--error);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 8px 0 24px 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        }
+
+        .closing {
+            font-size: 16px;
+            margin: 32px 0 24px;
+            color: var(--text-primary);
+        }
+
+        .team-signature {
+            font-weight: 600;
+            color: var(--statwell-navy);
+        }
+
+        .email-footer {
+            background-color: var(--light-gray);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .social-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .email-header,
+            .email-content,
+            .email-footer {
+                padding: 24px 20px;
+            }
+            
+            .email-title {
+                font-size: 24px;
+            }
+            
+            .cta-button {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+            <h1 class="email-title">Your prescription has reached its final day</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="email-content">
+            <div class="greeting">Hi [First Name],</div>
+            
+            <div class="main-message">
+                Your prescription for [Medication Name] has reached its final day.
+            </div>
+
+            <div class="main-message">
+                To continue your treatment without interruption, please submit your refill request now.
+            </div>
+
+            <div style="text-align: center; margin-top: var(--space-lg);">
+                <a href="../Medicals/medications.html" class="cta-button">Request My Refill</a>
+            </div>
+
+            <div class="main-message">
+                Your provider will review your request and send your refill to your preferred pharmacy once approved.
+            </div>
+
+            <div class="closing">
+                Thank you for choosing StatWellMD — we're here to support your health journey.<br><br>
+                Warm regards,<br>
+                <span class="team-signature">The StatWellMD Team</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="social-links">
+                <a href="https://www.instagram.com/statwell_md/profilecard/?igsh=MWc1d2Jud3VnanczZg==" class="social-link">Instagram</a>
+                <a href="https://www.facebook.com/profile.php?id=61578209372583&mibextid=rS40aB7S9Ucbxw6v" class="social-link">Facebook</a>
+                <a href="https://youtube.com/@statwellmd?si=OVpywtD_B1lino4x" class="social-link">YouTube</a>
+                <a href="https://x.com/statwellmd?s=11" class="social-link">X</a>
+                <a href="https://www.tiktok.com/@statwellmd7?_t=ZM-8xwVq3Wlvte&_r=1" class="social-link">TikTok</a>
+                <a href="https://www.linkedin.com/company/statwellmd/" class="social-link">LinkedIn</a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Unsubscribe</a>
+            </div>
+            
+            <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
