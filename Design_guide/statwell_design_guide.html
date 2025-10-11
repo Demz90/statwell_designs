@@ -1736,12 +1736,6 @@
             flex-shrink: 0;
         }
 
-        .email-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: var(--space-lg);
-        }
 
         .email-text {
             flex: 1;
@@ -3420,6 +3414,897 @@
         .toggle-switch.active .toggle-slider {
             transform: translateX(26px);
         }
+
+        /* Email Template Components */
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: block !important;
+            width: 100%;
+        }
+        
+        /* Ensure email templates display as single column */
+        .modal .email-container,
+        .modal .email-content,
+        .modal .email-header,
+        .modal .email-footer {
+            display: block !important;
+            width: 100% !important;
+        }
+        
+        .modal .email-content > * {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .email-header {
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .email-header.blue {
+            background: var(--statwell-blue);
+        }
+
+        .email-header.coral {
+            background: var(--statwell-coral);
+        }
+
+        .email-header.success {
+            background: var(--success);
+        }
+
+        .email-header.warning {
+            background: var(--warning);
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .email-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            line-height: 1.2;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .email-content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .main-message {
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--statwell-blue);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 8px 0 24px 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #4c6bff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.4);
+        }
+
+        .features-list {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-teal);
+        }
+
+        .feature-item {
+            font-size: 16px;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .feature-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--statwell-teal);
+            font-weight: bold;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .closing {
+            font-size: 16px;
+            margin: 32px 0 24px;
+            color: var(--text-primary);
+        }
+
+        .team-signature {
+            font-weight: 600;
+            color: var(--statwell-navy);
+        }
+
+        .email-footer {
+            background-color: var(--light-gray);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .social-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--statwell-blue);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Email Specific Components */
+        .process-steps {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .process-step {
+            font-size: 16px;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .process-step:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--statwell-blue);
+            font-weight: bold;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-item {
+            font-size: 16px;
+            margin-bottom: 16px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--statwell-blue);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pharmacy-details {
+            background-color: #ecfdf5;
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .pharmacy-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pharmacy-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .pharmacy-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pharmacy-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .important-note {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .request-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .request-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .request-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .request-info {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .request-label {
+            font-weight: 600;
+        }
+
+        .request-value {
+            color: var(--text-secondary);
+        }
+
+        .refill-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-teal);
+        }
+
+        .refill-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-teal);
+            margin-bottom: 12px;
+        }
+
+        .refill-info {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .refill-label {
+            font-weight: 600;
+        }
+
+        .refill-value {
+            color: var(--text-secondary);
+        }
+
+        .reason-box {
+            background-color: #fef2f2;
+            border: 2px solid var(--error);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .reason-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--error);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .reason-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .reason-text {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .medication-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        .medication-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .medication-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .medication-info {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .medication-label {
+            font-weight: 600;
+        }
+
+        .medication-value {
+            color: var(--text-secondary);
+        }
+
+        .condition-info {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .condition-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .condition-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .condition-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .condition-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .condition-value {
+            color: var(--text-secondary);
+        }
+
+        .medication-reminder {
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .medication-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            stroke: var(--statwell-teal);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .medication-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .reminder-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .motivation-text {
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--statwell-teal);
+            margin: 24px 0;
+        }
+
+        .credentials-box {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-navy);
+        }
+
+        .credentials-item {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .credentials-label {
+            font-weight: 600;
+        }
+
+        .credentials-value {
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+
+        .consultation-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .consultation-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .consultation-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .consultation-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .prescription-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .prescription-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prescription-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .prescription-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .payment-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--error);
+        }
+
+        .payment-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--error);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .payment-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .task-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-navy);
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--statwell-navy);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .login-info {
+            margin-top: 16px;
+        }
+
+        .login-detail {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .login-label {
+            font-weight: 600;
+        }
+
+        .login-value {
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+
+        .refill-request-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--statwell-blue);
+        }
+
+        .encounter-details {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .encounter-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .encounter-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .encounter-detail {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        /* Medical Patient Snap Info Card */
+        .patient-snap-info-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .patient-snap-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+
+        .patient-snap-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .patient-snap-title svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            stroke: var(--statwell-blue);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .patient-snap-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .patient-snap-status.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .patient-snap-status.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .patient-snap-status.completed {
+            background: rgba(93, 120, 255, 0.1);
+            color: var(--statwell-blue);
+        }
+
+        .patient-snap-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .patient-snap-section {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .patient-snap-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .patient-snap-info {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .patient-snap-info:last-child {
+            margin-bottom: 0;
+        }
+
+        .patient-snap-actions {
+            display: flex;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-secondary);
+        }
+
+        .patient-snap-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .patient-snap-btn.primary {
+            background: var(--statwell-blue);
+            color: var(--white);
+        }
+
+        .patient-snap-btn.primary:hover {
+            background: #4c6bff;
+            transform: translateY(-1px);
+        }
+
+        .patient-snap-btn.secondary {
+            background: var(--light-gray);
+            color: var(--text-primary);
+            border: 1px solid var(--border-secondary);
+        }
+
+        .patient-snap-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Medication Reminder Component */
+        .medication-reminder {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: center;
+            border: 1px solid var(--border-secondary);
+        }
+
+        .medication-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--statwell-blue);
+            border-radius: 50%;
+            color: var(--white);
+        }
+
+        .medication-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .medication-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .reminder-text {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .motivation-text {
+            font-size: 14px;
+            color: var(--statwell-blue);
+            font-weight: 600;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -3438,6 +4323,7 @@
             <li><a href="#forms" class="nav-link">Forms</a></li>
             <li><a href="#patterns" class="nav-link">Patterns</a></li>
             <li><a href="#support-components" class="nav-link">Support</a></li>
+            <li><a href="#email-templates" class="nav-link">Email Templates</a></li>
             <li><a href="#medicals-components" class="nav-link">Medicals</a></li>
             <li><a href="#login-flow" class="nav-link">Login Flow</a></li>
             <li><a href="#dashboard-components" class="nav-link">Dashboard</a></li>
@@ -3816,6 +4702,28 @@
             </div>
         </section>
 
+        <section class="section" id="email-templates">
+            <div class="section-header">
+                <h2 class="section-title">Email Templates</h2>
+                <p class="section-subtitle">Responsive email templates for patient communications and admin notifications.</p>
+            </div>
+            <div class="interactive-card">
+                <h4 class="text-title">Email Template Library</h4>
+                <p class="text-caption text-muted">Click the buttons below to see live examples of email templates.</p>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
+                    <button class="btn btn-secondary" onclick="openModal('email-base-structure-modal')">Base Email Structure</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-signup-modal')">Signup Confirmation</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-consultation-received-modal')">Consultation Received</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-prescription-issued-modal')">Prescription Issued</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-refill-approved-modal')">Refill Approved</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-refill-denied-modal')">Refill Denied</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-medication-reminder-modal')">Medication Reminder</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-admin-onboarding-modal')">Admin Onboarding</button>
+                    <button class="btn btn-secondary" onclick="openModal('email-daily-reminder-modal')">Daily Medication Reminder</button>
+                </div>
+            </div>
+        </section>
+
         <section class="section" id="medicals-components">
             <div class="section-header">
                 <h2 class="section-title">Medicals Dashboard Components</h2>
@@ -3826,6 +4734,7 @@
                 <p class="text-caption text-muted">Click the buttons below to see live examples of medicals dashboard components.</p>
                 <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: var(--space-lg);">
                     <button class="btn btn-secondary" onclick="openModal('medicals-patient-summary-modal')">Patient Summary Card</button>
+                    <button class="btn btn-secondary" onclick="openModal('medicals-patient-snap-info-modal')">Medical Patient Snap Info Card</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-payment-history-modal')">Payment History Table</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-sidebar-nav-modal')">Medicals Sidebar</button>
                     <button class="btn btn-secondary" onclick="openModal('medicals-conditions-card-modal')">Conditions Card</button>
@@ -5557,13 +6466,57 @@
             });
         }
 
-        function openModal(modalId) { document.getElementById(modalId).style.display = 'block'; }
+        function openModal(modalId) { 
+            document.getElementById(modalId).style.display = 'block'; 
+        }
         function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
         function closeAllModals() {
             document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
         }
 
         window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeAllModals(); } }
+        
+        // Test function to debug email templates
+        function testEmailTemplates() {
+            console.log('=== TESTING EMAIL TEMPLATES ===');
+            
+            // Test opening each modal
+            const testModals = [
+                'email-signup-modal',
+                'email-consultation-received-modal', 
+                'email-prescription-issued-modal'
+            ];
+            
+            testModals.forEach((modalId, index) => {
+                setTimeout(() => {
+                    console.log(`Testing modal ${index + 1}: ${modalId}`);
+                    openModal(modalId);
+                    
+                    // Check modal content after opening
+                    setTimeout(() => {
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                            const emailContainer = modal.querySelector('.email-container');
+                            const emailHeader = modal.querySelector('.email-header');
+                            console.log(`  Modal ${modalId}:`);
+                            console.log(`    - email-container found:`, !!emailContainer);
+                            console.log(`    - email-header found:`, !!emailHeader);
+                            if (emailHeader) {
+                                console.log(`    - header classes:`, emailHeader.className);
+                                const headerStyle = window.getComputedStyle(emailHeader);
+                                console.log(`    - header background:`, headerStyle.backgroundColor);
+                            }
+                        }
+                        closeAllModals();
+                    }, 100);
+                }, index * 500);
+            });
+            
+            console.log('=== END EMAIL TEMPLATE TEST ===');
+        }
+        
+        // Make test function available globally
+        window.testEmailTemplates = testEmailTemplates;
         
         document.addEventListener('DOMContentLoaded', () => {
             populateColors();
@@ -6229,6 +7182,60 @@
                         <div class="metric-label">Total encounter</div>
                         <div class="metric-value">7</div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicals-patient-snap-info-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medical Patient Snap Info Card</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Comprehensive patient information card showing key medical details, consultation status, and quick actions.</p>
+            
+            <div class="patient-snap-info-card">
+                <div class="patient-snap-header">
+                    <div class="patient-snap-title">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        John Doe - Medical Profile
+                    </div>
+                    <div class="patient-snap-status active">Active Patient</div>
+                </div>
+                
+                <div class="patient-snap-content">
+                    <div class="patient-snap-section">
+                        <div class="patient-snap-section-title">Personal Information</div>
+                        <div class="patient-snap-info"><strong>Age:</strong> 34 years old</div>
+                        <div class="patient-snap-info"><strong>Gender:</strong> Male</div>
+                        <div class="patient-snap-info"><strong>Last Visit:</strong> March 15, 2024</div>
+                        <div class="patient-snap-info"><strong>Member Since:</strong> January 2023</div>
+                    </div>
+                    
+                    <div class="patient-snap-section">
+                        <div class="patient-snap-section-title">Current Status</div>
+                        <div class="patient-snap-info"><strong>Active Conditions:</strong> 2</div>
+                        <div class="patient-snap-info"><strong>Current Medications:</strong> 1</div>
+                        <div class="patient-snap-info"><strong>Allergies:</strong> Penicillin</div>
+                        <div class="patient-snap-info"><strong>Next Appointment:</strong> April 20, 2024</div>
+                    </div>
+                </div>
+                
+                <div class="patient-snap-actions">
+                    <a href="#" class="patient-snap-btn primary">View Full Profile</a>
+                    <a href="#" class="patient-snap-btn secondary">Send Message</a>
+                    <a href="#" class="patient-snap-btn secondary">Schedule Follow-up</a>
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-xl);">
+                <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Usage Examples</h5>
+                <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px;">
+                    <div style="margin-bottom: var(--space-sm);"><strong>Dashboard Cards:</strong> Display patient overviews in provider dashboards</div>
+                    <div style="margin-bottom: var(--space-sm);"><strong>Consultation Summary:</strong> Quick patient info during consultations</div>
+                    <div style="margin-bottom: var(--space-sm);"><strong>Mobile Views:</strong> Compact patient information on mobile devices</div>
+                    <div><strong>Status Tracking:</strong> Monitor patient engagement and health status</div>
                 </div>
             </div>
         </div>
@@ -6905,6 +7912,521 @@
                     </svg>
                     Add Drug Allergy
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Template Modals -->
+    <div id="email-base-structure-modal" class="modal">
+        <div class="modal-content modal-xl">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Base Email Structure & Components</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">The foundational structure used across all StatWellMD email templates with key CSS classes and components.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+                <!-- Left: Component List -->
+                <div>
+                    <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Core Components</h5>
+                    <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg);">
+                        <div style="margin-bottom: var(--space-md);"><strong>.email-container</strong> - Main container (max-width: 600px)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.email-header</strong> - Header section with logo and title</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.logo</strong> - StatWellMD logo (120px width)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.email-title</strong> - Email subject/title</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.email-content</strong> - Main content area</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.greeting</strong> - "Hi [First Name],"</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.main-message</strong> - Body paragraphs</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.cta-button</strong> - Call-to-action button</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.closing</strong> - Email signature</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.team-signature</strong> - "The StatWellMD Team"</div>
+                        <div><strong>.email-footer</strong> - Footer with social links</div>
+                    </div>
+
+                    <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Header Color Classes</h5>
+                    <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px;">
+                        <div style="margin-bottom: var(--space-sm);"><strong>.blue</strong> - Standard emails (var(--statwell-blue))</div>
+                        <div style="margin-bottom: var(--space-sm);"><strong>.coral</strong> - Error/urgent emails (var(--statwell-coral))</div>
+                        <div style="margin-bottom: var(--space-sm);"><strong>.success</strong> - Success emails (var(--success))</div>
+                        <div><strong>.warning</strong> - Warning emails (var(--warning))</div>
+                    </div>
+                </div>
+
+                <!-- Right: Special Components -->
+                <div>
+                    <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Special Components</h5>
+                    <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg);">
+                        <div style="margin-bottom: var(--space-md);"><strong>.features-list</strong> - Feature list with checkmarks</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.process-steps</strong> - Step-by-step process list</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.pharmacy-details</strong> - Pharmacy info box (green)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.refill-details</strong> - Refill info box (teal)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.reason-box</strong> - Denial reason box (red)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.medication-details</strong> - Medication info (orange)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.task-details</strong> - Admin task/login info (navy)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.consultation-details</strong> - Consultation info (blue)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.prescription-details</strong> - Prescription info (green)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.payment-details</strong> - Payment failure info (red)</div>
+                        <div style="margin-bottom: var(--space-md);"><strong>.important-note</strong> - Warning/important notice (yellow)</div>
+                        <div><strong>.condition-info</strong> - Condition info box (green)</div>
+                    </div>
+
+                    <h5 style="margin-bottom: var(--space-md); color: var(--text-primary);">Key Features</h5>
+                    <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px;">
+                        <div style="margin-bottom: var(--space-sm);">✓ Mobile responsive design</div>
+                        <div style="margin-bottom: var(--space-sm);">✓ Social media links in footer</div>
+                        <div style="margin-bottom: var(--space-sm);">✓ SVG icons (no emojis)</div>
+                        <div style="margin-bottom: var(--space-sm);">✓ 120px logo size</div>
+                        <div style="margin-bottom: var(--space-sm);">✓ Solid header colors (no gradients)</div>
+                        <div style="margin-bottom: var(--space-sm);">✓ Reduced CTA spacing (8px top margin)</div>
+                        <div>✓ Proper text wrapping for long subjects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-signup-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Signup Confirmation Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Welcome email sent to new users after account creation.</p>
+            
+            <div class="email-container">
+                <div class="email-header blue">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Welcome to StatWellMD</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">Welcome to StatWellMD — your secure, trusted way to get care online, anytime.</div>
+                    <div class="main-message">With your account, you can:</div>
+                    <div class="features-list">
+                        <div class="feature-item">Select a condition and answer few questions to start your consultation.</div>
+                        <div class="feature-item">Get your case reviewed by a licensed clinician.</div>
+                        <div class="feature-item">Receive prescriptions to your preferred pharmacy.</div>
+                        <div class="feature-item">Request refills or follow-ups whenever you need them.</div>
+                    </div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Start My Consultation</a>
+                    </div>
+                    <div class="closing">
+                        Warm regards,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-consultation-received-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Consultation Received Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Confirmation email sent after patient submits consultation.</p>
+            
+            <div class="email-container">
+                <div class="email-header blue">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Your consultation has been received</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">Thank you for submitting your consultation with StatWellMD. Your medical questionnaire has been securely received, and your consultation fee of [Amount] has been confirmed.</div>
+                    <div class="main-message">Here's what happens next:</div>
+                    <div class="process-steps">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            A licensed clinician will review your consultation shortly.
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            If medication is approved, your prescription will be sent directly to your chosen pharmacy.
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            You'll receive an update once your prescription is sent.
+                        </div>
+                    </div>
+                    <div class="main-message">You can log in anytime to check your consultation status.</div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Go to Dashboard</a>
+                    </div>
+                    <div class="closing">
+                        Thank you for trusting StatWellMD with your care.<br><br>
+                        Warmly,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-prescription-issued-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Prescription Issued Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Notification email sent when prescription is transmitted to pharmacy.</p>
+            
+            <div class="email-container">
+                <div class="email-header blue">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Your Prescription Has Been Sent to Your Pharmacy</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">Good news! Your StatWellMD provider has reviewed your consultation for:</div>
+                    <div class="condition-info">
+                        <div class="condition-label">Condition:</div>
+                        <div class="condition-value">[Condition Name]</div>
+                        <div class="condition-label">Date of submission:</div>
+                        <div class="condition-value">[Date]</div>
+                    </div>
+                    <div class="main-message">Your prescription has been sent to your pharmacy.</div>
+                    <div class="pharmacy-details">
+                        <div class="pharmacy-title">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            </svg>
+                            Pharmacy Details
+                        </div>
+                        <div class="pharmacy-detail"><strong>Pharmacy:</strong> [Pharmacy Name]</div>
+                        <div class="pharmacy-detail"><strong>Address:</strong> [Pharmacy Address]</div>
+                        <div class="pharmacy-detail"><strong>Contact:</strong> [Pharmacy Phone Number]</div>
+                    </div>
+                    <div class="main-message">You'll typically receive a call from your pharmacy within 2–3 hours to confirm pickup or delivery. If you don't hear from them, feel free to call directly.</div>
+                    <div class="main-message">Once your pharmacy contacts you, please log in to your dashboard and update your delivery status to help us track your treatment progress.</div>
+                    <div class="important-note">
+                        <strong>Important:</strong> If you don't hear from the pharmacy after 24 hours, please log in to your dashboard to update your delivery status and let us know.
+                    </div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Go to My Dashboard</a>
+                    </div>
+                    <div class="closing">
+                        Warm regards,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-refill-approved-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Refill Approved Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Success email sent when refill request is approved.</p>
+            
+            <div class="email-container">
+                <div class="email-header success">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Your refill has been approved</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">Good news — your refill request for [Medication Name] has been approved by your StatWellMD provider.</div>
+                    <div class="main-message">Your prescription has been sent to:</div>
+                    <div class="refill-details">
+                        <div class="refill-info">
+                            <span class="refill-label">Pharmacy:</span> <span class="refill-value">[Pharmacy Name]</span>
+                        </div>
+                        <div class="refill-info">
+                            <span class="refill-label">Address:</span> <span class="refill-value">[Pharmacy Address]</span>
+                        </div>
+                        <div class="refill-info">
+                            <span class="refill-label">Phone:</span> <span class="refill-value">[Pharmacy Phone Number]</span>
+                        </div>
+                    </div>
+                    <div class="main-message">You'll typically receive a call from your pharmacy within 2–3 hours to confirm pickup or delivery.</div>
+                    <div class="main-message">After receiving your refill, please update your delivery status on your StatWellMD dashboard to keep your medication history up to date.</div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Update Delivery Status</a>
+                    </div>
+                    <div class="closing">
+                        Thank you for choosing StatWellMD for your care.
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-refill-denied-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Refill Denied Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Email sent when refill request cannot be approved.</p>
+            
+            <div class="email-container">
+                <div class="email-header coral">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Update on your refill request</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">After reviewing your refill request for [Medication Name], your StatWellMD provider determined that a refill cannot be issued at this time.</div>
+                    <div class="reason-box">
+                        <div class="reason-title">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                            </svg>
+                            Reason
+                        </div>
+                        <div class="reason-text">[Insert short reason — e.g., follow-up required, condition reassessment needed, or prescription expired.]</div>
+                    </div>
+                    <div class="main-message">You can submit a new consultation to review your current symptoms or request a new prescription if needed.</div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Start New Consultation</a>
+                    </div>
+                    <div class="closing">
+                        We're committed to helping you receive the care that's right for you.<br><br>
+                        Warm regards,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-medication-reminder-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Medication Refill Reminder Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Reminder email sent when prescription is about to expire.</p>
+            
+            <div class="email-container">
+                <div class="email-header warning">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Your medication runs out in [X] days</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">We noticed your current prescription for [Medication Name] will run out in [X] days.</div>
+                    <div class="medication-details">
+                        <div class="medication-title">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                                <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                            </svg>
+                            Medication Reminder
+                        </div>
+                        <div class="medication-info"><span class="medication-label">Medication:</span> <span class="medication-value">[Medication Name]</span></div>
+                        <div class="medication-info"><span class="medication-label">Status:</span> <span class="medication-value" style="color: var(--warning); font-weight: 600;">[X] days remaining</span></div>
+                    </div>
+                    <div class="main-message">To stay on track with your treatment and avoid any gaps, please request your refill today.</div>
+                    <div class="main-message">Your provider will review your request and send your refill to your preferred pharmacy once approved.</div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Request My Refill</a>
+                    </div>
+                    <div class="closing">
+                        Warm regards,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-admin-onboarding-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Admin Onboarding Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Welcome email sent to new admin users with login credentials.</p>
+            
+            <div class="email-container">
+                <div class="email-header blue">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Welcome to StatWellMD — Your Admin Account is Ready</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">You've been added as an Admin User on the StatWellMD platform.</div>
+                    <div class="main-message">Your login details are below:</div>
+                    <div class="task-details">
+                        <div class="task-title">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                            </svg>
+                            Your Login Details
+                        </div>
+                        <div class="login-info">
+                            <div class="login-detail"><span class="login-label">Email:</span> <span class="login-value">[Email Address]</span></div>
+                            <div class="login-detail"><span class="login-label">Temporary Password:</span> <span class="login-value">[Password]</span></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Log In to Dashboard</a>
+                    </div>
+                    <div class="main-message">
+                        Once logged in, you can manage patient encounters, monitor provider actions, and access admin tools.<br>
+                        Please change your password immediately after your first login for security reasons.
+                    </div>
+                    <div class="closing">
+                        Welcome aboard,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-daily-reminder-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h4 class="text-title">Daily Medication Reminder Email</h4>
+            <p class="text-caption text-muted" style="margin-bottom: var(--space-lg);">Daily reminder email to help patients stay on track with medications.</p>
+            
+            <div class="email-container">
+                <div class="email-header blue">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="logo">
+                    <h1 class="email-title">Time for your daily medication</h1>
+                </div>
+                <div class="email-content">
+                    <div class="greeting">Hi [First Name],</div>
+                    <div class="main-message">This is your daily reminder to take your medication.</div>
+                    <div class="medication-reminder">
+                        <div class="medication-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="8" y="2" width="8" height="20" rx="4" ry="4" transform="rotate(45 12 12)"/>
+                                <line x1="7.5" y1="7.5" x2="16.5" y2="16.5"/>
+                            </svg>
+                        </div>
+                        <div class="medication-name">[Medication Name]</div>
+                        <div class="reminder-text">Don't forget to take your medication as prescribed by your healthcare provider.</div>
+                        <div class="motivation-text">Consistency is key to your treatment success!</div>
+                    </div>
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <a href="#" class="cta-button">Mark as Taken</a>
+                    </div>
+                    <div class="closing" style="text-align: left;">
+                        Stay healthy,<br>
+                        <span class="team-signature">The StatWellMD Team</span>
+                    </div>
+                </div>
+                <div class="email-footer">
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">X</a>
+                        <a href="#" class="social-link">TikTok</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Unsubscribe</a>
+                    </div>
+                    <p class="footer-text">© 2024 StatWellMD. All rights reserved.</p>
+                </div>
             </div>
         </div>
     </div>
