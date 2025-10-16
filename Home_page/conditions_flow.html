@@ -949,7 +949,7 @@
                             <div class="condition-type">Respiratory Condition</div>
                         </div>
                     </div>
-                    <div class="consultation-fee">$49.99</div>
+                    <div class="consultation-fee">$29.99</div>
                 </div>
 
 
@@ -1117,7 +1117,7 @@
                             <div class="condition-type">Respiratory Condition</div>
                         </div>
                     </div>
-                    <div class="consultation-fee">$49.99</div>
+                    <div class="consultation-fee">$29.99</div>
                 </div>
 
                 <!-- Urgent Banner -->
@@ -1256,7 +1256,11 @@
                     <div class="payment-summary">
                         <div class="payment-item">
                             <span>Medical Consultation</span>
-                            <span>$50.00</span>
+                            <span id="base-fee">$29.99</span>
+                        </div>
+                        <div class="payment-item" id="express-fee-item" style="display: none;">
+                            <span>Express Service (30 min)</span>
+                            <span>$9.99</span>
                         </div>
                         <div class="payment-item">
                             <span>Service Fee</span>
@@ -1264,8 +1268,23 @@
                         </div>
                         <div class="payment-item payment-total">
                             <span>Total</span>
-                            <span>$50.00</span>
+                            <span id="total-amount">$29.99</span>
                         </div>
+                    </div>
+
+                    <!-- Express Fee Option -->
+                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                        <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
+                            <input type="checkbox" id="express-fee-checkbox" onchange="toggleExpressFee()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 16px; color: var(--text-primary); margin-bottom: var(--space-xs);">
+                                    Express Service - $9.99
+                                </div>
+                                <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                                    Get your consultation reviewed and prescription ready within 30 minutes or less
+                                </div>
+                            </div>
+                        </label>
                     </div>
 
                     <button class="btn btn-primary" style="width: 100%;" onclick="processPayment()">Pay Now</button>
@@ -1328,7 +1347,7 @@
                             </svg>
                         </div>
                         <h2 style="margin-bottom: var(--space-sm);">Thanks for your order</h2>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">You've successfully booked an appointment with a certified doctor. Your payment of $50.00 has been processed.</p>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">You've successfully booked an appointment with a certified doctor. Your payment of $29.99 has been processed.</p>
                         
                         <div class="success-details">
                             <div class="success-detail">
@@ -1482,7 +1501,7 @@
                         <div class="key-fact-label">Condition Type</div>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="startConsultation()">Get started - $49.99</button>
+                <button class="btn btn-primary" onclick="startConsultation()">Get started - $29.99</button>
             </div>
         </div>
     </div>
@@ -1511,44 +1530,44 @@
         // Conditions data from homepage.html
         const conditionsData = {
             "General": [
-                { name: "UTI", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
-                { name: "Cold & Flu", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
-                { name: "Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "General" },
-                { name: "Allergies", snippet: "Manage seasonal or chronic allergy symptoms.", img: "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" },
-                { name: "Pink Eye", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Eye Infection" },
-                { name: "Sinus Infection", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
-                { name: "Migraines", snippet: "Personalized plans to manage migraine headaches.", img: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Neurological" },
-                { name: "COVID-19", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
-                { name: "Acid Reflux", snippet: "Manage heartburn and GERD symptoms.", img: "https://images.pexels.com/photos/5793649/pexels-photo-5793649.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Digestive" }
+                { name: "UTI", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Infection" },
+                { name: "Cold & Flu", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Viral Infection" },
+                { name: "Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "General" },
+                { name: "Allergies", snippet: "Manage seasonal or chronic allergy symptoms.", img: "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Allergic Reaction" },
+                { name: "Pink Eye", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Eye Infection" },
+                { name: "Sinus Infection", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Infection" },
+                { name: "Migraines", snippet: "Personalized plans to manage migraine headaches.", img: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Neurological" },
+                { name: "COVID-19", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Viral Infection" },
+                { name: "Acid Reflux", snippet: "Manage heartburn and GERD symptoms.", img: "https://images.pexels.com/photos/5793649/pexels-photo-5793649.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Digestive" }
             ],
             "Skin": [
-                { name: "Acne", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
-                { name: "Skin Rashes", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
-                { name: "Eczema", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
-                { name: "Dandruff", snippet: "Effective treatments for a healthier scalp.", img: "https://images.pexels.com/photos/7262444/pexels-photo-7262444.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Skin Condition" },
-                { name: "Rosacea", snippet: "Control redness and breakouts from rosacea.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Skin Condition" },
-                { name: "Hives", snippet: "Relief from itchy welts and allergic reactions.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" },
-                { name: "Cold Sores", snippet: "Prescription antiviral medication for cold sores.", img: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Viral Infection" },
-                { name: "Poison Ivy", snippet: "Soothe itching and inflammation from poison ivy.", img: "https://images.pexels.com/photos/4752857/pexels-photo-4752857.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Allergic Reaction" }
+                { name: "Acne", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" },
+                { name: "Skin Rashes", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" },
+                { name: "Eczema", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" },
+                { name: "Dandruff", snippet: "Effective treatments for a healthier scalp.", img: "https://images.pexels.com/photos/7262444/pexels-photo-7262444.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" },
+                { name: "Rosacea", snippet: "Control redness and breakouts from rosacea.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" },
+                { name: "Hives", snippet: "Relief from itchy welts and allergic reactions.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Allergic Reaction" },
+                { name: "Cold Sores", snippet: "Prescription antiviral medication for cold sores.", img: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Viral Infection" },
+                { name: "Poison Ivy", snippet: "Soothe itching and inflammation from poison ivy.", img: "https://images.pexels.com/photos/4752857/pexels-photo-4752857.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Allergic Reaction" }
             ],
             "Women's Health": [
-                { name: "Birth Control", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Reproductive Health" },
-                { name: "Yeast Infection", snippet: "Fast and effective treatment for yeast infections.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
-                { name: "Bacterial Vaginosis", snippet: "Discreet and effective BV treatment.", img: "https://images.pexels.com/photos/6729579/pexels-photo-6729579.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Infection" },
-                { name: "Morning After Pill", snippet: "Emergency contraception, delivered fast.", img: "https://images.pexels.com/photos/7880998/pexels-photo-7880998.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Reproductive Health" }
+                { name: "Birth Control", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Reproductive Health" },
+                { name: "Yeast Infection", snippet: "Fast and effective treatment for yeast infections.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Infection" },
+                { name: "Bacterial Vaginosis", snippet: "Discreet and effective BV treatment.", img: "https://images.pexels.com/photos/6729579/pexels-photo-6729579.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Infection" },
+                { name: "Morning After Pill", snippet: "Emergency contraception, delivered fast.", img: "https://images.pexels.com/photos/7880998/pexels-photo-7880998.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Reproductive Health" }
             ],
             "Men's Health": [
-                { name: "Erectile Dysfunction", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Men's Health" },
-                { name: "Hair Loss", snippet: "Clinically-proven treatments for hair loss.", img: "https://images.pexels.com/photos/2533682/pexels-photo-2533682.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Men's Health" },
-                { name: "Genital Herpes", snippet: "Manage outbreaks with prescription medication.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "STI" },
-                { name: "Jock Itch", snippet: "Fast relief from itching and irritation.", img: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Skin Condition" }
+                { name: "Erectile Dysfunction", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Men's Health" },
+                { name: "Hair Loss", snippet: "Clinically-proven treatments for hair loss.", img: "https://images.pexels.com/photos/2533682/pexels-photo-2533682.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Men's Health" },
+                { name: "Genital Herpes", snippet: "Manage outbreaks with prescription medication.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "STI" },
+                { name: "Jock Itch", snippet: "Fast relief from itching and irritation.", img: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Skin Condition" }
             ],
             "Other": [
-                { name: "Asthma", snippet: "Refills and management for your asthma condition.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Respiratory Condition" },
-                { name: "Gout", snippet: "Manage gout flare-ups with effective treatment.", img: "https://images.pexels.com/photos/6128189/pexels-photo-6128189.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$35.99", type: "Metabolic" },
-                { name: "Thyroid Conditions", snippet: "Medication management for thyroid disorders.", img: "https://images.pexels.com/photos/325633/pexels-photo-325633.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Endocrine" },
-                { name: "High Blood Pressure", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Cardiovascular" },
-                { name: "High Cholesterol", snippet: "Prescription management for high cholesterol.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$49.99", type: "Metabolic" }
+                { name: "Asthma", snippet: "Refills and management for your asthma condition.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Respiratory Condition" },
+                { name: "Gout", snippet: "Manage gout flare-ups with effective treatment.", img: "https://images.pexels.com/photos/6128189/pexels-photo-6128189.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Metabolic" },
+                { name: "Thyroid Conditions", snippet: "Medication management for thyroid disorders.", img: "https://images.pexels.com/photos/325633/pexels-photo-325633.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Endocrine" },
+                { name: "High Blood Pressure", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Cardiovascular" },
+                { name: "High Cholesterol", snippet: "Prescription management for high cholesterol.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600", price: "$29.99", type: "Metabolic" }
             ]
         };
 
@@ -1743,6 +1762,20 @@
         function confirmDelete() {
             closeModal('delete-confirmation-modal');
             showState('conditions-listing');
+        }
+
+        function toggleExpressFee() {
+            const checkbox = document.getElementById('express-fee-checkbox');
+            const expressFeeItem = document.getElementById('express-fee-item');
+            const totalAmount = document.getElementById('total-amount');
+            
+            if (checkbox.checked) {
+                expressFeeItem.style.display = 'flex';
+                totalAmount.textContent = '$39.98';
+            } else {
+                expressFeeItem.style.display = 'none';
+                totalAmount.textContent = '$29.99';
+            }
         }
 
         function processPayment() {

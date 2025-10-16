@@ -1176,45 +1176,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Number of Refills <span class="required">*</span></label>
-                                <input 
-                                    type="number" 
-                                    class="form-input" 
-                                    id="refills"
-                                    placeholder="e.g., 1"
-                                    min="1"
-                                    max="12">
+                                <label class="form-label">Number of Refills (Optional)</label>
+                                <select class="form-select" id="refills">
+                                    <option value="">Select refills</option>
+                                    <option value="1">1 refill</option>
+                                    <option value="2">2 refills</option>
+                                    <option value="3">3 refills</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Step 2: Laboratory Reports -->
+                    <!-- Step 2: Medication Image -->
                     <div class="step-container" id="step-2">
-                        <h2 class="section-title">Laboratory Reports <span class="required">*</span></h2>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Upload any laboratory reports related to this medication (Image, PDF, or DOC files) - <span style="color: #fbbf24;">Maximum 5 files</span></p>
-                        
-                        <div class="file-upload-area" onclick="document.getElementById('lab-reports-input').click()">
-                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                            </svg>
-                            <div class="upload-text">Click to upload or drag and drop</div>
-                            <div class="upload-hint">PDF, DOC, JPG, or PNG (Max 10MB)</div>
-                        </div>
-                        <input 
-                            type="file" 
-                            id="lab-reports-input" 
-                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" 
-                            multiple
-                            style="display: none;"
-                            onchange="handleLabReportsUpload(this.files)">
-                        
-                        <div class="file-list" id="lab-reports-list">
-                            <!-- Uploaded files will appear here -->
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Medication Image -->
-                    <div class="step-container" id="step-3">
                         <h2 class="section-title">Medication Image <span class="required">*</span></h2>
                         <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Upload clear photos of your medication bottle or packaging - <span style="color: #fbbf24;">Maximum 5 images</span></p>
                         
@@ -1235,6 +1209,31 @@
                         
                         <div class="file-list" id="medication-image-list">
                             <!-- Uploaded image will appear here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Laboratory Reports -->
+                    <div class="step-container" id="step-3">
+                        <h2 class="section-title">Laboratory Reports (Optional)</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Upload any laboratory reports related to this medication (Image, PDF, or DOC files) - <span style="color: #fbbf24;">Maximum 5 files</span></p>
+                        
+                        <div class="file-upload-area" onclick="document.getElementById('lab-reports-input').click()">
+                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <div class="upload-text">Click to upload or drag and drop</div>
+                            <div class="upload-hint">PDF, DOC, JPG, or PNG (Max 10MB)</div>
+                        </div>
+                        <input 
+                            type="file" 
+                            id="lab-reports-input" 
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" 
+                            multiple
+                            style="display: none;"
+                            onchange="handleLabReportsUpload(this.files)">
+                        
+                        <div class="file-list" id="lab-reports-list">
+                            <!-- Uploaded files will appear here -->
                         </div>
                     </div>
 
@@ -1271,9 +1270,9 @@
                         </div>
                     </div>
 
-                    <!-- Step 5: Review & Confirm -->
+                    <!-- Step 5: Review -->
                     <div class="step-container" id="step-5">
-                        <h2 class="section-title">Review & Confirm</h2>
+                        <h2 class="section-title">Review</h2>
                         
                         <!-- Medication Summary -->
                         <div class="preview-section">
@@ -1286,6 +1285,20 @@
                             </div>
                             <div class="preview-content" id="preview-medication">
                                 <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Medication Image -->
+                        <div class="preview-section">
+                            <div class="preview-title">
+                                <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                    <circle cx="12" cy="13" r="4"/>
+                                </svg>
+                                Medication Image
+                            </div>
+                            <div class="preview-content" id="preview-medication-image">
+                                No medication image uploaded.
                             </div>
                         </div>
 
@@ -1303,20 +1316,6 @@
                             </div>
                             <div class="preview-content" id="preview-lab-reports">
                                 No laboratory reports uploaded.
-                            </div>
-                        </div>
-
-                        <!-- Medication Image -->
-                        <div class="preview-section">
-                            <div class="preview-title">
-                                <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                                    <circle cx="12" cy="13" r="4"/>
-                                </svg>
-                                Medication Image
-                            </div>
-                            <div class="preview-content" id="preview-medication-image">
-                                No medication image uploaded.
                             </div>
                         </div>
 
@@ -1346,27 +1345,73 @@
                             </div>
                             <button class="btn btn-secondary btn-sm" onclick="openPharmacyModal()">Change</button>
                         </div>
+                    </div>
 
-                        <!-- Payment Summary -->
-                        <h3 class="section-title">Payment Summary</h3>
-                        <div class="payment-summary">
-                            <div class="payment-fee">
-                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M12 6v6l4 2"/>
-                                </svg>
-                                <strong>Medication refill processing fee: $29.99</strong>
-                            </div>
-                            <div class="payment-coverage">
-                                This fee covers all refills within the next 30 days from the date of payment.
-                            </div>
-                            <div class="payment-status paid" id="payment-status-display">
-                                <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                    <!-- Step 6: Confirm Payment -->
+                    <div class="step-container" id="step-6">
+                        <h2 class="section-title">Payment Summary</h2>
+                        
+                        <!-- Payment Status -->
+                        <div class="payment-status paid" id="payment-status-display" style="margin-bottom: var(--space-xl); padding: var(--space-md); background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                                <svg style="width: 18px; height: 18px; stroke: var(--success); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
                                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                                     <polyline points="22,4 12,14.01 9,11.01"/>
                                 </svg>
-                                <span>Payment Status: <strong>Paid</strong> • 15 days remaining until next payment required</span>
+                                <span style="font-weight: 500; color: var(--success);">
+                                    Payment Status: <strong>Paid</strong> • 15 days remaining until next payment required
+                                </span>
                             </div>
+                        </div>
+
+                        <!-- Payment Overview Card -->
+                        <div style="background: var(--white); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 16px; padding: var(--space-xl); margin-bottom: var(--space-xl);">
+                            <!-- Payment Details -->
+                            <div style="background: var(--white); border-radius: 12px; padding: var(--space-lg); border: 1px solid rgba(93, 120, 255, 0.1);">
+                                <!-- Base Fee -->
+                                <div style="padding: var(--space-md) 0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+                                        <span style="font-weight: 500; color: var(--text-primary);">Medication refill processing fee</span>
+                                        <span style="font-weight: 600; font-size: 16px; color: var(--text-primary);" id="new-refill-base-fee">$29.99</span>
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary);">
+                                        This fee covers all refills within the next 30 days from the date of payment
+                                    </div>
+                                </div>
+
+                                <!-- Express Fee (Hidden by default) -->
+                                <div id="new-refill-express-fee-item" style="display: none; flex-direction: column; padding: var(--space-md) 0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+                                        <span style="font-weight: 500; color: var(--text-primary);">Express Service (30 min)</span>
+                                        <span style="font-weight: 600; font-size: 16px; color: var(--text-primary);">$9.99</span>
+                                    </div>
+                                    <div style="font-size: 13px; color: var(--text-secondary);">
+                                        Get your refill reviewed and prescription sent to your pharmacy within 30 minutes
+                                    </div>
+                                </div>
+
+                                <!-- Total -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-lg) 0 0 0; margin-top: var(--space-md); border-top: 2px solid var(--statwell-teal);">
+                                    <span style="font-weight: 600; font-size: 18px; color: var(--text-primary);">Total</span>
+                                    <span style="font-weight: 700; font-size: 20px; color: var(--statwell-navy);" id="new-refill-total-amount">$29.99</span>
+                                </div>
+                            </div>
+
+                            <!-- Express Service Option -->
+                            <div style="background: rgba(93, 120, 255, 0.05); border: 2px solid rgba(93, 120, 255, 0.15); border-radius: 16px; padding: var(--space-lg); margin-top: var(--space-lg);" id="new-express-option">
+                                <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
+                                    <input type="checkbox" id="new-refill-express-checkbox" onchange="toggleNewRefillExpressFee()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; font-size: 16px; color: var(--text-primary); margin-bottom: var(--space-xs);">
+                                            Express Service - $9.99
+                                        </div>
+                                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                                            Get your refill reviewed and prescription sent to your pharmacy within 30 minutes
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+
                         </div>
                     </div>
 
@@ -1458,7 +1503,7 @@
 
     <script>
         let currentStep = 1;
-        let totalSteps = 5;
+        let totalSteps = 6;
         let selectedPharmacy = {
             id: 'cvs-1234',
             name: 'CVS Pharmacy #1234',
@@ -1480,10 +1525,11 @@
 
         const stepLabels = [
             'Medication Details',
-            'Laboratory Reports',
             'Medication Image',
+            'Laboratory Reports',
             'Allergy Screening',
-            'Review & Confirm'
+            'Review',
+            'Confirm Payment'
         ];
 
         // Sample drug database
@@ -1984,15 +2030,8 @@
                 const duration = document.getElementById('duration').value.trim();
                 const refills = document.getElementById('refills').value.trim();
 
-                if (!drugName || !dosage || !duration || !refills) {
+                if (!drugName || !dosage || !duration) {
                     alert('Please fill in all required fields');
-                    return false;
-                }
-
-                // Validate refills is a positive number
-                const refillsNum = parseInt(refills);
-                if (isNaN(refillsNum) || refillsNum < 1) {
-                    alert('Please enter a valid number of refills (minimum 1)');
                     return false;
                 }
                 
@@ -2000,19 +2039,17 @@
                 formData.drugName = drugName;
                 formData.dosage = dosage;
                 formData.duration = duration;
-                formData.refills = refills;
+                formData.refills = refills || '1'; // Default to 1 if not selected
                 return true;
             } else if (step === 2) {
-                if (formData.labReports.length === 0) {
-                    alert('Please upload at least one laboratory report');
-                    return false;
-                }
-                return true;
-            } else if (step === 3) {
+                // Medication Image is now step 2 and is required
                 if (formData.medicationImages.length === 0) {
                     alert('Please upload at least one medication image');
                     return false;
                 }
+                return true;
+            } else if (step === 3) {
+                // Laboratory Reports is now step 3 and is optional
                 return true;
             } else if (step === 4) {
                 const hasAllergies = document.querySelector('input[name="allergies"]:checked').value === 'yes';
@@ -2103,9 +2140,27 @@
             updatePaymentStatus();
         }
 
+        // Toggle Express Fee for New Refill
+        function toggleNewRefillExpressFee() {
+            const checkbox = document.getElementById('new-refill-express-checkbox');
+            const expressFeeItem = document.getElementById('new-refill-express-fee-item');
+            const totalAmount = document.getElementById('new-refill-total-amount');
+            
+            if (checkbox.checked) {
+                expressFeeItem.style.display = 'flex';
+                expressFeeItem.style.flexDirection = 'column';
+                totalAmount.textContent = '$39.98';
+            } else {
+                expressFeeItem.style.display = 'none';
+                totalAmount.textContent = '$29.99';
+            }
+        }
+
         // Update payment status display
         function updatePaymentStatus() {
             const statusDisplay = document.getElementById('payment-status-display');
+            const expressOption = document.getElementById('new-express-option');
+            
             if (paymentPaid) {
                 statusDisplay.className = 'payment-status paid';
                 statusDisplay.innerHTML = `
@@ -2115,6 +2170,8 @@
                     </svg>
                     <span>Payment Status: <strong>Paid</strong> • ${daysLeft} days remaining until next payment required</span>
                 `;
+                // Express option should always be available
+                if (expressOption) expressOption.style.display = 'block';
             } else {
                 statusDisplay.className = 'payment-status not-paid';
                 statusDisplay.innerHTML = `
@@ -2125,6 +2182,8 @@
                     </svg>
                     <span>Payment Status: <strong>Not paid</strong> • Make this refill request to pay the processing fee</span>
                 `;
+                // Show express option if not paid
+                if (expressOption) expressOption.style.display = 'block';
             }
         }
 
@@ -2145,8 +2204,8 @@
                 // Show next step
                 document.getElementById(`step-${currentStep}`).classList.add('active');
                 
-                // Update preview if on step 5
-                if (currentStep === 5) {
+                // Update preview if on step 5 or 6
+                if (currentStep === 5 || currentStep === 6) {
                     updatePreview();
                 }
                 
@@ -2201,7 +2260,7 @@
 
             // Update next button text
             if (currentStep === totalSteps) {
-                nextBtn.textContent = paymentPaid ? 'Submit Refill Request' : 'Proceed to Payment';
+                nextBtn.textContent = 'Submit Refill Request';
             } else {
                 nextBtn.textContent = 'Continue';
             }
@@ -2311,6 +2370,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeProgressSteps();
             updateNavigation();
+            
+            // Ensure Express Service option is always visible
+            const expressOption = document.getElementById('new-express-option');
+            if (expressOption) {
+                expressOption.style.display = 'block';
+            }
         });
     </script>
 </body>
