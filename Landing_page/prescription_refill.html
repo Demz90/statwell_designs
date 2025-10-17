@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Refills - StatwellMD | Fast, Easy, Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'statwell-teal': '#40BFAA',
+                        'statwell-blue': '#5D78FF',
+                        'statwell-hero-blue': '#007BFF',
+                        'statwell-gray': '#94A49A',
+                        'statwell-teal-light': '#65D5B8',
+                        'statwell-navy': '#2A3B54',
+                        'statwell-coral': '#FF6B6B',
+                        'statwell-white': '#F5F7FA',
+                    },
+                    fontFamily: {
+                        'primary': ['Avenir Next', 'sans-serif'],
+                        'secondary': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Avenir Next', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Drug Search Styles */
+        .drug-search-container {
+            position: relative;
+            width: 100%;
+        }
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #5D78FF;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        .search-results.show {
+            display: block;
+        }
+        .search-result-item {
+            padding: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        .search-result-item:hover {
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .search-result-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #2A3B54;
+        }
+        .search-result-type {
+            font-size: 12px;
+            color: #94A49A;
+        }
+        .no-results {
+            padding: 1.5rem;
+            text-align: center;
+            color: #94A49A;
+        }
+        .add-manual-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(93, 120, 255, 0.1);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            border-radius: 0 0 12px 12px;
+            color: #5D78FF;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .add-manual-btn:hover {
+            background: rgba(93, 120, 255, 0.15);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #94A49A;
+            transition: color 0.2s;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .modal-close:hover {
+            color: #2A3B54;
+            background: #f1f3f6;
+        }
+
+        /* Accordion styles */
+        .accordion-header {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease-out;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-statwell-navy">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 py-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <a href="homepage.html" class="flex items-center">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" class="h-8">
+                </a>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
+                        FAQ
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+                    </a>
+                    <a href="prescription_refill.html" class="font-medium text-statwell-blue relative group">
+                        Prescription Refill
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue"></span>
+                    </a>
+                    <a href="contact_us.html" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
+                        Contact Us
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+                    </a>
+                </nav>
+                <div class="flex items-center gap-2">
+                    <a href="login_flow.html" class="px-4 py-2 rounded-xl font-semibold text-statwell-blue border border-statwell-blue/20 hover:bg-statwell-blue/5 hover:-translate-y-0.5 hover:shadow-lg transition-all shadow-sm">
+                        Log In
+                    </a>
+                    <a href="homepage.html#condition-selector-section" class="px-4 py-2 rounded-xl font-semibold text-white hover:-translate-y-0.5 transition-all" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                        Start Visit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-statwell-white via-white to-blue-50 pt-6 pb-12 md:pt-8 md:pb-16 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block mb-4 px-4 py-2 bg-statwell-teal-light/20 rounded-full text-statwell-navy font-semibold text-sm">
+                        🔄 Prescription Refills Made Simple
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-statwell-navy mb-5 leading-tight">
+                        Refill Your Prescription in Minutes
+                    </h1>
+                    
+                    <p class="text-lg text-statwell-gray mb-8 leading-relaxed">
+                        Skip the phone calls, long waits, and office visits. Get your prescription refills approved by a licensed provider and sent to your pharmacy—fast, easy, and 100% online.
+                    </p>
+
+                    <a href="#refill-form-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
+                        Start Your Refill Now
+                    </a>
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-2xl">
+                    <img src="https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&dpr=2" alt="Person holding medication" class="w-full h-auto object-cover aspect-[4/5]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="bg-white py-16 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Why Choose StatWellMD for Refills?</h2>
+                <p class="text-lg text-statwell-gray">Get your medications faster and easier than your doctor's office</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <polyline points="12,6 12,12 16,14" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Fast Turnaround</h4>
+                    <p class="text-statwell-gray">Most refills reviewed and approved within 2 hours. No waiting days for a callback from your doctor's office.</p>
+                </div>
+
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <line x1="12" y1="1" x2="12" y2="23" stroke-width="2"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Affordable Pricing</h4>
+                    <p class="text-statwell-gray">Only $29.99 covers all refills for 30 days. No hidden fees, no insurance hassles, no copay surprises.</p>
+                </div>
+
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 11l3 3L22 4" stroke-width="2"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Simple Process</h4>
+                    <p class="text-statwell-gray">Upload a photo of your medication, answer a few questions, and we'll handle the rest. No appointments needed.</p>
+                </div>
+
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-width="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Licensed Providers</h4>
+                    <p class="text-statwell-gray">Every refill reviewed by board-certified doctors and licensed medical professionals in your state.</p>
+                </div>
+
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Available 24/7</h4>
+                    <p class="text-statwell-gray">Submit your refill request anytime, anywhere. We're here when you need us, day or night.</p>
+                </div>
+
+                <div class="bg-statwell-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light rounded-2xl flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-width="2"/>
+                            <circle cx="12" cy="10" r="3" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Your Pharmacy</h4>
+                    <p class="text-statwell-gray">Choose any pharmacy you prefer. We'll send your prescription electronically for quick pickup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-statwell-white py-16 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">How Prescription Refills Work</h2>
+                <p class="text-lg text-statwell-gray">Four simple steps to get your medication refilled</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">1</div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Search Your Medication</h4>
+                    <p class="text-statwell-gray">Enter the name of your medication and basic details like dosage and duration.</p>
+                </div>
+                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">2</div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Upload Medication Photo</h4>
+                    <p class="text-statwell-gray">Take a clear photo of your medication bottle or packaging for verification.</p>
+                </div>
+                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">3</div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Provider Review</h4>
+                    <p class="text-statwell-gray">A licensed provider reviews your refill request and medical history.</p>
+                </div>
+                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">4</div>
+                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Pharmacy Delivery</h4>
+                    <p class="text-statwell-gray">Your prescription is sent to your pharmacy, usually ready within 2 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Refill Form Section -->
+    <section class="bg-white py-16 fade-in-section" id="refill-form-section">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Start Your Refill Request</h2>
+                <p class="text-lg text-statwell-gray">Enter your medication details to get started</p>
+            </div>
+
+            <div class="bg-statwell-white rounded-2xl p-8 border border-gray-200 shadow-lg">
+                <form id="refill-form">
+                    <!-- Drug Search -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-statwell-navy mb-2">
+                            Medication Name <span class="text-statwell-coral">*</span>
+                        </label>
+                        <div class="drug-search-container">
+                            <input 
+                                type="text" 
+                                id="drug-search"
+                                placeholder="Search for your medication..."
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-statwell-blue focus:outline-none focus:ring-4 focus:ring-statwell-blue/10 transition-all"
+                                required
+                                oninput="searchDrug()"
+                                onfocus="showSearchResults()">
+                            <div class="search-results" id="search-results"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dosage -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-statwell-navy mb-2">
+                            Dosage <span class="text-statwell-coral">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="dosage"
+                            placeholder="e.g., 20mg, 10ml, 500mcg"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-statwell-blue focus:outline-none focus:ring-4 focus:ring-statwell-blue/10 transition-all"
+                            required>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-statwell-navy mb-2">
+                            Duration <span class="text-statwell-coral">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="duration"
+                            placeholder="e.g., 30 days, 90 days"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-statwell-blue focus:outline-none focus:ring-4 focus:ring-statwell-blue/10 transition-all"
+                            required>
+                    </div>
+
+                    <!-- Number of Refills -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-statwell-navy mb-2">
+                            Number of Refills
+                        </label>
+                        <select 
+                            id="refills"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-statwell-blue focus:outline-none focus:ring-4 focus:ring-statwell-blue/10 transition-all cursor-pointer">
+                            <option value="">Select refills</option>
+                            <option value="1">1 refill</option>
+                            <option value="2">2 refills</option>
+                            <option value="3">3 refills</option>
+                        </select>
+                    </div>
+
+                    <button 
+                        type="submit"
+                        class="w-full px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg"
+                        style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
+                        Continue to Sign Up
+                    </button>
+                </form>
+
+                <p class="text-center text-sm text-statwell-gray mt-6">
+                    Already have an account? <a href="login_flow.html" class="text-statwell-blue hover:underline font-semibold">Log in</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="bg-statwell-white py-16 fade-in-section">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-lg text-statwell-gray">One flat fee covers all your refills for 30 days</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 border-2 border-statwell-blue/20 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Standard Refill -->
+                    <div class="text-center p-6 bg-statwell-white rounded-2xl">
+                        <div class="inline-block px-4 py-1 bg-statwell-teal-light/30 rounded-full text-statwell-navy font-semibold text-sm mb-4">
+                            Most Popular
+                        </div>
+                        <div class="mb-4">
+                            <div class="text-5xl font-bold text-statwell-navy">$29.99</div>
+                            <div class="text-statwell-gray">Standard Service</div>
+                        </div>
+                        <ul class="text-left space-y-3 mb-6">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-teal flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Review within 2-4 hours</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-teal flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Covers all refills for 30 days</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-teal flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Licensed provider review</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-teal flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">No insurance required</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Express Service -->
+                    <div class="text-center p-6 bg-gradient-to-br from-statwell-blue/10 to-statwell-teal/10 rounded-2xl border-2 border-statwell-blue/30">
+                        <div class="inline-block px-4 py-1 bg-statwell-blue text-white rounded-full font-semibold text-sm mb-4">
+                            ⚡ Fastest
+                        </div>
+                        <div class="mb-4">
+                            <div class="text-5xl font-bold text-statwell-navy">$39.98</div>
+                            <div class="text-statwell-gray">Express Service</div>
+                        </div>
+                        <ul class="text-left space-y-3 mb-6">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm font-semibold">Review within 30 minutes</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Priority provider review</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Covers all refills for 30 days</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-statwell-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span class="text-sm">Immediate prescription send</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-blue-50 border border-statwell-blue/20 rounded-xl">
+                    <p class="text-sm text-statwell-gray text-center">
+                        <strong class="text-statwell-navy">💡 Note:</strong> This fee covers the medical consultation and prescription processing. Medication costs at your pharmacy are separate and may be covered by insurance or discount programs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="bg-white py-16 fade-in-section">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Refill Requirements & Eligibility</h2>
+                <p class="text-lg text-statwell-gray">Important information about our prescription refill service</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- We DO Refill -->
+                <div class="bg-green-50 border-2 border-green-200 rounded-2xl p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-statwell-navy">We DO Refill</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Maintenance medications for chronic conditions</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Blood pressure & cholesterol medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Thyroid medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Birth control prescriptions</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Asthma inhalers & allergy medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Acid reflux medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Diabetes medications (non-insulin)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- We DON'T Refill -->
+                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-statwell-navy">We DON'T Refill</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Controlled substances (Adderall, Xanax, etc.)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Opioid pain medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Benzodiazepines (sedatives)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Sleeping pills (Schedule IV drugs)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Testosterone or anabolic steroids</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Chemotherapy or specialty medications</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                            </svg>
+                            <span class="text-statwell-navy">Medications requiring in-person monitoring</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Requirements Box -->
+            <div class="mt-8 bg-statwell-blue/10 border-2 border-statwell-blue/30 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-statwell-navy mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-statwell-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"/>
+                    </svg>
+                    Required to Use This Service
+                </h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <span class="text-statwell-blue font-bold text-lg">•</span>
+                        <span class="text-statwell-navy"><strong>Active Prescription:</strong> You must have an existing, valid prescription from a healthcare provider for the medication you're requesting to refill.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-statwell-blue font-bold text-lg">•</span>
+                        <span class="text-statwell-navy"><strong>Medication Photo:</strong> A clear photo of your current medication bottle/packaging showing the prescription label.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-statwell-blue font-bold text-lg">•</span>
+                        <span class="text-statwell-navy"><strong>Stable Condition:</strong> Your medical condition should be stable and well-managed on your current medication.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-statwell-blue font-bold text-lg">•</span>
+                        <span class="text-statwell-navy"><strong>Recent Use:</strong> You should be actively taking the medication (typically within the last 90 days).</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="bg-statwell-white py-16 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">What Our Patients Say</h2>
+                <p class="text-lg text-statwell-gray">Real experiences from real people</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p class="text-statwell-navy mb-4">"So much easier than calling my doctor's office! Got my blood pressure medication refilled in under 2 hours. Highly recommend!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
+                            SM
+                        </div>
+                        <div>
+                            <div class="font-semibold text-statwell-navy">Sarah M.</div>
+                            <div class="text-sm text-statwell-gray">New York, NY</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p class="text-statwell-navy mb-4">"I travel a lot for work and StatWellMD makes it so easy to keep up with my thyroid medication. The process is quick and straightforward."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
+                            JL
+                        </div>
+                        <div>
+                            <div class="font-semibold text-statwell-navy">James L.</div>
+                            <div class="text-sm text-statwell-gray">Miami, FL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p class="text-statwell-navy mb-4">"Perfect for busy moms! No need to find childcare to go to the doctor. I can do everything from my phone while the kids nap."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
+                            EP
+                        </div>
+                        <div>
+                            <div class="font-semibold text-statwell-navy">Emily P.</div>
+                            <div class="text-sm text-statwell-gray">Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-white py-16 fade-in-section" id="faq-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Frequently Asked Questions</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Friendly doctor" class="w-full h-auto rounded-2xl object-cover sticky top-24 shadow-lg">
+                </div>
+                <div class="lg:col-span-2" id="faq-accordion">
+                    <!-- FAQ items from homepage -->
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What is StatWellMD and how does it work?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How much does a StatWellMD visit cost?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">Each visit is a flat $29.99 — simple, affordable, and transparent. There are no hidden fees, and insurance is not required.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Are StatWellMD providers licensed and qualified?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How are prescriptions sent and can I choose my pharmacy?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">If medication is appropriate, your provider sends your prescription electronically to any pharmacy you choose. You'll receive a confirmation email once it's transmitted, and you can pick it up just like a regular prescription.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Is my information safe and confidential?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">Absolutely. StatWellMD uses end-to-end encryption and HIPAA-compliant systems to protect your data. Your personal and medical information is never shared, sold, or disclosed—only your assigned provider and care team can access your file.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Can StatWellMD prescribe controlled substances or narcotics?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">No. StatWellMD does not prescribe controlled substances, narcotics, or high-risk medications such as Adderall, Xanax, or opioids. We specialize in non-emergency, guideline-based care that prioritizes your safety.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How quickly will I get a response from a provider?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">Most consultations are reviewed within 2–4 hours (often faster). Requests submitted after hours are completed the next morning. You'll be notified by email and text once your provider has reviewed your case.</p>
+                        </div>
+                    </div>
+
+                    <div class="py-4">
+                        <div class="accordion-header flex justify-between items-center cursor-pointer group">
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How do follow-ups or refills work?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                        </div>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
+                            <p class="text-statwell-gray pt-4">Need a refill? Log into your account and submit a quick follow-up request. Many conditions qualify for discounted refill visits. Your provider may recommend periodic check-ins to ensure your treatment remains effective and safe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-statwell-white py-16 fade-in-section">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-statwell-navy rounded-3xl p-12 text-center text-white">
+                <h2 class="text-4xl font-bold mb-4">Ready to Refill Your Prescription?</h2>
+                <p class="text-lg mb-8 text-gray-300">Get started in minutes. No appointments, no waiting rooms, no hassle.</p>
+                <a href="#refill-form-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-lg hover:-translate-y-1 transition-all shadow-lg" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
+                    Start Your Refill for $29.99
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12" style="background-color: #2A3B54;">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" class="h-7 mb-4">
+                    <p class="text-sm text-gray-400 mb-4">Telemedicine, on your time.</p>
+                    <div class="flex gap-3 mb-4">
+                        <a href="https://www.instagram.com/statwell_md/profilecard/?igsh=MWc1d2Jud3VnanczZg==" class="text-gray-400 hover:text-statwell-teal transition-colors">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61578209372583&mibextid=rS40aB7S9Ucbxw6v" class="text-gray-400 hover:text-statwell-teal transition-colors">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-statwell-teal transition-colors">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/statwellmd/" class="text-gray-400 hover:text-statwell-teal transition-colors">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        <p class="mb-2">Licensed in: NY, FL, GA, ID, MN, MO, PA, ND, CT, IN, LA, ME, TN, WI, AZ, AL, GU, OK, HI, UT, KY, MI, MS, WV, WY, KS, TX, MD, NE, WA, VT, OH, DE, MT, CO, NH, NJ, IA, DC <a href="#" onclick="openStatesModal(); return false;" class="text-statwell-teal hover:underline">+ more</a></p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="terms_of_service.html" class="text-sm text-gray-400 hover:text-statwell-teal transition-colors">Terms of Service</a></li>
+                        <li><a href="privacy_policy.html" class="text-sm text-gray-400 hover:text-statwell-teal transition-colors">Privacy Policy</a></li>
+                        <li><a href="patient_bill_of_rights.html" class="text-sm text-gray-400 hover:text-statwell-teal transition-colors">Patient Bill of Rights</a></li>
+                        <li><a href="notice_of_privacy_practices.html" class="text-sm text-gray-400 hover:text-statwell-teal transition-colors">Privacy Practices</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Contact Us</h4>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <div>
+                            <p class="font-semibold text-white">Address:</p>
+                            <p>1325 East Main Street #1006<br>Carbondale, IL 62901</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white">Email:</p>
+                            <a href="mailto:hello@statwellmd.com" class="hover:text-statwell-teal transition-colors">hello@statwellmd.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-sm text-gray-400">© 2025 StatWellMD LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- States Modal -->
+    <div id="states-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeStatesModal()">&times;</span>
+            <h2 class="text-3xl font-bold text-statwell-navy mb-6">States Where We Operate</h2>
+            <p class="text-statwell-gray mb-6">StatWellMD is licensed and operating in the following states:</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">New York</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Florida</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Georgia</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Idaho</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Minnesota</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Missouri</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Pennsylvania</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">North Dakota</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Connecticut</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Indiana</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Louisiana</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Maine</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Tennessee</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Wisconsin</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Arizona</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Alabama</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Guam</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Oklahoma</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Hawaii</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Utah</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Kentucky</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Michigan</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Mississippi</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">West Virginia</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Wyoming</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Kansas</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Texas</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Maryland</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Nebraska</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Washington</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Vermont</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Ohio</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Delaware</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Montana</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Colorado</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">New Hampshire</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">New Jersey</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Iowa</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Washington DC</span>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-blue-50 border border-statwell-blue/20 rounded-xl">
+                <p class="text-sm text-statwell-gray"><strong class="text-statwell-navy">Note:</strong> We are actively expanding to additional states. Check back regularly or contact us to see if we're available in your area.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample drug database
+        const drugDatabase = [
+            { name: 'Tirzepatide', type: 'Diabetes' },
+            { name: 'Metformin', type: 'Diabetes' },
+            { name: 'Lisinopril', type: 'Blood Pressure' },
+            { name: 'Atorvastatin', type: 'Cholesterol' },
+            { name: 'Levothyroxine', type: 'Thyroid' },
+            { name: 'Omeprazole', type: 'Acid Reflux' },
+            { name: 'Sertraline', type: 'Antidepressant' },
+            { name: 'Losartan', type: 'Blood Pressure' },
+            { name: 'Gabapentin', type: 'Nerve Pain' },
+            { name: 'Hydrochlorothiazide', type: 'Diuretic' },
+            { name: 'Amlodipine', type: 'Blood Pressure' },
+            { name: 'Albuterol', type: 'Asthma' },
+            { name: 'Synthroid', type: 'Thyroid' },
+            { name: 'Simvastatin', type: 'Cholesterol' }
+        ];
+
+        let selectedDrug = '';
+
+        // Drug search functionality
+        function searchDrug() {
+            const searchInput = document.getElementById('drug-search');
+            const searchValue = searchInput.value.trim().toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+
+            if (searchValue.length < 2) {
+                resultsContainer.classList.remove('show');
+                return;
+            }
+
+            const matches = drugDatabase.filter(drug => 
+                drug.name.toLowerCase().includes(searchValue)
+            );
+
+            if (matches.length > 0) {
+                resultsContainer.innerHTML = matches.map(drug => `
+                    <div class="search-result-item" onclick="selectDrug('${drug.name}')">
+                        <div class="search-result-name">${drug.name}</div>
+                        <div class="search-result-type">${drug.type}</div>
+                    </div>
+                `).join('');
+                resultsContainer.classList.add('show');
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">No medications found matching "${searchInput.value}"</div>
+                    <div class="add-manual-btn" onclick="addManualDrug()">
+                        <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add "${searchInput.value}" manually
+                    </div>
+                `;
+                resultsContainer.classList.add('show');
+            }
+        }
+
+        function showSearchResults() {
+            const searchInput = document.getElementById('drug-search');
+            if (searchInput.value.trim().length >= 2) {
+                searchDrug();
+            }
+        }
+
+        function selectDrug(drugName) {
+            document.getElementById('drug-search').value = drugName;
+            selectedDrug = drugName;
+            document.getElementById('search-results').classList.remove('show');
+        }
+
+        function addManualDrug() {
+            const searchInput = document.getElementById('drug-search');
+            selectedDrug = searchInput.value;
+            document.getElementById('search-results').classList.remove('show');
+        }
+
+        // Form submission
+        document.getElementById('refill-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const drugName = document.getElementById('drug-search').value.trim();
+            const dosage = document.getElementById('dosage').value.trim();
+            const duration = document.getElementById('duration').value.trim();
+            const refills = document.getElementById('refills').value;
+
+            if (!drugName || !dosage || !duration) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Store data in localStorage
+            localStorage.setItem('refill_data', JSON.stringify({
+                drugName: drugName,
+                dosage: dosage,
+                duration: duration,
+                refills: refills || '1',
+                timestamp: new Date().toISOString()
+            }));
+
+            // Redirect to signup
+            window.location.href = 'signup_flow_prototype.html?refill=true';
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('#drug-search') && !event.target.closest('.search-results')) {
+                const searchResults = document.getElementById('search-results');
+                if (searchResults) {
+                    searchResults.classList.remove('show');
+                }
+            }
+        });
+
+        // FAQ Accordion
+        document.getElementById('faq-accordion').addEventListener('click', e => {
+            const header = e.target.closest('.accordion-header');
+            if (header) {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+                const wasActive = header.classList.contains('active');
+
+                // Close all accordions
+                document.querySelectorAll('.accordion-header').forEach(h => {
+                    h.classList.remove('active');
+                    h.nextElementSibling.style.maxHeight = null;
+                    h.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                });
+
+                if (!wasActive) {
+                    header.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.style.transform = 'rotate(45deg)';
+                }
+            }
+        });
+
+        // Scroll animations
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // States modal functions
+        function openStatesModal() {
+            document.getElementById('states-modal').classList.add('show');
+        }
+
+        function closeStatesModal() {
+            document.getElementById('states-modal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('states-modal');
+            if (event.target === modal) {
+                closeStatesModal();
+            }
+        }
+    </script>
+</body>
+</html>
+
