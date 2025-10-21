@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StatwellMD - Your Health. Your Script. STAT.</title>
+    <title>StatWellMD | Healthcare That Fits Into Your Life</title>
+    <meta name="description" content="From acne to UTIs and birth control, StatWellMD makes healthcare easy. Start your visit online, get reviewed by licensed providers, and receive your treatment in minutes.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@iconscout/unicons@4.0.8/css/line.css">
     <script>
         tailwind.config = {
             theme: {
@@ -32,14 +34,60 @@
     </script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Avenir Next', 'Inter', sans-serif;
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Avenir Next', sans-serif;
+            font-family: 'Avenir Next', 'Inter', sans-serif;
+            font-weight: 700;
         }
         
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Testimonial card hover effect */
+        .testimonial-card {
+            min-height: 320px;
+        }
+        
+        .testimonial-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover .testimonial-text {
+            -webkit-line-clamp: unset;
+            line-clamp: unset;
+            display: block;
+        }
+
+        /* Button hover and active states */
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary:active {
+            transform: translateY(0);
         }
 
         /* Fade in animations */
@@ -210,6 +258,10 @@
                     <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" class="h-8">
                 </a>
                 <nav class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-100 transition-transform origin-center"></span>
+                    </a>
                     <a href="#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
                         FAQ
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
@@ -236,182 +288,663 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-white pt-8 pb-12 md:pt-12 md:pb-16 fade-in-section">
+    <section class="bg-white pt-4 pb-16 md:pt-6 md:pb-24 fade-in-section" id="how-it-works-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Content -->
                 <div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-statwell-navy mb-5 leading-tight">
-                        Healthcare that's fast, easy, and 100% online.
-                    </h1>
-                    <p class="text-lg text-statwell-gray mb-6 leading-relaxed max-w-xl">
-                        Get treated by a board-certified doctor and have your prescription sent to your pharmacy, often ready in just a few hours or less.
-                    </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <line x1="12" y1="1" x2="12" y2="23" stroke-width="2"/>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span class="font-medium">Visits from only <strong>$29.99</strong>, no insurance required.</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                                    <polyline points="12,6 12,12 16,14" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span class="font-medium">Prescriptions ready in <strong>under 2 hours.</strong></span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5 text-statwell-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                                    <line x1="2" y1="12" x2="22" y2="12" stroke-width="2"/>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span class="font-medium">Available <strong>24/7 across 40+ states.</strong></span>
-                        </li>
-                    </ul>
-                    <a href="#condition-selector-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
-                        Start My Treatment
-                    </a>
+                    <div class="mb-6">
+                        <div class="inline-flex items-center gap-2 text-statwell-blue font-medium text-sm mb-4">
+                            <i class="uil uil-check-circle text-base"></i>
+                            Licensed providers • 40+ states
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-statwell-navy mb-4 tracking-tight leading-tight">
+                            Care That Fits Into<br/>
+                            Your Life. 100% Online.
+                        </h1>
+                        <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-6">
+                            Tell us what's going on - acne, UTI, birth control, or weight loss. Get personalized online treatment from licensed providers, all at your own pace.
+                        </p>
+                    </div>
+                    
+                    <!-- Stats Pills -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
+                            <span class="font-semibold text-statwell-navy">$29.99</span>
+                            <span class="text-gray-600">per visit</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
+                            <span class="font-semibold text-statwell-navy">&lt; 2 hrs</span>
+                            <span class="text-gray-600">avg response</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
+                            <span class="font-semibold text-statwell-navy">24/7</span>
+                            <span class="text-gray-600">available</span>
+                        </div>
+                    </div>
+                    
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                            Start My Treatment
+                            <i class="uil uil-arrow-right text-xl"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="rounded-3xl overflow-hidden shadow-2xl bg-statwell-white p-4">
-                    <img src="https://images.pexels.com/photos/4167541/pexels-photo-4167541.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&dpr=2" alt="Happy family" class="w-full h-auto rounded-2xl object-cover aspect-[4/5]">
+                
+                <!-- Right Visual -->
+                <div class="relative">
+                    <div class="rounded-2xl overflow-hidden">
+                        <img src="https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Healthcare professional" class="w-full h-auto object-cover aspect-[4/5]">
+                    </div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-8 left-8 right-8 bg-white rounded-xl p-4 shadow-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="relative w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="uil uil-user-md text-2xl text-statwell-navy"></i>
+                                <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                            </div>
+                            <div>
+                                <div class="font-bold text-statwell-navy">Licensed MD/NP</div>
+                                <div class="text-sm text-gray-600">U.S. board-certified</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Condition Selector Section -->
-    <section class="bg-white py-16 fade-in-section" id="condition-selector-section">
+    <!-- No waiting rooms Section -->
+    <section class="bg-statwell-white py-20 fade-in-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">What Do You Need Help With?</h2>
-                <p class="text-lg text-statwell-gray">Search or pick from the most common conditions below.</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">
+                    No waiting rooms. No live visits.
+                </h2>
+                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
+                    We know how frustrating it can be to wait hours - sometimes weeks - for care. Healthcare shouldn't make you wait. Get convenient asynchronous care for everyday and urgent conditions in 3 steps.
+                </p>
             </div>
             
-            <div class="mb-8">
-                <input type="text" placeholder="Search for your condition..." class="w-full max-w-2xl mx-auto block px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-statwell-blue focus:outline-none focus:ring-4 focus:ring-statwell-blue/10 transition-all" id="condition-search">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="mb-6">
+                        <div class="w-20 h-20 bg-statwell-teal rounded-full flex items-center justify-center mx-auto">
+                            <i class="uil uil-clipboard-notes text-4xl text-white"></i>
+                        </div>
+                    </div>
+                    <div class="font-bold text-statwell-navy text-lg mb-3">1. Select Your Concern</div>
+                    <p class="text-gray-600">
+                        Choose from over 20+ everyday conditions: UTIs, acne, birth control, weight management, and more.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="mb-6">
+                        <div class="w-20 h-20 bg-statwell-blue rounded-full flex items-center justify-center mx-auto">
+                            <i class="uil uil-user-md text-4xl text-white"></i>
+                        </div>
+                    </div>
+                    <div class="font-bold text-statwell-navy text-lg mb-3">2. Quick Online Assessment</div>
+                    <p class="text-gray-600">
+                        Tell us about your symptoms and health history. Takes under 5 minutes!
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="mb-6">
+                        <div class="w-20 h-20 bg-statwell-navy rounded-full flex items-center justify-center mx-auto">
+                            <i class="uil uil-prescription-bottle text-4xl text-white"></i>
+                        </div>
+                    </div>
+                    <div class="font-bold text-statwell-navy text-lg mb-3">3. Get Your Care Plan</div>
+                    <p class="text-gray-600">
+                        Licensed providers review your case and send your personalized treatment plan or prescription - all through asynchronous care, no live calls, no waiting.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                    Log Your Symptoms
+                    <i class="uil uil-arrow-right text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Condition Selector Section -->
+    <section class="bg-white py-20 fade-in-section" id="condition-selector-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">What We Treat</h2>
+                <p class="text-base text-statwell-gray max-w-2xl mx-auto">Access personalized care for a wide range of everyday conditions without the usual waits or hassle. With our digital prescription services, care is always at your fingertips.</p>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="mb-12 max-w-2xl mx-auto">
+                <div class="relative">
+                    <i class="uil uil-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+                    <input type="text" placeholder="Search conditions..." class="w-full pl-14 pr-6 py-4 rounded-full border-2 border-gray-200 focus:border-statwell-navy focus:outline-none transition-all text-lg" id="condition-search">
+                </div>
             </div>
 
-            <div class="flex justify-center gap-2 mb-8 flex-wrap" id="filter-tabs">
+            <!-- Category Tabs -->
+            <div class="flex justify-center gap-3 mb-12 flex-wrap" id="filter-tabs">
                 <!-- Tabs will be generated dynamically -->
             </div>
 
+            <!-- Condition Grid -->
             <div class="condition-grid" id="condition-grid">
                 <!-- Condition cards will be generated dynamically -->
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="bg-statwell-white py-16 fade-in-section">
+    <!-- Your Health, Your Time Section -->
+    <section class="bg-statwell-white py-20 fade-in-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Three Simple Steps to Get Treated</h2>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">Your Health, Your Time</h2>
+                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
+                    Skip the appointments, the phone calls, and the awkward clinic visits. StatWellMD lets you get real medical care, 100% online and on your schedule.
+                </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
-                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">1</div>
-                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Describe Your Symptoms</h4>
-                    <p class="text-statwell-gray">Fill out a short online form about your symptoms and medical history.</p>
+            
+            <!-- Benefits Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="uil uil-clock text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-statwell-navy text-lg mb-2">No waiting rooms</h3>
+                    <p class="text-gray-600 text-sm">Get care when you need it, without the hassle of scheduling or waiting.</p>
                 </div>
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
-                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">2</div>
-                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Doctor Review</h4>
-                    <p class="text-statwell-gray">A licensed doctor reviews your information and prepares your personalized treatment plan.</p>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-statwell-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="uil uil-shield-check text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-statwell-navy text-lg mb-2">Licensed providers</h3>
+                    <p class="text-gray-600 text-sm">All consultations are reviewed by licensed medical professionals.</p>
                 </div>
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
-                    <div class="w-14 h-14 bg-statwell-teal-light text-statwell-navy rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 border-2 border-statwell-navy">3</div>
-                    <h4 class="text-xl font-semibold text-statwell-navy mb-3">Get Your Prescription</h4>
-                    <p class="text-statwell-gray">Your prescription is sent to your chosen pharmacy, usually ready in under 2 hours.</p>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-statwell-navy rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="uil uil-dollar-sign text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-statwell-navy text-lg mb-2">Transparent pricing</h3>
+                    <p class="text-gray-600 text-sm">No hidden fees. Just $29.99 per consultation, period.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="uil uil-lock text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-statwell-navy text-lg mb-2">100% private</h3>
+                    <p class="text-gray-600 text-sm">Your health information is secure and confidential.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                        Start Your Visit Today
+                        <i class="uil uil-arrow-right text-xl"></i>
+                    </a>
+                    <a href="prescription_refill.html" class="btn-secondary inline-flex items-center justify-center gap-2 px-8 py-4 text-statwell-navy text-lg font-semibold rounded-xl border-2 border-gray-200 hover:border-statwell-navy hover:bg-gray-50">
+                        Get Online Prescription Refill
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Comparison Section -->
-    <section class="bg-white py-16 fade-in-section">
+    <section class="bg-white py-20 fade-in-section">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-4">StatWellMD Vs Others</h2>
-                <p class="text-lg text-statwell-gray">Here's how we compare with other telemedicine platforms.</p>
+                <p class="text-base text-statwell-gray">Here's how we compare with other telemedicine platforms.</p>
             </div>
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
-                <div class="grid grid-cols-3 bg-statwell-white font-bold text-center py-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-md">
+                <div class="grid grid-cols-3 bg-statwell-navy text-white font-bold text-center py-4">
                     <div></div>
-                    <div class="text-statwell-navy">StatwellMD</div>
-                    <div class="text-statwell-navy">Other Telemedicine</div>
+                    <div>StatWellMD</div>
+                    <div>Other Telemedicine</div>
                 </div>
                 <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-statwell-teal-light font-semibold p-4">Visit Fee</div>
-                    <div class="p-4 text-center">$29.99</div>
-                    <div class="p-4 text-center">$80 - $250</div>
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Visit Fee</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">$29.99</div>
+                    <div class="p-4 text-center text-gray-600">$80 - $250</div>
                 </div>
                 <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-statwell-teal-light font-semibold p-4">Appointment Needed?</div>
-                    <div class="p-4 text-center">Never</div>
-                    <div class="p-4 text-center">Required</div>
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Appointment Needed?</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">Never</div>
+                    <div class="p-4 text-center text-gray-600">Required</div>
                 </div>
                 <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-statwell-teal-light font-semibold p-4">Insurance Needed?</div>
-                    <div class="p-4 text-center">No</div>
-                    <div class="p-4 text-center">Often Required</div>
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Insurance Needed?</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">No</div>
+                    <div class="p-4 text-center text-gray-600">Often Required</div>
                 </div>
                 <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-statwell-teal-light font-semibold p-4">Available Nationwide?</div>
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Available Nationwide?</div>
                     <div class="p-4 text-center">
-                        <svg class="w-5 h-5 inline-block text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                        </svg>
+                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
                     </div>
-                    <div class="p-4 text-center">Limited</div>
+                    <div class="p-4 text-center text-gray-600">Limited</div>
                 </div>
                 <div class="grid grid-cols-3">
-                    <div class="bg-statwell-teal-light font-semibold p-4">Open 24/7?</div>
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Open 24/7?</div>
                     <div class="p-4 text-center">
-                        <svg class="w-5 h-5 inline-block text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                        </svg>
+                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
                     </div>
-                    <div class="p-4 text-center">Limited Hours</div>
+                    <div class="p-4 text-center text-gray-600">Limited Hours</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="bg-statwell-white py-16 fade-in-section" id="faq-section">
+    <!-- What's Your Health Goal Today Section -->
+    <section class="bg-white py-20 fade-in-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Frequently Asked Questions</h2>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">What's Your Health Goal Today?</h2>
+                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
+                    From prescription refills to skin concerns and sexual health, you can rely on StatWellMD for affordable telemedicine that helps manage your health goals.
+                </p>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-1">
-                    <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Friendly doctor" class="w-full h-auto rounded-2xl object-cover sticky top-24 shadow-lg">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Weight Loss Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="weight-loss">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-teal rounded-full flex items-center justify-center">
+                            <i class="uil uil-weight text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Lose Weight with GLP-1s</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">Reach your goals with a personalized weight loss telehealth plan that fits your lifestyle — not the other way around.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Semaglutide & Tirzepatide</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Lifestyle coaching included</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Ongoing support & monitoring</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="lg:col-span-2" id="faq-accordion">
+
+                <!-- Skin Health Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="skin-health">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-blue rounded-full flex items-center justify-center">
+                            <i class="uil uil-medical-drip text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Clearer, Healthier Skin</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">From acne to eczema and psoriasis, get treatment plans that restore your glow — and your confidence.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Acne treatment & prevention</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Eczema & psoriasis management</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Custom skincare routines</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sexual Health Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="sexual-health">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-navy rounded-full flex items-center justify-center">
+                            <i class="uil uil-shield-check text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Have Safer Sex with Birth Control</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">Get discreet, reliable options to protect your sexual health. Your body, your control.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Birth control prescriptions</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Emergency contraception</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>STI testing & treatment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STI Testing Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="sti-testing">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-teal rounded-full flex items-center justify-center">
+                            <i class="uil uil-flask text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Get Tested & Treated for STIs</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">Take charge of your sexual health with confidential testing and treatment. No clinic visits, no judgment, just care.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Confidential STI testing</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>DoxyPEP for prevention</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Discreet treatment options</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infection Relief Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="infection-relief">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-blue rounded-full flex items-center justify-center">
+                            <i class="uil uil-medical-square text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Fast Relief for Everyday Infections</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">UTIs, sinus infections, sore throats — get quick, professional care so you can get back to feeling good.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>UTI treatment & prevention</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Sinus & respiratory infections</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Same-day prescription delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prescription Refills Goal -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all cursor-pointer goal-card" data-goal="prescription-refills">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-statwell-navy rounded-full flex items-center justify-center">
+                            <i class="uil uil-prescription-bottle text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-statwell-navy">Prescription Refills Made Simple</h3>
+                    </div>
+                    <p class="text-statwell-gray text-sm mb-4">Skip the trips and refill medications for hypertension, diabetes, and more — right from your phone, reviewed by licensed providers.</p>
+                    <div class="goal-content hidden">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Chronic condition management</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Medication adjustments</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                                </svg>
+                                <span>Direct pharmacy delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                    See All Conditions We Treat
+                    <i class="uil uil-arrow-right text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-white py-20 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-100 rounded-full text-yellow-700 font-medium text-sm mb-6">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    4.9 Average Rating
+                </div>
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">Hear From Our Patients</h2>
+                <p class="text-base text-statwell-gray max-w-2xl mx-auto">Real stories from real people who found convenient, affordable care with StatWellMD</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I didn't have to wait weeks to see a doctor. StatWellMD got me treated in under 15 minutes. It was that simple!"</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-teal to-statwell-teal-light rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">E</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">Emma</h4>
+                            <p class="text-sm text-gray-500">Age 28</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Managing my skin and GLP-1 weight loss prescriptions from my phone is a game changer."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-blue to-purple-500 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">S</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">Sofia</h4>
+                            <p class="text-sm text-gray-500">Age 31</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I used to put off getting help because I was embarrassed to talk to anyone about my UTI. I tried StatWellMD out of desperation and they made it simple. The doctor reviewed my form and prescribed what I needed almost immediately."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-navy to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">J</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">James</h4>
+                            <p class="text-sm text-gray-500">Age 34</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Ordering birth control online felt scary at first, but the process was fast and professional."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">M</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">Mia</h4>
+                            <p class="text-sm text-gray-500">Age 29</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Before StatWellMD, I'd spent months jumping between skincare products. I got a treatment plan the same day. Two weeks later, my skin is clearer and I finally feel like myself again."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">J</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">Jasmine</h4>
+                            <p class="text-sm text-gray-500">Age 27</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
+                    <div class="flex text-yellow-400 mb-6">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I used it on my lunch break and had meds the same day. Faster than urgent care. I saw a provider within hours."</p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">A</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-statwell-navy">Alex</h4>
+                            <p class="text-sm text-gray-500">Age 29</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                    Start Your Visit
+                    <i class="uil uil-arrow-right text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-statwell-white py-20 fade-in-section" id="faq-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">Frequently Asked Questions</h2>
+                <p class="text-base text-statwell-gray max-w-2xl mx-auto">Have questions? We've got answers.</p>
+            </div>
+            <div class="max-w-4xl mx-auto" id="faq-accordion">
                     <!-- FAQ Item 1 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What is StatWellMD and how does it work?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What is StatWellMD and how does it work?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-                            <p class="text-statwell-gray pt-4">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case—usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</p>
+                            <p class="text-statwell-gray pt-4">StatWellMD is a secure, HIPAA-compliant telemedicine platform that connects you to licensed U.S. clinicians online. Simply complete a short medical questionnaire, and a provider will review your case - usually within hours. If medically appropriate, your prescription will be sent directly to your preferred pharmacy. No video calls or waiting rooms required.</p>
                         </div>
                     </div>
 
                     <!-- FAQ Item 2 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What conditions can StatWellMD treat?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What conditions can StatWellMD treat?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">We treat many common, non-emergency conditions, such as:<br>• Urinary tract infections (UTIs)<br>• Sinus infections, allergies, and cold sores<br>• Acne, eczema, and other skin conditions<br>• Birth control, women's health, and men's health<br>• Anxiety, insomnia, and depression refills<br><br>Each case is reviewed by a state-licensed provider who ensures your treatment is safe and appropriate.</p>
@@ -419,10 +952,10 @@
                     </div>
 
                     <!-- FAQ Item 3 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How much does a StatWellMD visit cost?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">How much does a StatWellMD visit cost?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Each visit is a flat $29.99 — simple, affordable, and transparent. There are no hidden fees, and insurance is not required.</p>
@@ -430,10 +963,10 @@
                     </div>
 
                     <!-- FAQ Item 4 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Are StatWellMD providers licensed and qualified?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">Are StatWellMD providers licensed and qualified?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Yes. All StatWellMD providers are U.S.-licensed physicians, nurse practitioners, or physician assistants trained in telehealth medicine. Each consultation follows evidence-based clinical protocols and state regulations to ensure safe, effective, and ethical care.</p>
@@ -441,10 +974,10 @@
                     </div>
 
                     <!-- FAQ Item 5 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How are prescriptions sent and can I choose my pharmacy?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">How are prescriptions sent and can I choose my pharmacy?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">If medication is appropriate, your provider sends your prescription electronically to any pharmacy you choose. You'll receive a confirmation email once it's transmitted, and you can pick it up just like a regular prescription.</p>
@@ -452,10 +985,10 @@
                     </div>
 
                     <!-- FAQ Item 6 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Is my information safe and confidential?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">Is my information safe and confidential?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Absolutely. StatWellMD uses end-to-end encryption and HIPAA-compliant systems to protect your data. Your personal and medical information is never shared, sold, or disclosed—only your assigned provider and care team can access your file.</p>
@@ -463,10 +996,10 @@
                     </div>
 
                     <!-- FAQ Item 7 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Can StatWellMD prescribe controlled substances or narcotics?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">Can StatWellMD prescribe controlled substances or narcotics?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">No. StatWellMD does not prescribe controlled substances, narcotics, or high-risk medications such as Adderall, Xanax, or opioids. We specialize in non-emergency, guideline-based care that prioritizes your safety.</p>
@@ -474,10 +1007,10 @@
                     </div>
 
                     <!-- FAQ Item 8 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How quickly will I get a response from a provider?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">How quickly will I get a response from a provider?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Most consultations are reviewed within 2–4 hours (often faster). Requests submitted after hours are completed the next morning. You'll be notified by email and text once your provider has reviewed your case.</p>
@@ -485,10 +1018,10 @@
                     </div>
 
                     <!-- FAQ Item 9 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What if the provider decides I don't need medication?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What if the provider decides I don't need medication?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">If your provider determines medication isn't necessary, you'll receive guidance on next steps or home care. In such cases, you are not charged for a prescription. Our focus is on safe, responsible medicine, not over-prescribing.</p>
@@ -496,10 +1029,10 @@
                     </div>
 
                     <!-- FAQ Item 10 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What is the refund policy?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What is the refund policy?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">If your visit isn't approved or no prescription is issued, you receive a full refund automatically. Once a provider reviews your consultation and sends a prescription, the service is considered rendered and non-refundable per federal telehealth guidelines.</p>
@@ -507,10 +1040,10 @@
                     </div>
 
                     <!-- FAQ Item 11 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">How do follow-ups or refills work?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">How do follow-ups or refills work?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Need a refill? Log into your account and submit a quick follow-up request. Many conditions qualify for discounted refill visits. Your provider may recommend periodic check-ins to ensure your treatment remains effective and safe.</p>
@@ -518,10 +1051,10 @@
                     </div>
 
                     <!-- FAQ Item 12 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What if there's an issue with my pharmacy or prescription?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What if there's an issue with my pharmacy or prescription?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">If your pharmacy doesn't receive your prescription, contact our Support Team through the Help Center or by email. We'll verify and resend it—usually within an hour—so you can get your medication without delay.</p>
@@ -529,7 +1062,7 @@
                     </div>
 
                     <!-- FAQ Item 13 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
                             <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Do I need insurance to use StatWellMD?</h3>
                             <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
@@ -540,10 +1073,10 @@
                     </div>
 
                     <!-- FAQ Item 14 -->
-                    <div class="border-b border-gray-200 py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Can I use StatWellMD on my phone or tablet?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">Can I use StatWellMD on my phone or tablet?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">Yes! StatWellMD is mobile-friendly and works on any device—no app required. Complete your visit, upload photos, and receive your treatment plan directly from your phone, tablet, or computer at statwellmd.com.</p>
@@ -551,16 +1084,15 @@
                     </div>
 
                     <!-- FAQ Item 15 -->
-                    <div class="py-4">
+                    <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">What states is StatWellMD available in?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">What states is StatWellMD available in?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">StatWellMD currently operates in 40+ U.S. states, with active expansion underway. When you begin your consultation, the platform automatically verifies if service is available in your state and notifies you as soon as new states are added.</p>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </section>
@@ -568,11 +1100,25 @@
     <!-- CTA Section -->
     <section class="bg-white py-16 fade-in-section">
         <div class="max-w-4xl mx-auto px-6">
-            <div class="bg-statwell-navy rounded-3xl p-12 text-center text-white">
-                <h2 class="text-4xl font-bold mb-6">Ready to Feel Better?</h2>
-                <a href="#condition-selector-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-lg hover:-translate-y-1 transition-all shadow-lg" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
-                    Start Your Visit for Just $29.99
-                </a>
+            <div class="bg-gradient-to-br from-statwell-navy to-blue-900 rounded-3xl p-12 text-center text-white relative overflow-hidden">
+                <!-- Background decoration -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-statwell-teal/10 rounded-full translate-y-24 -translate-x-24"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready for Fast, Discreet Care?</h2>
+                    <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+                        Get professional treatment on your schedule through asynchronous telehealth that works around you, reviewed by licensed providers who understand your needs.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#condition-selector-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-lg hover:-translate-y-1 transition-all shadow-lg bg-white text-statwell-navy hover:bg-gray-50">
+                            Start My Treatment
+                        </a>
+                        <a href="#how-it-works-section" class="inline-block px-8 py-4 rounded-xl font-semibold text-lg hover:-translate-y-1 transition-all shadow-lg border-2 border-white text-white hover:bg-white hover:text-statwell-navy">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -961,7 +1507,7 @@
         const filterTabs = document.getElementById('filter-tabs');
         
         filterTabs.innerHTML = categories.map(cat => 
-            `<button class="px-4 py-2 rounded-full font-medium transition-all ${cat === 'All' ? 'bg-statwell-navy text-white' : 'bg-white text-statwell-navy border border-gray-200 hover:border-statwell-blue'}" data-category="${cat}">${cat}</button>`
+            `<button class="px-6 py-3 rounded-full font-semibold transition-all ${cat === 'All' ? 'bg-statwell-navy text-white' : 'bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy'}" data-category="${cat}">${cat}</button>`
         ).join('');
 
         // Render condition cards
@@ -1009,9 +1555,9 @@
         filterTabs.addEventListener('click', e => {
             if (e.target.tagName === 'BUTTON') {
                 filterTabs.querySelectorAll('button').forEach(btn => {
-                    btn.className = 'px-4 py-2 rounded-full font-medium transition-all bg-white text-statwell-navy border border-gray-200 hover:border-statwell-blue';
+                    btn.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy';
                 });
-                e.target.className = 'px-4 py-2 rounded-full font-medium transition-all bg-statwell-navy text-white';
+                e.target.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-statwell-navy text-white';
                 document.getElementById('condition-search').value = '';
                 renderCards(e.target.dataset.category);
             }
@@ -1020,9 +1566,9 @@
         // Search handler
         document.getElementById('condition-search').addEventListener('input', e => {
             filterTabs.querySelectorAll('button').forEach(btn => {
-                btn.className = 'px-4 py-2 rounded-full font-medium transition-all bg-white text-statwell-navy border border-gray-200 hover:border-statwell-blue';
+                btn.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy';
             });
-            filterTabs.querySelector('[data-category="All"]').className = 'px-4 py-2 rounded-full font-medium transition-all bg-statwell-navy text-white';
+            filterTabs.querySelector('[data-category="All"]').className = 'px-6 py-3 rounded-full font-semibold transition-all bg-statwell-navy text-white';
             renderCards('All', e.target.value);
         });
 
@@ -1106,6 +1652,35 @@
                 showToast('Your account has been permanently deleted.', 'success');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
+        });
+
+        // Goal cards interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const goalCards = document.querySelectorAll('.goal-card');
+            
+            goalCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const content = this.querySelector('.goal-content');
+                    const isExpanded = !content.classList.contains('hidden');
+                    
+                    // Close all other cards
+                    goalCards.forEach(otherCard => {
+                        if (otherCard !== this) {
+                            otherCard.querySelector('.goal-content').classList.add('hidden');
+                            otherCard.classList.remove('ring-2', 'ring-statwell-blue');
+                        }
+                    });
+                    
+                    // Toggle current card
+                    if (isExpanded) {
+                        content.classList.add('hidden');
+                        this.classList.remove('ring-2', 'ring-statwell-blue');
+                    } else {
+                        content.classList.remove('hidden');
+                        this.classList.add('ring-2', 'ring-statwell-blue');
+                    }
+                });
+            });
         });
 
         // Initial render
