@@ -1055,6 +1055,12 @@
                 width: 100%;
             }
         }
+        
+        /* Visit For Option */
+        .visit-for-option:hover {
+            border-color: var(--primary) !important;
+            background: rgba(93, 120, 255, 0.05);
+        }
     </style>
 </head>
 <body>
@@ -1134,8 +1140,28 @@
 
                 <!-- Main Card -->
                 <div class="main-card">
-                    <!-- Step 1: Medication Details -->
+                    <!-- Step 1: Who is this visit for? -->
                     <div class="step-container active" id="step-1">
+                        <h2 class="section-title">Who is this visit for?</h2>
+                        
+                        <div style="display: grid; gap: var(--space-md);">
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="me" checked style="width: 20px; height: 20px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 16px;">Me (age 19 or older)</span>
+                            </label>
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="dependent" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 16px;">My dependent (age 19 or older)</span>
+                            </label>
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="care-for" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 16px;">Someone I care for (age 19 or older) <span style="color: var(--text-secondary); font-weight: 400;">(I have their consent)</span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Medication Details -->
+                    <div class="step-container" id="step-2">
                         <h2 class="section-title">Medication Details</h2>
                         
                         <div class="form-row">
@@ -1187,8 +1213,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Medication Image -->
-                    <div class="step-container" id="step-2">
+                    <!-- Step 3: Medication Image -->
+                    <div class="step-container" id="step-3">
                         <h2 class="section-title">Medication Image <span class="required">*</span></h2>
                         <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Upload clear photos of your medication bottle or packaging - <span style="color: #fbbf24;">Maximum 5 images</span></p>
                         
@@ -1212,8 +1238,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Laboratory Reports -->
-                    <div class="step-container" id="step-3">
+                    <!-- Step 4: Laboratory Reports -->
+                    <div class="step-container" id="step-4">
                         <h2 class="section-title">Laboratory Reports (Optional)</h2>
                         <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Upload any laboratory reports related to this medication (Image, PDF, or DOC files) - <span style="color: #fbbf24;">Maximum 5 files</span></p>
                         
@@ -1237,12 +1263,12 @@
                         </div>
                     </div>
 
-                    <!-- Step 4: Allergy Screening -->
-                    <div class="step-container" id="step-4">
-                        <h2 class="section-title">Drug Allergy Screening</h2>
+                    <!-- Step 5: Allergy Screening -->
+                    <div class="step-container" id="step-5">
+                        <h2 class="section-title">Medication Allergy Screening</h2>
                         
                         <div class="form-group">
-                            <label class="form-label">Do you have any drug allergies?</label>
+                            <label class="form-label">Do you have any medication allergies?</label>
                             <div class="radio-group">
                                 <label class="radio-item">
                                     <input type="radio" name="allergies" value="yes" class="radio-input" onchange="toggleAllergies(true)">
@@ -1265,13 +1291,13 @@
                                     <line x1="12" y1="5" x2="12" y2="19"/>
                                     <line x1="5" y1="12" x2="19" y2="12"/>
                                 </svg>
-                                Add Drug Allergy
+                                Add Medication Allergy
                             </div>
                         </div>
                     </div>
 
-                    <!-- Step 5: Review -->
-                    <div class="step-container" id="step-5">
+                    <!-- Step 6: Review -->
+                    <div class="step-container" id="step-6">
                         <h2 class="section-title">Review</h2>
                         
                         <!-- Medication Summary -->
@@ -1319,16 +1345,16 @@
                             </div>
                         </div>
 
-                        <!-- Drug Allergies -->
+                        <!-- Medication Allergies -->
                         <div class="preview-section">
                             <div class="preview-title">
                                 <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                 </svg>
-                                Drug Allergies
+                                Medication Allergies
                             </div>
                             <div class="preview-content" id="preview-allergies">
-                                No drug allergies reported.
+                                No medication allergies reported.
                             </div>
                         </div>
 
@@ -1347,8 +1373,52 @@
                         </div>
                     </div>
 
-                    <!-- Step 6: Confirm Payment -->
-                    <div class="step-container" id="step-6">
+                    <!-- Step 7: Consent -->
+                    <div class="step-container" id="step-7">
+                        <h2 class="section-title">Consent</h2>
+                        
+                        <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg);">
+                            <div class="consent-form">
+                                <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                                    <input type="checkbox" id="new-consent-1" onchange="checkNewConsents()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                                    <label for="new-consent-1" style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+                                        I confirm this is not an emergency; I'll call 911 for urgent/life-threatening issues.
+                                    </label>
+                                </div>
+                                
+                                <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                                    <input type="checkbox" id="new-consent-2" onchange="checkNewConsents()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                                    <label for="new-consent-2" style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+                                        I am 16 years of age or older (or the legal guardian of a 16-17-year-old patient).
+                                    </label>
+                                </div>
+                                
+                                <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                                    <input type="checkbox" id="new-consent-3" onchange="checkNewConsents()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                                    <label for="new-consent-3" style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+                                        I agree to <a href="../Landing_page/terms_of_service.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Telehealth Consent and Terms of Use</a>.
+                                    </label>
+                                </div>
+                                
+                                <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                                    <input type="checkbox" id="new-consent-4" onchange="checkNewConsents()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                                    <label for="new-consent-4" style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+                                        I acknowledge Medication Policy (no Controlled Substances; prescriptions only if clinically appropriate).
+                                    </label>
+                                </div>
+                                
+                                <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: var(--space-sm);">
+                                    <input type="checkbox" id="new-consent-5" onchange="checkNewConsents()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                                    <label for="new-consent-5" style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+                                        I have reviewed the <a href="../Landing_page/privacy_policy.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Privacy Notice</a> (HIPAA-compliant handling of my data).
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 8: Confirm Payment -->
+                    <div class="step-container" id="step-8">
                         <h2 class="section-title">Payment Summary</h2>
                         
                         <!-- Payment Status -->
@@ -1375,7 +1445,7 @@
                                         <span style="font-weight: 600; font-size: 16px; color: var(--text-primary);" id="new-refill-base-fee">$29.99</span>
                                     </div>
                                     <div style="font-size: 13px; color: var(--text-secondary);">
-                                        This fee covers all refills within the next 30 days from the date of payment
+                                        Takes within 24 hours to review
                                     </div>
                                 </div>
 
@@ -1411,7 +1481,21 @@
                                     </div>
                                 </label>
                             </div>
+                        </div>
 
+                        <!-- Refund Policy -->
+                        <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                            <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-xs);">
+                                <svg style="width: 20px; height: 20px; stroke: #f59e0b; fill: none; stroke-width: 2; flex-shrink: 0;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                                <div style="font-weight: 600; font-size: 14px; color: #92400e;">Refunds:</div>
+                            </div>
+                            <div style="font-size: 13px; color: #92400e; line-height: 1.5;">
+                                If we cannot treat your condition or you withdraw before a clinician renders a decision, we'll issue a full refund. Once a clinical decision is documented, the visit is considered delivered.
+                            </div>
                         </div>
                     </div>
 
@@ -1503,7 +1587,7 @@
 
     <script>
         let currentStep = 1;
-        let totalSteps = 6;
+        let totalSteps = 8;
         let selectedPharmacy = {
             id: 'cvs-1234',
             name: 'CVS Pharmacy #1234',
@@ -1524,12 +1608,14 @@
         };
 
         const stepLabels = [
-            'Medication Details',
-            'Medication Image',
-            'Laboratory Reports',
-            'Allergy Screening',
+            'Recipient',
+            'Details',
+            'Image',
+            'Reports',
+            'Allergies',
             'Review',
-            'Confirm Payment'
+            'Consent',
+            'Payment'
         ];
 
         // Sample drug database
@@ -2025,6 +2111,9 @@
         // Validation
         function validateStep(step) {
             if (step === 1) {
+                // Step 1: Who is this visit for - always valid as one option is checked by default
+                return true;
+            } else if (step === 2) {
                 const drugName = document.getElementById('drug-search').value.trim();
                 const dosage = document.getElementById('dosage').value.trim();
                 const duration = document.getElementById('duration').value.trim();
@@ -2041,17 +2130,17 @@
                 formData.duration = duration;
                 formData.refills = refills || '1'; // Default to 1 if not selected
                 return true;
-            } else if (step === 2) {
-                // Medication Image is now step 2 and is required
+            } else if (step === 3) {
+                // Medication Image is step 3 and is required
                 if (formData.medicationImages.length === 0) {
                     alert('Please upload at least one medication image');
                     return false;
                 }
                 return true;
-            } else if (step === 3) {
-                // Laboratory Reports is now step 3 and is optional
-                return true;
             } else if (step === 4) {
+                // Laboratory Reports is step 4 and is optional
+                return true;
+            } else if (step === 5) {
                 const hasAllergies = document.querySelector('input[name="allergies"]:checked').value === 'yes';
                 
                 if (hasAllergies) {
@@ -2069,8 +2158,25 @@
                     }
                 }
                 return true;
+            } else if (step === 7) {
+                // Validate consent checkboxes
+                const consent1 = document.getElementById('new-consent-1');
+                const consent2 = document.getElementById('new-consent-2');
+                const consent3 = document.getElementById('new-consent-3');
+                const consent4 = document.getElementById('new-consent-4');
+                const consent5 = document.getElementById('new-consent-5');
+                
+                if (!consent1.checked || !consent2.checked || !consent3.checked || !consent4.checked || !consent5.checked) {
+                    alert('Please check all consent boxes to continue');
+                    return false;
+                }
             }
             return true;
+        }
+
+        function checkNewConsents() {
+            // This function is called when any consent checkbox changes
+            // It can be used to enable/disable the continue button in real-time if needed
         }
 
         // Update preview section
@@ -2130,10 +2236,10 @@
                     `).join('');
                     document.getElementById('preview-allergies').innerHTML = allergyCards;
                 } else {
-                    document.getElementById('preview-allergies').textContent = 'No drug allergies added.';
+                    document.getElementById('preview-allergies').textContent = 'No medication allergies added.';
                 }
             } else {
-                document.getElementById('preview-allergies').textContent = 'No drug allergies reported.';
+                document.getElementById('preview-allergies').textContent = 'No medication allergies reported.';
             }
 
             // Update payment status
@@ -2204,8 +2310,8 @@
                 // Show next step
                 document.getElementById(`step-${currentStep}`).classList.add('active');
                 
-                // Update preview if on step 5 or 6
-                if (currentStep === 5 || currentStep === 6) {
+                // Update preview if on step 6, 7, or 8
+                if (currentStep === 6 || currentStep === 7 || currentStep === 8) {
                     updatePreview();
                 }
                 
@@ -2260,7 +2366,8 @@
 
             // Update next button text
             if (currentStep === totalSteps) {
-                nextBtn.textContent = 'Submit Refill Request';
+                const totalAmount = document.getElementById('new-refill-total-amount').textContent;
+                nextBtn.textContent = 'Complete Secure Checkout - ' + totalAmount;
             } else {
                 nextBtn.textContent = 'Continue';
             }

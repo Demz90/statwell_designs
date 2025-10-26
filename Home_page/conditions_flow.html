@@ -800,6 +800,12 @@
         /* Hidden States */
         .state { display: none; }
         .state.active { display: block; }
+        
+        /* Visit For Option */
+        .visit-for-option:hover {
+            border-color: var(--primary) !important;
+            background: rgba(93, 120, 255, 0.05);
+        }
     </style>
 </head>
 <body>
@@ -809,6 +815,7 @@
         <div class="demo-buttons">
             <button class="demo-btn active" onclick="showState('conditions-listing')">Conditions Listing</button>
             <button class="demo-btn" onclick="showState('condition-detail')">Condition Detail</button>
+            <button class="demo-btn" onclick="showState('who-is-visit-for')">Who is Visit For</button>
             <button class="demo-btn" onclick="showState('follow-up-questions')">Follow-up Questions</button>
             <button class="demo-btn" onclick="showState('urgent-banner')">Urgent Banner</button>
             <button class="demo-btn" onclick="showState('consent-step')">Consent Step</button>
@@ -906,6 +913,47 @@
                 </div>
             </div>
 
+            <!-- Who is Visit For State -->
+            <div class="state" id="who-is-visit-for-state">
+                <!-- Selected Condition Header -->
+                <div class="selected-condition-header">
+                    <div class="condition-badge">
+                        <span class="condition-icon">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </span>
+                        <div class="condition-info">
+                            <div class="condition-name" id="visit-for-condition-name">Asthma</div>
+                            <div class="condition-type">Respiratory Condition</div>
+                        </div>
+                    </div>
+                    <div class="consultation-fee">$29.99</div>
+                </div>
+
+                <!-- Who is this visit for? -->
+                <div style="background: var(--white); border-radius: 16px; padding: var(--space-xl); margin-bottom: var(--space-xl); border: 1px solid rgba(93, 120, 255, 0.12);">
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: var(--space-lg); color: var(--text-primary);">Who is this visit for?</h3>
+                    <div style="display: grid; gap: var(--space-md);">
+                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                            <input type="radio" name="visit-for" value="me" checked style="width: 20px; height: 20px; accent-color: var(--primary);">
+                            <span style="font-weight: 500; font-size: 16px;">Me (age 19 or older)</span>
+                        </label>
+                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                            <input type="radio" name="visit-for" value="dependent" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                            <span style="font-weight: 500; font-size: 16px;">My dependent (age 19 or older)</span>
+                        </label>
+                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
+                            <input type="radio" name="visit-for" value="care-for" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                            <span style="font-weight: 500; font-size: 16px;">Someone I care for (age 19 or older) <span style="color: var(--text-secondary); font-weight: 400;">(I have their consent)</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: var(--space-md);">
+                    <button class="btn btn-secondary" onclick="showState('conditions-listing')">Back</button>
+                    <button class="btn btn-primary" onclick="showState('follow-up-questions')">Continue to Assessment</button>
+                </div>
+            </div>
+
             <!-- Follow-up Questions State -->
             <div class="state" id="follow-up-questions-state">
                 <!-- Progress Navigation -->
@@ -936,20 +984,6 @@
                             <div class="progress-step-label">Complete</div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Selected Condition Header -->
-                <div class="selected-condition-header">
-                    <div class="condition-badge">
-                        <span class="condition-icon">
-                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                        </span>
-                        <div class="condition-info">
-                            <div class="condition-name" id="selected-condition-name">Asthma</div>
-                            <div class="condition-type">Respiratory Condition</div>
-                        </div>
-                    </div>
-                    <div class="consultation-fee">$29.99</div>
                 </div>
 
 
@@ -1060,7 +1094,7 @@
                         </div>
 
                         <div class="questions-navigation">
-                            <button type="button" class="btn btn-secondary" id="prev-question" onclick="previousQuestion()" disabled>Previous</button>
+                            <button type="button" class="btn btn-secondary" id="prev-question" onclick="previousQuestion()">Previous</button>
                             <button type="button" class="btn btn-primary" id="next-question" onclick="nextQuestion()" disabled>Next Question</button>
                             <button type="button" class="btn btn-primary" id="submit-questions" onclick="submitQuestions()" style="display: none;">Complete Assessment</button>
                         </div>
@@ -1194,18 +1228,46 @@
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-lg); border-radius: 12px;">
-                    <h3 style="margin-bottom: var(--space-lg);">Please review your consent</h3>
+                <div style="background: var(--white); padding: var(--space-xl); border-radius: 12px;">
+                    <h3 style="margin-bottom: var(--space-lg); font-size: 20px; font-weight: 600;">Please review your consent</h3>
                     
                     <div class="consent-form">
                         <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox">
-                            <label for="consent-checkbox" class="consent-text">
-                                I have read the details and giving my consent to proceed with consultation. I understand that this is a telehealth consultation and that I may need to seek in-person care if my condition worsens or if the provider determines that in-person evaluation is necessary.
+                            <input type="checkbox" id="consent-checkbox-1" onchange="checkAllConsents()">
+                            <label for="consent-checkbox-1" class="consent-text">
+                                I confirm this is not an emergency; I'll call 911 for urgent/life-threatening issues.
                             </label>
                         </div>
                         
-                        <button class="btn btn-primary" style="width: 100%;" onclick="showState('payment-confirmation')" id="consent-continue" disabled>Continue to Payment</button>
+                        <div class="consent-checkbox">
+                            <input type="checkbox" id="consent-checkbox-2" onchange="checkAllConsents()">
+                            <label for="consent-checkbox-2" class="consent-text">
+                                I am 16 years of age or older (or the legal guardian of a 16-17-year-old patient).
+                            </label>
+                        </div>
+                        
+                        <div class="consent-checkbox">
+                            <input type="checkbox" id="consent-checkbox-3" onchange="checkAllConsents()">
+                            <label for="consent-checkbox-3" class="consent-text">
+                                I agree to <a href="../Landing_page/terms_of_service.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Telehealth Consent and Terms of Use</a>.
+                            </label>
+                        </div>
+                        
+                        <div class="consent-checkbox">
+                            <input type="checkbox" id="consent-checkbox-4" onchange="checkAllConsents()">
+                            <label for="consent-checkbox-4" class="consent-text">
+                                I acknowledge Medication Policy (no Controlled Substances; prescriptions only if clinically appropriate).
+                            </label>
+                        </div>
+                        
+                        <div class="consent-checkbox">
+                            <input type="checkbox" id="consent-checkbox-5" onchange="checkAllConsents()">
+                            <label for="consent-checkbox-5" class="consent-text">
+                                I have reviewed the <a href="../Landing_page/privacy_policy.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Privacy Notice</a> (HIPAA-compliant handling of my data).
+                            </label>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-lg);" onclick="showState('payment-confirmation')" id="consent-continue" disabled>Continue to Payment</button>
                     </div>
                 </div>
             </div>
@@ -1250,21 +1312,43 @@
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 500px; margin: 0 auto;">
-                    <h2 style="text-align: center; margin-bottom: var(--space-lg);">Payment Confirmation</h2>
+                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 600px; margin: 0 auto;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-sm); margin-bottom: var(--space-lg);">
+                        <h2 style="text-align: center; margin: 0;">Payment Confirmation</h2>
+                        <div style="position: relative; display: inline-block;">
+                            <button onclick="togglePaymentFAQ()" style="width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center;">?</button>
+                            <div id="payment-faq" style="display: none; position: absolute; top: 32px; right: 0; background: var(--white); border: 2px solid var(--primary); border-radius: 12px; padding: var(--space-md); width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 100;">
+                                <div style="margin-bottom: var(--space-md);">
+                                    <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: var(--space-xs);">What's "asynchronous"?</div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">You answer a smart intake; a licensed clinician reviews and treats without live video.</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: var(--space-xs);">What we don't treat:</div>
+                                    <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Emergencies or life-threatening issues (call 911).</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="payment-summary">
                         <div class="payment-item">
-                            <span>Medical Consultation</span>
+                            <div>
+                                <div style="font-weight: 500;">Medical Consultation</div>
+                                <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Takes within 24 hours to review</div>
+                            </div>
                             <span id="base-fee">$29.99</span>
                         </div>
                         <div class="payment-item" id="express-fee-item" style="display: none;">
-                            <span>Express Service (30 min)</span>
+                            <div>
+                                <div style="font-weight: 500;">Express Service (30 min)</div>
+                            </div>
                             <span>$9.99</span>
                         </div>
-                        <div class="payment-item">
-                            <span>Service Fee</span>
-                            <span>$0.00</span>
+                        <div class="payment-item" id="work-note-fee-item" style="display: none;">
+                            <div>
+                                <div style="font-weight: 500;">Work/School Note</div>
+                            </div>
+                            <span>$4.99</span>
                         </div>
                         <div class="payment-item payment-total">
                             <span>Total</span>
@@ -1273,7 +1357,7 @@
                     </div>
 
                     <!-- Express Fee Option -->
-                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-md);">
                         <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
                             <input type="checkbox" id="express-fee-checkbox" onchange="toggleExpressFee()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
                             <div style="flex: 1;">
@@ -1287,7 +1371,41 @@
                         </label>
                     </div>
 
-                    <button class="btn btn-primary" style="width: 100%;" onclick="processPayment()">Pay Now</button>
+                    <!-- Work/School Note Option -->
+                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                        <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
+                            <input type="checkbox" id="work-note-checkbox" onchange="toggleWorkNote()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 16px; color: var(--text-primary); margin-bottom: var(--space-xs);">
+                                    Work/School Note - $4.99
+                                </div>
+                                <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                                    Get a work or school excuse note from your provider
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Refund Policy -->
+                    <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                        <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-xs);">
+                            <svg style="width: 20px; height: 20px; stroke: #f59e0b; fill: none; stroke-width: 2; flex-shrink: 0;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            <div style="font-weight: 600; font-size: 14px; color: #92400e;">Refunds:</div>
+                        </div>
+                        <div style="font-size: 13px; color: #92400e; line-height: 1.5;">
+                            If we cannot treat your condition or you withdraw before a clinician renders a decision, we'll issue a full refund. Once a clinical decision is documented, the visit is considered delivered.
+                        </div>
+                    </div>
+
+                    <div style="font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: var(--space-lg);">
+                        You will only be charged once per visit. We do not bill insurance.
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%;" onclick="processPayment()">Complete Secure Checkout - $<span id="checkout-total">29.99</span></button>
                 </div>
             </div>
 
@@ -1339,24 +1457,31 @@
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 500px; margin: 0 auto;">
+                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 600px; margin: 0 auto;">
                     <div class="success-content">
                         <div class="success-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M20 6L9 17l-5-5"/>
                             </svg>
                         </div>
-                        <h2 style="margin-bottom: var(--space-sm);">Thanks for your order</h2>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">You've successfully booked an appointment with a certified doctor. Your payment of $29.99 has been processed.</p>
+                        <h2 style="margin-bottom: var(--space-sm);">Payment Successful!</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Your payment has been processed successfully. A licensed provider will review your case.</p>
                         
                         <div class="success-details">
                             <div class="success-detail">
                                 <span>Transaction date:</span>
-                                <span>20th Sep, 2024</span>
+                                <span id="transaction-date"></span>
                             </div>
                             <div class="success-detail">
-                                <span>Service:</span>
-                                <span>Weight Loss Program Consultation</span>
+                                <span>Total Amount:</span>
+                                <span style="font-weight: 700; color: var(--primary);" id="success-total-amount">$29.99</span>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px; margin: var(--space-lg) 0; text-align: left;">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: var(--space-md); color: var(--text-primary);">Services Purchased:</h3>
+                            <div id="success-services-list" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
 
@@ -1634,7 +1759,7 @@
             
             // Update selected condition display
             if (selectedCondition) {
-                document.getElementById('selected-condition-name').textContent = selectedCondition.name;
+                document.getElementById('visit-for-condition-name').textContent = selectedCondition.name;
                 document.getElementById('urgent-condition-name').textContent = selectedCondition.name;
                 
                 // Reset questions
@@ -1644,7 +1769,7 @@
                 resetQuestions();
             }
             
-            showState('follow-up-questions');
+            showState('who-is-visit-for');
         }
 
         // Question handling functions
@@ -1676,6 +1801,9 @@
                 currentQuestion--;
                 showQuestion(currentQuestion);
                 updateProgressIndicator();
+            } else {
+                // Go back to who-is-visit-for state
+                showState('who-is-visit-for');
             }
         }
 
@@ -1689,7 +1817,12 @@
             document.querySelector(`[data-question="${questionNum}"]`).classList.add('active');
             
             // Update navigation buttons
-            document.getElementById('prev-question').disabled = questionNum === 1;
+            const prevBtn = document.getElementById('prev-question');
+            if (questionNum === 1) {
+                prevBtn.textContent = 'Back';
+            } else {
+                prevBtn.textContent = 'Previous';
+            }
             
             if (questionNum === totalQuestions) {
                 document.getElementById('next-question').style.display = 'none';
@@ -1765,20 +1898,99 @@
         }
 
         function toggleExpressFee() {
-            const checkbox = document.getElementById('express-fee-checkbox');
+            calculateTotal();
+        }
+
+        function toggleWorkNote() {
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const expressCheckbox = document.getElementById('express-fee-checkbox');
+            const workNoteCheckbox = document.getElementById('work-note-checkbox');
             const expressFeeItem = document.getElementById('express-fee-item');
+            const workNoteFeeItem = document.getElementById('work-note-fee-item');
             const totalAmount = document.getElementById('total-amount');
+            const checkoutTotal = document.getElementById('checkout-total');
             
-            if (checkbox.checked) {
+            let total = 29.99;
+            
+            if (expressCheckbox && expressCheckbox.checked) {
                 expressFeeItem.style.display = 'flex';
-                totalAmount.textContent = '$39.98';
+                total += 9.99;
             } else {
                 expressFeeItem.style.display = 'none';
-                totalAmount.textContent = '$29.99';
+            }
+            
+            if (workNoteCheckbox && workNoteCheckbox.checked) {
+                workNoteFeeItem.style.display = 'flex';
+                total += 4.99;
+            } else {
+                workNoteFeeItem.style.display = 'none';
+            }
+            
+            totalAmount.textContent = '$' + total.toFixed(2);
+            if (checkoutTotal) checkoutTotal.textContent = total.toFixed(2);
+        }
+
+        function togglePaymentFAQ() {
+            const faq = document.getElementById('payment-faq');
+            if (faq.style.display === 'none') {
+                faq.style.display = 'block';
+            } else {
+                faq.style.display = 'none';
             }
         }
 
         function processPayment() {
+            // Get selected services
+            const expressCheckbox = document.getElementById('express-fee-checkbox');
+            const workNoteCheckbox = document.getElementById('work-note-checkbox');
+            const totalAmount = document.getElementById('total-amount').textContent;
+            
+            // Build services list
+            let services = [];
+            
+            // Add base consultation
+            const conditionName = selectedCondition ? selectedCondition.name : 'Medical';
+            services.push({
+                name: conditionName + ' Consultation',
+                price: '$29.99'
+            });
+            
+            // Add express if selected
+            if (expressCheckbox && expressCheckbox.checked) {
+                services.push({
+                    name: 'Express Service (30 min)',
+                    price: '$9.99'
+                });
+            }
+            
+            // Add work note if selected
+            if (workNoteCheckbox && workNoteCheckbox.checked) {
+                services.push({
+                    name: 'Work/School Note',
+                    price: '$4.99'
+                });
+            }
+            
+            // Update success page
+            const servicesList = document.getElementById('success-services-list');
+            servicesList.innerHTML = services.map(service => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) 0;">
+                    <span style="color: var(--text-primary); font-weight: 500;">• ${service.name}</span>
+                    <span style="color: var(--text-secondary);">${service.price}</span>
+                </div>
+            `).join('');
+            
+            // Update total
+            document.getElementById('success-total-amount').textContent = totalAmount;
+            
+            // Update transaction date
+            const today = new Date();
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('transaction-date').textContent = today.toLocaleDateString('en-US', options);
+            
             showState('payment-success');
         }
 
@@ -1909,15 +2121,19 @@
                 });
             }
 
-            // Consent checkbox
-            const consentCheckbox = document.getElementById('consent-checkbox');
+        // Consent checkboxes - this will be called by checkAllConsents function
+
+        function checkAllConsents() {
+            const checkbox1 = document.getElementById('consent-checkbox-1');
+            const checkbox2 = document.getElementById('consent-checkbox-2');
+            const checkbox3 = document.getElementById('consent-checkbox-3');
+            const checkbox4 = document.getElementById('consent-checkbox-4');
+            const checkbox5 = document.getElementById('consent-checkbox-5');
             const consentContinue = document.getElementById('consent-continue');
             
-            if (consentCheckbox && consentContinue) {
-                consentCheckbox.addEventListener('change', () => {
-                    consentContinue.disabled = !consentCheckbox.checked;
-                });
-            }
+            const allChecked = checkbox1.checked && checkbox2.checked && checkbox3.checked && checkbox4.checked && checkbox5.checked;
+            consentContinue.disabled = !allChecked;
+        }
 
         // Platform dropdown functions
         function togglePlatformDropdown() {
