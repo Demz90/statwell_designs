@@ -220,12 +220,12 @@
         .btn-secondary:hover { background: var(--light-gray); }
 
         /* Tabs */
-        .tabs-container { display: flex; gap: var(--space-md); margin-bottom: var(--space-xl); }
-        .tab { padding: var(--space-sm) var(--space-lg); cursor: pointer; transition: all var(--anim-normal); position: relative; background: transparent; border-bottom: 3px solid transparent; }
+        .tabs-container { display: flex; gap: var(--space-md); margin-bottom: var(--space-xl); border-bottom: 2px solid var(--border-secondary); }
+        .tab { padding: var(--space-md) var(--space-lg); cursor: pointer; transition: all var(--anim-normal); position: relative; background: transparent; border-bottom: 3px solid transparent; font-weight: 600; font-size: 16px; }
         .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
         .tab:not(.active) { color: var(--text-secondary); }
         .tab:not(.active):hover { color: var(--text-primary); }
-        .tab-badge { background: var(--warning); color: var(--white); padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: var(--space-sm); }
+        .tab-badge { background: var(--primary); color: var(--white); padding: 4px 10px; border-radius: 12px; font-size: 13px; margin-left: var(--space-sm); font-weight: 700; }
 
         /* Session Task Tabs */
         .session-task-tabs { display: flex; gap: var(--space-sm); margin-bottom: var(--space-lg); padding: 0 var(--space-lg); }
@@ -292,6 +292,10 @@
             font-weight: 600;
             box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
         }
+        .session-badge.completed { 
+            background: linear-gradient(135deg, var(--success), #059669); 
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+        }
         .session-stats { display: flex; gap: var(--space-lg); font-size: 14px; color: var(--text-secondary); }
         .collapse-icon { transition: transform var(--anim-normal); }
         .session-card.expanded .collapse-icon { transform: rotate(180deg); }
@@ -335,6 +339,13 @@
             border-radius: 10px; 
             font-size: 11px; 
             font-weight: 600;
+        }
+        
+        /* Disabled To-do Tab for Completed Sessions */
+        .session-card[data-status="completed"] .session-task-tab:first-child {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: not-allowed;
         }
 
         /* Task Cards */
@@ -417,7 +428,7 @@
         .review-description { color: var(--text-secondary); font-size: 14px; }
 
         /* Demo Controls */
-        .demo-controls { position: fixed; top: var(--space-lg); left: calc(280px + var(--space-lg)); background: var(--white); padding: var(--space-md); border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); z-index: 1000; border: 1px solid var(--border-secondary); }
+        .demo-controls { position: fixed; top: var(--space-lg); right: var(--space-lg); background: var(--white); padding: var(--space-md); border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); z-index: 1000; border: 1px solid var(--border-secondary); min-width: 180px; }
         .demo-controls h3 { font-size: 14px; font-weight: 600; margin-bottom: var(--space-sm); }
         .demo-buttons { display: flex; flex-direction: column; gap: var(--space-sm); }
         .demo-btn { padding: 8px 12px; background: var(--light-gray); border: 1px solid var(--border-secondary); border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all var(--anim-normal); }
@@ -427,6 +438,10 @@
         /* Hidden States */
         .state { display: none; }
         .state.active { display: block; }
+        
+        /* Tab Content */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         /* Completed Task Styles */
         .task-card.completed { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
@@ -436,8 +451,38 @@
         /* Empty State */
         .empty-state { text-align: center; padding: var(--space-xl); color: var(--text-secondary); }
         .empty-state-icon { font-size: 48px; margin-bottom: var(--space-md); }
-        .empty-state-title { font-weight: 600; margin-bottom: var(--space-sm); }
+        .empty-state-title { font-weight: 600; margin-bottom: var(--space-sm); font-size: 18px; }
         .empty-state-description { font-size: 14px; }
+        
+        /* Tab Empty State */
+        .tab-empty-state { 
+            text-align: center; 
+            padding: 64px; 
+            color: var(--text-secondary);
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px dashed var(--border-secondary);
+            margin: var(--space-lg) 0;
+        }
+        .tab-empty-state-icon { 
+            margin-bottom: var(--space-lg); 
+            opacity: 0.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tab-empty-state-title { 
+            font-weight: 600; 
+            margin-bottom: var(--space-sm); 
+            font-size: 20px; 
+            color: var(--text-primary);
+        }
+        .tab-empty-state-description { 
+            font-size: 14px; 
+            line-height: 1.6; 
+            max-width: 500px; 
+            margin: 0 auto;
+        }
 
         /* Get Started Section */
         .get-started-section { padding: var(--space-xl) 0 var(--space-lg) 0; margin-top: var(--space-xl); }
@@ -513,6 +558,8 @@
                 position: static;
                 margin-bottom: var(--space-md);
                 width: 100%;
+                right: auto;
+                top: auto;
             }
         }
 
@@ -524,7 +571,8 @@
         <h3>Dashboard States</h3>
         <div class="demo-buttons">
             <button class="demo-btn active" onclick="showState('new-user')">New User</button>
-            <button class="demo-btn" onclick="showState('active-user')">Active User</button>
+            <button class="demo-btn" onclick="showState('active-user')">Active User (No Completed)</button>
+            <button class="demo-btn" onclick="showState('active-user-completed')">Active User (With Completed)</button>
         </div>
     </div>
 
@@ -784,7 +832,19 @@
 
             <!-- Active User State -->
             <div class="state" id="active-user-state">
-                <div class="session-card expanded" data-session="session-1">
+                <!-- Treatment Tabs -->
+                <div class="tabs-container">
+                    <div class="tab active" onclick="switchMainTab('ongoing')">
+                        Ongoing treatment <span class="tab-badge" id="ongoing-tab-count">4</span>
+                    </div>
+                    <div class="tab" onclick="switchMainTab('completed')">
+                        Completed treatment <span class="tab-badge" id="completed-tab-count">0</span>
+                    </div>
+                </div>
+
+                <!-- Ongoing Treatment Content -->
+                <div class="tab-content active" id="ongoing-content">
+                <div class="session-card expanded" data-session="session-1" data-status="ongoing">
                     <div class="session-header" onclick="toggleSession(this)">
                         <div class="session-info">
                             <div class="session-progress-line"></div>
@@ -928,7 +988,7 @@
                     </div>
                 </div>
 
-                <div class="session-card" data-session="session-2">
+                <div class="session-card" data-session="session-2" data-status="ongoing">
                     <div class="session-header" onclick="toggleSession(this)">
                         <div class="session-info">
                             <div class="session-progress-line"></div>
@@ -1015,7 +1075,7 @@
                 </div>
 
                 <!-- Session Card with Completed Tasks -->
-                <div class="session-card expanded" data-session="session-3">
+                <div class="session-card expanded" data-session="session-3" data-status="ongoing">
                     <div class="session-header" onclick="toggleSession(this)">
                         <div class="session-info">
                             <div class="session-progress-line"></div>
@@ -1099,7 +1159,7 @@
                 </div>
 
                 <!-- Session Card in Review State -->
-                <div class="session-card expanded" data-session="session-4">
+                <div class="session-card expanded" data-session="session-4" data-status="ongoing">
                     <div class="session-header" onclick="toggleSession(this)">
                         <div class="session-info">
                             <div class="session-progress-line"></div>
@@ -1129,6 +1189,213 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                <!-- End Ongoing Treatment Content -->
+
+                <!-- Completed Treatment Content (Empty State) -->
+                <div class="tab-content" id="completed-content">
+                    <div class="tab-empty-state">
+                        <div class="tab-empty-state-icon">
+                            <svg style="width: 64px; height: 64px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                        </div>
+                        <div class="tab-empty-state-title">No Completed Treatments Yet</div>
+                        <div class="tab-empty-state-description">You haven't completed any treatment sessions yet. Complete a treatment session to see your progress and history here. Your completed treatments will be saved for future reference.</div>
+                    </div>
+                </div>
+                <!-- End Completed Treatment Content -->
+            </div>
+
+            <!-- Active User State with Completed -->
+            <div class="state" id="active-user-completed-state">
+                <!-- Treatment Tabs -->
+                <div class="tabs-container">
+                    <div class="tab active" onclick="switchMainTab('ongoing')">
+                        Ongoing treatment <span class="tab-badge" id="ongoing-tab-count-2">1</span>
+                    </div>
+                    <div class="tab" onclick="switchMainTab('completed')">
+                        Completed treatment <span class="tab-badge" id="completed-tab-count-2">1</span>
+                    </div>
+                </div>
+
+                <!-- Ongoing Treatment Content -->
+                <div class="tab-content active" id="ongoing-content-2">
+                <div class="session-card expanded" data-session="session-6" data-status="ongoing">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 1</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <div class="task-card" data-task="diagnosis-2">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon pending">
+                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Get diagnosed with Alfie</div>
+                                    </div>
+                                    <div class="task-date">
+                                <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: 4px; vertical-align: middle;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                Friday, October 3, 2025
+                            </div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary">Talk to Alfie</button>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    Begin your chat with Alfie to get a preliminary diagnosis. This step helps us understand your symptoms and guide you to the right care.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail">
+                                        <span class="task-detail-label">Estimated Time</span>
+                                        <span class="task-detail-value">2-3 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Need help or have questions about withdrawal refunds? Navigate to your support page to send a message or reach out to our support team at hello@statwellmd.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- End Ongoing Treatment Content -->
+
+                <!-- Completed Treatment Content (With Sessions) -->
+                <div class="tab-content" id="completed-content-2">
+                    <div class="session-card expanded" data-session="session-7" data-status="completed">
+                        <div class="session-header" onclick="toggleSession(this)">
+                            <div class="session-info">
+                                <div class="session-progress-line"></div>
+                                <div>
+                                    <div class="session-title-row">
+                                        <div class="session-title"># Session 5</div>
+                                        <div class="session-badge completed">Completed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                        <div class="session-content" style="padding: var(--space-lg);">
+                            <div class="session-task-tabs">
+                                <div class="session-task-tab" onclick="switchSessionTab(this, 'todo')">
+                                    To-do <span class="session-task-counter">0</span>
+                                </div>
+                                <div class="session-task-tab active" onclick="switchSessionTab(this, 'completed')">
+                                    Completed <span class="session-task-counter">2</span>
+                                </div>
+                            </div>
+                            <div class="session-todo-content" style="display: none;">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">
+                                        <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <polyline points="14,2 14,8 20,8"/>
+                                            <line x1="16" y1="13" x2="8" y2="13"/>
+                                            <line x1="16" y1="17" x2="8" y2="17"/>
+                                            <polyline points="10,9 9,9 8,9"/>
+                                        </svg>
+                                    </div>
+                                    <div class="empty-state-title">All tasks completed!</div>
+                                    <div class="empty-state-description">All tasks for this session have been completed.</div>
+                                </div>
+                            </div>
+                            <div class="session-completed-content">
+                                <div class="task-card completed" data-task="consultation">
+                                    <div class="task-header" onclick="toggleTask(this)">
+                                        <div class="task-icon completed">
+                                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </div>
+                                        <div class="task-content-wrapper">
+                                            <div class="task-title-row">
+                                                <div class="task-title">Complete Health Consultation</div>
+                                            </div>
+                                            <div class="task-date">Completed: Monday, September 22, 2025</div>
+                                        </div>
+                                        <div class="task-actions">
+                                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="6,9 12,15 18,9"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="task-content">
+                                        <div class="task-description">
+                                            Your health consultation has been completed successfully. The medical team has reviewed your information.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="task-card completed" data-task="payment-completed">
+                                    <div class="task-header" onclick="toggleTask(this)">
+                                        <div class="task-icon completed">
+                                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </div>
+                                        <div class="task-content-wrapper">
+                                            <div class="task-title-row">
+                                                <div class="task-title">Pay for Treatment</div>
+                                            </div>
+                                            <div class="task-date">Completed: Monday, September 22, 2025</div>
+                                        </div>
+                                        <div class="task-actions">
+                                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="6,9 12,15 18,9"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="task-content">
+                                        <div class="task-description">
+                                            Payment has been successfully processed. Your treatment prescription has been sent to the pharmacy.
+                                        </div>
+                                        <div class="task-details">
+                                            <div class="task-detail">
+                                                <span class="task-detail-label">Payment Method</span>
+                                                <span class="task-detail-value">Credit Card ending in 4242</span>
+                                            </div>
+                                            <div class="task-detail">
+                                                <span class="task-detail-label">Amount</span>
+                                                <span class="task-detail-value">$89.99</span>
+                                            </div>
+                                            <div class="task-detail">
+                                                <span class="task-detail-label">Transaction ID</span>
+                                                <span class="task-detail-value">TXN-123456</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Completed Treatment Content -->
             </div>
 
         </div>
@@ -1153,6 +1420,13 @@
 
             // Update tab counts
             updateTabCounts();
+            
+            // Update treatment tab counts if in active user state
+            if (state === 'active-user') {
+                updateTreatmentTabCounts('ongoing-content', 'completed-content', 'ongoing-tab-count', 'completed-tab-count');
+            } else if (state === 'active-user-completed') {
+                updateTreatmentTabCounts('ongoing-content-2', 'completed-content-2', 'ongoing-tab-count-2', 'completed-tab-count-2');
+            }
         }
 
         function updateTabCounts() {
@@ -1174,6 +1448,56 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        function switchMainTab(tabType) {
+            console.log('switchMainTab called with:', tabType);
+            console.log('currentState:', currentState);
+            
+            // Update tab active states
+            const activeState = document.querySelector('.state.active');
+            const tabs = activeState.querySelectorAll('.tabs-container .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.closest('.tab').classList.add('active');
+            
+            // Determine which content divs to use based on current state
+            let ongoingContentId, completedContentId;
+            if (currentState === 'active-user-completed') {
+                ongoingContentId = 'ongoing-content-2';
+                completedContentId = 'completed-content-2';
+            } else {
+                ongoingContentId = 'ongoing-content';
+                completedContentId = 'completed-content';
+            }
+            
+            console.log('Using content IDs:', ongoingContentId, completedContentId);
+            
+            const ongoingContent = document.getElementById(ongoingContentId);
+            const completedContent = document.getElementById(completedContentId);
+            
+            console.log('Ongoing content element:', ongoingContent);
+            console.log('Completed content element:', completedContent);
+            
+            if (tabType === 'ongoing') {
+                if (ongoingContent) {
+                    ongoingContent.classList.add('active');
+                    console.log('Added active to ongoing content');
+                }
+                if (completedContent) {
+                    completedContent.classList.remove('active');
+                    console.log('Removed active from completed content');
+                }
+            } else {
+                if (ongoingContent) {
+                    ongoingContent.classList.remove('active');
+                    console.log('Removed active from ongoing content');
+                }
+                if (completedContent) {
+                    completedContent.classList.add('active');
+                    console.log('Added active to completed content');
+                    console.log('Completed content innerHTML:', completedContent.innerHTML);
+                }
+            }
         }
 
         function switchSessionTab(tabElement, type) {
@@ -1276,8 +1600,184 @@
             }
         }
 
+        // Update treatment tab counts
+        function updateTreatmentTabCounts(ongoingContentId, completedContentId, ongoingCountId, completedCountId) {
+            console.log('updateTreatmentTabCounts called with:', ongoingContentId, completedContentId);
+            
+            const ongoingSessions = document.querySelectorAll(`#${ongoingContentId} .session-card[data-status="ongoing"]`);
+            const completedSessions = document.querySelectorAll(`#${completedContentId} .session-card[data-status="completed"]`);
+            
+            console.log('Ongoing sessions found:', ongoingSessions.length);
+            console.log('Completed sessions found:', completedSessions.length);
+            
+            const ongoingCount = document.getElementById(ongoingCountId);
+            const completedCount = document.getElementById(completedCountId);
+            
+            if (ongoingCount) {
+                ongoingCount.textContent = ongoingSessions.length;
+            }
+            if (completedCount) {
+                completedCount.textContent = completedSessions.length;
+            }
+            
+            // Show/hide empty states
+            showEmptyStateIfNeeded(ongoingContentId, ongoingSessions.length);
+            showEmptyStateIfNeeded(completedContentId, completedSessions.length);
+        }
+        
+        // Show empty state if no sessions
+        function showEmptyStateIfNeeded(contentId, sessionCount) {
+            console.log('showEmptyStateIfNeeded called for:', contentId, 'with count:', sessionCount);
+            
+            const content = document.getElementById(contentId);
+            if (!content) {
+                console.log('Content element not found for:', contentId);
+                return;
+            }
+            
+            console.log('Content element found:', content);
+            
+            let emptyState = content.querySelector('.tab-empty-state');
+            console.log('Existing empty state:', emptyState);
+            
+            if (sessionCount === 0) {
+                console.log('Session count is 0, creating empty state');
+                // Create empty state if it doesn't exist
+                if (!emptyState) {
+                    emptyState = document.createElement('div');
+                    emptyState.className = 'tab-empty-state';
+                    
+                    // Determine if this is an ongoing or completed content area
+                    const isOngoing = contentId.includes('ongoing');
+                    const icon = isOngoing 
+                        ? `<svg style="width: 64px; height: 64px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>`
+                        : `<svg style="width: 64px; height: 64px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>`;
+                    const title = isOngoing ? 'No Ongoing Treatments' : 'No Completed Treatments Yet';
+                    const description = isOngoing
+                        ? 'You don\'t have any ongoing treatment sessions at the moment. Start a new treatment to begin your journey to better health!' 
+                        : 'You haven\'t completed any treatment sessions yet. Complete a treatment session to see your progress and history here. Your completed treatments will be saved for future reference.';
+                    
+                    emptyState.innerHTML = `
+                        <div class="tab-empty-state-icon">${icon}</div>
+                        <div class="tab-empty-state-title">${title}</div>
+                        <div class="tab-empty-state-description">${description}</div>
+                    `;
+                    
+                    content.appendChild(emptyState);
+                    console.log('Empty state created and appended');
+                } else {
+                    console.log('Empty state already exists');
+                }
+            } else {
+                console.log('Session count is not 0, removing empty state if exists');
+                // Remove empty state if sessions exist
+                if (emptyState) {
+                    emptyState.remove();
+                    console.log('Empty state removed');
+                }
+            }
+        }
+
+        // Move session to completed
+        function completeSession(sessionId) {
+            const sessionCard = document.querySelector(`[data-session="${sessionId}"]`);
+            if (!sessionCard) return;
+            
+            // Update status attribute
+            sessionCard.setAttribute('data-status', 'completed');
+            
+            // Update badge
+            const badge = sessionCard.querySelector('.session-badge');
+            if (badge) {
+                badge.textContent = 'Completed';
+                badge.classList.add('completed');
+            }
+            
+            // Move all tasks to completed tab and update counts
+            const todoTab = sessionCard.querySelector('.session-task-tab:first-child .session-task-counter');
+            const completedTab = sessionCard.querySelector('.session-task-tab:last-child .session-task-counter');
+            const todoContent = sessionCard.querySelector('.session-todo-content');
+            const completedContent = sessionCard.querySelector('.session-completed-content');
+            
+            if (todoTab) todoTab.textContent = '0';
+            
+            // Move all pending tasks to completed
+            if (todoContent && completedContent) {
+                const pendingTasks = todoContent.querySelectorAll('.task-card');
+                pendingTasks.forEach(task => {
+                    task.classList.add('completed');
+                    const icon = task.querySelector('.task-icon');
+                    if (icon) {
+                        icon.classList.remove('pending');
+                        icon.classList.add('completed');
+                        icon.innerHTML = `<svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>`;
+                    }
+                    const dateLabel = task.querySelector('.task-date');
+                    if (dateLabel && !dateLabel.textContent.includes('Completed:')) {
+                        dateLabel.textContent = 'Completed: ' + new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+                    }
+                    completedContent.appendChild(task);
+                });
+                
+                // Update completed count
+                const completedTaskCount = completedContent.querySelectorAll('.task-card').length;
+                if (completedTab) completedTab.textContent = completedTaskCount;
+                
+                // Add empty state to todo
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <div class="empty-state-icon">
+                        <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    <div class="empty-state-title">All tasks completed!</div>
+                    <div class="empty-state-description">All tasks for this session have been completed.</div>
+                `;
+                todoContent.innerHTML = '';
+                todoContent.appendChild(emptyState);
+            }
+            
+            // Switch to completed tab
+            const tabs = sessionCard.querySelectorAll('.session-task-tab');
+            if (tabs.length >= 2) {
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+                if (todoContent) todoContent.style.display = 'none';
+                if (completedContent) completedContent.style.display = 'block';
+            }
+            
+            // Move to completed content
+            const completedContentDiv = document.getElementById('completed-content');
+            if (completedContentDiv) {
+                completedContentDiv.appendChild(sessionCard);
+            }
+            
+            // Update counts based on current state
+            if (currentState === 'active-user-completed') {
+                updateTreatmentTabCounts('ongoing-content-2', 'completed-content-2', 'ongoing-tab-count-2', 'completed-tab-count-2');
+            } else {
+                updateTreatmentTabCounts('ongoing-content', 'completed-content', 'ongoing-tab-count', 'completed-tab-count');
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded - Initializing dashboard');
+            
             // Ensure at least one session is expanded
             const firstSession = document.querySelector('.session-card');
             if (firstSession) {
@@ -1291,6 +1791,12 @@
             }
             
             updateTabCounts();
+            // Initialize all states
+            console.log('Initializing state 1: active-user (no completed)');
+            updateTreatmentTabCounts('ongoing-content', 'completed-content', 'ongoing-tab-count', 'completed-tab-count');
+            
+            console.log('Initializing state 2: active-user-completed');
+            updateTreatmentTabCounts('ongoing-content-2', 'completed-content-2', 'ongoing-tab-count-2', 'completed-tab-count-2');
         });
     </script>
 </body>
