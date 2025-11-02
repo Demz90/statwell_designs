@@ -45,6 +45,21 @@
             scroll-behavior: smooth;
         }
 
+        /* Hero Section Styling */
+        .hero-pattern {
+            background-image: 
+                linear-gradient(0deg, #40BFAA 50%, transparent 50%),
+                linear-gradient(90deg, #40BFAA 50%, transparent 50%);
+            background-size: 80px 80px;
+            background-position: 0 0, 0 0;
+        }
+        
+        .pattern-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
         /* Testimonial card hover effect */
         .testimonial-card {
             min-height: 320px;
@@ -104,29 +119,8 @@
         /* Condition grid horizontal scroll */
         .condition-grid {
             display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: 250px;
-            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
-            overflow-x: auto;
-            padding-bottom: 1rem;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: #e0e0e0 #f1f3f6;
-        }
-        .condition-grid::-webkit-scrollbar {
-            height: 8px;
-        }
-        .condition-grid::-webkit-scrollbar-track {
-            background: #f1f3f6;
-            border-radius: 4px;
-        }
-        .condition-grid::-webkit-scrollbar-thumb {
-            background: #e0e0e0;
-            border-radius: 4px;
-        }
-        .condition-grid::-webkit-scrollbar-thumb:hover {
-            background: #94A49A;
         }
 
         /* Condition card styles */
@@ -246,6 +240,151 @@
             color: #2A3B54;
             background: #f1f3f6;
         }
+
+        /* How It Works Steps */
+        .step-box {
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .step-number {
+            font-size: 5rem;
+            font-weight: 800;
+            opacity: 0.15;
+            position: absolute;
+            top: -15px;
+            left: 10px;
+        }
+
+        /* Benefit Cards */
+        .benefit-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
+            border-color: rgba(93, 120, 255, 0.25);
+        }
+
+        /* Condition List Styling */
+        .condition-list-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+        }
+        
+        /* Conditions Slider */
+        .conditions-slider {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #40BFAA #f1f3f6;
+        }
+        
+        .conditions-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .conditions-slider::-webkit-scrollbar-track {
+            background: #f1f3f6;
+            border-radius: 10px;
+        }
+        
+        .conditions-slider::-webkit-scrollbar-thumb {
+            background: #40BFAA;
+            border-radius: 10px;
+        }
+        
+        .condition-slider-card {
+            min-width: 300px;
+            max-width: 300px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            height: 350px;
+        }
+        
+        .condition-slider-card:hover .condition-slider-overlay {
+            opacity: 1;
+        }
+        
+        .condition-slider-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .condition-slider-card-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .condition-slider-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 59, 84, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+        
+        .condition-slider-overlay p {
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Testimonials Slider */
+        .testimonials-slider {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-image-card {
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-image-card:hover {
+            transform: translateY(-8px);
+        }
     </style>
 </head>
 <body class="bg-white text-statwell-navy">
@@ -262,12 +401,12 @@
                         Home
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-100 transition-transform origin-center"></span>
                     </a>
-                    <a href="#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
-                        FAQ
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
-                    </a>
                     <a href="prescription_refill.html" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
                         Prescription Refill
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+                    </a>
+                    <a href="#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
+                        FAQ
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
                     </a>
                     <a href="contact_us.html" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
@@ -288,275 +427,347 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-white pt-4 pb-16 md:pt-6 md:pb-24 fade-in-section" id="how-it-works-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section class="relative bg-gradient-to-br from-statwell-blue to-blue-600 text-white overflow-hidden" id="hero-section" style="min-height: 650px;">
+        <!-- Smooth Transition Zone with Pattern -->
+        <div class="absolute right-0 top-0 bottom-0 hidden lg:block" style="width: 45%;">
+            <!-- Family Image (Full Background) -->
+            <div class="absolute inset-0">
+                <img src="https://images.pexels.com/photos/1128318/pexels-photo-1128318.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Happy family" class="h-full w-full object-cover object-center">
+            </div>
+            
+            <!-- Gradient Overlay for Smooth Transition from Blue -->
+            <div class="absolute left-0 top-0 bottom-0" style="width: 35%; background: linear-gradient(to right, #4169E1, transparent);"></div>
+            
+            <!-- Circle Pattern Overlay (Spans across transition zone onto image) -->
+            <div class="absolute left-0 top-0 bottom-0" style="width: 45%;">
+                <div class="absolute inset-0 grid grid-cols-4 grid-rows-10 gap-2 p-3" style="opacity: 0.8;">
+                    <!-- Row 1 -->
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <!-- Row 2 -->
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <!-- Row 3 -->
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <!-- Row 4 -->
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <!-- Row 5 -->
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <!-- Row 6 -->
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <!-- Row 7 -->
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <!-- Row 8 -->
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <!-- Row 9 -->
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <!-- Row 10 -->
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <!-- Left Content -->
-                <div>
-                    <div class="mb-6">
-                        <div class="inline-flex items-center gap-2 text-statwell-blue font-medium text-sm mb-4">
-                            <i class="uil uil-check-circle text-base"></i>
-                            Licensed providers • 40+ states
-                        </div>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-statwell-navy mb-4 tracking-tight leading-tight">
-                            Care That Fits Into<br/>
-                            Your Life. 100% Online.
+                <div class="max-w-xl">
+                    <h1 class="text-4xl md:text-5xl font-medium mb-6 leading-tight">
+                        Care That Fits Into Your Life. 100% Online.
                     </h1>
-                        <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-6">
-                            Tell us what's going on - acne, UTI, birth control, or weight loss. Get personalized online treatment from licensed providers, all at your own pace.
+                    
+                    <div class="text-6xl md:text-7xl font-bold mb-6">
+                        Just $29
+                    </div>
+                    
+                    <p class="text-lg mb-8 leading-relaxed">
+                        Tell us what's going on — acne, UTI, birth control, or urgent care. Get personalized online treatment from licensed providers, all at your own pace. No insurance needed. Licensed providers 18+.
+                    </p>
+                    
+                    <!-- Button -->
+                    <div class="mb-6">
+                        <a href="#condition-selector-section" class="inline-flex items-center justify-center px-8 py-4 bg-gray-300 text-statwell-navy rounded-xl font-semibold text-lg hover:bg-gray-200 transition-all">
+                            <i class="uil uil-plus-circle text-xl mr-2"></i>
+                            Start my treatment
+                        </a>
+                        </div>
+                    
+                    <p class="text-sm opacity-90">
+                        You'll be redirected to our secure IntakeQ booking page.
                         </p>
                             </div>
                     
-                    <!-- Stats Pills -->
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
-                            <span class="font-semibold text-statwell-navy">$29.99</span>
-                            <span class="text-gray-600">per visit</span>
+                <!-- Right side is handled by absolute positioned elements -->
+                <div></div>
                             </div>
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
-                            <span class="font-semibold text-statwell-navy">&lt; 2 hrs</span>
-                            <span class="text-gray-600">avg response</span>
                             </div>
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-statwell-white rounded-full border border-gray-200 text-sm">
-                            <span class="font-semibold text-statwell-navy">24/7</span>
-                            <span class="text-gray-600">available</span>
+    </section>
+
+    <!-- Your Health, Your Time Section -->
+    <section class="bg-white py-20 fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Images -->
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-2xl overflow-hidden">
+                            <img src="https://images.pexels.com/photos/7446991/pexels-photo-7446991.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Patient with cold" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden mt-8">
+                            <img src="https://images.pexels.com/photos/3952233/pexels-photo-3952233.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Patient feeling unwell" class="w-full h-64 object-cover">
                         </div>
                     </div>
-                    
-                    <!-- CTAs -->
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
-                        Start My Treatment
-                            <i class="uil uil-arrow-right text-xl"></i>
-                    </a>
                 </div>
-                </div>
-                
-                <!-- Right Visual -->
-                <div class="relative">
-                    <div class="rounded-2xl overflow-hidden">
-                        <img src="https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Healthcare professional" class="w-full h-auto object-cover aspect-[4/5]">
-                    </div>
+
+                <!-- Right: Content -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-statwell-navy mb-6">
+                        Your Health, Your Time
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Skip the appointments, the phone calls, and the awkward clinic visits. StatWellMD lets you get real medical care, 100% online and on your schedule.
+                    </p>
                     
-                    <!-- Floating Badge -->
-                    <div class="absolute bottom-8 left-8 right-8 bg-white rounded-xl p-4 shadow-xl">
-                        <div class="flex items-center gap-3">
-                            <div class="relative w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="uil uil-user-md text-2xl text-statwell-navy"></i>
-                                <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                    <div class="space-y-4 mb-8">
+                        <div class="condition-list-item">
+                            <div class="w-6 h-6 rounded-full bg-statwell-teal flex items-center justify-center flex-shrink-0">
+                                <i class="uil uil-check text-white text-sm"></i>
                             </div>
                             <div>
-                                <div class="font-bold text-statwell-navy">Licensed MD/NP</div>
-                                <div class="text-sm text-gray-600">U.S. board-certified</div>
+                                <span class="font-semibold text-statwell-navy">No waiting rooms</span>
+                                <p class="text-gray-600 text-sm mt-1">Get care when you need it, without the hassle of scheduling or waiting.</p>
+                            </div>
+                        </div>
+                        <div class="condition-list-item">
+                            <div class="w-6 h-6 rounded-full bg-statwell-blue flex items-center justify-center flex-shrink-0">
+                                <i class="uil uil-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-statwell-navy">Licensed providers</span>
+                                <p class="text-gray-600 text-sm mt-1">All consultations are reviewed by licensed medical professionals.</p>
+                            </div>
+                        </div>
+                        <div class="condition-list-item">
+                            <div class="w-6 h-6 rounded-full bg-statwell-teal flex items-center justify-center flex-shrink-0">
+                                <i class="uil uil-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-statwell-navy">Transparent pricing</span>
+                                <p class="text-gray-600 text-sm mt-1">No hidden fees. Just $29.99 per consultation, period.</p>
+                            </div>
+                        </div>
+                        <div class="condition-list-item">
+                            <div class="w-6 h-6 rounded-full bg-statwell-blue flex items-center justify-center flex-shrink-0">
+                                <i class="uil uil-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-statwell-navy">100% private</span>
+                                <p class="text-gray-600 text-sm mt-1">Your health information is secure and confidential.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#condition-selector-section" class="inline-flex items-center justify-center px-8 py-4 bg-statwell-blue text-white rounded-xl font-semibold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                            Start Your Visit
+                            <i class="uil uil-arrow-right text-xl ml-2"></i>
+                        </a>
+                        <a href="#condition-selector-section" class="inline-flex items-center justify-center px-8 py-4 border-2 border-statwell-blue text-statwell-blue rounded-xl font-semibold text-lg hover:bg-statwell-blue hover:text-white transition-all">
+                            Get Prescription Refill
+                            <i class="uil uil-arrow-right text-xl ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- No waiting rooms. No live visits Section -->
+    <section class="relative py-20 fade-in-section overflow-hidden" id="how-it-works-section" style="background: linear-gradient(135deg, #E8F7F5, #D4F1ED);">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 right-20 w-40 h-40 rounded-full" style="background: rgba(64, 191, 170, 0.2);"></div>
+            <div class="absolute bottom-24 left-1/4 w-48 h-48 rounded-full" style="background: rgba(93, 120, 255, 0.15);"></div>
+            <div class="absolute top-1/2 right-1/3 w-32 h-32 rounded-full" style="background: rgba(64, 191, 170, 0.2);"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <!-- Left: Digital Urgent Care in 3 Steps (Colored Boxes) -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-statwell-navy mb-4">No waiting rooms. No live visits.</h2>
+                    <p class="text-lg text-gray-700 mb-8">
+                        We know how frustrating it can be to wait hours — sometimes weeks — for care. Healthcare shouldn't make you wait. Get convenient asynchronous care for everyday and urgent conditions in 3 steps.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <!-- Step 1 -->
+                        <div class="step-box" style="background: #007BFF;">
+                            <div class="step-number">1</div>
+                            <div class="relative z-10">
+                                <div class="text-xl font-bold mb-2">Step 1: Select Your Concern</div>
+                                <div class="text-base opacity-90">Choose from over 20+ everyday conditions: UTIs, acne, birth control, weight management, and more.</div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="step-box bg-gray-400">
+                            <div class="step-number">2</div>
+                            <div class="relative z-10">
+                                <div class="text-xl font-bold mb-2">Step 2: Quick Online Assessment</div>
+                                <div class="text-base opacity-90">Tell us about your symptoms and health history. Takes under 5 minutes!</div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="step-box" style="background: #40BFAA;">
+                            <div class="step-number">3</div>
+                            <div class="relative z-10">
+                                <div class="text-xl font-bold mb-2">Step 3: Get Your Care Plan</div>
+                                <div class="text-base opacity-90">Licensed providers review your case and send your personalized treatment plan or prescription — all through asynchronous care, no live calls, no waiting.</div>
                             </div>
                         </div>
                     </div>
                 </div>
+                    
+                <!-- Right: Why StatWellMD? (White Card) -->
+                <div class="bg-white text-statwell-navy rounded-2xl p-8 lg:p-10 shadow-lg border border-gray-200">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Why StatWellMD?</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-3">
+                            <div class="text-statwell-teal text-2xl flex-shrink-0 font-bold">+</div>
+                            <div>
+                                <div class="font-semibold text-lg">Just $29.99 per visit—no hidden fees</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-statwell-teal text-2xl flex-shrink-0 font-bold">+</div>
+                            <div>
+                                <div class="font-semibold text-lg">No insurance needed</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-statwell-teal text-2xl flex-shrink-0 font-bold">+</div>
+                            <div>
+                                <div class="font-semibold text-lg">Same-day appointments</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-statwell-teal text-2xl flex-shrink-0 font-bold">+</div>
+                            <div>
+                                <div class="font-semibold text-lg">Licensed, U.S.-based providers</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-statwell-teal text-2xl flex-shrink-0 font-bold">+</div>
+                            <div>
+                                <div class="font-semibold text-lg">Fast, secure telehealth from home</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <a href="#condition-selector-section" class="inline-flex items-center justify-center w-full px-8 py-4 bg-statwell-blue text-white rounded-xl font-semibold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                            <i class="uil uil-plus-circle text-xl mr-2"></i>
+                            Log Your Symptoms
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- No waiting rooms Section -->
-    <section class="bg-statwell-white py-20 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">
-                    No waiting rooms. No live visits.
-                </h2>
-                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
-                    We know how frustrating it can be to wait hours - sometimes weeks - for care. Healthcare shouldn't make you wait. Get convenient asynchronous care for everyday and urgent conditions in 3 steps.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-                <!-- Step 1 -->
-                <div class="text-center">
-                    <div class="mb-6">
-                        <div class="w-20 h-20 bg-statwell-teal rounded-full flex items-center justify-center mx-auto">
-                            <i class="uil uil-clipboard-notes text-4xl text-white"></i>
-                        </div>
-                    </div>
-                    <div class="font-bold text-statwell-navy text-lg mb-3">1. Select Your Concern</div>
-                    <p class="text-gray-600">
-                        Choose from over 20+ everyday conditions: UTIs, acne, birth control, weight management, and more.
-                    </p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="text-center">
-                    <div class="mb-6">
-                        <div class="w-20 h-20 bg-statwell-blue rounded-full flex items-center justify-center mx-auto">
-                            <i class="uil uil-user-md text-4xl text-white"></i>
-                        </div>
-                    </div>
-                    <div class="font-bold text-statwell-navy text-lg mb-3">2. Quick Online Assessment</div>
-                    <p class="text-gray-600">
-                        Tell us about your symptoms and health history. Takes under 5 minutes!
-                    </p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="text-center">
-                    <div class="mb-6">
-                        <div class="w-20 h-20 bg-statwell-navy rounded-full flex items-center justify-center mx-auto">
-                            <i class="uil uil-prescription-bottle text-4xl text-white"></i>
-                        </div>
-                    </div>
-                    <div class="font-bold text-statwell-navy text-lg mb-3">3. Get Your Care Plan</div>
-                    <p class="text-gray-600">
-                        Licensed providers review your case and send your personalized treatment plan or prescription - all through asynchronous care, no live calls, no waiting.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-16">
-                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
-                    Log Your Symptoms
-                    <i class="uil uil-arrow-right text-xl"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Condition Selector Section -->
-    <section class="bg-white py-20 fade-in-section" id="condition-selector-section">
+    <!-- What We Treat Section (Horizontal Slider) -->
+    <section class="bg-statwell-white py-20 fade-in-section" id="condition-selector-section">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-6">What We Treat</h2>
                 <p class="text-base text-statwell-gray max-w-2xl mx-auto">Access personalized care for a wide range of everyday conditions without the usual waits or hassle. With our digital prescription services, care is always at your fingertips.</p>
             </div>
             
-            <!-- Search Bar -->
-            <div class="mb-12 max-w-2xl mx-auto">
-                <div class="relative">
-                    <i class="uil uil-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
-                    <input type="text" placeholder="Search conditions..." class="w-full pl-14 pr-6 py-4 rounded-full border-2 border-gray-200 focus:border-statwell-navy focus:outline-none transition-all text-lg" id="condition-search">
-                </div>
-            </div>
-
-            <!-- Category Tabs -->
+            <!-- Category Filter Tabs -->
             <div class="flex justify-center gap-3 mb-12 flex-wrap" id="filter-tabs">
-                <!-- Tabs will be generated dynamically -->
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-statwell-navy text-white" data-category="All">All</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="General">General</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Skin">Skin</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Women's Health">Women's Health</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Men's Health">Men's Health</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Stomach">Stomach</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Injuries">Injuries</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Mental Health">Mental Health</button>
+                <button class="px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy" data-category="Other">Other</button>
             </div>
-
-            <!-- Condition Grid -->
-            <div class="condition-grid" id="condition-grid">
-                <!-- Condition cards will be generated dynamically -->
+            
+            <!-- Horizontal Sliding Container -->
+            <div class="relative">
+                <div class="conditions-slider overflow-x-auto pb-4" id="conditions-slider" style="scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #40BFAA #f1f3f6;">
+                    <div class="flex gap-4" style="min-width: max-content;" id="conditions-container">
+                        <!-- Conditions will be dynamically generated here -->
+                    </div>
+                </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all z-10 slider-nav-prev hidden lg:flex items-center justify-center" onclick="scrollConditions('left')" aria-label="Previous conditions">
+                    <i class="uil uil-arrow-left text-2xl text-statwell-navy"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all z-10 slider-nav-next hidden lg:flex items-center justify-center" onclick="scrollConditions('right')" aria-label="Next conditions">
+                    <i class="uil uil-arrow-right text-2xl text-statwell-navy"></i>
+                </button>
             </div>
-        </div>
-    </section>
-
-    <!-- Your Health, Your Time Section -->
-    <section class="bg-statwell-white py-20 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-6">Your Health, Your Time</h2>
-                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
-                    Skip the appointments, the phone calls, and the awkward clinic visits. StatWellMD lets you get real medical care, 100% online and on your schedule.
+            
+            <!-- Disclaimer -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <p class="text-sm text-gray-600 text-center leading-relaxed">
+                    Our service is not a replacement for in-person doctor visits, but a convenient way to get help for simple concerns. All care is provided by licensed healthcare professionals who follow state laws and medical guidelines. Prescriptions may be given only if a licensed provider decides they're medically appropriate after your telehealth visit.
                 </p>
             </div>
-            
-            <!-- Benefits Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="uil uil-clock text-2xl text-white"></i>
-                </div>
-                    <h3 class="font-bold text-statwell-navy text-lg mb-2">No waiting rooms</h3>
-                    <p class="text-gray-600 text-sm">Get care when you need it, without the hassle of scheduling or waiting.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-statwell-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="uil uil-shield-check text-2xl text-white"></i>
-                </div>
-                    <h3 class="font-bold text-statwell-navy text-lg mb-2">Licensed providers</h3>
-                    <p class="text-gray-600 text-sm">All consultations are reviewed by licensed medical professionals.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-statwell-navy rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="uil uil-dollar-sign text-2xl text-white"></i>
-                    </div>
-                    <h3 class="font-bold text-statwell-navy text-lg mb-2">Transparent pricing</h3>
-                    <p class="text-gray-600 text-sm">No hidden fees. Just $29.99 per consultation, period.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="uil uil-lock text-2xl text-white"></i>
-                    </div>
-                    <h3 class="font-bold text-statwell-navy text-lg mb-2">100% private</h3>
-                    <p class="text-gray-600 text-sm">Your health information is secure and confidential.</p>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
-                        Start Your Visit Today
-                        <i class="uil uil-arrow-right text-xl"></i>
-                    </a>
-                    <a href="prescription_refill.html" class="btn-secondary inline-flex items-center justify-center gap-2 px-8 py-4 text-statwell-navy text-lg font-semibold rounded-xl border-2 border-gray-200 hover:border-statwell-navy hover:bg-gray-50">
-                        Get Online Prescription Refill
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Comparison Section -->
-    <section class="bg-white py-20 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">StatWellMD Vs Others</h2>
-                <p class="text-base text-statwell-gray">Here's how we compare with other telemedicine platforms.</p>
-            </div>
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-md">
-                <div class="grid grid-cols-3 bg-statwell-navy text-white font-bold text-center py-4">
-                    <div></div>
-                    <div>StatWellMD</div>
-                    <div>Other Telemedicine</div>
-                </div>
-                <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Visit Fee</div>
-                    <div class="p-4 text-center font-semibold text-statwell-teal">$29.99</div>
-                    <div class="p-4 text-center text-gray-600">$80 - $250</div>
-                </div>
-                <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Appointment Needed?</div>
-                    <div class="p-4 text-center font-semibold text-statwell-teal">Never</div>
-                    <div class="p-4 text-center text-gray-600">Required</div>
-                </div>
-                <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Insurance Needed?</div>
-                    <div class="p-4 text-center font-semibold text-statwell-teal">No</div>
-                    <div class="p-4 text-center text-gray-600">Often Required</div>
-                </div>
-                <div class="grid grid-cols-3 border-b border-gray-200">
-                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Available Nationwide?</div>
-                    <div class="p-4 text-center">
-                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
-                    </div>
-                    <div class="p-4 text-center text-gray-600">Limited</div>
-                </div>
-                <div class="grid grid-cols-3">
-                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Open 24/7?</div>
-                    <div class="p-4 text-center">
-                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
-                    </div>
-                    <div class="p-4 text-center text-gray-600">Limited Hours</div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- What's Your Health Goal Today Section -->
-    <section class="bg-white py-20 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
+    <section class="relative bg-gradient-to-br from-statwell-blue to-blue-600 text-white py-20 fade-in-section overflow-hidden">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-statwell-teal rounded-full"></div>
+            <div class="absolute top-32 right-20 w-24 h-24 bg-white rounded-full"></div>
+            <div class="absolute bottom-20 left-1/4 w-40 h-40 bg-statwell-teal rounded-full"></div>
+            <div class="absolute top-1/2 right-1/3 w-28 h-28 bg-white rounded-full"></div>
+            <div class="absolute bottom-32 right-16 w-36 h-36 bg-statwell-teal rounded-full"></div>
+            <div class="absolute top-20 left-1/3 w-20 h-20 bg-white rounded-full"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-6">What's Your Health Goal Today?</h2>
-                <p class="text-base text-statwell-gray max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold mb-6">What's Your Health Goal Today?</h2>
+                <p class="text-base text-white/90 max-w-3xl mx-auto">
                     From prescription refills to skin concerns and sexual health, you can rely on StatWellMD for affordable telemedicine that helps manage your health goals.
                 </p>
             </div>
@@ -762,7 +973,7 @@
             </div>
             
             <div class="text-center mt-12">
-                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-statwell-navy text-lg hover:shadow-xl bg-white hover:bg-gray-100 transition-all">
                     See All Conditions We Treat
                     <i class="uil uil-arrow-right text-xl"></i>
                 </a>
@@ -770,150 +981,167 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- Comparison Section -->
     <section class="bg-white py-20 fade-in-section">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-100 rounded-full text-yellow-700 font-medium text-sm mb-6">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                    4.9 Average Rating
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-4">StatWellMD Vs Others</h2>
+                <p class="text-base text-statwell-gray">Here's how we compare with other telemedicine platforms.</p>
             </div>
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden border-2 border-gray-200 shadow-md">
+                <div class="grid grid-cols-3 bg-statwell-navy text-white font-bold text-center py-4">
+                    <div></div>
+                    <div>StatWellMD</div>
+                    <div>Other Telemedicine</div>
+                </div>
+                <div class="grid grid-cols-3 border-b border-gray-200">
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Visit Fee</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">$29.99</div>
+                    <div class="p-4 text-center text-gray-600">$80 - $250</div>
+                </div>
+                <div class="grid grid-cols-3 border-b border-gray-200">
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Appointment Needed?</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">Never</div>
+                    <div class="p-4 text-center text-gray-600">Required</div>
+                </div>
+                <div class="grid grid-cols-3 border-b border-gray-200">
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Insurance Needed?</div>
+                    <div class="p-4 text-center font-semibold text-statwell-teal">No</div>
+                    <div class="p-4 text-center text-gray-600">Often Required</div>
+                </div>
+                <div class="grid grid-cols-3 border-b border-gray-200">
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Available Nationwide?</div>
+                    <div class="p-4 text-center">
+                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
+                    </div>
+                    <div class="p-4 text-center text-gray-600">Limited</div>
+                </div>
+                <div class="grid grid-cols-3">
+                    <div class="bg-gray-50 font-semibold p-4 text-statwell-navy">Open 24/7?</div>
+                    <div class="p-4 text-center">
+                        <i class="uil uil-check-circle text-2xl text-statwell-teal"></i>
+                    </div>
+                    <div class="p-4 text-center text-gray-600">Limited Hours</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="relative py-20 fade-in-section overflow-hidden" style="background: linear-gradient(135deg, #E8F7F5, #D4F1ED);">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-25">
+            <div class="absolute top-16 left-16 w-40 h-40 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-40 right-24 w-32 h-32 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+            <div class="absolute bottom-24 left-1/3 w-48 h-48 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-1/3 right-1/4 w-36 h-36 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+            <div class="absolute bottom-16 right-20 w-44 h-44 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-24 left-2/3 w-28 h-28 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-6">Hear From Our Patients</h2>
-                <p class="text-base text-statwell-gray max-w-2xl mx-auto">Real stories from real people who found convenient, affordable care with StatWellMD</p>
-                </div>
+                <p class="text-base text-gray-700 max-w-2xl mx-auto">Real stories from real people who found convenient, affordable care with StatWellMD</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I didn't have to wait weeks to see a doctor. StatWellMD got me treated in under 15 minutes. It was that simple!"</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-teal to-statwell-teal-light rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">E</span>
+            <!-- Testimonial Slider -->
+            <div class="relative max-w-6xl mx-auto">
+                <div class="testimonials-slider overflow-x-auto pb-4" id="testimonials-slider" style="scroll-behavior: smooth; scrollbar-width: none;">
+                    <div class="flex gap-6" style="min-width: max-content;" id="testimonials-container">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Emma - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    I didn't have to wait weeks to see a doctor. StatWellMD got me treated in under 15 minutes. It was that simple!
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">Emma</h4>
-                            <p class="text-sm text-gray-500">Age 28</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Managing my skin and GLP-1 weight loss prescriptions from my phone is a game changer."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-blue to-purple-500 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">S</span>
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3768114/pexels-photo-3768114.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sofia - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    Managing my skin and GLP-1 weight loss prescriptions from my phone is a game changer.
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">Sofia</h4>
-                            <p class="text-sm text-gray-500">Age 31</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I used to put off getting help because I was embarrassed to talk to anyone about my UTI. I tried StatWellMD out of desperation and they made it simple. The doctor reviewed my form and prescribed what I needed almost immediately."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-statwell-navy to-indigo-600 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">J</span>
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/5384445/pexels-photo-5384445.jpeg?auto=compress&cs=tinysrgb&w=600" alt="James - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    I used to put off getting help because I was embarrassed to talk to anyone about my UTI. I tried StatWellMD out of desperation and they made it simple.
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">James</h4>
-                            <p class="text-sm text-gray-500">Age 34</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Testimonial 4 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Ordering birth control online felt scary at first, but the process was fast and professional."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">M</span>
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mia - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    Ordering birth control online felt scary at first, but the process was fast and professional.
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">Mia</h4>
-                            <p class="text-sm text-gray-500">Age 29</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Testimonial 5 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"Before StatWellMD, I'd spent months jumping between skincare products. I got a treatment plan the same day. Two weeks later, my skin is clearer and I finally feel like myself again."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">J</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">Jasmine</h4>
-                            <p class="text-sm text-gray-500">Age 27</p>
+                        <!-- Testimonial 5 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Jasmine - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    Before StatWellMD, I'd spent months jumping between skincare products and online advice yet no real change. My skin is clearer and I finally feel like myself again.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Testimonial 6 -->
-                <div class="testimonial-card group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-2xl hover:border-statwell-blue/30 transition-all duration-300">
-                    <div class="flex text-yellow-400 mb-6">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="testimonial-text text-gray-700 text-lg mb-6 leading-relaxed">"I used it on my lunch break and had meds the same day. Faster than urgent care. I saw a provider within hours."</p>
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
-                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">A</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-statwell-navy">Alex</h4>
-                            <p class="text-sm text-gray-500">Age 29</p>
-                        </div>
-                    </div>
-                </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all z-10 hidden lg:flex items-center justify-center" onclick="scrollTestimonials('left')" aria-label="Previous testimonial">
+                    <i class="uil uil-arrow-left text-3xl text-statwell-navy"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all z-10 hidden lg:flex items-center justify-center" onclick="scrollTestimonials('right')" aria-label="Next testimonial">
+                    <i class="uil uil-arrow-right text-3xl text-statwell-navy"></i>
+                </button>
             </div>
             
             <div class="text-center mt-12">
-                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);">
+                <a href="#condition-selector-section" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:shadow-xl transition-all" style="background: linear-gradient(135deg, #5D78FF, #4c63d2);">
                     Start Your Visit
                     <i class="uil uil-arrow-right text-xl"></i>
                 </a>
@@ -922,7 +1150,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="bg-statwell-white py-20 fade-in-section" id="faq-section">
+    <section class="bg-white py-20 fade-in-section" id="faq-section">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-6">Frequently Asked Questions</h2>
@@ -1064,8 +1292,8 @@
                     <!-- FAQ Item 13 -->
                     <div class="bg-white rounded-xl p-6 mb-4 border border-gray-200 hover:border-statwell-teal transition-all">
                         <div class="accordion-header flex justify-between items-center cursor-pointer group">
-                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-blue transition-colors">Do I need insurance to use StatWellMD?</h3>
-                            <span class="accordion-icon text-2xl text-statwell-gray transition-transform">+</span>
+                            <h3 class="text-lg font-semibold text-statwell-navy group-hover:text-statwell-teal transition-colors">Do I need insurance to use StatWellMD?</h3>
+                            <span class="accordion-icon text-2xl text-statwell-teal transition-transform flex-shrink-0 ml-4">+</span>
                         </div>
                         <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
                             <p class="text-statwell-gray pt-4">No insurance is needed. StatWellMD uses a simple cash-pay model that keeps care affordable and straightforward. You can still use your insurance card at the pharmacy to help cover medication costs if eligible.</p>
@@ -1098,7 +1326,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-white py-16 fade-in-section">
+    <section class="bg-statwell-white py-16 fade-in-section">
         <div class="max-w-4xl mx-auto px-6">
             <div class="bg-gradient-to-br from-statwell-navy to-blue-900 rounded-3xl p-12 text-center text-white relative overflow-hidden">
                 <!-- Background decoration -->
@@ -1141,24 +1369,14 @@
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-statwell-teal transition-colors">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
                         <a href="https://www.linkedin.com/company/statwellmd/" class="text-gray-400 hover:text-statwell-teal transition-colors">
                             <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-statwell-teal transition-colors">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                            </svg>
-                        </a>
                     </div>
                     <div class="text-sm text-gray-400">
-                        <p class="mb-2">Licensed in: NY, FL, GA, ID, MN, MO, PA, ND, CT, IN, LA, ME, TN, WI, AZ, AL, GU, OK, HI, UT, KY, MI, MS, WV, WY, KS, TX, MD, NE, WA, VT, OH, DE, MT, CO, NH, NJ, IA, DC <a href="#" onclick="openStatesModal(); return false;" class="text-statwell-teal hover:underline">+ more</a></p>
+                        <p class="mb-2 leading-relaxed">STATWELLMD offers online care for common, everyday health issues that are not emergencies. We don't treat urgent or life-threatening problems — if you're having a medical emergency, call 911 right away.</p>
                     </div>
                 </div>
                 <div>
@@ -1219,19 +1437,7 @@
                     <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <polyline points="20,6 9,17 4,12" stroke-width="2"/>
                     </svg>
-                    <span class="text-sm font-medium">Idaho</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Minnesota</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Missouri</span>
+                    <span class="text-sm font-medium">Texas</span>
                 </div>
                 <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
                     <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1243,193 +1449,7 @@
                     <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <polyline points="20,6 9,17 4,12" stroke-width="2"/>
                     </svg>
-                    <span class="text-sm font-medium">North Dakota</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Connecticut</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Indiana</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Louisiana</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Maine</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Tennessee</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Wisconsin</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Arizona</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Alabama</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Guam</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Oklahoma</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Hawaii</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Utah</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Kentucky</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Michigan</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Mississippi</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">West Virginia</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Wyoming</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Kansas</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Texas</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Maryland</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Nebraska</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Washington</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Vermont</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Ohio</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Delaware</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Montana</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Colorado</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">New Hampshire</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">New Jersey</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Iowa</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Washington DC</span>
+                    <span class="text-sm font-medium">+ 35 more states</span>
                 </div>
             </div>
             <div class="mt-6 p-4 bg-blue-50 border border-statwell-blue/20 rounded-xl">
@@ -1442,135 +1462,133 @@
         // Conditions data
         const conditionsData = {
             "General": [
-                { name: "UTI", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Cold & Flu", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Allergies", snippet: "Manage seasonal or chronic allergy symptoms.", img: "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Pink Eye", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Sinus Infection", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Migraines", snippet: "Personalized plans to manage migraine headaches.", img: "https://images.pexels.com/photos/3786157/pexels-photo-3786157.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "COVID-19", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Acid Reflux", snippet: "Manage heartburn and GERD symptoms.", img: "https://images.pexels.com/photos/5793649/pexels-photo-5793649.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Urinary Tract Infection (UTI)", snippet: "Includes diagnosis & prescription for antibiotics.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Sinus Infection (Sinusitis)", snippet: "Relief from sinus pressure and congestion.", img: "https://images.pexels.com/photos/4041142/pexels-photo-4041142.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Strep Throat / Sore Throat", snippet: "Fast relief for throat pain and inflammation.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Upper Respiratory Infection (Cold/Flu-like symptoms)", snippet: "Get relief from cough, congestion, and fever.", img: "https://images.pexels.com/photos/4226881/pexels-photo-4226881.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "COVID-19 Symptoms & Testing", snippet: "Consultation and treatment options for COVID-19.", img: "https://images.pexels.com/photos/3970162/pexels-photo-3970162.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Ear Infection (Otitis Media / Otitis Externa)", snippet: "Treatment for ear infections and related symptoms.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Bronchitis / Persistent Cough", snippet: "Relief from persistent cough and bronchitis symptoms.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Skin": [
-                { name: "Acne", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Skin Rashes", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Eczema", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Dandruff", snippet: "Effective treatments for a healthier scalp.", img: "https://images.pexels.com/photos/7262444/pexels-photo-7262444.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Rosacea", snippet: "Control redness and breakouts from rosacea.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Hives", snippet: "Relief from itchy welts and allergic reactions.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Cold Sores", snippet: "Prescription antiviral medication for cold sores.", img: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Poison Ivy", snippet: "Soothe itching and inflammation from poison ivy.", img: "https://images.pexels.com/photos/4752857/pexels-photo-4752857.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Pink Eye (Conjunctivitis)", snippet: "Treatment for conjunctivitis and eye infections.", img: "https://images.pexels.com/photos/4270119/pexels-photo-4270119.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Acne (Teen & Adult)", snippet: "Personalized treatment plans for clearer skin.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Eczema / Atopic Dermatitis", snippet: "Manage flare-ups and soothe irritated skin.", img: "https://images.pexels.com/photos/6642754/pexels-photo-6642754.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Psoriasis", snippet: "Treatment plans to manage and control psoriasis.", img: "https://images.pexels.com/photos/6709848/pexels-photo-6709848.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Rashes / Allergic Reactions", snippet: "Diagnosis and treatment for various skin rashes.", img: "https://images.pexels.com/photos/4058223/pexels-photo-4058223.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Athlete's Foot / Fungal Infection", snippet: "Effective treatments for fungal skin infections.", img: "https://images.pexels.com/photos/6941151/pexels-photo-6941151.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Women's Health": [
-                { name: "Birth Control", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Yeast Infection", snippet: "Fast and effective treatment for yeast infections.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Bacterial Vaginosis", snippet: "Discreet and effective BV treatment.", img: "https://images.pexels.com/photos/6729579/pexels-photo-6729579.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Morning After Pill", snippet: "Emergency contraception, delivered fast.", img: "https://images.pexels.com/photos/7880998/pexels-photo-7880998.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Birth Control & Contraception", snippet: "Convenient prescription refills for birth control.", img: "https://images.pexels.com/photos/3845050/pexels-photo-3845050.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Sexually Transmitted Infections (STIs) – Testing & Treatment", snippet: "Confidential STI testing and treatment options.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Yeast Infections / Bacterial Vaginosis", snippet: "Fast and effective treatment for yeast infections and BV.", img: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Men's Health": [
-                { name: "Erectile Dysfunction", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Hair Loss", snippet: "Clinically-proven treatments for hair loss.", img: "https://images.pexels.com/photos/2533682/pexels-photo-2533682.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Genital Herpes", snippet: "Manage outbreaks with prescription medication.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Jock Itch", snippet: "Fast relief from itching and irritation.", img: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Erectile Dysfunction (ED)", snippet: "Discreet and effective ED treatment plans.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Stomach": [
-                { name: "Constipation", snippet: "Gentle and effective relief from constipation.", img: "https://images.pexels.com/photos/4556124/pexels-photo-4556124.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Diarrhea", snippet: "Get relief and rehydrate with our treatment plans.", img: "https://images.pexels.com/photos/6128224/pexels-photo-6128224.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Food Poisoning", snippet: "Relieve symptoms and recover faster.", img: "https://images.pexels.com/photos/4268683/pexels-photo-4268683.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Nausea & Vomiting", snippet: "Control nausea and prevent dehydration.", img: "https://images.pexels.com/photos/4021772/pexels-photo-4021772.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Nausea & Vomiting", snippet: "Relief from stomach upset and nausea.", img: "https://images.pexels.com/photos/3952041/pexels-photo-3952041.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Acid Reflux / GERD", snippet: "Treatment for heartburn and acid reflux.", img: "https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Injuries": [
-                { name: "Sprains & Strains", snippet: "Guidance on managing minor sprains and strains.", img: "https://images.pexels.com/photos/6744841/pexels-photo-6744841.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Minor Burns", snippet: "Care advice and treatment for minor burns.", img: "https://images.pexels.com/photos/3982361/pexels-photo-3982361.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Insect Bites", snippet: "Relief from pain and itching from insect bites.", img: "https://images.pexels.com/photos/220297/pexels-photo-220297.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Minor Cuts", snippet: "Advice on cleaning and caring for minor cuts.", img: "https://images.pexels.com/photos/4427572/pexels-photo-4427572.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Minor Sprains & Strains", snippet: "Assessment and treatment for minor injuries.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Mental Health": [
-                { name: "Anxiety", snippet: "Support and treatment plans for anxiety.", img: "https://images.pexels.com/photos/3958958/pexels-photo-3958958.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Depression", snippet: "Confidential care and medication management.", img: "https://images.pexels.com/photos/3831336/pexels-photo-3831336.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Stress", snippet: "Develop strategies to manage and reduce stress.", img: "https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Insomnia", snippet: "Personalized treatment to help you sleep better.", img: "https://images.pexels.com/photos/2128043/pexels-photo-2128043.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Anxiety Management", snippet: "Support and medication for anxiety.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Depression Support", snippet: "Treatment plans for depression management.", img: "https://images.pexels.com/photos/5793427/pexels-photo-5793427.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ],
             "Other": [
-                { name: "Asthma", snippet: "Refills and management for your asthma condition.", img: "https://images.pexels.com/photos/4058225/pexels-photo-4058225.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Gout", snippet: "Manage gout flare-ups with effective treatment.", img: "https://images.pexels.com/photos/6128189/pexels-photo-6128189.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "Thyroid Conditions", snippet: "Medication management for thyroid disorders.", img: "https://images.pexels.com/photos/325633/pexels-photo-325633.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "High Blood Pressure", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600" },
-                { name: "High Cholesterol", snippet: "Prescription management for high cholesterol.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600" }
+                { name: "Hypertension (Medication Refill)", snippet: "Conveniently manage your hypertension.", img: "https://images.pexels.com/photos/236438/pexels-photo-236438.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Diabetes Management (Type 2, Prediabetes)", snippet: "Medication management for diabetes.", img: "https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "Weight Loss / Medical Weight Management (GLP-1s, lifestyle coaching)", snippet: "Personalized weight loss telehealth plans.", img: "https://images.pexels.com/photos/5938535/pexels-photo-5938535.jpeg?auto=compress&cs=tinysrgb&w=600" },
+                { name: "DoxyPEP", snippet: "DoxyPEP for prevention.", img: "https://images.pexels.com/photos/7551648/pexels-photo-7551648.jpeg?auto=compress&cs=tinysrgb&w=600" }
             ]
         };
 
-        // Initialize tabs
+        // Initialize conditions slider
         const allConditions = Object.values(conditionsData).flat();
-        const categories = ['All', ...Object.keys(conditionsData)];
+        const conditionsContainer = document.getElementById('conditions-container');
         const filterTabs = document.getElementById('filter-tabs');
         
-        filterTabs.innerHTML = categories.map(cat => 
-            `<button class="px-6 py-3 rounded-full font-semibold transition-all ${cat === 'All' ? 'bg-statwell-navy text-white' : 'bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy'}" data-category="${cat}">${cat}</button>`
-        ).join('');
-
-        // Render condition cards
-        const renderCards = (filterCategory = 'All', searchTerm = '') => {
-            const gridContainer = document.getElementById('condition-grid');
-            gridContainer.innerHTML = '';
+        // Render condition cards in horizontal slider
+        const renderConditionsSlider = (category = 'All') => {
+            conditionsContainer.innerHTML = '';
+            const slider = document.getElementById('conditions-slider');
             
-            let conditionsToShow = filterCategory === 'All' ? allConditions : conditionsData[filterCategory];
+            // Reset scroll position
+            if (slider) slider.scrollLeft = 0;
             
-            if (searchTerm) {
-                conditionsToShow = conditionsToShow.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
-            }
-
+            const conditionsToShow = category === 'All' ? allConditions : conditionsData[category];
+            
             conditionsToShow.forEach(condition => {
                 const card = document.createElement('a');
                 card.href = "#";
-                card.className = 'condition-card';
+                card.className = 'condition-slider-card';
                 card.innerHTML = `
                     <img src="${condition.img}" alt="${condition.name}">
-                    <h4 class="condition-card-title">${condition.name}</h4>
-                    <div class="condition-card-overlay">
+                    <h4 class="condition-slider-card-title">${condition.name}</h4>
+                    <div class="condition-slider-overlay">
                         <p>${condition.snippet}</p>
                         <span class="px-6 py-2 rounded-xl font-semibold" style="background: linear-gradient(135deg, #5D78FF, #4c63d2);">Start Visit for $29.99</span>
                     </div>
                 `;
-                gridContainer.appendChild(card);
+                conditionsContainer.appendChild(card);
             });
-            
-            // Add "Coming Soon" card
-            const comingSoon = document.createElement('div');
-            comingSoon.className = 'condition-card';
-            comingSoon.style.cursor = 'default';
-            comingSoon.innerHTML = `
-                <div class="coming-soon-badge">Coming Soon</div>
-                <img src="https://images.pexels.com/photos/4167541/pexels-photo-4167541.jpeg?auto=compress&cs=tinysrgb&w=600" alt="General Consultation">
-                <h4 class="condition-card-title">General Consultation</h4>
-                <div class="condition-card-overlay" style="opacity: 1; background: rgba(42, 59, 84, 0.95);">
-                    <p>Soon, you'll be able to set up video calls with one of our specially trained physicians.</p>
-                </div>
-            `;
-            gridContainer.appendChild(comingSoon);
         };
-
-        // Tab click handler
+        
+        // Filter tab click handler
         filterTabs.addEventListener('click', e => {
             if (e.target.tagName === 'BUTTON') {
+                // Update active state
                 filterTabs.querySelectorAll('button').forEach(btn => {
                     btn.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy';
                 });
                 e.target.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-statwell-navy text-white';
-                document.getElementById('condition-search').value = '';
-                renderCards(e.target.dataset.category);
+                
+                // Render filtered conditions
+                renderConditionsSlider(e.target.dataset.category);
             }
         });
-
-        // Search handler
-        document.getElementById('condition-search').addEventListener('input', e => {
-            filterTabs.querySelectorAll('button').forEach(btn => {
-                btn.className = 'px-6 py-3 rounded-full font-semibold transition-all bg-white text-statwell-navy border-2 border-gray-200 hover:border-statwell-navy';
-            });
-            filterTabs.querySelector('[data-category="All"]').className = 'px-6 py-3 rounded-full font-semibold transition-all bg-statwell-navy text-white';
-            renderCards('All', e.target.value);
-        });
+        
+        // Scroll conditions horizontally
+        window.scrollConditions = function(direction) {
+            const slider = document.getElementById('conditions-slider');
+            if (!slider) return;
+            const scrollAmount = 320; // card width + gap
+            const currentScroll = slider.scrollLeft;
+            
+            if (direction === 'left') {
+                slider.scrollTo({
+                    left: currentScroll - scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                slider.scrollTo({
+                    left: currentScroll + scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        };
+        
+        // Scroll testimonials horizontally
+        window.scrollTestimonials = function(direction) {
+            const slider = document.getElementById('testimonials-slider');
+            if (!slider) return;
+            const scrollAmount = 400; // card width + gap
+            const currentScroll = slider.scrollLeft;
+            
+            if (direction === 'left') {
+                slider.scrollTo({
+                    left: currentScroll - scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                slider.scrollTo({
+                    left: currentScroll + scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        };
 
         // FAQ Accordion
         document.getElementById('faq-accordion').addEventListener('click', e => {
@@ -1684,7 +1702,8 @@
         });
 
         // Initial render
-        renderCards();
+        renderConditionsSlider();
     </script>
 </body>
 </html>
+
