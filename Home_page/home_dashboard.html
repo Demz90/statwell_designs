@@ -563,6 +563,117 @@
             }
         }
 
+        /* Confirmation Modal */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .confirmation-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .confirmation-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .confirmation-modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .confirmation-modal-body {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .confirmation-modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Refill Status Badge */
+        .refill-status-badge {
+            background: linear-gradient(135deg, var(--warning), #f59e0b);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+            display: inline-block;
+        }
+        .refill-status-badge.rejected {
+            background: linear-gradient(135deg, var(--error), #dc2626);
+            box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+        }
+        .refill-status-badge.pending-review {
+            background: linear-gradient(135deg, var(--primary), #4c63d2);
+            box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2);
+        }
+
+        /* Admin Note Box */
+        .admin-note-box {
+            background: rgba(93, 120, 255, 0.05);
+            padding: var(--space-md);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: var(--space-md) 0;
+        }
+        .admin-note-label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .admin-note-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Next Steps Box */
+        .next-steps-box {
+            background: var(--light-gray);
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin: var(--space-md) 0;
+        }
+        .next-steps-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        .next-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .next-step-item:last-child {
+            margin-bottom: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -1027,6 +1138,7 @@
                                         <div class="task-date">Due: Friday, September 26, 2025</div>
                                     </div>
                                     <div class="task-actions">
+                                        <button class="btn btn-primary">Pay Now</button>
                                         <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
                                 <polyline points="6,9 12,15 18,9"/>
                             </svg>
@@ -1049,9 +1161,6 @@
                                             <span class="task-detail-label">Amount</span>
                                             <span class="task-detail-value">$45.99</span>
                                         </div>
-                                    </div>
-                                    <div class="task-actions">
-                                        <button class="btn btn-primary">Pay Now</button>
                                     </div>
                                 </div>
                             </div>
@@ -1189,7 +1298,129 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Session with Rejected Refill (Case 1) -->
+                <div class="session-card expanded" data-session="session-5" data-status="ongoing">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 5 - Refill Request</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <!-- Case 1: Refill Rejected -->
+                        <div class="task-card expanded" data-task="refill-rejected">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon" style="background: linear-gradient(135deg, var(--error), #dc2626); color: var(--white);">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Refill Request Not Approved</div>
+                                        <span class="refill-status-badge rejected">Not Approved</span>
+                                    </div>
+                                    <div class="task-date">Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary" onclick="requestNewRefill('session-5')">Request Refill</button>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    We're unable to prescribe this medication therefore, your refill credit has been restored.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="task-detail-label">Reason from clinician:</span>
+                                        <span class="task-detail-value" style="font-style: italic;">This medication requires in-person evaluation due to your medical history. We recommend consulting with your primary care physician for this specific refill.</span>
+                                    </div>
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px solid rgba(93, 120, 255, 0.1); padding-top: var(--space-md); margin-top: var(--space-md);">
+                                        <span class="task-detail-label">What you can do next:</span>
+                                        <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                                            <span class="task-detail-value">→ Request a different medication</span>
+                                            <span class="task-detail-value">→ Need help with refunds? Go to Support in your dashboard and send a mail to Request a refund.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Session with Pending Information (Case 2) -->
+                <div class="session-card expanded" data-session="session-6" data-status="ongoing">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 6 - Refill Request</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <!-- Case 2: Need More Information -->
+                        <div class="task-card expanded" data-task="refill-pending-info" data-refill-id="refill-123">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon pending">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">More Information Needed</div>
+                                        <span class="refill-status-badge">Action Required</span>
+                                    </div>
+                                    <div class="task-date">Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary" onclick="openConfirmationModal('refill-123')">Update Status</button>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    We need a little more information to complete your refill request.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="task-detail-label">Reason from clinician:</span>
+                                        <span class="task-detail-value" style="font-style: italic;">Please provide a clearer photo of your medication bottle showing the prescription label with dosage information. The current photo is too blurry to verify the details.</span>
+                                    </div>
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px solid rgba(93, 120, 255, 0.1); padding-top: var(--space-md); margin-top: var(--space-md);">
+                                        <span class="task-detail-label">What to do:</span>
+                                        <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                                            <span class="task-detail-value">Check your email for the details. Once you've sent the information, confirm below.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <!-- End Ongoing Treatment Content -->
 
                 <!-- Completed Treatment Content (Empty State) -->
@@ -1398,6 +1629,20 @@
                 <!-- End Completed Treatment Content -->
             </div>
 
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="confirmation-modal">
+        <div class="confirmation-modal-content">
+            <div class="confirmation-modal-header">Confirm Submission</div>
+            <div class="confirmation-modal-body">
+                Please confirm you've already sent the requested information. Once confirmed, this action cannot be undone.
+            </div>
+            <div class="confirmation-modal-actions">
+                <button class="btn btn-secondary" onclick="closeConfirmationModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmInfoSubmitted()">Submit</button>
+            </div>
         </div>
     </div>
 
@@ -1773,6 +2018,88 @@
                 updateTreatmentTabCounts('ongoing-content', 'completed-content', 'ongoing-tab-count', 'completed-tab-count');
             }
         }
+
+        // Confirmation Modal Functions
+        let currentRefillId = null;
+
+        function openConfirmationModal(refillId) {
+            currentRefillId = refillId;
+            document.getElementById('confirmation-modal').classList.add('show');
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.remove('show');
+            currentRefillId = null;
+        }
+
+        function confirmInfoSubmitted() {
+            if (!currentRefillId) return;
+            
+            // Find the task card
+            const taskCard = document.querySelector(`[data-refill-id="${currentRefillId}"]`);
+            if (!taskCard) return;
+            
+            // Update status badge to "Pending Review"
+            const statusBadge = taskCard.querySelector('.refill-status-badge');
+            if (statusBadge) {
+                statusBadge.textContent = 'Pending Review';
+                statusBadge.classList.remove('rejected');
+                statusBadge.classList.add('pending-review');
+            }
+            
+            // Update task title
+            const taskTitle = taskCard.querySelector('.task-title');
+            if (taskTitle) {
+                taskTitle.textContent = 'Refill Under Review';
+            }
+            
+            // Update task description
+            const taskDescription = taskCard.querySelector('.task-description');
+            if (taskDescription) {
+                taskDescription.textContent = 'Thank you for submitting the additional information. Your refill request is now being reviewed by our medical team.';
+            }
+            
+            // Remove the admin note and next steps
+            const adminNote = taskCard.querySelector('.admin-note-box');
+            const nextSteps = taskCard.querySelector('.next-steps-box');
+            if (adminNote) adminNote.remove();
+            if (nextSteps) nextSteps.remove();
+            
+            // Remove the "Update Status" button
+            const taskActions = taskCard.querySelector('.task-content .task-actions');
+            if (taskActions) taskActions.remove();
+            
+            // Update task icon to pending (circle)
+            const taskIcon = taskCard.querySelector('.task-icon');
+            if (taskIcon) {
+                taskIcon.style.background = '';
+                taskIcon.className = 'task-icon pending';
+                taskIcon.innerHTML = `<svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                </svg>`;
+            }
+            
+            // Close modal
+            closeConfirmationModal();
+            
+            // Show success notification (optional)
+            console.log('Refill status updated to Pending Review for:', currentRefillId);
+        }
+
+        function requestNewRefill(sessionId) {
+            // Navigate to refill request form with session ID pre-filled
+            console.log('Redirecting to refill form for session:', sessionId);
+            // In production, this would redirect to: window.location.href = 'refill_form.html?session=' + sessionId;
+            alert('Redirecting to refill request form (session: ' + sessionId + ')');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('confirmation-modal');
+            if (event.target === modal) {
+                closeConfirmationModal();
+            }
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
