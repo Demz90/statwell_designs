@@ -203,6 +203,31 @@
         .toast.show {
             transform: translateX(0);
         }
+
+        /* Hero Section Pattern */
+        .pattern-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        /* Testimonials Slider */
+        .testimonials-slider {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-image-card {
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-image-card:hover {
+            transform: translateY(-8px);
+        }
     </style>
 </head>
 <body class="bg-white text-statwell-navy">
@@ -219,13 +244,13 @@
                         Home
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
                     </a>
-                    <a href="homepage.html#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
-                        FAQ
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
-                    </a>
                     <a href="prescription_refill.html" class="font-medium text-statwell-blue relative group">
                         Prescription Refill
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue"></span>
+                    </a>
+                    <a href="homepage.html#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
+                        FAQ
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
                     </a>
                     <a href="contact_us.html" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
                         Contact Us
@@ -245,26 +270,92 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-statwell-white via-white to-blue-50 pt-2 pb-12 md:pt-4 md:pb-16 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-statwell-navy mb-5 leading-tight">
+    <section class="relative bg-gradient-to-br from-statwell-blue to-blue-600 text-white overflow-hidden" style="min-height: 650px;">
+        <!-- Smooth Transition Zone with Pattern -->
+        <div class="absolute right-0 top-0 bottom-0 hidden lg:block" style="width: 45%;">
+            <!-- Medication Image (Full Background) -->
+            <div class="absolute inset-0">
+                <img src="https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&dpr=2" alt="Person holding medication" class="h-full w-full object-cover object-center">
+            </div>
+            
+            <!-- Gradient Overlay for Smooth Transition from Blue -->
+            <div class="absolute left-0 top-0 bottom-0" style="width: 35%; background: linear-gradient(to right, #4169E1, transparent);"></div>
+            
+            <!-- Circle Pattern Overlay -->
+            <div class="absolute left-0 top-0 bottom-0" style="width: 45%;">
+                <div class="absolute inset-0 grid grid-cols-4 grid-rows-10 gap-2 p-3" style="opacity: 0.8;">
+                    <!-- Pattern circles (abbreviated for brevity) -->
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.25);"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #40BFAA;"></div>
+                    <div class="pattern-circle" style="background: transparent;"></div>
+                    <div class="pattern-circle" style="background: #5D78FF;"></div>
+                    <div class="pattern-circle" style="background: rgba(255,255,255,0.3);"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Left Content -->
+                <div class="max-w-xl">
+                    <h1 class="text-4xl md:text-5xl font-medium mb-6 leading-tight">
                         Refill Your Prescription<br/>in Minutes
                     </h1>
                     
-                    <p class="text-lg text-statwell-gray mb-8 leading-relaxed">
+                    <div class="text-6xl md:text-7xl font-bold mb-6">
+                        $29.99
+                    </div>
+                    
+                    <p class="text-lg mb-8 leading-relaxed">
                         Skip the phone calls, long waits, and office visits. Get your prescription refills approved by a licensed provider and sent to your pharmacy—fast, easy, and 100% online.
                     </p>
-
-                    <button onclick="openVisitForModal()" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg" style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
-                        Start Your Refill Now
-                        <i class="uil uil-arrow-right text-xl"></i>
-                    </button>
+                    
+                    <!-- Button -->
+                    <div class="mb-6">
+                        <button onclick="openVisitForModal()" class="inline-flex items-center justify-center px-8 py-4 bg-gray-300 text-statwell-navy rounded-xl font-semibold text-lg hover:bg-gray-200 transition-all">
+                            <i class="uil uil-prescription-bottle text-xl mr-2"></i>
+                            Start Your Refill Now
+                        </button>
+                    </div>
                 </div>
-                <div class="rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&dpr=2" alt="Person holding medication" class="w-full h-auto object-cover aspect-[4/5]">
-                </div>
+                
+                <!-- Right side is handled by absolute positioned elements -->
+                <div></div>
             </div>
         </div>
     </section>
@@ -356,80 +447,99 @@
     </section>
 
     <!-- How It Works Section -->
-    <section class="bg-statwell-white py-16 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
+    <section class="relative py-16 fade-in-section overflow-hidden bg-gradient-to-br from-statwell-blue to-blue-600 text-white">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 right-20 w-40 h-40 bg-statwell-teal rounded-full"></div>
+            <div class="absolute bottom-24 left-1/4 w-48 h-48 bg-white rounded-full"></div>
+            <div class="absolute top-1/2 right-1/3 w-32 h-32 bg-statwell-teal rounded-full"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">How Prescription Refills Work</h2>
-                <p class="text-lg text-statwell-gray">Four simple steps to get your medication refilled</p>
+                <h2 class="text-4xl font-bold mb-4">How Prescription Refills Work</h2>
+                <p class="text-lg text-white/90">Four simple steps to get your medication refilled</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div class="text-center bg-white text-statwell-navy rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
                     <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="uil uil-search text-3xl text-white"></i>
                     </div>
                     <div class="text-xs font-semibold text-statwell-teal mb-2">STEP 1</div>
                     <h4 class="text-xl font-semibold text-statwell-navy mb-3">Search Your Medication</h4>
-                    <p class="text-statwell-gray">Enter the name of your medication and basic details like dosage and duration.</p>
+                    <p class="text-gray-600">Enter the name of your medication and basic details like dosage and duration.</p>
                 </div>
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div class="text-center bg-white text-statwell-navy rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
                     <div class="w-16 h-16 bg-statwell-blue rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="uil uil-image-upload text-3xl text-white"></i>
                     </div>
                     <div class="text-xs font-semibold text-statwell-blue mb-2">STEP 2</div>
                     <h4 class="text-xl font-semibold text-statwell-navy mb-3">Upload Medication Photo</h4>
-                    <p class="text-statwell-gray">Take a clear photo of your medication bottle or packaging for verification.</p>
+                    <p class="text-gray-600">Take a clear photo of your medication bottle or packaging for verification.</p>
                 </div>
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div class="text-center bg-white text-statwell-navy rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
                     <div class="w-16 h-16 bg-statwell-navy rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="uil uil-user-md text-3xl text-white"></i>
                     </div>
                     <div class="text-xs font-semibold text-statwell-navy mb-2">STEP 3</div>
                     <h4 class="text-xl font-semibold text-statwell-navy mb-3">Provider Review</h4>
-                    <p class="text-statwell-gray">A licensed provider reviews your refill request and medical history.</p>
+                    <p class="text-gray-600">A licensed provider reviews your refill request and medical history.</p>
                 </div>
-                <div class="text-center bg-white rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div class="text-center bg-white text-statwell-navy rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all">
                     <div class="w-16 h-16 bg-statwell-teal rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="uil uil-prescription-bottle text-3xl text-white"></i>
                     </div>
                     <div class="text-xs font-semibold text-statwell-teal mb-2">STEP 4</div>
                     <h4 class="text-xl font-semibold text-statwell-navy mb-3">Pharmacy Delivery</h4>
-                    <p class="text-statwell-gray">Your prescription is sent to your pharmacy, usually ready within 2 hours.</p>
+                    <p class="text-gray-600">Your prescription is sent to your pharmacy, usually ready within 2 hours.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section to Start Refill -->
-    <section class="bg-white py-16 fade-in-section" id="refill-form-section">
+    <section class="bg-statwell-white py-16 fade-in-section" id="refill-form-section">
         <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">Ready to Request Your Refill?</h2>
-                <p class="text-lg text-statwell-gray">Click below to get started - we'll ask a few quick questions and get you signed up</p>
-            </div>
-
-            <div class="text-center">
-                <button 
-                    onclick="openVisitForModal()"
-                    class="px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg inline-flex items-center gap-2"
-                    style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
-                    Start Your Refill Request
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </button>
-                <p class="text-sm text-statwell-gray mt-6">
-                    Already have an account? <a href="login_flow.html" class="text-statwell-blue hover:underline font-semibold">Log in</a>
-                </p>
+            <div class="bg-white rounded-3xl p-12 text-center border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-statwell-navy mb-6">Ready to Request Your Refill?</h2>
+                    <p class="text-lg text-gray-700 mb-8 max-w-xl mx-auto leading-relaxed">
+                        Click below to get started - we'll ask a few quick questions and get you signed up.
+                    </p>
+                    
+                    <div>
+                        <button 
+                            onclick="openVisitForModal()"
+                            class="px-8 py-4 rounded-xl font-semibold text-white text-lg hover:-translate-y-1 transition-all shadow-lg inline-flex items-center gap-2"
+                            style="background: linear-gradient(135deg, #5D78FF, #4c63d2); box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);">
+                            Start Your Refill Request
+                            <i class="uil uil-arrow-right text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-200 max-w-md mx-auto">
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Already have an account? <a href="login_flow.html" class="text-statwell-blue hover:underline font-semibold">Log in here</a> to submit your refill request.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section class="bg-statwell-white py-16 fade-in-section">
-        <div class="max-w-4xl mx-auto px-6">
+    <section class="relative py-16 fade-in-section overflow-hidden" style="background: linear-gradient(135deg, #E8F7F5, #D4F1ED);">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-40 h-40 rounded-full" style="background: rgba(64, 191, 170, 0.2);"></div>
+            <div class="absolute bottom-24 right-1/4 w-48 h-48 rounded-full" style="background: rgba(93, 120, 255, 0.15);"></div>
+            <div class="absolute top-1/2 left-1/3 w-32 h-32 rounded-full" style="background: rgba(64, 191, 170, 0.2);"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-4">Simple, Transparent Pricing</h2>
-                <p class="text-lg text-statwell-gray">One flat fee covers all your refills for 30 days</p>
+                <p class="text-lg text-gray-700">One flat fee covers all your refills for 30 days</p>
             </div>
 
             <div class="bg-white rounded-3xl p-8 border-2 border-statwell-blue/20 shadow-xl">
@@ -639,109 +749,90 @@
     </section>
 
     <!-- Reviews Section -->
-    <section class="bg-statwell-white py-16 fade-in-section">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-statwell-navy mb-4">What Our Patients Say</h2>
-                <p class="text-lg text-statwell-gray">Real experiences from real people</p>
+    <section class="relative py-16 fade-in-section overflow-hidden" style="background: linear-gradient(135deg, #E8F7F5, #D4F1ED);">
+        <!-- Decorative Circle Pattern -->
+        <div class="absolute inset-0 opacity-25">
+            <div class="absolute top-16 left-16 w-40 h-40 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-40 right-24 w-32 h-32 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+            <div class="absolute bottom-24 left-1/3 w-48 h-48 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-1/3 right-1/4 w-36 h-36 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+            <div class="absolute bottom-16 right-20 w-44 h-44 rounded-full" style="background: rgba(64, 191, 170, 0.3);"></div>
+            <div class="absolute top-24 left-2/3 w-28 h-28 rounded-full" style="background: rgba(93, 120, 255, 0.25);"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-statwell-navy mb-6">What Our Patients Say</h2>
+                <p class="text-base text-gray-700 max-w-2xl mx-auto">Real experiences from real people</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <p class="text-statwell-navy mb-4">"So much easier than calling my doctor's office! Got my blood pressure medication refilled in under 2 hours. Highly recommend!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
-                            SM
+            
+            <!-- Testimonial Slider -->
+            <div class="relative max-w-6xl mx-auto">
+                <div class="testimonials-slider overflow-x-auto pb-4" id="testimonials-slider-refill" style="scroll-behavior: smooth; scrollbar-width: none;">
+                    <div class="flex gap-6" style="min-width: max-content;">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sarah - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    So much easier than calling my doctor's office! Got my blood pressure medication refilled in under 2 hours. Highly recommend!
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold text-statwell-navy">Sarah M.</div>
-                            <div class="text-sm text-statwell-gray">New York, NY</div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=600" alt="James - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    I travel a lot for work and StatWellMD makes it so easy to keep up with my thyroid medication. The process is quick and straightforward.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-image-card relative rounded-3xl overflow-hidden" style="width: 380px; height: 500px;">
+                            <img src="https://images.pexels.com/photos/3765111/pexels-photo-3765111.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Emily - Patient" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                                <div class="mb-4">
+                                    <svg class="w-12 h-12 text-statwell-teal fill-current opacity-80" viewBox="0 0 24 24">
+                                        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-white text-xl font-medium mb-4 leading-relaxed">
+                                    Perfect for busy moms! No need to find childcare to go to the doctor. I can do everything from my phone while the kids nap.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <p class="text-statwell-navy mb-4">"I travel a lot for work and StatWellMD makes it so easy to keep up with my thyroid medication. The process is quick and straightforward."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
-                            JL
-                        </div>
-                        <div>
-                            <div class="font-semibold text-statwell-navy">James L.</div>
-                            <div class="text-sm text-statwell-gray">Miami, FL</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <p class="text-statwell-navy mb-4">"Perfect for busy moms! No need to find childcare to go to the doctor. I can do everything from my phone while the kids nap."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-statwell-teal-light rounded-full flex items-center justify-center text-statwell-navy font-bold">
-                            EP
-                        </div>
-                        <div>
-                            <div class="font-semibold text-statwell-navy">Emily P.</div>
-                            <div class="text-sm text-statwell-gray">Austin, TX</div>
-                        </div>
-                    </div>
-                </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all z-10 hidden lg:flex items-center justify-center" onclick="scrollRefillTestimonials('left')" aria-label="Previous testimonial">
+                    <i class="uil uil-arrow-left text-3xl text-statwell-navy"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all z-10 hidden lg:flex items-center justify-center" onclick="scrollRefillTestimonials('right')" aria-label="Next testimonial">
+                    <i class="uil uil-arrow-right text-3xl text-statwell-navy"></i>
+                </button>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="bg-statwell-white py-16 fade-in-section" id="faq-section">
+    <section class="bg-white py-16 fade-in-section" id="faq-section">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-statwell-navy mb-6">Frequently Asked Questions</h2>
@@ -841,7 +932,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-white py-16 fade-in-section">
+    <section class="bg-statwell-white py-16 fade-in-section">
         <div class="max-w-4xl mx-auto px-6">
             <div class="bg-gradient-to-br from-statwell-navy to-blue-900 rounded-3xl p-12 text-center text-white relative overflow-hidden">
                 <!-- Background decoration -->
@@ -896,7 +987,7 @@
                         </a>
                     </div>
                     <div class="text-sm text-gray-400">
-                        <p class="mb-2">Licensed in: NY, FL, GA, ID, MN, MO, PA, ND, CT, IN, LA, ME, TN, WI, AZ, AL, GU, OK, HI, UT, KY, MI, MS, WV, WY, KS, TX, MD, NE, WA, VT, OH, DE, MT, CO, NH, NJ, IA, DC <a href="#" onclick="openStatesModal(); return false;" class="text-statwell-teal hover:underline">+ more</a></p>
+                        <p class="mb-2 leading-relaxed">STATWELLMD offers online care for common, everyday health issues that are not emergencies. We don't treat urgent or life-threatening problems — if you're having a medical emergency, call 911 right away.</p>
                     </div>
                 </div>
                 <div>
@@ -1258,6 +1349,26 @@
             // Redirect to signup with refill parameter
             window.location.href = 'signup_flow_prototype.html?refill=true&visit_for=' + type;
         }
+
+        // Scroll testimonials horizontally
+        window.scrollRefillTestimonials = function(direction) {
+            const slider = document.getElementById('testimonials-slider-refill');
+            if (!slider) return;
+            const scrollAmount = 400; // card width + gap
+            const currentScroll = slider.scrollLeft;
+            
+            if (direction === 'left') {
+                slider.scrollTo({
+                    left: currentScroll - scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                slider.scrollTo({
+                    left: currentScroll + scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        };
 
         // FAQ Accordion
         document.getElementById('faq-accordion').addEventListener('click', e => {
