@@ -1010,38 +1010,40 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Drug name*</label>
-                    <input type="text" class="form-input" placeholder="E.g. Penicillin" required>
-                </div>
+                <div class="conditional-field" id="allergy-specific-fields">
+                    <div class="form-group">
+                        <label class="form-label" id="allergen-label">Allergen name*</label>
+                        <input type="text" class="form-input" id="allergen-name" placeholder="E.g. Penicillin" required>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Status*</label>
-                    <select class="form-select" required>
-                        <option value="">Select status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">Status*</label>
+                        <select class="form-select" required>
+                            <option value="">Select status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Reaction Type*</label>
-                    <select class="form-select" required>
-                        <option value="">Select reaction type</option>
-                        <option value="allergy">Allergy</option>
-                        <option value="intolerance">Intolerance</option>
-                        <option value="sensitivity">Sensitivity</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">Reaction Type*</label>
+                        <select class="form-select" required>
+                            <option value="">Select reaction type</option>
+                            <option value="allergy">Allergy</option>
+                            <option value="intolerance">Intolerance</option>
+                            <option value="sensitivity">Sensitivity</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Reaction/Symptoms</label>
-                    <input type="text" class="form-input" placeholder="E.g. Rashes, itching">
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">Reaction/Symptoms*</label>
+                        <input type="text" class="form-input" placeholder="E.g. Rashes, itching" required>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Onset Date (Optional)</label>
-                    <input type="date" class="form-input">
+                    <div class="form-group">
+                        <label class="form-label">Onset Date (Optional)</label>
+                        <input type="date" class="form-input">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -1124,6 +1126,16 @@
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('show');
+            
+            // Reset forms and hide conditional fields when closing
+            if (modalId === 'add-allergy-modal') {
+                document.getElementById('add-allergy-form').reset();
+                document.getElementById('allergy-specific-fields').classList.remove('show');
+            } else if (modalId === 'add-condition-modal') {
+                document.getElementById('add-condition-form').reset();
+                document.getElementById('diabetes-fields').classList.remove('show');
+                document.getElementById('general-fields').classList.remove('show');
+            }
         }
 
         // Close modals when clicking outside
@@ -1136,6 +1148,21 @@
             }
             if (event.target === allergyModal) {
                 closeModal('add-allergy-modal');
+            }
+        });
+        
+        // Also close modals with Escape key
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const conditionModal = document.getElementById('add-condition-modal');
+                const allergyModal = document.getElementById('add-allergy-modal');
+                
+                if (conditionModal.classList.contains('show')) {
+                    closeModal('add-condition-modal');
+                }
+                if (allergyModal.classList.contains('show')) {
+                    closeModal('add-allergy-modal');
+                }
             }
         });
 
@@ -1168,17 +1195,37 @@
 
         function showAllergyFields() {
             const selectedType = document.getElementById('allergy-type').value;
-            const drugNameField = document.querySelector('#add-allergy-form input[type="text"]');
+            const allergyFields = document.getElementById('allergy-specific-fields');
+            const allergenLabel = document.getElementById('allergen-label');
+            const allergenInput = document.getElementById('allergen-name');
             
-            // Update placeholder based on allergy type
+            if (!selectedType) {
+                allergyFields.classList.remove('show');
+                return;
+            }
+            
+            // Show the fields
+            allergyFields.classList.add('show');
+            
+            // Update label and placeholder based on allergy type
             if (selectedType === 'Drug Allergies') {
-                drugNameField.placeholder = 'E.g. Penicillin';
+                allergenLabel.textContent = 'Drug name*';
+                allergenInput.placeholder = 'E.g. Penicillin, Aspirin';
             } else if (selectedType === 'Food Allergies') {
-                drugNameField.placeholder = 'E.g. Peanuts, Shellfish';
+                allergenLabel.textContent = 'Food name*';
+                allergenInput.placeholder = 'E.g. Peanuts, Shellfish, Dairy';
             } else if (selectedType === 'Environmental Allergies') {
-                drugNameField.placeholder = 'E.g. Pollen, Dust';
-            } else {
-                drugNameField.placeholder = 'E.g. Specific allergen name';
+                allergenLabel.textContent = 'Allergen name*';
+                allergenInput.placeholder = 'E.g. Pollen, Dust mites, Pet dander';
+            } else if (selectedType === 'Insect Allergies') {
+                allergenLabel.textContent = 'Insect type*';
+                allergenInput.placeholder = 'E.g. Bee stings, Wasp stings';
+            } else if (selectedType === 'Latex Allergies') {
+                allergenLabel.textContent = 'Latex source*';
+                allergenInput.placeholder = 'E.g. Gloves, Medical equipment';
+            } else if (selectedType === 'Other') {
+                allergenLabel.textContent = 'Allergen name*';
+                allergenInput.placeholder = 'E.g. Specify the allergen';
             }
         }
 
@@ -1208,6 +1255,8 @@
             alert('Allergy added successfully!');
             closeModal('add-allergy-modal');
             this.reset();
+            // Hide conditional fields after reset
+            document.getElementById('allergy-specific-fields').classList.remove('show');
         });
 
         // Edit/Delete functions
