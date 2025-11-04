@@ -595,6 +595,32 @@
             color: var(--text-secondary);
         }
 
+        /* Prescription Header */
+        .prescription-item {
+            margin-bottom: var(--space-lg);
+        }
+        .prescription-item:not(:first-child) {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-xl);
+            border-top: 2px solid var(--border-secondary);
+        }
+        .prescription-header {
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        .prescription-header h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 4px 0;
+        }
+        .prescription-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
         /* Detail Tabs */
         .detail-tabs {
             display: flex;
@@ -657,21 +683,30 @@
 
         /* Refill Details */
         .detail-group {
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--space-md);
         }
         .detail-label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: var(--space-xs);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .detail-value {
             font-size: 14px;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             background: var(--bg-secondary);
-            padding: var(--space-sm);
-            border-radius: 8px;
-            border: 1px solid rgba(93, 120, 255, 0.08);
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(93, 120, 255, 0.1);
+            line-height: 1.5;
+            transition: all var(--anim-normal);
+        }
+        .detail-value:hover {
+            border-color: rgba(93, 120, 255, 0.2);
+            background: rgba(93, 120, 255, 0.02);
         }
 
         /* Appointments */
@@ -924,11 +959,30 @@
                     status: 'Completed',
                     cost: '$50.00',
                     condition: 'Asthma / Asthma Exacerbation',
-                    prescription: {
-                        medication: 'Albuterol Inhaler',
-                        dosage: '90 mcg, 2 puffs as needed',
-                        instructions: 'Use when experiencing shortness of breath or wheezing'
-                    },
+                    prescriptions: [
+                        {
+                            medication: 'Albuterol Inhaler',
+                            dosage: '90 mcg',
+                            frequency: '2 puffs as needed',
+                            instructions: 'Use when experiencing shortness of breath or wheezing',
+                            quantity: '1 inhaler (200 doses)',
+                            refills: '3 refills authorized',
+                            prescribedDate: '5/20/2024',
+                            prescribedBy: 'Dr. Sarah Johnson, MD',
+                            pharmacy: 'CVS Pharmacy - Main Street'
+                        },
+                        {
+                            medication: 'Montelukast',
+                            dosage: '10mg',
+                            frequency: 'Once daily',
+                            instructions: 'Take in the evening for asthma control',
+                            quantity: '30 tablets',
+                            refills: '5 refills authorized',
+                            prescribedDate: '5/20/2024',
+                            prescribedBy: 'Dr. Sarah Johnson, MD',
+                            pharmacy: 'CVS Pharmacy - Main Street'
+                        }
+                    ],
                     appointments: [
                         { date: '5/22/2024 2:00 PM', status: 'Completed' }
                     ]
@@ -947,7 +1001,7 @@
                     status: 'In Progress',
                     cost: '$50.00',
                     condition: 'UTI Consultation',
-                    prescription: null,
+                    prescriptions: null,
                     appointments: []
                 }
             },
@@ -964,7 +1018,7 @@
                     status: 'Red Flagged',
                     cost: '$50.00',
                     condition: 'Cold & Flu Symptoms',
-                    prescription: null,
+                    prescriptions: null,
                     appointments: []
                 }
             },
@@ -980,7 +1034,7 @@
                     status: 'In Progress',
                     cost: '$50.00',
                     condition: 'Migraine Consultation',
-                    prescription: null,
+                    prescriptions: null,
                     appointments: []
                 }
             },
@@ -997,11 +1051,19 @@
                     cost: '$29.99',
                     medication: 'Lisinopril',
                     dosage: '10mg daily',
-                    prescription: {
-                        medication: 'Lisinopril',
-                        dosage: '10mg daily',
-                        instructions: 'Take once daily with or without food'
-                    },
+                    prescriptions: [
+                        {
+                            medication: 'Lisinopril',
+                            dosage: '10mg',
+                            frequency: 'Once daily',
+                            instructions: 'Take once daily with or without food. Best taken at the same time each day.',
+                            quantity: '30 tablets',
+                            refills: '5 refills authorized',
+                            prescribedDate: '5/18/2024',
+                            prescribedBy: 'Dr. Michael Chen, MD',
+                            pharmacy: 'Walgreens - Downtown'
+                        }
+                    ],
                     appointments: []
                 }
             },
@@ -1022,7 +1084,7 @@
                     refillNumber: '1st refill',
                     labReport: 'attached',
                     medicationImage: 'attached',
-                    prescription: null,
+                    prescriptions: null,
                     appointments: []
                 }
             },
@@ -1056,7 +1118,7 @@
                         { name: 'prescription_bottle_side.jpg' },
                         { name: 'medication_stock_photo.jpg' }
                     ],
-                    prescription: null,
+                    prescriptions: null,
                     appointments: []
                 }
             }
@@ -1235,14 +1297,55 @@
                 
                 <div class="tab-content">
                     <div id="prescription-tab" class="tab-pane active">
-                        ${encounter.details.prescription ? `
-                            <div class="prescription-item">
-                                <div class="prescription-info">
-                                    <h4>${encounter.details.prescription.medication}</h4>
-                                    <p>${encounter.details.prescription.dosage}</p>
-                                    <p style="margin-top: 4px; font-size: 13px;">${encounter.details.prescription.instructions}</p>
+                        ${encounter.details.prescriptions && encounter.details.prescriptions.length > 0 ? `
+                            ${encounter.details.prescriptions.map((prescription, index) => `
+                                <div class="prescription-item">
+                                    <div class="prescription-header">
+                                        <h4>${prescription.medication}</h4>
+                                        <p>Prescription ${encounter.details.prescriptions.length > 1 ? `${index + 1} of ${encounter.details.prescriptions.length}` : 'Information'}</p>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Dosage</div>
+                                        <div class="detail-value">${prescription.dosage}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Frequency</div>
+                                        <div class="detail-value">${prescription.frequency}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Quantity</div>
+                                        <div class="detail-value">${prescription.quantity}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Refills</div>
+                                        <div class="detail-value">${prescription.refills}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Instructions</div>
+                                        <div class="detail-value">${prescription.instructions}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Prescribed Date</div>
+                                        <div class="detail-value">${prescription.prescribedDate}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Prescribed By</div>
+                                        <div class="detail-value">${prescription.prescribedBy}</div>
+                                    </div>
+                                    
+                                    <div class="detail-group">
+                                        <div class="detail-label">Pharmacy</div>
+                                        <div class="detail-value">${prescription.pharmacy}</div>
+                                    </div>
                                 </div>
-                            </div>
+                            `).join('')}
                         ` : `
                             <div class="empty-state">
                                 <div class="empty-state-icon">
