@@ -405,6 +405,17 @@
                         Prescription Refill
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
                     </a>
+                    <div class="relative">
+                        <button id="states-dropdown-toggle" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors flex items-center gap-1" type="button" aria-haspopup="true" aria-expanded="false">
+                            States We Serve
+                            <i class="uil uil-angle-down text-lg"></i>
+                        </button>
+                        <div id="states-dropdown-menu" class="hidden absolute left-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl z-50" role="menu" aria-labelledby="states-dropdown-toggle">
+                            <div class="py-3 max-h-72 overflow-y-auto">
+                                <ul id="states-dropdown-list" class="flex flex-col" aria-label="States we serve"></ul>
+                            </div>
+                        </div>
+                    </div>
                     <a href="#faq-section" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors relative group">
                         FAQ
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
@@ -1397,7 +1408,11 @@
                         </div>
                         <div>
                             <p class="font-semibold text-white">Email:</p>
-                            <a href="mailto:hello@statwellmd.com" class="hover:text-statwell-teal transition-colors">hello@statwellmd.com</a>
+                            <a href="mailto:support@statwellmd.com" class="hover:text-statwell-teal transition-colors">support@statwellmd.com</a>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white">Phone:</p>
+                            <a href="tel:+18884489621" class="hover:text-statwell-teal transition-colors">+1 (888) 448-9621</a>
                         </div>
                     </div>
                 </div>
@@ -1414,44 +1429,7 @@
             <span class="modal-close" onclick="closeStatesModal()">&times;</span>
             <h2 class="text-3xl font-bold text-statwell-navy mb-6">States Where We Operate</h2>
             <p class="text-statwell-gray mb-6">StatWellMD is licensed and operating in the following states:</p>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">New York</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Florida</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Georgia</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Texas</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">Pennsylvania</span>
-                </div>
-                <div class="flex items-center gap-2 p-3 bg-statwell-white rounded-lg">
-                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
-                    </svg>
-                    <span class="text-sm font-medium">+ 35 more states</span>
-                </div>
-            </div>
+            <div id="states-modal-list" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
             <div class="mt-6 p-4 bg-blue-50 border border-statwell-blue/20 rounded-xl">
                 <p class="text-sm text-statwell-gray"><strong class="text-statwell-navy">Note:</strong> We are actively expanding to additional states. Check back regularly or contact us to see if we're available in your area.</p>
             </div>
@@ -1459,6 +1437,47 @@
     </div>
 
     <script>
+        const statesWeServe = [
+            "Arizona",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "New Hampshire",
+            "New Jersey",
+            "New York",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Pennsylvania",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Washington State",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming",
+            "District of Columbia"
+        ];
+
         // Conditions data
         const conditionsData = {
             "General": [
@@ -1509,6 +1528,68 @@
         const allConditions = Object.values(conditionsData).flat();
         const conditionsContainer = document.getElementById('conditions-container');
         const filterTabs = document.getElementById('filter-tabs');
+        const statesDropdownList = document.getElementById('states-dropdown-list');
+        const statesModalList = document.getElementById('states-modal-list');
+        const statesDropdownToggle = document.getElementById('states-dropdown-toggle');
+        const statesDropdownMenu = document.getElementById('states-dropdown-menu');
+
+        if (statesDropdownList) {
+            statesWeServe.forEach(state => {
+                const item = document.createElement('li');
+                item.textContent = state;
+                item.className = 'px-4 py-2 text-sm text-statwell-navy hover:bg-gray-50 transition-colors';
+                item.setAttribute('role', 'menuitem');
+                statesDropdownList.appendChild(item);
+            });
+        }
+
+        if (statesModalList) {
+            statesWeServe.forEach(state => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'flex items-center gap-2 p-3 bg-statwell-white rounded-lg';
+                wrapper.innerHTML = `
+                    <svg class="w-4 h-4 text-statwell-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <polyline points="20,6 9,17 4,12" stroke-width="2"/>
+                    </svg>
+                    <span class="text-sm font-medium">${state}</span>
+                `;
+                statesModalList.appendChild(wrapper);
+            });
+        }
+
+        if (statesDropdownToggle && statesDropdownMenu) {
+            const closeStatesMenu = () => {
+                statesDropdownMenu.classList.add('hidden');
+                statesDropdownToggle.setAttribute('aria-expanded', 'false');
+            };
+
+            statesDropdownToggle.addEventListener('click', event => {
+                event.preventDefault();
+                const isHidden = statesDropdownMenu.classList.contains('hidden');
+                if (isHidden) {
+                    statesDropdownMenu.classList.remove('hidden');
+                    statesDropdownToggle.setAttribute('aria-expanded', 'true');
+                } else {
+                    closeStatesMenu();
+                }
+            });
+
+            document.addEventListener('click', event => {
+                if (!statesDropdownMenu.contains(event.target) && !statesDropdownToggle.contains(event.target)) {
+                    closeStatesMenu();
+                }
+            });
+
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    closeStatesMenu();
+                }
+            });
+
+            statesDropdownMenu.addEventListener('click', () => {
+                closeStatesMenu();
+            });
+        }
         
         // Render condition cards in horizontal slider
         const renderConditionsSlider = (category = 'All') => {

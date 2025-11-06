@@ -61,6 +61,17 @@
                         Prescription Refill
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
                     </a>
+                    <div class="relative">
+                        <button id="states-dropdown-toggle" class="font-medium text-statwell-navy hover:text-statwell-blue transition-colors flex items-center gap-1" type="button" aria-haspopup="true" aria-expanded="false">
+                            States We Serve
+                            <i class="uil uil-angle-down text-lg"></i>
+                        </button>
+                        <div id="states-dropdown-menu" class="hidden absolute left-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-xl z-50" role="menu" aria-labelledby="states-dropdown-toggle">
+                            <div class="py-3 max-h-72 overflow-y-auto">
+                                <ul id="states-dropdown-list" class="flex flex-col" aria-label="States we serve"></ul>
+                            </div>
+                        </div>
+                    </div>
                     <a href="contact_us.html" class="font-medium text-statwell-blue relative group">
                         Contact Us
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-statwell-blue"></span>
@@ -88,21 +99,27 @@
 
         <!-- Main Contact Card -->
         <div class="bg-white border border-statwell-blue/12 rounded-2xl p-8 mb-8 hover:border-statwell-blue/25 hover:shadow-lg transition-all">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-                <div class="w-16 h-16 bg-gradient-to-br from-statwell-blue to-statwell-teal rounded-2xl flex items-center justify-center flex-shrink-0">
+            <div class="flex flex-col md:flex-row items-start gap-6">
+                <div class="w-16 h-16 bg-statwell-blue rounded-2xl flex items-center justify-center flex-shrink-0">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
                 </div>
                 <div class="flex-1">
-                    <h2 class="text-2xl font-bold text-statwell-navy mb-2">Email Support</h2>
+                    <h2 class="text-2xl font-bold text-statwell-navy mb-2">Customer Support</h2>
                     <p class="text-statwell-gray mb-3">For questions about your account, prescriptions, or general inquiries.</p>
-                    <a href="mailto:hello@statwellmd.com" class="inline-flex items-center gap-2 text-lg font-semibold text-statwell-blue hover:text-statwell-navy transition-colors">
-                        hello@statwellmd.com
+                    <a href="mailto:support@statwellmd.com" class="inline-flex items-center gap-2 text-lg font-semibold text-statwell-blue hover:text-statwell-navy transition-colors">
+                        support@statwellmd.com
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                         </svg>
                     </a>
+                    <div class="mt-3 flex items-center gap-2 text-statwell-navy font-semibold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h1.28a1 1 0 01.948.684l1.138 3.412a1 1 0 01-.502 1.21l-1.518.759a11.042 11.042 0 005.516 5.516l.759-1.518a1 1 0 011.21-.502l3.412 1.138a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.163 21 3 14.837 3 7V6a1 1 0 011-1z"></path>
+                        </svg>
+                        <a href="tel:+18884489621" class="hover:text-statwell-blue transition-colors">+1 (888) 448-9621</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,7 +251,11 @@
                         </div>
                         <div>
                             <p class="font-semibold text-white">Email:</p>
-                            <a href="mailto:hello@statwellmd.com" class="hover:text-statwell-teal transition-colors">hello@statwellmd.com</a>
+                            <a href="mailto:support@statwellmd.com" class="hover:text-statwell-teal transition-colors">support@statwellmd.com</a>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white">Phone:</p>
+                            <a href="tel:+18884489621" class="hover:text-statwell-teal transition-colors">+1 (888) 448-9621</a>
                         </div>
                     </div>
                 </div>
@@ -246,4 +267,94 @@
     </footer>
 
 </body>
+<script>
+    const statesWeServe = [
+        "Arizona",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "New Hampshire",
+        "New Jersey",
+        "New York",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Pennsylvania",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Washington State",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming",
+        "District of Columbia"
+    ];
+
+    const statesDropdownList = document.getElementById('states-dropdown-list');
+    const statesDropdownToggle = document.getElementById('states-dropdown-toggle');
+    const statesDropdownMenu = document.getElementById('states-dropdown-menu');
+
+    if (statesDropdownList) {
+        statesWeServe.forEach(state => {
+            const item = document.createElement('li');
+            item.textContent = state;
+            item.className = 'px-4 py-2 text-sm text-statwell-navy hover:bg-gray-50 transition-colors';
+            item.setAttribute('role', 'menuitem');
+            statesDropdownList.appendChild(item);
+        });
+    }
+
+    if (statesDropdownToggle && statesDropdownMenu) {
+        const closeStatesMenu = () => {
+            statesDropdownMenu.classList.add('hidden');
+            statesDropdownToggle.setAttribute('aria-expanded', 'false');
+        };
+
+        statesDropdownToggle.addEventListener('click', event => {
+            event.preventDefault();
+            const isHidden = statesDropdownMenu.classList.contains('hidden');
+            if (isHidden) {
+                statesDropdownMenu.classList.remove('hidden');
+                statesDropdownToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                closeStatesMenu();
+            }
+        });
+
+        document.addEventListener('click', event => {
+            if (!statesDropdownMenu.contains(event.target) && !statesDropdownToggle.contains(event.target)) {
+                closeStatesMenu();
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                closeStatesMenu();
+            }
+        });
+
+        statesDropdownMenu.addEventListener('click', () => {
+            closeStatesMenu();
+        });
+    }
+</script>
 </html>
