@@ -548,6 +548,50 @@
             cursor: not-allowed;
         }
 
+        .pharmacy-modal-hours {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        .pharmacy-modal-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        .pharmacy-modal-item {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 10px;
+            border: 1px solid var(--border-secondary);
+            background: var(--light-gray);
+        }
+        .pharmacy-modal-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 0.4px;
+        }
+        .pharmacy-modal-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+        .pharmacy-modal-note {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        .pharmacy-modal-actions {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: flex-end;
+        }
+
         /* Empty State */
         .empty-state {
             text-align: center;
@@ -677,6 +721,16 @@
 
         .status-rejected {
             background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .status-discontinued {
+            background: rgba(148, 164, 154, 0.16);
+            color: var(--text-secondary);
+        }
+
+        .status-duplicate-error {
+            background: rgba(255, 107, 107, 0.12);
             color: var(--error);
         }
 
@@ -1070,31 +1124,33 @@
         </div>
     </div>
 
-    <!-- Delivery Confirmation Modal -->
-    <div class="modal" id="delivery-modal">
+    <!-- Contact Pharmacy Modal -->
+    <div class="modal" id="pharmacy-modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('delivery-modal')">&times;</button>
-            <h3 class="modal-title">Confirm Delivery Status</h3>
-            
-            <!-- Medication Information -->
-            <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
-                <div class="medication-name" id="delivery-medication-name">Presgen B Oral Liquid</div>
-                <div class="medication-details">
-                    <div class="medication-detail">Ordered: 26/09/2025</div>
-                    <div class="medication-detail">Estimated Delivery: 29/09/2025</div>
+            <button class="modal-close" onclick="closeModal('pharmacy-modal')">&times;</button>
+            <h3 class="modal-title" id="pharmacy-modal-name">Contact Pharmacy</h3>
+            <p class="pharmacy-modal-hours" id="pharmacy-modal-hours"></p>
+
+            <div class="pharmacy-modal-list">
+                <div class="pharmacy-modal-item">
+                    <span class="pharmacy-modal-label">Phone</span>
+                    <span class="pharmacy-modal-value" id="pharmacy-modal-phone"></span>
+                </div>
+                <div class="pharmacy-modal-item">
+                    <span class="pharmacy-modal-label">Email</span>
+                    <span class="pharmacy-modal-value" id="pharmacy-modal-email"></span>
+                </div>
+                <div class="pharmacy-modal-item">
+                    <span class="pharmacy-modal-label">Address</span>
+                    <span class="pharmacy-modal-value" id="pharmacy-modal-address"></span>
                 </div>
             </div>
-            
-            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">Have you received your medication?</p>
-            
-            <!-- Warning -->
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); margin-bottom: var(--space-xl); color: var(--error); font-size: 14px;">
-                <strong>Warning:</strong> This action cannot be undone. Please confirm only if you have physically received your medication.
-            </div>
-            
-            <div style="display: flex; gap: var(--space-md);">
-                <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal('delivery-modal')">Cancel</button>
-                <button class="btn btn-primary" style="flex: 1;" onclick="confirmDelivery(true)">Yes, confirm</button>
+
+            <div class="pharmacy-modal-note" id="pharmacy-modal-note"></div>
+
+            <div class="pharmacy-modal-actions">
+                <a id="pharmacy-call-btn" class="btn btn-secondary" href="#">Call Pharmacy</a>
+                <a id="pharmacy-email-btn" class="btn btn-primary" href="#">Email Pharmacy</a>
             </div>
         </div>
     </div>
@@ -1148,8 +1204,14 @@
                         { name: 'Requested', date: 'Mar 10', completed: true },
                         { name: 'Approved', date: 'Mar 11', completed: true },
                         { name: 'Order Placed', date: 'Mar 11', completed: true },
-                        { name: 'Delivered', date: 'Mar 11', completed: false, current: true }
-                    ]
+                        { name: 'Ready for pickup', date: 'Mar 12', completed: false, current: true }
+                    ],
+                    pharmacyName: 'River Valley Pharmacy',
+                    pharmacyPhone: '+1 (888) 555-0126',
+                    pharmacyEmail: 'support@rivervalleypharmacy.com',
+                    pharmacyAddress: '421 Main Street, Springfield, IL 62704',
+                    pharmacyHours: 'Open Mon–Fri • 8:00 AM – 7:00 PM',
+                    pharmacyNote: 'Call ahead to confirm pickup and bring a valid ID.'
                 },
                 {
                     id: 'tirzepatide-processing-2',
@@ -1161,8 +1223,14 @@
                         { name: 'Requested', date: 'Mar 10', completed: true },
                         { name: 'Approved', date: 'Mar 11', completed: true },
                         { name: 'Order Placed', date: 'Mar 11', completed: true },
-                        { name: 'Delivered', date: 'Mar 11', completed: false, current: true }
-                    ]
+                        { name: 'Ready for pickup', date: 'Mar 12', completed: false, current: true }
+                    ],
+                    pharmacyName: 'Cornerstone Pharmacy',
+                    pharmacyPhone: '+1 (888) 555-0478',
+                    pharmacyEmail: 'care@cornerstonepharmacy.com',
+                    pharmacyAddress: '88 Market Street, Chicago, IL 60616',
+                    pharmacyHours: 'Open Mon–Sat • 9:00 AM – 6:00 PM',
+                    pharmacyNote: 'Bring your insurance card if applicable. Delivery available upon request.'
                 }
             ];
 
@@ -1201,7 +1269,7 @@
                     refills: '2 refills',
                     ordered: '3/20/2025',
                     delivered: '3/20/2025',
-                    status: 'rejected',
+                    status: 'duplicate-error',
                     instructions: 'Take once daily with or without food'
                 },
                 {
@@ -1217,6 +1285,19 @@
                     instructions: 'Take once daily with or without food',
                     paymentPaid: true,
                     daysLeft: 15
+                },
+                {
+                    id: 'semaglutide-discontinued',
+                    medication: 'Semaglutide',
+                    prescribed: '4/02/2025',
+                    dosage: '0.5mg • weekly',
+                    duration: '30 days',
+                    refills: '0 refills',
+                    ordered: '4/05/2025',
+                    delivered: '4/06/2025',
+                    status: 'discontinued',
+                    instructions: 'Discontinued per clinician guidance. No further doses required.',
+                    statusNote: 'Clinician discontinued after reviewing recent labs; follow-up scheduled in 4 weeks.'
                 }
             ];
 
@@ -1269,7 +1350,7 @@
 
         // Close modals when clicking outside
         window.addEventListener('click', function(event) {
-            const modals = ['delivery-modal', 'medication-details-modal'];
+            const modals = ['pharmacy-modal', 'medication-details-modal'];
             modals.forEach(modalId => {
                 const modal = document.getElementById(modalId);
                 if (event.target === modal) {
@@ -1277,12 +1358,6 @@
                 }
             });
         });
-
-        // Delivery confirmation
-        function confirmDelivery(received) {
-            alert(received ? 'Delivery confirmed! Your medication status has been updated.' : 'Delivery issue reported. Our support team will contact you.');
-            closeModal('delivery-modal');
-        }
 
         // View medication details
         function viewMedicationDetails(medicationId, type) {
@@ -1341,15 +1416,15 @@
                             <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--success); font-size: 14px; margin-top: var(--space-lg);">
                                 <strong>Delivery Confirmed:</strong> This medication was successfully delivered on ${medication.delivered}. The medication was received and confirmed by the patient.
                             </div>
-                        ` : medication.status === 'rejected' ? `
-                            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
-                                <strong>Refill Rejected:</strong> Your request for this refill was rejected. Please contact support for assistance.
+                        ` : medication.status === 'duplicate-error' ? `
+                            <div style="background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Duplicate Prescription:</strong> This request was removed because it duplicated an existing order. No further action is required.
                             </div>
-                        ` : `
-                            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
-                                <strong>Delivery Issue:</strong> This medication delivery was not completed as expected.
+                        ` : medication.status === 'discontinued' ? `
+                            <div style="background: rgba(64, 191, 170, 0.12); border: 1px solid rgba(64, 191, 170, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--secondary); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Prescription Discontinued:</strong> ${medication.statusNote || 'Your clinician discontinued this medication. Follow their instructions for next steps.'}
                             </div>
-                        `}
+                        ` : ''}
                     `;
                 }
             } else {
@@ -1382,22 +1457,39 @@
             window.location.href = 'refill_existing_users.html?medication=' + medicationId;
         }
 
-        // Update status
-        function updateStatus(medicationId) {
-            const medication = medications.processing.find(m => m.id === medicationId);
-            if (medication) {
-                document.getElementById('delivery-medication-name').textContent = medication.name;
-                const detailsContainer = document.querySelector('#delivery-modal .medication-details');
-                detailsContainer.innerHTML = `
-                    <div class="medication-detail">Prescribed: ${medication.prescribed || '5/28/2024'}</div>
-                    <div class="medication-detail">Dosage: ${medication.dosage || '20mg • 1 daily'}</div>
-                    <div class="medication-detail">Duration: ${medication.duration || '30 days'}</div>
-                    <div class="medication-detail">Refills: ${medication.refills || '2 refills'}</div>
-                    <div class="medication-detail">Ordered: ${medication.ordered}</div>
-                    <div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>
-                `;
+        function openPharmacyModal(button) {
+            if (!button) return;
+
+            const modal = document.getElementById('pharmacy-modal');
+            if (!modal) return;
+
+            const { pharmacyName, pharmacyPhone, pharmacyEmail, pharmacyAddress, pharmacyHours, pharmacyNote } = button.dataset;
+
+            const nameEl = document.getElementById('pharmacy-modal-name');
+            const hoursEl = document.getElementById('pharmacy-modal-hours');
+            const phoneEl = document.getElementById('pharmacy-modal-phone');
+            const emailEl = document.getElementById('pharmacy-modal-email');
+            const addressEl = document.getElementById('pharmacy-modal-address');
+            const noteEl = document.getElementById('pharmacy-modal-note');
+            const callBtn = document.getElementById('pharmacy-call-btn');
+            const emailBtn = document.getElementById('pharmacy-email-btn');
+
+            if (nameEl) nameEl.textContent = pharmacyName || 'Pharmacy';
+            if (hoursEl) hoursEl.textContent = pharmacyHours || '';
+            if (phoneEl) phoneEl.textContent = pharmacyPhone || '—';
+            if (emailEl) emailEl.textContent = pharmacyEmail || '—';
+            if (addressEl) addressEl.textContent = pharmacyAddress || '—';
+            if (noteEl) noteEl.textContent = pharmacyNote || 'Contact the pharmacy to coordinate pickup or delivery.';
+
+            const cleanPhone = pharmacyPhone ? pharmacyPhone.replace(/[^\d+]/g, '') : '';
+            if (callBtn) {
+                callBtn.href = cleanPhone ? `tel:${cleanPhone}` : '#';
             }
-            document.getElementById('delivery-modal').classList.add('show');
+            if (emailBtn) {
+                emailBtn.href = pharmacyEmail ? `mailto:${pharmacyEmail}` : '#';
+            }
+
+            modal.classList.add('show');
         }
 
         // Render functions
@@ -1494,10 +1586,7 @@
                             </div>
                         </div>
                         <div class="medication-actions">
-                            ${medication.steps[medication.steps.length - 1].completed ? 
-                                `<button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.id}', 'processing')">View</button>` :
-                                `<button class="btn btn-secondary btn-sm" onclick="updateStatus('${medication.id}')">Update status</button>`
-                            }
+                            <button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.id}', 'processing')">View</button>
                         </div>
                     </div>
                 `;
@@ -1618,13 +1707,26 @@
                             <td>${medication.medication}</td>
                             <td>${medication.ordered}</td>
                             <td>${medication.delivered}</td>
-                            <td><span class="status-badge status-${medication.status}">${medication.status.charAt(0).toUpperCase() + medication.status.slice(1)}</span></td>
-                            <td><button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.medication.toLowerCase()}', 'history')">View</button></td>
+                            <td><span class="status-badge status-${medication.status}">${getHistoryStatusLabel(medication.status)}</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="viewMedicationDetails('${medication.medication.toLowerCase().replace(/\s+/g, '')}', 'history')">View</button></td>
                         </tr>
                     `).join('')}
                 </tbody>
             `;
             container.appendChild(table);
+        }
+
+        function getHistoryStatusLabel(status) {
+            switch ((status || '').toLowerCase()) {
+                case 'completed':
+                    return 'Completed';
+                case 'discontinued':
+                    return 'Discontinued';
+                case 'duplicate-error':
+                    return 'Duplicate/Error';
+                default:
+                    return 'Active';
+            }
         }
 
         // Update payment status

@@ -416,9 +416,10 @@
             border-radius: 12px;
             border: 1px solid rgba(93, 120, 255, 0.1);
         }
-        .task-detail { display: flex; justify-content: space-between; align-items: center; }
-        .task-detail-label { font-weight: 600; font-size: 14px; }
-        .task-detail-value { font-size: 14px; color: var(--text-secondary); }
+        .task-detail { display: flex; justify-content: space-between; align-items: flex-start; }
+        .task-detail-label { font-weight: 600; font-size: 14px; color: var(--text-primary); min-width: 170px; }
+        .task-detail-value { font-size: 14px; color: var(--text-secondary); max-width: 100%; }
+        .task-detail.mobile-stack { gap: 1rem; }
         .support-link { font-size: 14px; color: var(--text-secondary); margin-top: var(--space-md); }
 
         /* Review State */
@@ -542,6 +543,10 @@
                 font-size: 12px;
                 padding: 8px 12px;
             }
+            .task-actions .contact-pharmacy-btn {
+                width: 100%;
+                justify-content: center;
+            }
             
             .session-header {
                 flex-direction: column;
@@ -561,50 +566,156 @@
                 right: auto;
                 top: auto;
             }
+
+            .task-detail.mobile-stack {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.35rem;
+            }
+
+            .task-detail.mobile-stack .task-detail-label {
+                font-size: 13px;
+                letter-spacing: 0.2px;
+                text-transform: uppercase;
+                color: var(--text-secondary);
+                min-width: 0;
+            }
         }
 
-        /* Confirmation Modal */
-        .confirmation-modal {
+        /* Prescription Status Tags */
+        .prescription-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .prescription-status.active {
+            background: rgba(64, 191, 170, 0.12);
+            color: var(--secondary);
+        }
+        .prescription-status.completed {
+            background: rgba(93, 120, 255, 0.12);
+            color: var(--primary);
+        }
+        .prescription-status.discontinued {
+            background: rgba(148, 164, 154, 0.16);
+            color: var(--text-secondary);
+        }
+        .prescription-status.duplicate-error {
+            background: rgba(255, 107, 107, 0.12);
+            color: var(--error);
+        }
+
+        /* Contact Pharmacy Modal */
+        .pharmacy-modal {
             display: none;
             position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
+            inset: 0;
+            z-index: 2100;
+            background-color: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
-        .confirmation-modal.show {
+        .pharmacy-modal.show {
+            display: flex;
+        }
+        .pharmacy-modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 520px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+        }
+        .pharmacy-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(148, 164, 154, 0.15);
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color var(--anim-normal);
         }
-        .confirmation-modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        .pharmacy-modal-close:hover {
+            background: rgba(148, 164, 154, 0.3);
         }
-        .confirmation-modal-header {
-            font-size: 24px;
+        .pharmacy-details-header {
+            margin-bottom: 1.25rem;
+        }
+        .pharmacy-name {
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 1rem;
             color: var(--text-primary);
+            margin-bottom: 0.25rem;
         }
-        .confirmation-modal-body {
+        .pharmacy-meta {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
         }
-        .confirmation-modal-actions {
+        .pharmacy-contact-list {
             display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .pharmacy-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            background: rgba(93, 120, 255, 0.04);
+        }
+        .pharmacy-contact-item svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill: none;
+        }
+        .pharmacy-contact-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pharmacy-contact-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .pharmacy-note {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1.75rem;
+        }
+        .pharmacy-actions {
+            display: flex;
+            justify-content: center;
+        }
+        .pharmacy-actions .btn {
+            width: 100%;
+            max-width: 320px;
+            justify-content: center;
+            text-align: center;
         }
 
         /* Refill Status Badge */
@@ -1205,7 +1316,7 @@
                                 To-do <span class="session-task-counter">0</span>
                             </div>
                             <div class="session-task-tab active" onclick="switchSessionTab(this, 'completed')">
-                                Completed <span class="session-task-counter">1</span>
+                                Completed <span class="session-task-counter">3</span>
                             </div>
                         </div>
                         <div class="session-todo-content" style="display: none;">
@@ -1224,6 +1335,70 @@
                             </div>
                         </div>
                         <div class="session-completed-content">
+                                <div class="task-card completed" data-task="prescription-fulfilled">
+                                    <div class="task-header" onclick="toggleTask(this)">
+                                        <div class="task-icon completed">
+                                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </div>
+                                        <div class="task-content-wrapper">
+                                            <div class="task-title-row">
+                                                <div class="task-title">Prescription Fulfilled</div>
+                                                <span class="prescription-status completed">Fulfilled</span>
+                                            </div>
+                                            <div class="task-date">Completed: Friday, October 3, 2025</div>
+                                        </div>
+                                        <div class="task-actions">
+                                            <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                                <polyline points="6,9 12,15 18,9"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="task-content">
+                                    <div class="task-details">
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Medication</span>
+                                            <span class="task-detail-value">Tirzepatide</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Dosage</span>
+                                            <span class="task-detail-value">20 mg</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Instructions</span>
+                                            <span class="task-detail-value">Inject once weekly. Rotate injection sites and keep refrigerated until use.</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Quantity</span>
+                                            <span class="task-detail-value">1</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Refills</span>
+                                            <span class="task-detail-value">2</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Fulfillment status</span>
+                                            <span class="task-detail-value">Fulfilled in full</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Quantity dispensed</span>
+                                            <span class="task-detail-value">1 pen</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Quantity remaining</span>
+                                            <span class="task-detail-value">0 pens</span>
+                                        </div>
+                                        <div class="task-detail mobile-stack">
+                                            <span class="task-detail-label">Dispensed by</span>
+                                            <span class="task-detail-value">WALGREENS DRUG STORE #11203<br>17909 BURKE ST, OMAHA, NE • +1 (402) 555-1123</span>
+                                        </div>
+                                    </div>
+                                        <div class="support-link">
+                                            Need another refill? Start a new request anytime or contact support for help.
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="task-card completed" data-task="payment">
                                 <div class="task-header" onclick="toggleTask(this)">
                                     <div class="task-icon completed">
@@ -1263,6 +1438,107 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="task-card completed" data-task="prescription-discontinued">
+                                <div class="task-header" onclick="toggleTask(this)">
+                                    <div class="task-icon" style="background: linear-gradient(135deg, #9CA3AF, #6B7280); color: var(--white);">
+                                        <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <line x1="12" y1="5" x2="12" y2="15"/>
+                                            <path d="M8 15h8l-3 4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="task-content-wrapper">
+                                        <div class="task-title-row">
+                                            <div class="task-title">Prescription Discontinued</div>
+                                            <span class="prescription-status discontinued">Discontinued</span>
+                                        </div>
+                                        <div class="task-date">Updated: Wednesday, September 24, 2025</div>
+                                    </div>
+                                    <div class="task-actions">
+                                        <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <polyline points="6,9 12,15 18,9"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-description">
+                                        This prescription was discontinued by your clinician. Review the note below for next steps.
+                                    </div>
+                                    <div class="task-details">
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Medication</span>
+                                            <span class="task-detail-value">Semaglutide</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Dosage</span>
+                                            <span class="task-detail-value">0.5 mg</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Instructions</span>
+                                            <span class="task-detail-value">Inject once weekly</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Refills</span>
+                                            <span class="task-detail-value">No refills remaining</span>
+                                        </div>
+                                        <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                            <span class="task-detail-label">Clinician note</span>
+                                            <span class="task-detail-value" style="font-style: italic;">We discontinued this medication because your most recent labs show excellent progress. No further action is required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-card completed" data-task="prescription-duplicate">
+                                <div class="task-header" onclick="toggleTask(this)">
+                                    <div class="task-icon" style="background: linear-gradient(135deg, var(--error), #dc2626); color: var(--white);">
+                                        <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18"/>
+                                            <line x1="6" y1="6" x2="18" y2="18"/>
+                                        </svg>
+                                    </div>
+                                    <div class="task-content-wrapper">
+                                        <div class="task-title-row">
+                                            <div class="task-title">Prescription Removed</div>
+                                            <span class="prescription-status duplicate-error">Duplicate/Error</span>
+                                        </div>
+                                        <div class="task-date">Updated: Tuesday, September 23, 2025</div>
+                                    </div>
+                                    <div class="task-actions">
+                                        <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                            <polyline points="6,9 12,15 18,9"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="task-content">
+                                    <div class="task-description">
+                                        This prescription request was removed because it duplicated an existing order. No further action is necessary.
+                                    </div>
+                                    <div class="task-details">
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Medication</span>
+                                            <span class="task-detail-value">Lisinopril</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Dosage</span>
+                                            <span class="task-detail-value">10 mg</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Instructions</span>
+                                            <span class="task-detail-value">Take once daily</span>
+                                        </div>
+                                        <div class="task-detail">
+                                            <span class="task-detail-label">Refills</span>
+                                            <span class="task-detail-value">Not applicable (duplicate order)</span>
+                                        </div>
+                                        <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                            <span class="task-detail-label">Reason</span>
+                                            <span class="task-detail-value">Marked as a duplicate prescription created in error.</span>
+                                        </div>
+                                    </div>
+                                    <div class="support-link">
+                                        If you still need this medication, start a new request or message support for help.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1299,7 +1575,7 @@
                     </div>
                 </div>
 
-                <!-- Session with Rejected Refill (Case 1) -->
+                <!-- Session with Approved Refill (Contact Pharmacy) -->
                 <div class="session-card expanded" data-session="session-5" data-status="ongoing">
                     <div class="session-header" onclick="toggleSession(this)">
                         <div class="session-info">
@@ -1316,24 +1592,31 @@
                         </svg>
                     </div>
                     <div class="session-content" style="padding: var(--space-lg);">
-                        <!-- Case 1: Refill Rejected -->
-                        <div class="task-card expanded" data-task="refill-rejected">
+                        <div class="task-card expanded" data-task="pharmacy-contact">
                             <div class="task-header" onclick="toggleTask(this)">
-                                <div class="task-icon" style="background: linear-gradient(135deg, var(--error), #dc2626); color: var(--white);">
+                                <div class="task-icon completed">
                                     <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <line x1="18" y1="6" x2="6" y2="18"/>
-                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                        <polyline points="20,6 9,17 4,12"/>
                                     </svg>
                                 </div>
                                 <div class="task-content-wrapper">
                                     <div class="task-title-row">
-                                        <div class="task-title">Refill Request Not Approved</div>
-                                        <span class="refill-status-badge rejected">Not Approved</span>
+                                        <div class="task-title">Prescription Approved</div>
+                                        <span class="prescription-status completed">Approved</span>
                                     </div>
                                     <div class="task-date">Friday, October 3, 2025</div>
                                 </div>
                                 <div class="task-actions">
-                                    <button class="btn btn-primary" onclick="requestNewRefill('session-5')">Request Refill</button>
+                                    <button class="btn btn-primary contact-pharmacy-btn" type="button"
+                                        data-pharmacy-name="WALGREENS DRUG STORE #11203"
+                                        data-pharmacy-phone="+1 (402) 555-1123"
+                                        data-pharmacy-email="rx11203@walgreens.com"
+                                        data-pharmacy-address="17909 BURKE ST, OMAHA, NE"
+                                        data-pharmacy-hours="Open Mon–Fri • 8:00 AM – 8:00 PM"
+                                        data-pharmacy-note="Call ahead to confirm pickup and bring a valid ID when you arrive."
+                                        onclick="openPharmacyModal(this)">
+                                        Contact pharmacy
+                                    </button>
                                     <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
                                         <polyline points="6,9 12,15 18,9"/>
                                     </svg>
@@ -1341,20 +1624,32 @@
                             </div>
                             <div class="task-content">
                                 <div class="task-description">
-                                    We're unable to prescribe this medication therefore, your refill credit has been restored.
+                                    Your refill for <strong>Tirzepatide (30-day supply)</strong> is ready at your selected pharmacy. Contact them to arrange pickup or delivery.
                                 </div>
                                 <div class="task-details">
-                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="task-detail-label">Reason from clinician:</span>
-                                        <span class="task-detail-value" style="font-style: italic;">This medication requires in-person evaluation due to your medical history. We recommend consulting with your primary care physician for this specific refill.</span>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Medication</span>
+                                        <span class="task-detail-value">Tirzepatide</span>
                                     </div>
-                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px solid rgba(93, 120, 255, 0.1); padding-top: var(--space-md); margin-top: var(--space-md);">
-                                        <span class="task-detail-label">What you can do next:</span>
-                                        <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
-                                            <span class="task-detail-value">→ Request a different medication</span>
-                                            <span class="task-detail-value">→ Need help with refunds? Go to Support in your dashboard and send a mail to Request a refund.</span>
-                                        </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dosage</span>
+                                        <span class="task-detail-value">20 mg</span>
                                     </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Instructions</span>
+                                        <span class="task-detail-value">Inject once weekly. Rotate injection sites and keep refrigerated until use.</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity</span>
+                                        <span class="task-detail-value">1</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Refills</span>
+                                        <span class="task-detail-value">2</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Need anything changed? Send a secure message from Support and we’ll coordinate with the pharmacy.
                                 </div>
                             </div>
                         </div>
@@ -1394,7 +1689,7 @@
                                     <div class="task-date">Friday, October 3, 2025</div>
                                 </div>
                                 <div class="task-actions">
-                                    <button class="btn btn-primary" onclick="openConfirmationModal('refill-123')">Update Status</button>
+                                    <span class="prescription-status active">Action needed</span>
                                     <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
                                         <polyline points="6,9 12,15 18,9"/>
                                     </svg>
@@ -1407,12 +1702,53 @@
                                 <div class="task-details">
                                     <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
                                         <span class="task-detail-label">Reason from clinician:</span>
-                                        <span class="task-detail-value" style="font-style: italic;">Please provide a clearer photo of your medication bottle showing the prescription label with dosage information. The current photo is too blurry to verify the details.</span>
+                                        <span class="task-detail-value" style="font-style: italic;">Please upload a clearer photo of your medication bottle showing the prescription label with dosage information. The current photo is too blurry to verify the details.</span>
                                     </div>
                                     <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px solid rgba(93, 120, 255, 0.1); padding-top: var(--space-md); margin-top: var(--space-md);">
                                         <span class="task-detail-label">What to do:</span>
                                         <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
-                                            <span class="task-detail-value">Check your email for the details. Once you've sent the information, confirm below.</span>
+                                            <span class="task-detail-value">Reply to the secure message we sent with a new photo. We'll review and update you automatically—no confirmation step needed.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-card" data-task="refill-rejected">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon" style="background: linear-gradient(135deg, var(--error), #dc2626); color: var(--white);">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Refill Request Not Approved</div>
+                                        <span class="refill-status-badge rejected">Not Approved</span>
+                                    </div>
+                                    <div class="task-date">Friday, September 26, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-secondary" type="button" onclick="event.stopPropagation(); requestNewRefill('session-6');">Request new refill</button>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    We couldn’t approve this medication. Review the note below and start a new request if you need an alternative.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="task-detail-label">Clinician note</span>
+                                        <span class="task-detail-value" style="font-style: italic;">This medication requires an in-person evaluation due to your medical history. Please meet with your primary care physician before requesting it again.</span>
+                                    </div>
+                                    <div class="task-detail" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px solid rgba(93, 120, 255, 0.1); padding-top: var(--space-md); margin-top: var(--space-md);">
+                                        <span class="task-detail-label">Next steps</span>
+                                        <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                                            <span class="task-detail-value">→ Request a different medication if you still need treatment.</span>
+                                            <span class="task-detail-value">→ Need help with refunds? Visit Support to send us a secure message.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1632,16 +1968,33 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
-    <div id="confirmation-modal" class="confirmation-modal">
-        <div class="confirmation-modal-content">
-            <div class="confirmation-modal-header">Confirm Submission</div>
-            <div class="confirmation-modal-body">
-                Please confirm you've already sent the requested information. Once confirmed, this action cannot be undone.
+    <!-- Contact Pharmacy Modal -->
+    <div id="pharmacy-modal" class="pharmacy-modal" role="dialog" aria-modal="true" aria-labelledby="pharmacy-modal-name">
+        <div class="pharmacy-modal-content">
+            <button class="pharmacy-modal-close" aria-label="Close" onclick="closePharmacyModal()">&times;</button>
+            <div class="pharmacy-details-header">
+                <div class="pharmacy-name" id="pharmacy-modal-name"></div>
+                <div class="pharmacy-meta" id="pharmacy-modal-hours"></div>
             </div>
-            <div class="confirmation-modal-actions">
-                <button class="btn btn-secondary" onclick="closeConfirmationModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="confirmInfoSubmitted()">Submit</button>
+            <div class="pharmacy-contact-list">
+                <div class="pharmacy-contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h1.28a1 1 0 01.95.68l1.14 3.41a1 1 0 01-.5 1.21l-1.52.76a11.04 11.04 0 005.52 5.52l.76-1.52a1 1 0 011.21-.5l3.41 1.14a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.16 21 3 14.84 3 7V6a1 1 0 011-1z"/></svg>
+                    <div>
+                        <div class="pharmacy-contact-label">Phone</div>
+                        <div class="pharmacy-contact-value" id="pharmacy-modal-phone"></div>
+                    </div>
+                </div>
+                <div class="pharmacy-contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c-5.333 2.667-10.667 2.667-16 0"/><path d="M21 14c-5.333 2.667-10.667 2.667-16 0"/><path d="M12 3a17 17 0 000 18"/></svg>
+                    <div>
+                        <div class="pharmacy-contact-label">Address</div>
+                        <div class="pharmacy-contact-value" id="pharmacy-modal-address"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pharmacy-note" id="pharmacy-modal-note"></div>
+            <div class="pharmacy-actions">
+            <a id="pharmacy-call-btn" class="btn btn-primary" href="#">Call Pharmacy</a>
             </div>
         </div>
     </div>
@@ -1843,6 +2196,11 @@
                     switcher.classList.remove('open');
                 }
             }
+
+            const pharmacyModal = document.getElementById('pharmacy-modal');
+            if (pharmacyModal && event.target === pharmacyModal) {
+                closePharmacyModal();
+            }
         }
 
         // Update treatment tab counts
@@ -2019,87 +2377,46 @@
             }
         }
 
-        // Confirmation Modal Functions
-        let currentRefillId = null;
+        function openPharmacyModal(button) {
+            if (!button) return;
 
-        function openConfirmationModal(refillId) {
-            currentRefillId = refillId;
-            document.getElementById('confirmation-modal').classList.add('show');
+            const modal = document.getElementById('pharmacy-modal');
+            if (!modal) return;
+
+            const phoneEl = document.getElementById('pharmacy-modal-phone');
+            const nameEl = document.getElementById('pharmacy-modal-name');
+            const addressEl = document.getElementById('pharmacy-modal-address');
+            const noteEl = document.getElementById('pharmacy-modal-note');
+            const callBtn = document.getElementById('pharmacy-call-btn');
+
+            const hoursEl = document.getElementById('pharmacy-modal-hours');
+            const { pharmacyName, pharmacyPhone, pharmacyAddress, pharmacyNote } = button.dataset;
+
+            if (nameEl) nameEl.textContent = pharmacyName || 'Pharmacy';
+            if (hoursEl) hoursEl.textContent = '';
+            if (phoneEl) phoneEl.textContent = pharmacyPhone || '—';
+            if (addressEl) addressEl.textContent = pharmacyAddress || '—';
+            if (noteEl) noteEl.textContent = pharmacyNote || 'Contact the pharmacy to coordinate pickup or delivery.';
+
+            const cleanPhone = pharmacyPhone ? pharmacyPhone.replace(/[^\d+]/g, '') : '';
+            if (callBtn) {
+                callBtn.href = cleanPhone ? `tel:${cleanPhone}` : '#';
+            }
+
+            modal.classList.add('show');
         }
 
-        function closeConfirmationModal() {
-            document.getElementById('confirmation-modal').classList.remove('show');
-            currentRefillId = null;
-        }
-
-        function confirmInfoSubmitted() {
-            if (!currentRefillId) return;
-            
-            // Find the task card
-            const taskCard = document.querySelector(`[data-refill-id="${currentRefillId}"]`);
-            if (!taskCard) return;
-            
-            // Update status badge to "Pending Review"
-            const statusBadge = taskCard.querySelector('.refill-status-badge');
-            if (statusBadge) {
-                statusBadge.textContent = 'Pending Review';
-                statusBadge.classList.remove('rejected');
-                statusBadge.classList.add('pending-review');
-            }
-            
-            // Update task title
-            const taskTitle = taskCard.querySelector('.task-title');
-            if (taskTitle) {
-                taskTitle.textContent = 'Refill Under Review';
-            }
-            
-            // Update task description
-            const taskDescription = taskCard.querySelector('.task-description');
-            if (taskDescription) {
-                taskDescription.textContent = 'Thank you for submitting the additional information. Your refill request is now being reviewed by our medical team.';
-            }
-            
-            // Remove the admin note and next steps
-            const adminNote = taskCard.querySelector('.admin-note-box');
-            const nextSteps = taskCard.querySelector('.next-steps-box');
-            if (adminNote) adminNote.remove();
-            if (nextSteps) nextSteps.remove();
-            
-            // Remove the "Update Status" button
-            const taskActions = taskCard.querySelector('.task-content .task-actions');
-            if (taskActions) taskActions.remove();
-            
-            // Update task icon to pending (circle)
-            const taskIcon = taskCard.querySelector('.task-icon');
-            if (taskIcon) {
-                taskIcon.style.background = '';
-                taskIcon.className = 'task-icon pending';
-                taskIcon.innerHTML = `<svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                </svg>`;
-            }
-            
-            // Close modal
-            closeConfirmationModal();
-            
-            // Show success notification (optional)
-            console.log('Refill status updated to Pending Review for:', currentRefillId);
+        function closePharmacyModal() {
+            const modal = document.getElementById('pharmacy-modal');
+            if (!modal) return;
+            modal.classList.remove('show');
         }
 
         function requestNewRefill(sessionId) {
-            // Navigate to refill request form with session ID pre-filled
             console.log('Redirecting to refill form for session:', sessionId);
-            // In production, this would redirect to: window.location.href = 'refill_form.html?session=' + sessionId;
-            alert('Redirecting to refill request form (session: ' + sessionId + ')');
+            // In production this would navigate to the refill flow.
+            alert('We’ll guide you to start a new refill request for this session.');
         }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('confirmation-modal');
-            if (event.target === modal) {
-                closeConfirmationModal();
-            }
-        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {

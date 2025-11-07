@@ -555,6 +555,87 @@
             color: var(--error);
         }
 
+        .prescription-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .prescription-status.active {
+            background: rgba(64, 191, 170, 0.12);
+            color: var(--secondary);
+        }
+        .prescription-status.completed {
+            background: rgba(93, 120, 255, 0.12);
+            color: var(--primary);
+        }
+        .prescription-status.discontinued {
+            background: rgba(148, 164, 154, 0.16);
+            color: var(--text-secondary);
+        }
+        .prescription-status.duplicate-error {
+            background: rgba(255, 107, 107, 0.12);
+            color: var(--error);
+        }
+        .prescription-status.refill-needed {
+            background: rgba(245, 158, 11, 0.16);
+            color: var(--warning);
+        }
+
+        .prescription-note {
+            margin-top: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 10px;
+            border: 1px solid rgba(93, 120, 255, 0.12);
+            background: rgba(93, 120, 255, 0.06);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .prescription-toggle {
+            margin-top: var(--space-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(93, 120, 255, 0.08);
+            border: 1px solid rgba(93, 120, 255, 0.2);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all var(--anim-normal);
+        }
+
+        .prescription-toggle:hover {
+            background: rgba(93, 120, 255, 0.12);
+        }
+
+        .prescription-toggle svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: transform var(--anim-normal);
+        }
+
+        .prescription-toggle.open svg {
+            transform: rotate(180deg);
+        }
+
+        .prescription-details {
+            margin-top: var(--space-md);
+            display: none;
+        }
+
         /* Action Buttons Panel */
         .action-buttons-panel {
             display: flex;
@@ -969,7 +1050,9 @@
                             refills: '3 refills authorized',
                             prescribedDate: '5/20/2024',
                             prescribedBy: 'Dr. Sarah Johnson, MD',
-                            pharmacy: 'CVS Pharmacy - Main Street'
+                            pharmacy: 'CVS Pharmacy - Main Street',
+                            status: 'completed',
+                            statusNote: 'Completed 30-day controller therapy. Continue using rescue inhaler as needed.'
                         },
                         {
                             medication: 'Montelukast',
@@ -980,7 +1063,22 @@
                             refills: '5 refills authorized',
                             prescribedDate: '5/20/2024',
                             prescribedBy: 'Dr. Sarah Johnson, MD',
-                            pharmacy: 'CVS Pharmacy - Main Street'
+                            pharmacy: 'CVS Pharmacy - Main Street',
+                            status: 'discontinued',
+                            statusNote: 'Clinician discontinued after reviewing recent peak-flow readings; no refill needed.'
+                        },
+                        {
+                            medication: 'Levalbuterol Nebulizer',
+                            dosage: '1.25 mg',
+                            frequency: 'Use every 6–8 hours as needed',
+                            instructions: 'Use with nebulizer kit. Rinse mouth after each treatment.',
+                            quantity: '30 vials',
+                            refills: '1 refill remaining',
+                            prescribedDate: '5/20/2024',
+                            prescribedBy: 'Dr. Sarah Johnson, MD',
+                            pharmacy: 'CVS Pharmacy - Main Street',
+                            status: 'refill-needed',
+                            statusNote: 'Refill requested. Contact pharmacy if medication is still needed.'
                         }
                     ],
                     appointments: [
@@ -1061,7 +1159,21 @@
                             refills: '5 refills authorized',
                             prescribedDate: '5/18/2024',
                             prescribedBy: 'Dr. Michael Chen, MD',
-                            pharmacy: 'Walgreens - Downtown'
+                            pharmacy: 'Walgreens - Downtown',
+                            status: 'duplicate-error'
+                        },
+                        {
+                            medication: 'Tirzepatide',
+                            dosage: '15mg',
+                            frequency: 'Inject once weekly',
+                            instructions: 'Inject on the same day each week. Rotate injection sites.',
+                            quantity: '4 pens',
+                            refills: '1 refill remaining',
+                            prescribedDate: '5/18/2024',
+                            prescribedBy: 'Dr. Michael Chen, MD',
+                            pharmacy: 'Walgreens - Downtown',
+                            status: 'refill-needed',
+                            statusNote: 'Next refill due in 7 days. Contact pharmacy to schedule your pickup.'
                         }
                     ],
                     appointments: []
@@ -1269,6 +1381,65 @@
             if (!encounter) return;
             
             const isExternalRefill = encounter.type === 'external-refill';
+            const prescriptions = encounter.details.prescriptions || [];
+            const prescriptionsHtml = prescriptions.length ? prescriptions.map((prescription, index) => {
+                const detailId = `prescription-details-${(encounter.id || '').replace(/[^a-zA-Z0-9]/g, '')}-${index}`;
+                const status = (prescription.status || '').toLowerCase();
+                const showNote = status === 'discontinued' && prescription.statusNote;
+                const reasonMarkup = showNote ? `<div class="prescription-note">${prescription.statusNote}</div>` : '';
+
+                return `
+                    <div class="prescription-item">
+                        <div class="prescription-header">
+                            <div>
+                                <h4>${prescription.medication}</h4>
+                                <p>Prescription ${prescriptions.length > 1 ? `${index + 1} of ${prescriptions.length}` : 'Information'}</p>
+                            </div>
+                            ${prescription.status ? `<span class="prescription-status ${getPrescriptionStatusClass(prescription.status)}">${getPrescriptionStatusLabel(prescription.status)}</span>` : ''}
+                        </div>
+                        ${reasonMarkup}
+                        <button type="button" class="prescription-toggle" data-prescription-target="${detailId}" onclick="togglePrescriptionDetails('${detailId}', this)">
+                            <span>View details</span>
+                            <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+                        </button>
+                        <div class="prescription-details" id="${detailId}">
+                            <div class="detail-group">
+                                <div class="detail-label">Dosage</div>
+                                <div class="detail-value">${prescription.dosage || '—'}</div>
+                            </div>
+                            ${prescription.frequency ? `
+                            <div class="detail-group">
+                                <div class="detail-label">Frequency</div>
+                                <div class="detail-value">${prescription.frequency}</div>
+                            </div>` : ''}
+                            <div class="detail-group">
+                                <div class="detail-label">Instructions</div>
+                                <div class="detail-value">${prescription.instructions || '—'}</div>
+                            </div>
+                            <div class="detail-group">
+                                <div class="detail-label">Quantity</div>
+                                <div class="detail-value">${prescription.quantity || '—'}</div>
+                            </div>
+                            <div class="detail-group">
+                                <div class="detail-label">Refills</div>
+                                <div class="detail-value">${prescription.refills || '—'}</div>
+                            </div>
+                            <div class="detail-group">
+                                <div class="detail-label">Prescribed Date</div>
+                                <div class="detail-value">${prescription.prescribedDate || '—'}</div>
+                            </div>
+                            <div class="detail-group">
+                                <div class="detail-label">Prescribed By</div>
+                                <div class="detail-value">${prescription.prescribedBy || '—'}</div>
+                            </div>
+                            <div class="detail-group">
+                                <div class="detail-label">Pharmacy</div>
+                                <div class="detail-value">${prescription.pharmacy || '—'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('') : '';
             
             detailsPanel.innerHTML = `
                 <div class="details-header">
@@ -1297,56 +1468,7 @@
                 
                 <div class="tab-content">
                     <div id="prescription-tab" class="tab-pane active">
-                        ${encounter.details.prescriptions && encounter.details.prescriptions.length > 0 ? `
-                            ${encounter.details.prescriptions.map((prescription, index) => `
-                                <div class="prescription-item">
-                                    <div class="prescription-header">
-                                        <h4>${prescription.medication}</h4>
-                                        <p>Prescription ${encounter.details.prescriptions.length > 1 ? `${index + 1} of ${encounter.details.prescriptions.length}` : 'Information'}</p>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Dosage</div>
-                                        <div class="detail-value">${prescription.dosage}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Frequency</div>
-                                        <div class="detail-value">${prescription.frequency}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Quantity</div>
-                                        <div class="detail-value">${prescription.quantity}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Refills</div>
-                                        <div class="detail-value">${prescription.refills}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Instructions</div>
-                                        <div class="detail-value">${prescription.instructions}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Prescribed Date</div>
-                                        <div class="detail-value">${prescription.prescribedDate}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Prescribed By</div>
-                                        <div class="detail-value">${prescription.prescribedBy}</div>
-                                    </div>
-                                    
-                                    <div class="detail-group">
-                                        <div class="detail-label">Pharmacy</div>
-                                        <div class="detail-value">${prescription.pharmacy}</div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        ` : `
+                        ${prescriptions.length ? prescriptionsHtml : `
                             <div class="empty-state">
                                 <div class="empty-state-icon">
                                     <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
@@ -1597,6 +1719,50 @@
                 'Migraine Consultation': 'Genetic factors, hormonal changes, stress, certain foods, sleep disturbances, environmental factors'
             };
             return causes[condition] || 'Various factors depending on individual condition';
+        }
+
+        function getPrescriptionStatusClass(status) {
+            switch ((status || '').toLowerCase()) {
+                case 'completed':
+                    return 'completed';
+                case 'discontinued':
+                    return 'discontinued';
+                case 'duplicate-error':
+                    return 'duplicate-error';
+                case 'refill-needed':
+                    return 'refill-needed';
+                default:
+                    return 'active';
+            }
+        }
+
+        function getPrescriptionStatusLabel(status) {
+            switch ((status || '').toLowerCase()) {
+                case 'completed':
+                    return 'Completed';
+                case 'discontinued':
+                    return 'Discontinued';
+                case 'duplicate-error':
+                    return 'Duplicate/Error';
+                case 'refill-needed':
+                    return 'Refill Needed';
+                default:
+                    return 'Active';
+            }
+        }
+
+        function togglePrescriptionDetails(id, button) {
+            const section = document.getElementById(id);
+            if (!section) return;
+            const isVisible = section.style.display === 'block';
+            section.style.display = isVisible ? 'none' : 'block';
+            if (button) {
+                button.classList.toggle('open', !isVisible);
+                const label = button.querySelector('span');
+                if (label) {
+                    label.textContent = !isVisible ? 'Hide details' : 'View details';
+                }
+            }
         }
 
         function getConditionPrice(condition) {
