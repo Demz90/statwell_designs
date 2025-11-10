@@ -1079,6 +1079,19 @@
                             pharmacy: 'CVS Pharmacy - Main Street',
                             status: 'refill-needed',
                             statusNote: 'Refill requested. Contact pharmacy if medication is still needed.'
+                        },
+                        {
+                            medication: 'Fluticasone Nasal Spray',
+                            dosage: '50 mcg',
+                            frequency: '1 spray in each nostril twice daily',
+                            instructions: 'Shake gently before use. Use morning and night to manage allergy-related flare ups.',
+                            quantity: '1 bottle',
+                            refills: 'No refills remaining',
+                            prescribedDate: '5/20/2024',
+                            prescribedBy: 'Dr. Sarah Johnson, MD',
+                            pharmacy: 'CVS Pharmacy - Main Street',
+                            status: 'duplicate-error',
+                            statusNote: 'This prescription was removed because it duplicated an existing order.'
                         }
                     ],
                     appointments: [
@@ -1283,6 +1296,34 @@
             }
             
             displayEncounters(encounters);
+
+            if (encounters.length > 0) {
+                const firstEncounterId = encounters[0].id;
+                const isCurrentSelectionValid = selectedEncounter && encounters.some(enc => enc.id === selectedEncounter.id);
+                if (!isCurrentSelectionValid) {
+                    selectEncounter(firstEncounterId);
+                }
+            } else {
+                selectedEncounter = null;
+                const detailsPanel = document.getElementById('details-panel');
+                if (detailsPanel) {
+                    detailsPanel.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <svg style="width: 48px; height: 48px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10,9 9,9 8,9"/>
+                                </svg>
+                            </div>
+                            <div class="empty-state-title">Select an Encounter</div>
+                            <div class="empty-state-description">Choose an encounter from the list to view details</div>
+                        </div>
+                    `;
+                }
+            }
         }
 
         function displayEncounters(encounters) {
@@ -1385,8 +1426,12 @@
             const prescriptionsHtml = prescriptions.length ? prescriptions.map((prescription, index) => {
                 const detailId = `prescription-details-${(encounter.id || '').replace(/[^a-zA-Z0-9]/g, '')}-${index}`;
                 const status = (prescription.status || '').toLowerCase();
-                const showNote = status === 'discontinued' && prescription.statusNote;
-                const reasonMarkup = showNote ? `<div class="prescription-note">${prescription.statusNote}</div>` : '';
+                const isDuplicate = status === 'duplicate-error';
+                const showNote = (status === 'discontinued' && prescription.statusNote) || isDuplicate;
+                const noteText = isDuplicate
+                    ? (prescription.statusNote || 'This prescription was removed because it duplicated an existing order.')
+                    : prescription.statusNote;
+                const reasonMarkup = showNote ? `<div class="prescription-note">${noteText}</div>` : '';
 
                 return `
                     <div class="prescription-item">

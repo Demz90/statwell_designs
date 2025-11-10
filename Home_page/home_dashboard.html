@@ -602,6 +602,10 @@
             background: rgba(93, 120, 255, 0.12);
             color: var(--primary);
         }
+        .prescription-status.partially {
+            background: rgba(245, 158, 11, 0.16);
+            color: var(--warning);
+        }
         .prescription-status.discontinued {
             background: rgba(148, 164, 154, 0.16);
             color: var(--text-secondary);
@@ -1344,7 +1348,7 @@
                                         </div>
                                         <div class="task-content-wrapper">
                                             <div class="task-title-row">
-                                                <div class="task-title">Prescription Fulfilled</div>
+                                                <div class="task-title">Prescription Approved</div>
                                                 <span class="prescription-status completed">Fulfilled</span>
                                             </div>
                                             <div class="task-date">Completed: Friday, October 3, 2025</div>
@@ -1378,10 +1382,6 @@
                                             <span class="task-detail-value">2</span>
                                         </div>
                                         <div class="task-detail mobile-stack">
-                                            <span class="task-detail-label">Fulfillment status</span>
-                                            <span class="task-detail-value">Fulfilled in full</span>
-                                        </div>
-                                        <div class="task-detail mobile-stack">
                                             <span class="task-detail-label">Quantity dispensed</span>
                                             <span class="task-detail-value">1 pen</span>
                                         </div>
@@ -1399,6 +1399,186 @@
                                         </div>
                                     </div>
                                 </div>
+                        <div class="task-card completed" data-task="prescription-partial">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon completed">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="20,6 9,17 4,12"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Prescription Approved</div>
+                                        <span class="prescription-status partially">Partially Fulfilled</span>
+                                    </div>
+                                    <div class="task-date">Updated: Friday, October 10, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-details">
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Medication</span>
+                                        <span class="task-detail-value">Tirzepatide</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dosage</span>
+                                        <span class="task-detail-value">20 mg</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Instructions</span>
+                                        <span class="task-detail-value">Inject once weekly. Rotate injection sites and keep refrigerated until use.</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity</span>
+                                        <span class="task-detail-value">2</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Refills</span>
+                                        <span class="task-detail-value">2</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity dispensed</span>
+                                        <span class="task-detail-value">1 pen</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity remaining</span>
+                                        <span class="task-detail-value">1 pen</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dispensed by</span>
+                                        <span class="task-detail-value">WALGREENS DRUG STORE #11203<br>17909 BURKE ST, OMAHA, NE • +1 (402) 555-1123</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    The pharmacy released part of your order. Call ahead to schedule the remaining quantity when it’s ready.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-card completed" data-task="consultation-prescription-fulfilled">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon completed">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="20,6 9,17 4,12"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                        <div class="task-title-row">
+                                        <div class="task-title">Medication Prescribed</div>
+                                        <span class="prescription-status completed">Fulfilled</span>
+                                    </div>
+                                    <div class="task-date">Completed: Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-details">
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Medication</span>
+                                        <span class="task-detail-value">Liraglutide</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dosage</span>
+                                        <span class="task-detail-value">1.8 mg</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Instructions</span>
+                                        <span class="task-detail-value">Inject once daily at the same time. Rotate injection sites and refrigerate until use.</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity</span>
+                                        <span class="task-detail-value">3</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity dispensed</span>
+                                        <span class="task-detail-value">3 pens</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity remaining</span>
+                                        <span class="task-detail-value">0 pens</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Refills</span>
+                                        <span class="task-detail-value">1</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dispensed by</span>
+                                        <span class="task-detail-value">WALGREENS DRUG STORE #11203<br>17909 BURKE ST, OMAHA, NE • +1 (402) 555-1123</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Continue your treatment plan and reach out if you need adjustments or a new prescription.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-card completed" data-task="consultation-prescription-partial">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon completed">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="20,6 9,17 4,12"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Medication Prescribed</div>
+                                        <span class="prescription-status partially">Partially Fulfilled</span>
+                                    </div>
+                                    <div class="task-date">Updated: Friday, October 10, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-details">
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Medication</span>
+                                        <span class="task-detail-value">Liraglutide</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dosage</span>
+                                        <span class="task-detail-value">1.8 mg</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Instructions</span>
+                                        <span class="task-detail-value">Inject once daily at the same time. Rotate injection sites and refrigerate until use.</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity</span>
+                                        <span class="task-detail-value">3</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity dispensed</span>
+                                        <span class="task-detail-value">2 pens</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity remaining</span>
+                                        <span class="task-detail-value">1 pen</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Refills</span>
+                                        <span class="task-detail-value">1</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dispensed by</span>
+                                        <span class="task-detail-value">WALGREENS DRUG STORE #11203<br>17909 BURKE ST, OMAHA, NE • +1 (402) 555-1123</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    The pharmacy partially filled this prescription. Call to coordinate the remaining pens when available.
+                                </div>
+                            </div>
+                        </div>
                             <div class="task-card completed" data-task="payment">
                                 <div class="task-header" onclick="toggleTask(this)">
                                     <div class="task-icon completed">
@@ -1602,7 +1782,7 @@
                                 <div class="task-content-wrapper">
                                     <div class="task-title-row">
                                         <div class="task-title">Prescription Approved</div>
-                                        <span class="prescription-status completed">Approved</span>
+                                        <span class="prescription-status completed">Prescribed</span>
                                     </div>
                                     <div class="task-date">Friday, October 3, 2025</div>
                                 </div>
@@ -1650,6 +1830,85 @@
                                 </div>
                                 <div class="support-link">
                                     Need anything changed? Send a secure message from Support and we’ll coordinate with the pharmacy.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session with Consultation Approved Medication -->
+                <div class="session-card expanded" data-session="session-6-prescribed" data-status="ongoing">
+                    <div class="session-header" onclick="toggleSession(this)">
+                        <div class="session-info">
+                            <div class="session-progress-line"></div>
+                            <div>
+                                <div class="session-title-row">
+                                    <div class="session-title"># Session 6 - Consultation Prescription</div>
+                                    <div class="session-badge">Ongoing</div>
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="session-content" style="padding: var(--space-lg);">
+                        <div class="task-card expanded" data-task="consultation-medication">
+                            <div class="task-header" onclick="toggleTask(this)">
+                                <div class="task-icon completed">
+                                    <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="20,6 9,17 4,12"/>
+                                    </svg>
+                                </div>
+                                <div class="task-content-wrapper">
+                                    <div class="task-title-row">
+                                        <div class="task-title">Medication Prescribed</div>
+                                        <span class="prescription-status completed">Prescribed</span>
+                                    </div>
+                                    <div class="task-date">Friday, October 3, 2025</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-primary contact-pharmacy-btn" type="button"
+                                        data-pharmacy-name="WALGREENS DRUG STORE #11203"
+                                        data-pharmacy-phone="+1 (402) 555-1123"
+                                        data-pharmacy-address="17909 BURKE ST, OMAHA, NE"
+                                        data-pharmacy-note="Call ahead to confirm pickup and bring a valid ID when you arrive."
+                                        onclick="openPharmacyModal(this)">
+                                        Contact pharmacy
+                                    </button>
+                                    <svg class="task-collapse-icon" style="width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-content">
+                                <div class="task-description">
+                                    Your consultation has been reviewed and <strong>Liraglutide (30-day supply)</strong> has been prescribed. Contact the pharmacy to arrange pickup or delivery.
+                                </div>
+                                <div class="task-details">
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Medication</span>
+                                        <span class="task-detail-value">Liraglutide</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Dosage</span>
+                                        <span class="task-detail-value">1.8 mg</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Instructions</span>
+                                        <span class="task-detail-value">Inject once daily at the same time. Rotate injection sites and refrigerate until use.</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Quantity</span>
+                                        <span class="task-detail-value">3 pens</span>
+                                    </div>
+                                    <div class="task-detail mobile-stack">
+                                        <span class="task-detail-label">Refills</span>
+                                        <span class="task-detail-value">1</span>
+                                    </div>
+                                </div>
+                                <div class="support-link">
+                                    Have questions about your new treatment? Message support and we’ll help coordinate next steps.
                                 </div>
                             </div>
                         </div>

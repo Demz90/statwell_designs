@@ -714,8 +714,13 @@
             font-weight: 500;
         }
 
+        .status-fulfilled {
+            background: rgba(79, 109, 255, 0.12);
+            color: var(--primary);
+        }
+
         .status-completed {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.12);
             color: var(--success);
         }
 
@@ -732,6 +737,10 @@
         .status-duplicate-error {
             background: rgba(255, 107, 107, 0.12);
             color: var(--error);
+        }
+        .status-partially {
+            background: rgba(245, 158, 11, 0.16);
+            color: var(--warning);
         }
 
         /* Pagination */
@@ -1197,6 +1206,9 @@
                 {
                     id: 'tirzepatide-processing-1',
                     name: 'Tirzepatide (30-day supply)',
+                    prescribed: '5/27/2024',
+                    dosage: '20 mg • inject weekly',
+                    refills: '2 refills remaining',
                     ordered: '5/28/2024',
                     estimatedDelivery: '6/2/2024',
                     currentStep: 4,
@@ -1211,11 +1223,15 @@
                     pharmacyEmail: 'support@rivervalleypharmacy.com',
                     pharmacyAddress: '421 Main Street, Springfield, IL 62704',
                     pharmacyHours: 'Open Mon–Fri • 8:00 AM – 7:00 PM',
-                    pharmacyNote: 'Call ahead to confirm pickup and bring a valid ID.'
+                    pharmacyNote: 'Call ahead to confirm pickup and bring a valid ID.',
+                    quantityOrdered: '1 pen'
                 },
                 {
                     id: 'tirzepatide-processing-2',
                     name: 'Tirzepatide (30-day supply)',
+                    prescribed: '5/27/2024',
+                    dosage: '20 mg • inject weekly',
+                    refills: '2 refills remaining',
                     ordered: '5/28/2024',
                     estimatedDelivery: '6/2/2024',
                     currentStep: 4,
@@ -1230,7 +1246,8 @@
                     pharmacyEmail: 'care@cornerstonepharmacy.com',
                     pharmacyAddress: '88 Market Street, Chicago, IL 60616',
                     pharmacyHours: 'Open Mon–Sat • 9:00 AM – 6:00 PM',
-                    pharmacyNote: 'Bring your insurance card if applicable. Delivery available upon request.'
+                    pharmacyNote: 'First pen is ready. Remaining pens will be available within 2 days.',
+                    quantityOrdered: '2 pens'
                 }
             ];
 
@@ -1281,10 +1298,15 @@
                     refills: '1 refill',
                     ordered: '3/20/2025',
                     delivered: '3/21/2025',
-                    status: 'completed',
+                    status: 'fulfilled',
                     instructions: 'Take once daily with or without food',
                     paymentPaid: true,
-                    daysLeft: 15
+                    daysLeft: 15,
+                    quantityDispensed: '30 tablets',
+                    quantityRemaining: '0',
+                    pharmacyName: 'Walgreens Pharmacy',
+                    pharmacyPhone: '+1 (402) 555-1123',
+                    pharmacyAddress: '17909 Burke St, Omaha, NE 68118'
                 },
                 {
                     id: 'semaglutide-discontinued',
@@ -1297,7 +1319,66 @@
                     delivered: '4/06/2025',
                     status: 'discontinued',
                     instructions: 'Discontinued per clinician guidance. No further doses required.',
-                    statusNote: 'Clinician discontinued after reviewing recent labs; follow-up scheduled in 4 weeks.'
+                    statusNote: 'Clinician discontinued after reviewing recent labs; follow-up scheduled in 4 weeks.',
+                    pharmacyName: 'Walgreens Pharmacy',
+                    pharmacyPhone: '+1 (402) 555-1123',
+                    pharmacyAddress: '17909 Burke St, Omaha, NE 68118'
+                },
+                {
+                    id: 'tirzepatide-fulfilled-history',
+                    medication: 'Tirzepatide (30-day supply)',
+                    prescribed: '4/25/2025',
+                    dosage: '20mg • inject weekly',
+                    duration: '30 days',
+                    refills: '2 refills remaining',
+                    ordered: '4/27/2025',
+                    delivered: '4/28/2025',
+                    status: 'fulfilled',
+                    instructions: 'Inject once weekly. Rotate injection sites and keep refrigerated until use.',
+                    quantityDispensed: '1 pen',
+                    quantityRemaining: '0',
+                    paymentPaid: true,
+                    daysLeft: 20,
+                    statusNote: 'We confirmed delivery with the pharmacy. You’re all set for this cycle.',
+                    pharmacyName: 'Walgreens Drug Store #11203',
+                    pharmacyPhone: '+1 (402) 555-1123',
+                    pharmacyAddress: '17909 Burke St, Omaha, NE 68118'
+                },
+                {
+                    id: 'liraglutide-partial',
+                    medication: 'Liraglutide',
+                    prescribed: '4/15/2025',
+                    dosage: '1.8mg • inject daily',
+                    duration: '30 days',
+                    refills: '1 refill remaining',
+                    ordered: '4/18/2025',
+                    delivered: '4/19/2025',
+                    status: 'partially',
+                    instructions: 'Inject once daily at the same time. Rotate injection sites and refrigerate until use.',
+                    quantityDispensed: '2 pens',
+                    quantityRemaining: '1 pen',
+                    statusNote: 'Pharmacy fulfilled the first two pens. Contact them when notified to pick up the remainder.',
+                    pharmacyName: 'Cornerstone Pharmacy',
+                    pharmacyPhone: '+1 (888) 555-0478',
+                    pharmacyAddress: '88 Market Street, Chicago, IL 60616'
+                },
+                {
+                    id: 'metformin-completed',
+                    medication: 'Metformin',
+                    prescribed: '2/10/2025',
+                    dosage: '500mg • twice daily',
+                    duration: '90 days',
+                    refills: '0 refills remaining',
+                    ordered: '2/12/2025',
+                    delivered: '2/13/2025',
+                    status: 'completed',
+                    instructions: 'Take with meals. Continue lifestyle modifications as advised.',
+                    quantityDispensed: '180 tablets',
+                    quantityRemaining: '0',
+                    statusNote: 'Course completed on 05/12/2025. No further doses needed.',
+                    pharmacyName: 'Walgreens Pharmacy',
+                    pharmacyPhone: '+1 (402) 555-1123',
+                    pharmacyAddress: '17909 Burke St, Omaha, NE 68118'
                 }
             ];
 
@@ -1361,93 +1442,72 @@
 
         // View medication details
         function viewMedicationDetails(medicationId, type) {
+            const content = document.getElementById('medication-details-content');
+            if (!content) return;
+
             let medication;
             if (type === 'history') {
-                // For history items, we need to find by medication name
                 medication = medications.history.find(m => m.medication.toLowerCase().replace(/\s+/g, '') === medicationId);
-                if (medication) {
-                    const content = document.getElementById('medication-details-content');
-                    content.innerHTML = `
-                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
-                            <div class="medication-name">${medication.medication}</div>
-                            <div class="medication-details">
-                                <div class="medication-detail">Prescribed: ${medication.prescribed}</div>
-                                <div class="medication-detail">Dosage: ${medication.dosage}</div>
-                                <div class="medication-detail">Duration: ${medication.duration}</div>
-                                <div class="medication-detail">Refills: ${medication.refills}</div>
-                                <div class="medication-detail">Ordered: ${medication.ordered}</div>
-                                <div class="medication-detail">Delivered: ${medication.delivered}</div>
-                                <div class="medication-detail">Status: <span class="status-badge status-${medication.status}">${medication.status.charAt(0).toUpperCase() + medication.status.slice(1)}</span></div>
-                            </div>
+                if (!medication) return;
+
+                const status = (medication.status || 'active').toLowerCase();
+                const statusLabel = getHistoryStatusLabel(status);
+                const statusClass = `status-badge status-${status}`;
+                const quantityLine = (medication.quantityDispensed || medication.quantityRemaining)
+                    ? `<div class="medication-detail">Quantity dispensed: ${medication.quantityDispensed || '—'} • Quantity remaining: ${medication.quantityRemaining || '—'}</div>`
+                    : '';
+
+                content.innerHTML = `
+                    <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                        <div class="medication-name">${medication.medication}</div>
+                        <div class="medication-details">
+                        <div class="medication-detail">Prescribed: ${medication.prescribed || '—'}</div>
+                        <div class="medication-detail">Dosage: ${medication.dosage || '—'}</div>
+                        ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
+                        ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
+                        ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
+                            <div class="medication-detail">Delivered: ${medication.delivered || '—'}</div>
+                        ${medication.pharmacyName ? `<div class="medication-detail">Pharmacy: ${medication.pharmacyName}</div>` : ''}
+                        ${medication.pharmacyPhone ? `<div class="medication-detail">Pharmacy Contact: ${medication.pharmacyPhone}</div>` : ''}
+                        ${medication.pharmacyAddress ? `<div class="medication-detail">Pharmacy Address: ${medication.pharmacyAddress}</div>` : ''}
+                            <div class="medication-detail">Status: <span class="${statusClass}">${statusLabel}</span></div>
+                            ${quantityLine}
                         </div>
-                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
-                        
-                        ${medication.status === 'completed' ? `
-                            <!-- Refill Processing Fee Information -->
-                            <div style="background: rgba(94, 164, 153, 0.1); border: 1px solid rgba(94, 164, 153, 0.2); border-radius: 8px; padding: var(--space-md); margin-top: var(--space-lg); color: #000; font-size: 14px;">
-                                <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <path d="M12 6v6l4 2"/>
-                                    </svg>
-                                    <strong>Medication refill processing fee: $29.99 (covers all refills within 30 days)</strong>
-                                </div>
-                                ${medication.paymentPaid ? `
-                                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-left: 0;">
-                                        <svg style="width: 16px; height: 16px; stroke: var(--success); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                            <polyline points="22,4 12,14.01 9,11.01"/>
-                                        </svg>
-                                        <span style="color: var(--success);">Payment Status: <strong>Paid</strong> • ${medication.daysLeft} days remaining until next payment required</span>
-                                    </div>
-                                ` : `
-                                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-left: 0;">
-                                        <svg style="width: 16px; height: 16px; stroke: var(--statwell-navy); fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="10"/>
-                                            <path d="M12 8v4"/>
-                                            <path d="M12 16h.01"/>
-                                        </svg>
-                                        <span style="color: var(--statwell-navy);">Payment Status: <strong>Not paid</strong> • Make a refill request to pay the processing fee</span>
-                                    </div>
-                                `}
-                            </div>
-                            
-                            <!-- Delivery Confirmation -->
-                            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--success); font-size: 14px; margin-top: var(--space-lg);">
-                                <strong>Delivery Confirmed:</strong> This medication was successfully delivered on ${medication.delivered}. The medication was received and confirmed by the patient.
-                            </div>
-                        ` : medication.status === 'duplicate-error' ? `
-                            <div style="background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
-                                <strong>Duplicate Prescription:</strong> This request was removed because it duplicated an existing order. No further action is required.
-                            </div>
-                        ` : medication.status === 'discontinued' ? `
-                            <div style="background: rgba(64, 191, 170, 0.12); border: 1px solid rgba(64, 191, 170, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--secondary); font-size: 14px; margin-top: var(--space-lg);">
-                                <strong>Prescription Discontinued:</strong> ${medication.statusNote || 'Your clinician discontinued this medication. Follow their instructions for next steps.'}
-                            </div>
-                        ` : ''}
-                    `;
-                }
+                    </div>
+                    ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                    ${buildStatusNote(status, medication)}
+                `;
             } else {
                 medication = medications[type].find(m => m.id === medicationId);
-                if (medication) {
-                    const content = document.getElementById('medication-details-content');
-                    content.innerHTML = `
-                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
-                            <div class="medication-name">${medication.name}</div>
-                            <div class="medication-details">
-                                <div class="medication-detail">Prescribed: ${medication.prescribed || 'N/A'}</div>
-                                <div class="medication-detail">Dosage: ${medication.dosage || 'N/A'}</div>
-                                ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
-                                ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
-                                ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
-                                ${medication.estimatedDelivery ? `<div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>` : ''}
-                                ${medication.status ? `<div class="medication-detail">Status: <span class="status-dot status-${medication.status}"></span>${medication.status}</div>` : ''}
-                            </div>
+                if (!medication) return;
+
+                const rawStatus = medication.status ? medication.status.toLowerCase() : null;
+                const showStatus = rawStatus && type !== 'processing';
+                const quantityLine = (type !== 'processing' && (medication.quantityOrdered || medication.quantityDispensed || medication.quantityRemaining))
+                    ? `<div class="medication-detail">Ordered: ${medication.quantityOrdered || '—'} • Dispensed: ${medication.quantityDispensed || '—'} • Remaining: ${medication.quantityRemaining || '—'}</div>`
+                    : '';
+                content.innerHTML = `
+                    <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                        <div class="medication-name">${medication.name}</div>
+                        <div class="medication-details">
+                            <div class="medication-detail">Prescribed: ${medication.prescribed || '—'}</div>
+                            <div class="medication-detail">Dosage: ${medication.dosage || '—'}</div>
+                            ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
+                            ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
+                            ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
+                            ${medication.estimatedDelivery ? `<div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>` : ''}
+                            ${medication.pharmacyName ? `<div class="medication-detail">Pharmacy: ${medication.pharmacyName}</div>` : ''}
+                            ${medication.pharmacyPhone ? `<div class="medication-detail">Pharmacy Contact: ${medication.pharmacyPhone}</div>` : ''}
+                            ${medication.pharmacyAddress ? `<div class="medication-detail">Pharmacy Address: ${medication.pharmacyAddress}</div>` : ''}
+                            ${showStatus ? `<div class="medication-detail">Status: <span class="status-badge status-${rawStatus}">${getHistoryStatusLabel(rawStatus)}</span></div>` : ''}
+                            ${quantityLine}
                         </div>
-                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
-                    `;
-                }
+                    </div>
+                    ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                    ${(showStatus && rawStatus) ? buildStatusNote(rawStatus, medication) : ''}
+                `;
             }
+
             document.getElementById('medication-details-modal').classList.add('show');
         }
 
@@ -1718,14 +1778,64 @@
 
         function getHistoryStatusLabel(status) {
             switch ((status || '').toLowerCase()) {
+                case 'fulfilled':
+                    return 'Fulfilled';
                 case 'completed':
                     return 'Completed';
                 case 'discontinued':
                     return 'Discontinued';
                 case 'duplicate-error':
                     return 'Duplicate/Error';
+                case 'partially':
+                    return 'Partially Fulfilled';
+                case 'processing':
+                    return 'Processing';
                 default:
                     return 'Active';
+            }
+        }
+
+        function buildStatusNote(status, medication) {
+            const note = medication.statusNote;
+            switch (status) {
+                case 'fulfilled': {
+                    const deliveredText = note || (medication.delivered ? `Delivered on ${medication.delivered}.` : 'This prescription has been fulfilled in full.');
+                    return `<div style="background: rgba(79, 109, 255, 0.12); border: 1px solid rgba(79, 109, 255, 0.28); border-radius: 8px; padding: var(--space-md); color: var(--primary); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Fulfilled:</strong> ${deliveredText}
+                            </div>`;
+                }
+                case 'completed': {
+                    const completionText = note || 'Medication course completed. No further doses are required.';
+                    return `<div style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.24); border-radius: 8px; padding: var(--space-md); color: var(--success); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Completed:</strong> ${completionText}
+                            </div>`;
+                }
+                case 'discontinued': {
+                    if (!note) return '';
+                    return `<div style="background: rgba(148, 164, 154, 0.16); border: 1px solid rgba(148, 164, 154, 0.3); border-radius: 8px; padding: var(--space-md); color: var(--text-secondary); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Prescription Discontinued:</strong> ${note}
+                            </div>`;
+                }
+                case 'duplicate-error': {
+                    const duplicateText = note || 'This request was removed because it duplicated an existing order. No further action is required.';
+                    return `<div style="background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--error); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Duplicate Prescription:</strong> ${duplicateText}
+                            </div>`;
+                }
+                case 'partially': {
+                    const partialText = note || 'The pharmacy dispensed part of this prescription. Contact them when notified to pick up the remainder.';
+                    return `<div style="background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: var(--space-md); color: var(--warning); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Partially Fulfilled:</strong> ${partialText}
+                            </div>`;
+                }
+                case 'processing': {
+                    if (!note) return '';
+                    return `<div style="background: rgba(93, 120, 255, 0.08); border: 1px solid rgba(93, 120, 255, 0.2); border-radius: 8px; padding: var(--space-md); color: var(--primary); font-size: 14px; margin-top: var(--space-lg);">
+                                <strong>Update:</strong> ${note}
+                            </div>`;
+                }
+                default:
+                    return '';
             }
         }
 
