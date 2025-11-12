@@ -1154,7 +1154,7 @@
                     <span class="pharmacy-modal-value" id="pharmacy-modal-address"></span>
                 </div>
             </div>
-
+            
             <div class="pharmacy-modal-note" id="pharmacy-modal-note"></div>
 
             <div class="pharmacy-modal-actions">
@@ -1457,10 +1457,10 @@
                     ? `<div class="medication-detail">Quantity dispensed: ${medication.quantityDispensed || '—'} • Quantity remaining: ${medication.quantityRemaining || '—'}</div>`
                     : '';
 
-                content.innerHTML = `
-                    <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
-                        <div class="medication-name">${medication.medication}</div>
-                        <div class="medication-details">
+                    content.innerHTML = `
+                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                            <div class="medication-name">${medication.medication}</div>
+                            <div class="medication-details">
                         <div class="medication-detail">Prescribed: ${medication.prescribed || '—'}</div>
                         <div class="medication-detail">Dosage: ${medication.dosage || '—'}</div>
                         ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
@@ -1472,11 +1472,11 @@
                         ${medication.pharmacyAddress ? `<div class="medication-detail">Pharmacy Address: ${medication.pharmacyAddress}</div>` : ''}
                             <div class="medication-detail">Status: <span class="${statusClass}">${statusLabel}</span></div>
                             ${quantityLine}
+                            </div>
                         </div>
-                    </div>
-                    ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
                     ${buildStatusNote(status, medication)}
-                `;
+                    `;
             } else {
                 medication = medications[type].find(m => m.id === medicationId);
                 if (!medication) return;
@@ -1486,27 +1486,27 @@
                 const quantityLine = (type !== 'processing' && (medication.quantityOrdered || medication.quantityDispensed || medication.quantityRemaining))
                     ? `<div class="medication-detail">Ordered: ${medication.quantityOrdered || '—'} • Dispensed: ${medication.quantityDispensed || '—'} • Remaining: ${medication.quantityRemaining || '—'}</div>`
                     : '';
-                content.innerHTML = `
-                    <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
-                        <div class="medication-name">${medication.name}</div>
-                        <div class="medication-details">
+                    content.innerHTML = `
+                        <div class="medication-info-card" style="margin-bottom: var(--space-lg);">
+                            <div class="medication-name">${medication.name}</div>
+                            <div class="medication-details">
                             <div class="medication-detail">Prescribed: ${medication.prescribed || '—'}</div>
                             <div class="medication-detail">Dosage: ${medication.dosage || '—'}</div>
-                            ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
-                            ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
-                            ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
-                            ${medication.estimatedDelivery ? `<div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>` : ''}
+                                ${medication.duration ? `<div class="medication-detail">Duration: ${medication.duration}</div>` : ''}
+                                ${medication.refills ? `<div class="medication-detail">Refills: ${medication.refills}</div>` : ''}
+                                ${medication.ordered ? `<div class="medication-detail">Ordered: ${medication.ordered}</div>` : ''}
+                                ${medication.estimatedDelivery ? `<div class="medication-detail">Estimated Delivery: ${medication.estimatedDelivery}</div>` : ''}
                             ${medication.pharmacyName ? `<div class="medication-detail">Pharmacy: ${medication.pharmacyName}</div>` : ''}
                             ${medication.pharmacyPhone ? `<div class="medication-detail">Pharmacy Contact: ${medication.pharmacyPhone}</div>` : ''}
                             ${medication.pharmacyAddress ? `<div class="medication-detail">Pharmacy Address: ${medication.pharmacyAddress}</div>` : ''}
                             ${showStatus ? `<div class="medication-detail">Status: <span class="status-badge status-${rawStatus}">${getHistoryStatusLabel(rawStatus)}</span></div>` : ''}
                             ${quantityLine}
+                            </div>
                         </div>
-                    </div>
-                    ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
+                        ${medication.instructions ? `<div class="instructions-box"><strong>Doctor's instruction:</strong><br>${medication.instructions}</div>` : ''}
                     ${(showStatus && rawStatus) ? buildStatusNote(rawStatus, medication) : ''}
-                `;
-            }
+                    `;
+                }
 
             document.getElementById('medication-details-modal').classList.add('show');
         }

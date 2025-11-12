@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatWellMD Weight Loss Questionnaire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        statwell: {
+                            blue: '#5D78FF',
+                            teal: '#40BFAA',
+                            navy: '#2A3B54',
+                            accent: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        panel: '0 30px 70px rgba(42, 59, 84, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html, body { min-height: 100%; }
+    </style>
+</head>
+<body class="min-h-full bg-slate-100">
+    <div class="mx-auto flex min-h-screen max-w-5xl flex-col items-center px-4 py-10">
+        <header class="mb-10 flex w-full items-center justify-between">
+            <a href="weightloss-landing-page.html" class="inline-flex items-center gap-3">
+                <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatWellMD" class="h-12 w-auto">
+                <span class="sr-only">StatWellMD</span>
+            </a>
+            <div class="hidden text-sm font-medium text-slate-500 sm:block">
+                Need help? <a href="contact-weightloss.html" class="text-statwell-blue hover:underline">Contact support</a>
+            </div>
+        </header>
+
+        <div class="w-full rounded-3xl bg-white p-6 shadow-panel sm:p-12">
+            <div id="intro-panel" class="space-y-6 text-center">
+                <div class="mx-auto h-2 w-24 rounded-full bg-slate-200">
+                    <div class="h-full w-10 rounded-full bg-statwell-blue"></div>
+                </div>
+                <div class="space-y-4">
+                    <h1 class="text-3xl font-bold text-statwell-navy">Explore weight loss plans.</h1>
+                    <p class="text-base text-slate-600">Learn about treatment options based on your goals, habits, and health history.</p>
+                    <p class="text-xs text-slate-400">By clicking on get started, you agree that StatWellMD can initiate a weight loss plan based on your responses.</p>
+                </div>
+                <button id="start-questionnaire" class="inline-flex items-center justify-center rounded-full bg-statwell-blue px-10 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">Get started</button>
+            </div>
+
+            <div id="form-wrapper" class="hidden">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-slate-400">Step <span id="step-number">1</span> of <span id="step-total">9</span></p>
+                        <h1 class="mt-2 text-2xl font-semibold text-statwell-navy" id="step-title">What's your gender?</h1>
+                    </div>
+                    <div class="flex h-2 w-32 items-center rounded-full bg-slate-200">
+                        <div id="progress-bar" class="h-full rounded-full bg-statwell-accent transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <form class="mt-8 space-y-12" id="questionnaire-form">
+                    <section class="step-pane space-y-5" data-step="1">
+                        <fieldset class="space-y-4">
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-lg font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Male</span>
+                                <input type="radio" name="gender" value="male" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-lg font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Female</span>
+                                <input type="radio" name="gender" value="female" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </fieldset>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="2">
+                        <p class="text-sm text-slate-500">Enter your baseline information so we can personalize your plan.</p>
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <label class="block text-sm font-medium text-slate-600">
+                                Enter your current weight
+                                <div class="mt-2 flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                    <input type="number" name="currentWeight" placeholder="e.g. 180" class="w-full border-none bg-transparent text-base text-slate-700 outline-none focus:ring-0" min="80" max="600">
+                                    <span class="text-sm font-semibold text-slate-400">lbs</span>
+                                </div>
+                            </label>
+                            <label class="block text-sm font-medium text-slate-600">
+                                Enter your current height
+                                <div class="mt-2 flex items-center gap-3">
+                                    <div class="flex flex-1 items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                        <input type="number" name="heightFeet" placeholder="5" class="w-full border-none bg-transparent text-base text-slate-700 outline-none focus:ring-0" min="3" max="7">
+                                        <span class="text-sm font-semibold text-slate-400">ft</span>
+                                    </div>
+                                    <div class="flex flex-1 items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                        <input type="number" name="heightInches" placeholder="6" class="w-full border-none bg-transparent text-base text-slate-700 outline-none focus:ring-0" min="0" max="11">
+                                        <span class="text-sm font-semibold text-slate-400">in</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="3">
+                        <p class="text-sm text-slate-500">Set your initial goal so we can calculate an achievable timeline.</p>
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <label class="block text-sm font-medium text-slate-600">
+                                Enter your target weight (in pounds)
+                                <div class="mt-2 flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                    <input type="number" name="targetWeight" placeholder="e.g. 160" class="w-full border-none bg-transparent text-base text-slate-700 outline-none focus:ring-0" min="80" max="600">
+                                    <span class="text-sm font-semibold text-slate-400">lbs</span>
+                                </div>
+                            </label>
+                            <label class="block text-sm font-medium text-slate-600">
+                                What's your timeframe for this target?
+                                <div class="mt-2 flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                    <input type="number" name="timeframeMonths" placeholder="e.g. 4" class="w-full border-none bg-transparent text-base text-slate-700 outline-none focus:ring-0" min="1" max="24">
+                                    <span class="text-sm font-semibold text-slate-400">months</span>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="4">
+                        <p class="text-sm text-slate-500">Select any events or milestones inspiring you to get started.</p>
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Wedding</span>
+                                <input type="checkbox" name="motivation" value="Wedding" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Vacation</span>
+                                <input type="checkbox" name="motivation" value="Vacation" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Reunion</span>
+                                <input type="checkbox" name="motivation" value="Reunion" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Health reasons</span>
+                                <input type="checkbox" name="motivation" value="Health reasons" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Other (please specify)</span>
+                                <input type="checkbox" name="motivation" value="Other" id="motivation-other-option" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </div>
+                        <div id="motivation-other-field" class="hidden">
+                            <label class="block text-sm font-medium text-slate-600">
+                                Tell us more about your motivation
+                                <input type="text" id="motivation-other-input" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="Share your upcoming event">
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="5">
+                        <fieldset class="space-y-4">
+                            <legend class="text-sm text-slate-500">Have you ever been on a GLP-1 medication (Ozempic, Mounjaro, Wegovy, etc.)?</legend>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Yes</span>
+                                <input type="radio" name="glp1Usage" value="yes" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>No</span>
+                                <input type="radio" name="glp1Usage" value="no" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </fieldset>
+                        <div id="glp1-followup" class="hidden space-y-4 rounded-3xl bg-slate-50 p-6">
+                            <div class="grid gap-4 sm:grid-cols-2">
+                                <label class="block text-sm font-medium text-slate-600">
+                                    What brand did you use?
+                                    <input type="text" id="glp1-brand" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="e.g. Ozempic">
+                                </label>
+                                <label class="block text-sm font-medium text-slate-600">
+                                    What was your most recent dose?
+                                    <input type="text" id="glp1-dose" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="e.g. 4mg">
+                                </label>
+                            </div>
+                            <label class="block text-sm font-medium text-slate-600">
+                                When did you last take it?
+                                <input type="text" id="glp1-last" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="e.g. Last week">
+                            </label>
+                            <fieldset class="space-y-3">
+                                <legend class="text-sm font-medium text-slate-600">Do you want to continue with the same dose or increase your dose?</legend>
+                                <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <span>Continue with the same dose</span>
+                                    <input type="radio" name="glp1Preference" value="same" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <span>Increase my dose (doctor will review)</span>
+                                    <input type="radio" name="glp1Preference" value="increase" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                </label>
+                                <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <span>I’m not sure, I need guidance</span>
+                                    <input type="radio" name="glp1Preference" value="guidance" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                </label>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-6" data-step="6">
+                        <div>
+                            <p class="text-sm text-slate-500">Do you have a personal or family history of any of the following conditions? <span class="font-semibold text-statwell-blue">(Select all that apply)</span></p>
+                            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" id="condition-diabetes" name="conditions" value="Diabetes" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Diabetes (Type 1 or Type 2)
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="Thyroid disorders" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Thyroid disorders (e.g., hypothyroidism)
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="Medullary thyroid carcinoma" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Medullary thyroid carcinoma (MTC)
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="MEN" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Multiple endocrine neoplasia type 1 &amp; 2 (MEN 1 &amp; 2)
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="Pancreatitis" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Pancreatitis
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="Gallbladder disease" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Gallbladder disease
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" name="conditions" value="Bariatric surgery" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    Bariatric surgery
+                                </label>
+                                <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                    <input type="checkbox" id="condition-none" name="conditions" value="None" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                    None of the above
+                                </label>
+                            </div>
+                        </div>
+                        <div id="diabetes-followup" class="hidden space-y-4 rounded-3xl bg-slate-50 p-6">
+                            <p class="text-sm font-semibold text-statwell-navy">Tell us more about your diabetes management</p>
+                            <div class="grid gap-4 sm:grid-cols-2">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Are you on any diabetic medication?</p>
+                                    <div class="mt-2 flex gap-3">
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="diabeticMedication" value="yes" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">Yes</label>
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="diabeticMedication" value="no" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">No</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Are you on insulin?</p>
+                                    <div class="mt-2 flex gap-3">
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="insulin" value="yes" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">Yes</label>
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="insulin" value="no" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">No</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Any other diabetic medication?</p>
+                                    <div class="mt-2 flex gap-3">
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="otherDiabeticMed" value="yes" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">Yes</label>
+                                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="radio" name="otherDiabeticMed" value="no" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">No</label>
+                                    </div>
+                                </div>
+                                <label id="other-medication-field" class="hidden text-sm font-medium text-slate-600 sm:col-span-2">
+                                    Please specify
+                                    <input type="text" id="other-medication-input" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="List your medications">
+                                </label>
+                                <label class="text-sm font-medium text-slate-600 sm:col-span-2">
+                                    What’s your last HbA1c value? <span class="text-slate-400">(Optional)</span>
+                                    <input type="text" id="hba1c" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 shadow-sm outline-none focus:border-statwell-blue focus:ring-0" placeholder="e.g. 6.4%">
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="7">
+                        <p class="text-sm text-slate-500">Do any of these apply to you? <span class="font-semibold text-statwell-blue">(Select all that apply)</span></p>
+                        <div class="grid gap-3 sm:grid-cols-2">
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Pregnant" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Currently pregnant
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Breastfeeding" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Currently breastfeeding
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Eating disorder" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Current or previous history of an eating disorder
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Suicidal thoughts" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Current or previous history of suicidal thoughts or behavior
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Severe depression" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Current or previous history of severe or uncontrolled depression
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" name="currentStatus" value="Recent surgery" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                Recently had surgery
+                            </label>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <input type="checkbox" id="status-none" name="currentStatus" value="None" class="h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                None of the above
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="8">
+                        <fieldset class="space-y-4">
+                            <legend class="text-sm text-slate-500">Do you have a history of allergic reactions to GLP-1 medications?</legend>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>Yes</span>
+                                <input type="radio" name="glp1Allergy" value="yes" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                            <label class="flex cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-medium text-slate-700 shadow-sm transition hover:border-statwell-blue">
+                                <span>No</span>
+                                <input type="radio" name="glp1Allergy" value="no" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </fieldset>
+                    </section>
+
+                    <section class="step-pane hidden space-y-5" data-step="9">
+                        <div class="space-y-4 rounded-3xl bg-slate-50 p-6">
+                            <h2 class="text-lg font-semibold text-statwell-navy">Review &amp; confirm</h2>
+                            <p class="text-sm text-slate-500">Before submitting, please confirm that everything you have shared is accurate.</p>
+                            <label class="flex items-start gap-3 text-sm text-slate-600">
+                                <input type="checkbox" id="disclaimer-confirm" class="mt-1 h-4 w-4 text-statwell-blue focus:ring-statwell-blue">
+                                <span>I confirm that I have answered all questions truthfully and understand that accurate information is essential for safe and effective treatment.</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <p id="error-message" class="hidden text-sm font-medium text-red-500"></p>
+
+                    <div class="flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
+                        <button type="button" id="back-button" class="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-statwell-blue hover:text-statwell-blue">Back</button>
+                        <button type="button" id="continue-button" class="rounded-full bg-statwell-blue px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 px-4">
+        <div id="success-modal" class="hidden w-full max-w-lg rounded-3xl bg-white p-8 text-center shadow-panel relative">
+            <button type="button" class="absolute right-4 top-4 text-slate-300 transition hover:text-slate-500" data-modal-close>&times;</button>
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatWellMD" class="mx-auto h-10 w-auto">
+            <h2 class="mt-6 text-2xl font-bold text-statwell-navy">Awesome! You're one step closer to your weight loss goals.</h2>
+            <p class="mt-3 text-sm text-slate-500">Your responses have been securely saved. To proceed with the payment of your consultation, please create an account or log in.</p>
+            <button id="create-account-btn" class="mt-8 inline-flex w-full items-center justify-center rounded-full bg-statwell-blue px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">Create account</button>
+            <p class="mt-4 text-sm text-slate-500">Already have an account? <a id="login-link" href="javascript:void(0)" class="text-statwell-blue hover:underline">Log in</a></p>
+        </div>
+
+        <div id="reject-modal" class="hidden w-full max-w-lg rounded-3xl bg-white p-8 text-center shadow-panel relative">
+            <button type="button" class="absolute right-4 top-4 text-slate-300 transition hover:text-slate-500" data-modal-close>&times;</button>
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatWellMD" class="mx-auto h-10 w-auto">
+            <h2 class="mt-6 text-2xl font-bold text-statwell-navy">Sorry, We Can't Continue</h2>
+            <p class="mt-3 text-sm text-slate-500">We currently do not offer treatment to patients with these conditions. Please consult a healthcare professional for assistance.</p>
+            <button id="reject-okay-btn" class="mt-8 inline-flex w-full items-center justify-center rounded-full bg-statwell-blue px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">Okay</button>
+        </div>
+    </div>
+
+    <script>
+        const introPanel = document.getElementById('intro-panel');
+        const formWrapper = document.getElementById('form-wrapper');
+        const startButton = document.getElementById('start-questionnaire');
+        const stepNumberEl = document.getElementById('step-number');
+        const stepTitleEl = document.getElementById('step-title');
+        const stepTotalEl = document.getElementById('step-total');
+        const progressBarEl = document.getElementById('progress-bar');
+        const backButton = document.getElementById('back-button');
+        const continueButton = document.getElementById('continue-button');
+        const panes = document.querySelectorAll('.step-pane');
+        const errorMessage = document.getElementById('error-message');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const successModal = document.getElementById('success-modal');
+        const rejectModal = document.getElementById('reject-modal');
+        const createAccountBtn = document.getElementById('create-account-btn');
+        const loginLink = document.getElementById('login-link');
+        const rejectOkayBtn = document.getElementById('reject-okay-btn');
+        const modalCloseButtons = document.querySelectorAll('[data-modal-close]');
+
+        const steps = [
+            { title: "What's your gender?" },
+            { title: "What is your current height and weight?" },
+            { title: "What is your target weight goal, and in how many months?" },
+            { title: "Do you have any events motivating your weight loss?" },
+            { title: "Have you ever been on a GLP-1 medication?" },
+            { title: "Do you or your family have any of these conditions?" },
+            { title: "Do any of these apply to you?" },
+            { title: "Do you have any GLP-1 allergies?" },
+            { title: "Review and confirm your information." }
+        ];
+
+        stepTotalEl.textContent = steps.length;
+        let currentStep = 0;
+
+        const motivationOtherOption = document.getElementById('motivation-other-option');
+        const motivationOtherField = document.getElementById('motivation-other-field');
+        const glp1Followup = document.getElementById('glp1-followup');
+        const diabetesCheckbox = document.getElementById('condition-diabetes');
+        const diabetesFollowup = document.getElementById('diabetes-followup');
+        const otherMedicationField = document.getElementById('other-medication-field');
+        const conditionNone = document.getElementById('condition-none');
+        const statusNone = document.getElementById('status-none');
+
+        function showModal(type) {
+            modalOverlay.classList.remove('hidden');
+            successModal.classList.add('hidden');
+            rejectModal.classList.add('hidden');
+
+            if (type === 'success') {
+                successModal.classList.remove('hidden');
+                continueButton.disabled = true;
+                continueButton.classList.add('opacity-50', 'cursor-not-allowed');
+                backButton.disabled = true;
+                backButton.classList.add('opacity-50', 'cursor-not-allowed');
+            } else if (type === 'reject') {
+                rejectModal.classList.remove('hidden');
+            }
+        }
+
+        function hideModal() {
+            modalOverlay.classList.add('hidden');
+            successModal.classList.add('hidden');
+            rejectModal.classList.add('hidden');
+        }
+
+        function toggleError(message = '') {
+            if (message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.remove('hidden');
+            } else {
+                errorMessage.classList.add('hidden');
+                errorMessage.textContent = '';
+            }
+        }
+
+        function updateStep() {
+            panes.forEach((pane, index) => {
+                pane.classList.toggle('hidden', index !== currentStep);
+            });
+
+            stepNumberEl.textContent = currentStep + 1;
+            stepTitleEl.textContent = steps[currentStep].title;
+            progressBarEl.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+
+            backButton.disabled = currentStep === 0;
+            backButton.classList.toggle('opacity-50', backButton.disabled);
+            continueButton.textContent = currentStep === steps.length - 1 ? 'Submit' : 'Continue';
+            toggleError();
+        }
+
+        function validateStep(step) {
+            switch (step) {
+                case 0:
+                    if (!document.querySelector('input[name="gender"]:checked')) {
+                        toggleError('Please select your gender.');
+                        return false;
+                    }
+                    return true;
+                case 1:
+                    const weight = document.querySelector('input[name="currentWeight"]').value;
+                    const feet = document.querySelector('input[name="heightFeet"]').value;
+                    const inches = document.querySelector('input[name="heightInches"]').value;
+                    if (!weight || !feet || inches === '') {
+                        toggleError('Please share your current weight and height.');
+                        return false;
+                    }
+                    return true;
+                case 2:
+                    const targetWeight = document.querySelector('input[name="targetWeight"]').value;
+                    const timeframe = document.querySelector('input[name="timeframeMonths"]').value;
+                    if (!targetWeight || !timeframe) {
+                        toggleError('Please enter your target weight and timeframe.');
+                        return false;
+                    }
+                    return true;
+                case 3:
+                    const motivations = document.querySelectorAll('input[name="motivation"]:checked');
+                    if (!motivations.length) {
+                        toggleError('Select at least one motivation.');
+                        return false;
+                    }
+                    const hasOther = Array.from(motivations).some(item => item.value === 'Other');
+                    if (hasOther && !document.getElementById('motivation-other-input').value.trim()) {
+                        toggleError('Tell us more about your other motivation.');
+                        return false;
+                    }
+                    return true;
+                case 4:
+                    const glp1Usage = document.querySelector('input[name="glp1Usage"]:checked');
+                    if (!glp1Usage) {
+                        toggleError('Please let us know if you have used GLP-1 medication before.');
+                        return false;
+                    }
+                    if (glp1Usage.value === 'yes') {
+                        if (!document.getElementById('glp1-brand').value.trim() ||
+                            !document.getElementById('glp1-dose').value.trim() ||
+                            !document.getElementById('glp1-last').value.trim() ||
+                            !document.querySelector('input[name="glp1Preference"]:checked')) {
+                            toggleError('Please complete the GLP-1 history details.');
+                            return false;
+                        }
+                    }
+                    return true;
+                case 5:
+                    const conditionSelections = Array.from(document.querySelectorAll('input[name="conditions"]:checked'));
+                    if (!conditionSelections.length) {
+                        toggleError('Select at least one option or choose "None of the above".');
+                        return false;
+                    }
+                    const hasNone = conditionSelections.some(item => item.value === 'None');
+                    if (hasNone && conditionSelections.length > 1) {
+                        toggleError('"None of the above" cannot be selected with other options.');
+                        return false;
+                    }
+                    const disqualifyingConditions = conditionSelections.filter(item => item.value !== 'None' && item.value !== 'Diabetes');
+                    if (disqualifyingConditions.length) {
+                        toggleError();
+                        showModal('reject');
+                        return false;
+                    }
+                    if (document.getElementById('condition-diabetes').checked) {
+                        if (!document.querySelector('input[name="diabeticMedication"]:checked') ||
+                            !document.querySelector('input[name="insulin"]:checked') ||
+                            !document.querySelector('input[name="otherDiabeticMed"]:checked')) {
+                            toggleError('Please answer the follow-up diabetes questions.');
+                            return false;
+                        }
+                        const otherMed = document.querySelector('input[name="otherDiabeticMed"]:checked');
+                        if (otherMed.value === 'yes' && !document.getElementById('other-medication-input').value.trim()) {
+                            toggleError('Please specify your other diabetic medications.');
+                            return false;
+                        }
+                    }
+                    return true;
+                case 6:
+                    const statusSelections = Array.from(document.querySelectorAll('input[name="currentStatus"]:checked'));
+                    if (!statusSelections.length) {
+                        toggleError('Select at least one option or choose "None of the above".');
+                        return false;
+                    }
+                    const statusHasNone = statusSelections.some(item => item.value === 'None');
+                    if (statusHasNone && statusSelections.length > 1) {
+                        toggleError('"None of the above" cannot be selected with other options.');
+                        return false;
+                    }
+                    const disqualifyingStatus = statusSelections.filter(item => item.value !== 'None');
+                    if (disqualifyingStatus.length) {
+                        toggleError();
+                        showModal('reject');
+                        return false;
+                    }
+                    return true;
+                case 7:
+                    const allergySelection = document.querySelector('input[name="glp1Allergy"]:checked');
+                    if (!allergySelection) {
+                        toggleError('Let us know if you have GLP-1 allergies.');
+                        return false;
+                    }
+                    if (allergySelection.value === 'yes') {
+                        toggleError();
+                        showModal('reject');
+                        return false;
+                    }
+                    return true;
+                case 8:
+                    if (!document.getElementById('disclaimer-confirm').checked) {
+                        toggleError('Please confirm that your information is accurate before submitting.');
+                        return false;
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        backButton.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep -= 1;
+                updateStep();
+            }
+        });
+
+        continueButton.addEventListener('click', () => {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            if (currentStep < steps.length - 1) {
+                currentStep += 1;
+                updateStep();
+            } else {
+                showModal('success');
+            }
+        });
+
+        startButton.addEventListener('click', () => {
+            introPanel.classList.add('hidden');
+            formWrapper.classList.remove('hidden');
+            currentStep = 0;
+            updateStep();
+        });
+
+        motivationOtherOption.addEventListener('change', (event) => {
+            motivationOtherField.classList.toggle('hidden', !event.target.checked);
+        });
+
+        document.querySelectorAll('input[name="glp1Usage"]').forEach((radio) => {
+            radio.addEventListener('change', (event) => {
+                glp1Followup.classList.toggle('hidden', event.target.value !== 'yes');
+            });
+        });
+
+        diabetesCheckbox.addEventListener('change', () => {
+            diabetesFollowup.classList.toggle('hidden', !diabetesCheckbox.checked);
+        });
+
+        document.querySelectorAll('input[name="otherDiabeticMed"]').forEach((radio) => {
+            radio.addEventListener('change', () => {
+                otherMedicationField.classList.toggle('hidden', radio.value !== 'yes');
+            });
+        });
+
+        function enforceNoneExclusive(selectedCheckbox, groupName) {
+            const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+            if (selectedCheckbox.checked && selectedCheckbox.value === 'None') {
+                checkboxes.forEach(box => {
+                    if (box !== selectedCheckbox) box.checked = false;
+                });
+            } else if (selectedCheckbox.checked) {
+                const noneBox = Array.from(checkboxes).find(box => box.value === 'None');
+                if (noneBox) noneBox.checked = false;
+            }
+
+            if (groupName === 'conditions') {
+                diabetesFollowup.classList.toggle('hidden', !diabetesCheckbox.checked);
+                if (!diabetesCheckbox.checked) {
+                    document.querySelectorAll('input[name="diabeticMedication"], input[name="insulin"], input[name="otherDiabeticMed"]').forEach(radio => {
+                        radio.checked = false;
+                    });
+                    otherMedicationField.classList.add('hidden');
+                    document.getElementById('other-medication-input').value = '';
+                }
+            }
+        }
+
+        document.querySelectorAll('input[name="conditions"]').forEach((box) => {
+            box.addEventListener('change', () => enforceNoneExclusive(box, 'conditions'));
+        });
+
+        document.querySelectorAll('input[name="currentStatus"]').forEach((box) => {
+            box.addEventListener('change', () => enforceNoneExclusive(box, 'currentStatus'));
+        });
+
+        modalCloseButtons.forEach((button) => {
+            button.addEventListener('click', hideModal);
+        });
+
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                hideModal();
+            }
+        });
+
+        createAccountBtn.addEventListener('click', () => {
+            window.location.href = 'contact-weightloss.html';
+        });
+
+        loginLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = 'contact-weightloss.html#support';
+        });
+
+        rejectOkayBtn.addEventListener('click', () => {
+            hideModal();
+        });
+    </script>
+</body>
+</html>
+
+

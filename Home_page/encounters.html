@@ -1434,12 +1434,12 @@
                 const reasonMarkup = showNote ? `<div class="prescription-note">${noteText}</div>` : '';
 
                 return `
-                    <div class="prescription-item">
-                        <div class="prescription-header">
+                                <div class="prescription-item">
+                                    <div class="prescription-header">
                             <div>
-                                <h4>${prescription.medication}</h4>
+                                        <h4>${prescription.medication}</h4>
                                 <p>Prescription ${prescriptions.length > 1 ? `${index + 1} of ${prescriptions.length}` : 'Information'}</p>
-                            </div>
+                                    </div>
                             ${prescription.status ? `<span class="prescription-status ${getPrescriptionStatusClass(prescription.status)}">${getPrescriptionStatusLabel(prescription.status)}</span>` : ''}
                         </div>
                         ${reasonMarkup}
@@ -1448,39 +1448,39 @@
                             <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
                         </button>
                         <div class="prescription-details" id="${detailId}">
-                            <div class="detail-group">
-                                <div class="detail-label">Dosage</div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Dosage</div>
                                 <div class="detail-value">${prescription.dosage || '—'}</div>
-                            </div>
+                                    </div>
                             ${prescription.frequency ? `
-                            <div class="detail-group">
-                                <div class="detail-label">Frequency</div>
-                                <div class="detail-value">${prescription.frequency}</div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Frequency</div>
+                                        <div class="detail-value">${prescription.frequency}</div>
                             </div>` : ''}
                             <div class="detail-group">
                                 <div class="detail-label">Instructions</div>
                                 <div class="detail-value">${prescription.instructions || '—'}</div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="detail-label">Quantity</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Quantity</div>
                                 <div class="detail-value">${prescription.quantity || '—'}</div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="detail-label">Refills</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Refills</div>
                                 <div class="detail-value">${prescription.refills || '—'}</div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="detail-label">Prescribed Date</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Prescribed Date</div>
                                 <div class="detail-value">${prescription.prescribedDate || '—'}</div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="detail-label">Prescribed By</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Prescribed By</div>
                                 <div class="detail-value">${prescription.prescribedBy || '—'}</div>
-                            </div>
-                            <div class="detail-group">
-                                <div class="detail-label">Pharmacy</div>
+                                    </div>
+                                    <div class="detail-group">
+                                        <div class="detail-label">Pharmacy</div>
                                 <div class="detail-value">${prescription.pharmacy || '—'}</div>
-                            </div>
+                                    </div>
                         </div>
                     </div>
                 `;
@@ -1494,8 +1494,8 @@
                             <div class="status-badge ${status}">
                                 <span>${getStatusIcon(status)}</span>
                                 <span>${getStatusText(status)}</span>
-                            </div>
-                        `).join('')}
+                                </div>
+                            `).join('')}
                     </div>
                     <div class="details-info">
                         <div>Started: ${encounter.details.started}</div>

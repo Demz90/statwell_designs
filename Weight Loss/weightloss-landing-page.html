@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatWellMD Weight Loss</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@iconscout/unicons@4.0.8/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        statwell: {
+                            blue: '#5D78FF',
+                            teal: '#40BFAA',
+                            navy: '#1E2A47',
+                            coral: '#FF6B6B',
+                            yellow: '#FFC53D',
+                            gray: '#9AA2B1'
+                        }
+                    }, 
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        primary: '0 30px 70px rgba(93, 120, 255, 0.25)',
+                        soft: '0 24px 60px rgba(30, 42, 71, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            min-width: 200%;
+            animation: marquee 30s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-full text-slate-800" id="top">
+    <div class="relative overflow-hidden">
+        <!-- Header -->
+        <header class="fixed inset-x-0 top-0 z-30 border-b border-white/10 bg-white/70 backdrop-blur-lg">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+                <a href="#top" class="flex items-center gap-3">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatWellMD" class="h-11 w-auto">
+                    <span class="sr-only">StatWellMD</span>
+                </a>
+                <nav class="hidden items-center gap-8 text-sm font-medium text-slate-600 lg:flex">
+                    <a data-nav-link href="#hero" class="transition hover:text-statwell-blue text-statwell-blue font-semibold">Home</a>
+                    <a data-nav-link href="#glp1" class="transition hover:text-statwell-blue">GLP-1 Options</a>
+                    <a data-nav-link href="#faq" class="transition hover:text-statwell-blue">FAQ</a>
+                    <a data-nav-link href="#contact" class="transition hover:text-statwell-blue">Contact Us</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="weightloss-questionnaire.html" class="hidden rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-600 transition hover:border-statwell-blue hover:text-statwell-blue lg:block">Login</a>
+                    <a href="weightloss-questionnaire.html" class="rounded-full bg-statwell-blue px-5 py-2 text-sm font-semibold text-white shadow-primary transition hover:bg-blue-600">Get Started</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="fixed inset-x-0 top-[72px] z-20 border-b border-white/10 bg-white/60 py-2 backdrop-blur">
+            <div class="mx-auto flex max-w-7xl items-center overflow-hidden px-6 lg:px-8">
+                <div class="animate-marquee whitespace-nowrap text-xs font-semibold tracking-[0.15em] text-black">
+                    01/ Fill out your intake form in minutes. &nbsp; 02/ Choose your preferred medication and mode of consultation. &nbsp; 03/ A StatWellMD provider will review. &nbsp; 04/ Medication is shipped to your door (if approved). &nbsp; 01/ Fill out your intake form in minutes. &nbsp; 02/ Choose your preferred medication and mode of consultation. &nbsp; 03/ A StatWellMD provider will review. &nbsp; 04/ Medication is shipped to your door (if approved). &nbsp;
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <section id="hero" class="relative flex min-h-screen items-center justify-center overflow-hidden pt-36 pb-16">
+            <img src="./assets/hero-weightloss.jpg" alt="Weight loss journey" class="absolute inset-0 h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1920&q=80';">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/60 to-black/75"></div>
+            <div class="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 px-6 text-center text-white">
+                <span class="text-base font-semibold uppercase tracking-[0.4em]">
+                    <span class="text-emerald-300">Safe.</span>
+                    <span class="text-statwell-yellow">Simple.</span>
+                    <span class="text-statwell-blue">Supervised.</span>
+                </span>
+                <h1 class="text-5xl font-black leading-tight sm:text-6xl"><span class="font-serif italic font-semibold">Weight Loss</span> Treatment<br>That Fits Your Life</h1>
+                <p class="max-w-2xl text-sm text-white/75">No waiting rooms. No video calls. Just real results.</p>
+                <a href="weightloss-questionnaire.html" class="mt-4 inline-flex items-center gap-3 rounded-full bg-statwell-blue px-14 py-4 text-base font-semibold uppercase tracking-wide text-white shadow-2xl transition hover:bg-blue-600">
+                    Start Your Visit
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+                <p class="text-[10px] font-medium tracking-wider text-white/70">Ships exclusively within the United States</p>
+            </div>
+        </section>
+
+        <!-- Program Cards -->
+        <section id="program" class="bg-[#F3F5FF] py-24">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <h2 class="text-center text-3xl font-extrabold text-statwell-navy">Everything You Need for Smart, <span class="italic text-statwell-blue">Sustainable</span> Weight Loss</h2>
+                <p class="mt-6 text-center text-base text-slate-600">StatWellMD offers a modern approach to weight management — medical, digital, and made for real life.</p>
+                <div class="mt-14 space-y-12">
+                    <div class="flex flex-col overflow-hidden rounded-[32px] bg-white shadow-soft lg:flex-row">
+                        <div class="flex-1">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" alt="Personalized care" class="h-full w-full object-cover">
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center gap-4 p-10">
+                            <h3 class="text-2xl font-semibold text-statwell-navy">Personalized Weight Loss Care</h3>
+                            <p class="text-sm text-slate-600">Get a treatment plan tailored to your body, lifestyle, and goals.</p>
+                            <p class="text-sm text-slate-600">Our clinicians prescribe GLP-1 medications monthly, ensuring expert oversight and real results — all from your phone.</p>
+                            <a href="weightloss-questionnaire.html" class="inline-flex w-fit items-center gap-2 rounded-full bg-statwell-blue px-5 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600">Start Your Visit<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col overflow-hidden rounded-[32px] bg-white shadow-soft lg:flex-row">
+                        <div class="flex-1">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80" alt="On-demand fitness" class="h-full w-full object-cover">
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center gap-4 p-10">
+                            <h3 class="text-2xl font-semibold text-statwell-navy">On-Demand Fitness Support</h3>
+                            <p class="text-sm text-slate-600">Exercise at your own pace with expert-led workouts built for everyday schedules.</p>
+                            <p class="text-sm text-slate-600">Each program complements your medical plan — helping you build strength, boost metabolism, and stay consistent.</p>
+                            <a href="weightloss-questionnaire.html" class="inline-flex w-fit items-center gap-2 rounded-full bg-statwell-blue px-5 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600">Take Quiz<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLP-1 Options -->
+        <section id="glp1" class="bg-slate-900 py-24">
+             <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                 <div class="flex flex-col gap-6 pb-12 text-white lg:flex-row lg:items-end lg:justify-between">
+                     <div class="max-w-2xl space-y-4">
+                         <h2 class="text-3xl font-extrabold">Our <span class="italic text-statwell-blue">GLP-1</span> Options</h2>
+                     </div>
+                    <a href="weightloss-questionnaire.html" class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-statwell-blue shadow-soft transition hover:bg-slate-100">
+                        Start your visit
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                 </div>
+                <div class="grid gap-8 lg:grid-cols-3">
+                    <article class="rounded-[40px] bg-white px-6 pt-7 pb-8 shadow-[0_25px_70px_rgba(0,0,0,0.18)] transition hover:-translate-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center rounded-full bg-emerald-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-600">In Stock</span>
+                        </div>
+                        <div class="mt-5 overflow-hidden rounded-[32px] bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=900&q=80" alt="Compounded Semaglutide" class="h-64 w-full object-cover">
+                        </div>
+                        <h3 class="mt-5 text-xl font-semibold text-statwell-navy">Compounded Semaglutide</h3>
+                        <p class="mt-3 text-sm text-slate-600">Weekly injection for steady, effective weight management.</p>
+                        <div class="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$199.00</span>
+                                    <span class="text-sm font-semibold text-slate-400 line-through">$299</span>
+                                </div>
+                                <span class="inline-flex items-center rounded-full bg-statwell-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-statwell-blue">Save 33.44%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <a href="glp1-compounded-semaglutide.html" class="flex-1 rounded-full border border-slate-900 px-5 py-3 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-[#D8E4FF]">Learn More</a>
+                            <a href="weightloss-questionnaire.html" class="flex-1 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-slate-900 hover:bg-[#D8E4FF] hover:text-slate-900">Get Started</a>
+                        </div>
+                    </article>
+
+                    <article class="rounded-[40px] bg-white px-6 pt-7 pb-8 shadow-[0_25px_70px_rgba(0,0,0,0.18)] transition hover:-translate-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center rounded-full bg-emerald-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-600">In Stock</span>
+                        </div>
+                        <div class="mt-5 overflow-hidden rounded-[32px] bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80" alt="Compounded Tirzepatide" class="h-64 w-full object-cover">
+                        </div>
+                        <h3 class="mt-5 text-xl font-semibold text-statwell-navy">Compounded Tirzepatide</h3>
+                        <p class="mt-3 text-sm text-slate-600">Dual-action weekly injection combining GLP-1 and GIP pathways for maximum results.</p>
+                        <div class="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$299.00</span>
+                                    <span class="text-sm font-semibold text-slate-400 line-through">$399</span>
+                                </div>
+                                <span class="inline-flex items-center rounded-full bg-statwell-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-statwell-blue">Save 33.44%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <a href="glp1-compounded-tirzepatide.html" class="flex-1 rounded-full border border-slate-900 px-5 py-3 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-[#D8E4FF]">Learn More</a>
+                            <a href="weightloss-questionnaire.html" class="flex-1 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-slate-900 hover:bg-[#D8E4FF] hover:text-slate-900">Get Started</a>
+                        </div>
+                    </article>
+
+                    <article class="rounded-[40px] bg-white px-6 pt-7 pb-8 shadow-[0_25px_70px_rgba(0,0,0,0.18)] transition hover:-translate-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center rounded-full bg-emerald-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-600">In Stock</span>
+                        </div>
+                        <div class="mt-5 overflow-hidden rounded-[32px] bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80" alt="Zepbound (Brand Tirzepatide)" class="h-64 w-full object-cover">
+                        </div>
+                        <h3 class="mt-5 text-xl font-semibold text-statwell-navy">Zepbound (Brand Tirzepatide)</h3>
+                        <p class="mt-3 text-sm text-slate-600">FDA-approved weekly injection for chronic weight management with consistent dosing.</p>
+                        <div class="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$499.00</span>
+                                    <span class="text-sm font-semibold text-slate-400 line-through">$599</span>
+                                </div>
+                                <span class="inline-flex items-center rounded-full bg-statwell-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-statwell-blue">Save 16.69%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <a href="glp1-zepbound.html" class="flex-1 rounded-full border border-slate-900 px-5 py-3 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-[#D8E4FF]">Learn More</a>
+                            <a href="weightloss-questionnaire.html" class="flex-1 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-center text-sm font-semibold text-white transition hover:border-slate-900 hover:bg-[#D8E4FF] hover:text-slate-900">Get Started</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose -->
+        <section id="why" class="bg-[#F3F5FF] py-24">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <h2 class="text-center text-3xl font-extrabold text-statwell-navy">Why Choose <span class="italic text-statwell-blue">StatWellMD</span></h2>
+                <p class="mt-6 text-center text-base text-slate-600">We make modern healthcare work the way you live — fast, private, and designed for everyday life.<br>Our goal isn’t just weight loss; it’s lasting health and confidence.</p>
+                <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="relative overflow-hidden rounded-[28px] p-6 text-white shadow-soft">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Confidence" class="absolute inset-0 h-full w-full object-cover blur-lg brightness-[0.45]">
+                        <div class="relative">
+                            <p class="text-sm font-semibold">Feel confident in everything you wear.</p>
+                        </div>
+                    </div>
+                    <div class="relative overflow-hidden rounded-[28px] p-6 text-white shadow-soft">
+                        <img src="https://images.unsplash.com/photo-1526401485004-46910ecc8e51?auto=format&fit=crop&w=600&q=80" alt="Rest" class="absolute inset-0 h-full w-full object-cover blur-lg brightness-[0.45]">
+                        <div class="relative">
+                            <p class="text-sm font-semibold">Sleep better, wake up refreshed.</p>
+                        </div>
+                    </div>
+                    <div class="relative overflow-hidden rounded-[28px] p-6 text-white shadow-soft">
+                        <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=600&q=80" alt="Vacation" class="absolute inset-0 h-full w-full object-cover blur-lg brightness-[0.45]">
+                        <div class="relative">
+                            <p class="text-sm font-semibold">Look forward to your next vacation.</p>
+                        </div>
+                    </div>
+                    <div class="relative overflow-hidden rounded-[28px] p-6 text-white shadow-soft">
+                        <img src="https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&w=600&q=80" alt="Energy" class="absolute inset-0 h-full w-full object-cover blur-lg brightness-[0.45]">
+                        <div class="relative">
+                            <p class="text-sm font-semibold">Stress less and enjoy more energy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey -->
+        <section id="journey" class="bg-white py-24">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-extrabold text-statwell-navy">Your Path to a <span class="italic text-statwell-blue">Healthier</span> You</h2>
+                </div>
+                <div class="mt-10 grid gap-8 rounded-[32px] bg-[#1E2A47] p-10 text-white lg:grid-cols-[320px,1fr]">
+                    <div class="relative overflow-hidden rounded-3xl bg-white/10">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Journey" class="h-56 w-full object-cover">
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 rounded-2xl bg-white/12 p-4 shadow">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-statwell-blue shadow">
+                                <i class="uil uil-video text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold">1. Quick Consultation</h3>
+                                <p class="text-sm text-white/80">Share your goals and health background through a short online form — anytime, anywhere.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 rounded-2xl bg-white/12 p-4 shadow">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-statwell-blue shadow">
+                                <i class="uil uil-capsule text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold">2. Personalized Treatment</h3>
+                                <p class="text-sm text-white/80">A licensed clinician reviews your details, prescribes the right GLP-1, and builds a nutrition + fitness plan around you.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 rounded-2xl bg-white/12 p-4 shadow">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-statwell-blue shadow">
+                                <i class="uil uil-headphones-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold">3. Ongoing Support</h3>
+                                <p class="text-sm text-white/80">Monthly check-ins and progress tracking keep you accountable, confident, and supported.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="bg-[#FFFDF5] py-24">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-extrabold text-statwell-navy">What Our <span class="italic text-statwell-blue">Patients</span> Are Saying</h2>
+                    <p class="mt-3 text-sm text-slate-600">Read inspiring testimonials from our clients who have achieved their weight loss goals and improved their health.</p>
+                </div>
+                <div class="mt-12 flex justify-end gap-4">
+                    <button id="testimonial-prev" aria-label="View previous testimonials" class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white shadow transition hover:bg-black">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button id="testimonial-next" aria-label="View more testimonials" class="flex h-12 w-12 items-center justify-center rounded-full border border-slate-900 bg-white text-slate-900 shadow transition hover:bg-slate-100">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+                <div class="mt-8 overflow-hidden">
+                    <div id="testimonial-track" class="flex gap-6 transition-transform duration-500 ease-out">
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 12 lbs in 5 weeks</h3>
+                            <p class="mt-3 text-sm text-slate-600">After my heart attack scare, I knew I needed a medically supervised program. StatWellMD’s careful monitoring helped me lose weight safely.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Jeff C" class="h-10 w-10 rounded-full object-cover">
+                                Jeff C
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 18 lbs in 2 months</h3>
+                            <p class="mt-3 text-sm text-slate-600">The nutrition advice I received was practical and easy to follow. The support from the StatWellMD team kept me motivated every week.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80" alt="Jake Lo" class="h-10 w-10 rounded-full object-cover">
+                                Jake Lo
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 32 lbs in 4 months</h3>
+                            <p class="mt-3 text-sm text-slate-600">Changing my habits was the hardest part, but StatWellMD's behavioral coaching made it possible. I now have a healthier relationship with food.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Kate Ben" class="h-10 w-10 rounded-full object-cover">
+                                Kate Ben
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 28 lbs in 3 months</h3>
+                            <p class="mt-3 text-sm text-slate-600">The team listened to my concerns and adjusted my plan as I progressed. The regular check-ins made me feel supported.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?auto=format&fit=crop&w=200&q=80" alt="Anna K" class="h-10 w-10 rounded-full object-cover">
+                                Anna K
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 40 lbs in 6 months</h3>
+                            <p class="mt-3 text-sm text-slate-600">As a busy mom of three, I tried countless diets without success. StatWellMD's medical approach considered my thyroid condition and made all the difference.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80" alt="Katherine S" class="h-10 w-10 rounded-full object-cover">
+                                Katherine S
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 15 lbs in 6 weeks</h3>
+                            <p class="mt-3 text-sm text-slate-600">Having medical professionals oversee my weight loss gave me peace of mind. They caught a medication side effect early and adjusted my plan.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Clara Jeff" class="h-10 w-10 rounded-full object-cover">
+                                Clara Jeff
+                            </footer>
+                        </article>
+                        <article class="flex w-[260px] flex-shrink-0 flex-col rounded-3xl bg-[#EEF2FF] p-6 shadow-soft sm:w-[300px] lg:w-[320px]">
+                            <div class="flex items-center gap-1 text-green-500">★★★★★</div>
+                            <h3 class="mt-4 text-base font-semibold text-statwell-navy">Lost 22 lbs in 5 months</h3>
+                            <p class="mt-3 text-sm text-slate-600">I've tried so many programs before, but StatWellMD is the first that feels sustainable. The focus on long-term health made all the difference.</p>
+                            <footer class="mt-6 flex items-center gap-3 text-sm font-semibold text-statwell-navy">
+                                <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80" alt="Blossom Kay" class="h-10 w-10 rounded-full object-cover">
+                                Blossom Kay
+                            </footer>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <section id="faq" class="bg-[#EEF5FF] py-24 text-slate-800">
+            <div class="mx-auto max-w-5xl px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-extrabold text-statwell-navy">Frequently Asked Questions</h2>
+                    <p class="mt-3 text-sm text-slate-600">Tap on any question below to learn more about our medical weight loss experience.</p>
+                </div>
+                <dl class="mt-12 space-y-4">
+                    <div class="faq-item overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+                        <button type="button" class="faq-toggle flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-statwell-navy">
+                            <div>
+                                <dt class="text-lg font-semibold">Who can use StatWellMD’s weight loss program?</dt>
+                                <dd class="faq-content mt-3 hidden text-sm text-slate-600">Adults who want safe, clinically guided weight loss using modern medication and digital support.</dd>
+                            </div>
+                            <svg class="faq-icon h-5 w-5 flex-shrink-0 text-statwell-blue transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+                    <div class="faq-item overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+                        <button type="button" class="faq-toggle flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-statwell-navy">
+                            <div>
+                                <dt class="text-lg font-semibold">How does StatWellMD work?</dt>
+                                <dd class="faq-content mt-3 hidden text-sm text-slate-600">Simply fill out a quick online form. A licensed provider reviews your case and sends your prescription to your preferred pharmacy.</dd>
+                            </div>
+                            <svg class="faq-icon h-5 w-5 flex-shrink-0 text-statwell-blue transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+                    <div class="faq-item overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+                        <button type="button" class="faq-toggle flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-statwell-navy">
+                            <div>
+                                <dt class="text-lg font-semibold">Can I get GLP-1 medication through StatWellMD?</dt>
+                                <dd class="faq-content mt-3 hidden text-sm text-slate-600">Yes — eligible patients can receive compounded GLP-1 treatments or Zepbound after clinical review.</dd>
+                            </div>
+                            <svg class="faq-icon h-5 w-5 flex-shrink-0 text-statwell-blue transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+                    <div class="faq-item overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+                        <button type="button" class="faq-toggle flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-statwell-navy">
+                            <div>
+                                <dt class="text-lg font-semibold">How soon will I see results?</dt>
+                                <dd class="faq-content mt-3 hidden text-sm text-slate-600">Most patients start noticing visible progress within 4–6 weeks of consistent use.</dd>
+                            </div>
+                            <svg class="faq-icon h-5 w-5 flex-shrink-0 text-statwell-blue transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+                    <div class="faq-item overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+                        <button type="button" class="faq-toggle flex w-full items-center justify-between gap-6 px-6 py-5 text-left text-statwell-navy">
+                            <div>
+                                <dt class="text-lg font-semibold">Is this treatment safe?</dt>
+                                <dd class="faq-content mt-3 hidden text-sm text-slate-600">All prescriptions are reviewed and monitored by licensed U.S. clinicians to ensure safety and effectiveness.</dd>
+                            </div>
+                            <svg class="faq-icon h-5 w-5 flex-shrink-0 text-statwell-blue transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg>
+                        </button>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- CTA & Footer -->
+        <section id="contact" class="bg-[#EEF5FF] py-20">
+            <div class="mx-auto max-w-6xl rounded-3xl bg-statwell-blue px-6 py-16 text-white shadow-2xl lg:px-12">
+                <div class="grid gap-12 lg:grid-cols-2">
+                    <div>
+                        <span class="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-statwell-blue">The new you starts here</span>
+                        <h2 class="mt-4 text-3xl font-extrabold text-white">Start your journey to a healthier, more confident you — guided by real clinicians, supported by technology that works.</h2>
+                        <p class="mt-4 text-sm text-white/80">No waiting rooms. No video calls. Just real results.</p>
+                        <div class="mt-8 flex flex-wrap gap-4">
+                            <a href="weightloss-questionnaire.html" class="rounded-full bg-white px-6 py-3 text-sm font-semibold text-statwell-blue shadow-lg transition hover:bg-slate-100">Get started today</a>
+                            <a href="contact-weightloss.html" class="rounded-full border border-white/60 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Contact us</a>
+                        </div>
+                    </div>
+                    <div class="rounded-3xl bg-white/10 p-8 backdrop-blur">
+                        <h3 class="text-xl font-semibold">Need to talk to someone?</h3>
+                        <p class="mt-3 text-sm text-white/80">Our team can help you choose the right plan, coordinate pharmacies, or answer billing questions.</p>
+                        <ul class="mt-6 space-y-4 text-sm text-white/85">
+                            <li class="flex items-center gap-3">
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 8h18a2 2 0 002-2V8a2 2 0 00-2-2H3a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                                </span>
+                                <span>support@statwellmd.com</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.45l.57 2.3a2 2 0 01-.5 1.88l-1.4 1.4a16 16 0 006.4 6.4l1.4-1.4a2 2 0 011.88-.5l2.3.57A2 2 0 0121 18.72V21a2 2 0 01-2 2h-1A17 17 0 013 5v0z"/></svg>
+                                </span>
+                                <span>+1 (888) 448-9621</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-slate-950">
+            <div class="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 text-sm text-slate-300 lg:flex-row lg:justify-between lg:px-8">
+                <div class="max-w-sm space-y-3">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_WHITE_gi0oih.png" alt="StatWellMD" class="h-10 w-auto">
+                    <p>Schedule your first consultation and take the next step towards a healthier you.</p>
+                </div>
+                <div class="grid flex-1 gap-8 sm:grid-cols-3">
+                    <div>
+                        <h4 class="text-xs font-semibold uppercase tracking-wide text-white">Treatments</h4>
+                        <ul class="mt-4 space-y-2">
+                            <li><a href="glp1-compounded-semaglutide.html" class="transition hover:text-white">Compounded Semaglutide</a></li>
+                            <li><a href="glp1-compounded-tirzepatide.html" class="transition hover:text-white">Compounded Tirzepatide</a></li>
+                            <li><a href="glp1-zepbound.html" class="transition hover:text-white">Zepbound (Brand Tirzepatide)</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold uppercase tracking-wide text-white">Support</h4>
+                        <ul class="mt-4 space-y-2">
+                            <li><a href="contact-weightloss.html" class="transition hover:text-white">Contact Us</a></li>
+                            <li><a href="privacy-weightloss.html" class="transition hover:text-white">Privacy Policy</a></li>
+                            <li><a href="terms-weightloss.html" class="transition hover:text-white">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold uppercase tracking-wide text-white">Follow</h4>
+                        <div class="mt-4 flex gap-3 text-white">
+                            <a href="https://www.instagram.com/statwellmd" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-statwell-blue" aria-label="Instagram">
+                                <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </a>
+                            <a href="https://www.facebook.com/statwellmd" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-statwell-blue" aria-label="Facebook">
+                                <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                            <a href="https://twitter.com/statwellmd" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-statwell-blue" aria-label="X (Twitter)">
+                                <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M18.9 3H22l-7.15 8.18L22.4 21h-5l-4.04-5.29L8.6 21H2.5l7.54-8.64L2 3h5.11l3.68 4.91L18.9 3z"/></svg>
+                            </a>
+                            <a href="https://www.tiktok.com/@statwellmd" class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 hover:text-statwell-blue" aria-label="TikTok">
+                                <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M17 2a5 5 0 005 5v3.09a9.14 9.14 0 01-4.66-1.3l-.01 6.87A6.34 6.34 0 1111 9.5v3.36a2.31 2.31 0 101.61 2.21V2H17z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 py-4 text-center text-xs text-slate-500">© 2025 StatWellMD. All rights reserved.</div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const track = document.getElementById('testimonial-track');
+            const prevBtn = document.getElementById('testimonial-prev');
+            const nextBtn = document.getElementById('testimonial-next');
+
+            if (track && prevBtn && nextBtn) {
+                const cards = Array.from(track.children);
+                let index = 0;
+
+                const getGap = () => {
+                    const styles = window.getComputedStyle(track);
+                    const gapValue = styles.columnGap || styles.gap || '0';
+                    return parseFloat(gapValue) || 0;
+                };
+
+                const cardsPerView = () => {
+                    if (window.innerWidth >= 1280) return 4;
+                    if (window.innerWidth >= 1024) return 3;
+                    if (window.innerWidth >= 640) return 2;
+                    return 1;
+                };
+
+                const updateButtons = (maxIndex) => {
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index >= maxIndex;
+
+                    [prevBtn, nextBtn].forEach(btn => btn.classList.remove('cursor-not-allowed', 'opacity-40'));
+                    if (prevBtn.disabled) prevBtn.classList.add('cursor-not-allowed', 'opacity-40');
+                    if (nextBtn.disabled) nextBtn.classList.add('cursor-not-allowed', 'opacity-40');
+                };
+
+                const updateSlider = () => {
+                    if (!cards.length) return;
+                    const cardWidth = cards[0].getBoundingClientRect().width;
+                    const gap = getGap();
+                    const perView = cardsPerView();
+                    const maxIndex = Math.max(0, cards.length - perView);
+                    index = Math.min(index, maxIndex);
+                    const offset = -(cardWidth + gap) * index;
+                    track.style.transform = `translateX(${offset}px)`;
+                    updateButtons(maxIndex);
+                };
+
+                const move = (direction) => {
+                    const perView = cardsPerView();
+                    const step = Math.max(1, Math.ceil(perView / 2));
+                    const maxIndex = Math.max(0, cards.length - perView);
+                    index = Math.min(Math.max(index + direction * step, 0), maxIndex);
+                    updateSlider();
+                };
+
+                prevBtn.addEventListener('click', () => move(-1));
+                nextBtn.addEventListener('click', () => move(1));
+                window.addEventListener('resize', updateSlider);
+                updateSlider();
+            }
+        })();
+
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.querySelector('.faq-content');
+                const icon = button.querySelector('.faq-icon');
+                const isOpen = !content.classList.contains('hidden');
+
+                document.querySelectorAll('.faq-content').forEach(item => item.classList.add('hidden'));
+                document.querySelectorAll('.faq-icon').forEach(iconEl => iconEl.classList.remove('rotate-45'));
+
+                if (!isOpen) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-45');
+                }
+            });
+        });
+
+        const navLinks = document.querySelectorAll('[data-nav-link]');
+        navLinks.forEach((link, index) => {
+            if (index === 0) {
+                link.classList.add('text-statwell-blue', 'font-semibold');
+            }
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('text-statwell-blue', 'font-semibold'));
+                link.classList.add('text-statwell-blue', 'font-semibold');
+            });
+        });
+    </script>
+</body>
+</html>
