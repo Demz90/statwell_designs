@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatWellMD Weight Loss Onboarding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        statwell: {
+                            blue: '#5D78FF',
+                            teal: '#40BFAA',
+                            navy: '#2A3B54',
+                            accent: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        panel: '0 30px 70px rgba(42, 59, 84, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html, body { min-height: 100%; }
+    </style>
+</head>
+<body class="min-h-full bg-slate-100">
+    <div class="mx-auto flex min-h-screen max-w-5xl flex-col items-center px-4 py-10">
+        <!-- Logo Header -->
+        <header class="mb-8 flex w-full items-center justify-center">
+            <a href="weightloss-landing-page.html" class="inline-flex items-center gap-3">
+                <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_BLUE_orlhj2.png" alt="StatWellMD" class="h-11 w-auto">
+                <span class="sr-only">StatWellMD</span>
+            </a>
+        </header>
+
+        <!-- Main Content Container -->
+        <div class="w-full rounded-3xl bg-white p-6 shadow-panel sm:p-12" id="main-container">
+            
+            <!-- Step 1: Select Medication Plan -->
+            <div id="step-1" class="step-content">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-2 text-center">Select a medication plan</h1>
+                <p class="text-base text-slate-600 mb-8 text-center leading-tight">Select the medication that's right for your weight loss journey. All options<br>are clinically proven and FDA-approved for safe, effective weight management.</p>
+                
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="medication-cards">
+                    <!-- Compounded Semaglutide -->
+                    <div class="medication-card group cursor-pointer rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-6 transition-all hover:border-emerald-400 hover:shadow-lg" data-medication="semaglutide" onclick="toggleMedicationDetails('semaglutide'); selectMedication('semaglutide');">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-flex items-center rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">BUDGET FRIENDLY</span>
+                                    <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectMedication('semaglutide')">
+                                        <input type="radio" name="medication" value="semaglutide" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                                    </label>
+                                </div>
+                                <h3 class="text-xl font-bold text-statwell-navy mb-1">Compounded Semaglutide</h3>
+                                <p class="text-sm text-slate-700 mb-4">Daily injection for consistent, gradual progress</p>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$199</span>
+                                    <span class="text-sm text-slate-600">/month</span>
+                                </div>
+                                <div class="flex flex-col gap-2 text-sm">
+                                    <div>
+                                        <span class="text-slate-600">Average Weight Loss</span>
+                                        <p class="font-bold text-statwell-navy">8-12%</p>
+                                    </div>
+                                    <span class="text-slate-600 text-xs">Over 56 weeks in clinical studies</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tirzepatide -->
+                    <div class="medication-card group cursor-pointer rounded-2xl border-2 border-amber-300 bg-amber-50 p-6 transition-all hover:border-amber-400 hover:shadow-lg" data-medication="tirzepatide" onclick="toggleMedicationDetails('tirzepatide'); selectMedication('tirzepatide');">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-flex items-center rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">MOST POPULAR</span>
+                                    <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectMedication('tirzepatide')">
+                                        <input type="radio" name="medication" value="tirzepatide" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                                    </label>
+                                </div>
+                                <h3 class="text-xl font-bold text-statwell-navy mb-1">Tirzepatide</h3>
+                                <p class="text-sm text-slate-700 mb-4">Dual-action weekly injection for maximum results</p>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$299</span>
+                                    <span class="text-sm text-slate-600">/month</span>
+                                </div>
+                                <div class="flex flex-col gap-2 text-sm">
+                                    <div>
+                                        <span class="text-slate-600">Average Weight Loss</span>
+                                        <p class="font-bold text-statwell-navy">5–19%</p>
+                                    </div>
+                                    <span class="text-slate-600 text-xs">Over 72 weeks in clinical studies</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zepbound -->
+                    <div class="medication-card group cursor-pointer rounded-2xl border-2 border-statwell-blue bg-blue-50 p-6 transition-all hover:border-blue-400 hover:shadow-lg" data-medication="zepbound" onclick="toggleMedicationDetails('zepbound'); selectMedication('zepbound');">
+                        <div class="flex h-full flex-col justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-flex items-center rounded-full bg-statwell-blue px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">PREMIUM</span>
+                                    <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectMedication('zepbound')">
+                                        <input type="radio" name="medication" value="zepbound" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                                    </label>
+                                </div>
+                                <h3 class="text-xl font-bold text-statwell-navy mb-1">Zepbound (Brand Tirzepatide)</h3>
+                                <p class="text-sm text-slate-700 mb-4">Weekly injection for steady, effective weight management</p>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-2xl font-bold text-statwell-navy">$499</span>
+                                    <span class="text-sm text-slate-600">/month</span>
+                                </div>
+                                <div class="flex flex-col gap-2 text-sm">
+                                    <div>
+                                        <span class="text-slate-600">Average Weight Loss</span>
+                                        <p class="font-bold text-statwell-navy">5–19%</p>
+                                    </div>
+                                    <span class="text-slate-600 text-xs">Over 68 weeks in clinical studies</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medication Details Container (appears below grid when card is clicked) -->
+                <div id="medication-details-container" class="hidden mt-6 rounded-2xl border-2 p-6" data-details-border="">
+                    <div id="medication-details-content"></div>
+                </div>
+
+                <!-- Details templates (hidden, used to populate the details container) -->
+                <template id="details-semaglutide">
+                    <h4 class="font-bold text-statwell-navy mb-4">What You Need to Know about Compounded Semaglutide</h4>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                            <p class="text-slate-600">Mimics a natural hormone (GLP-1) that tells your brain you're full. Curbs appetite, lowers blood pressure, and supports steady weight loss over time.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How You Should Take It:</p>
+                            <p class="text-slate-600">Weekly at-home injections, sent directly to you.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Support Vitamins:</p>
+                            <p class="text-slate-600 mb-1">We include:</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Vitamin B12 to keep your energy up and support your workouts.</li>
+                                <li>Vitamin B6 for nausea and appetite</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Expected Results:</p>
+                            <p class="text-slate-600">Lose 6–10% of your body weight in 3–6 months.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Common side effects:</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Abdominal discomfort or pain</li>
+                                <li>Reduced appetite (anorexia)</li>
+                                <li>Headache, fatigue, and dizziness</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Why Choose:</p>
+                            <p class="text-slate-600">It's affordable, easy to start, and great for first-time weight loss support.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Investment</p>
+                            <p class="text-slate-600">Starts at $199/month with doctor supervision and regular check-ins.</p>
+                        </div>
+                    </div>
+                </template>
+
+                <template id="details-tirzepatide">
+                    <h4 class="font-bold text-statwell-navy mb-4">What You Need to Know about Tirzepatide</h4>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                            <p class="text-slate-600">Dual-action medication that targets both GLP-1 and GIP receptors for enhanced appetite suppression and weight loss.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How You Should Take It:</p>
+                            <p class="text-slate-600">Weekly at-home injections, sent directly to you.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Support Vitamins:</p>
+                            <p class="text-slate-600 mb-1">We include:</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Vitamin B12 to keep your energy up and support your workouts.</li>
+                                <li>Vitamin B6 for nausea and appetite</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Expected Results:</p>
+                            <p class="text-slate-600">Lose 5–19% of your body weight over time with maximum results.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Common side effects:</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Nausea and vomiting</li>
+                                <li>Diarrhea</li>
+                                <li>Constipation</li>
+                                <li>Abdominal pain</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Why Choose:</p>
+                            <p class="text-slate-600">Most popular choice with dual-action mechanism for superior weight loss results.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Investment</p>
+                            <p class="text-slate-600">Starts at $299/month with doctor supervision and regular check-ins.</p>
+                        </div>
+                    </div>
+                </template>
+
+                <template id="details-zepbound">
+                    <h4 class="font-bold text-statwell-navy mb-4">What You Need to Know about Zepbound</h4>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                            <p class="text-slate-600">FDA-approved brand-name version of Tirzepatide with dual-action mechanism for maximum weight loss.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">How You Should Take It:</p>
+                            <p class="text-slate-600">Weekly at-home injections, sent directly to you.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Expected Results:</p>
+                            <p class="text-slate-600">Lose 5–19% of your body weight over time with premium brand-name quality.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Common side effects:</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Nausea and vomiting</li>
+                                <li>Diarrhea</li>
+                                <li>Constipation</li>
+                                <li>Abdominal pain</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Why Choose:</p>
+                            <p class="text-slate-600">Premium FDA-approved brand-name option with proven track record and maximum support.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-statwell-navy mb-1">Investment</p>
+                            <p class="text-slate-600">Starts at $499/month with doctor supervision and regular check-ins.</p>
+                        </div>
+                    </div>
+                </template>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="proceedToNextStep()" id="continue-btn-1" class="rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Select Vitamin (Only for compounded medications) -->
+            <div id="step-2" class="step-content hidden">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-2 text-center leading-tight">Choose a Vitamin to Be<br>Compounded With Your Medication</h1>
+                <p class="text-base text-slate-600 mb-8 text-center">Select a vitamin below to learn more about its benefits and how it works with your treatment.</p>
+                
+                <div class="space-y-4" id="vitamin-cards">
+                    <!-- Vitamin B6 -->
+                    <div class="vitamin-card cursor-pointer rounded-2xl border-2 border-pink-200 bg-pink-50 p-6 transition-all hover:border-pink-400 hover:shadow-lg" data-vitamin="b6" onclick="toggleVitaminDetails('b6'); selectVitamin('b6');">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
+                                    <svg class="h-6 w-6 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-lg font-semibold text-slate-900">Vitamin B6</span>
+                            </div>
+                            <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectVitamin('b6');">
+                                <input type="radio" name="vitamin" value="b6" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </div>
+                        <div class="vitamin-details hidden mt-4 border-t border-pink-200 pt-4" data-details="b6">
+                            <div class="space-y-3 text-sm text-slate-700">
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">What It Does:</p>
+                                    <p>Helps reduce nausea and vomiting, a common side effect when starting GLP-1 medications.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                                    <p>Supports neurotransmitter function and helps manage nausea by aiding your body's natural processes.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">Ideal For:</p>
+                                    <p>Patients prone to nausea or wanting additional comfort while adjusting to medication.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vitamin B12 -->
+                    <div class="vitamin-card cursor-pointer rounded-2xl border-2 border-amber-200 bg-amber-50 p-6 transition-all hover:border-amber-400 hover:shadow-lg" data-vitamin="b12" onclick="toggleVitaminDetails('b12'); selectVitamin('b12');">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-200">
+                                    <svg class="h-6 w-6 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-lg font-semibold text-slate-900">Vitamin B12</span>
+                            </div>
+                            <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectVitamin('b12');">
+                                <input type="radio" name="vitamin" value="b12" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </div>
+                        <div class="vitamin-details hidden mt-4 border-t border-amber-200 pt-4" data-details="b12">
+                            <div class="space-y-3 text-sm text-slate-700">
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">What It Does:</p>
+                                    <p>Supports energy levels, reduces fatigue, and may help with nausea.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                                    <p>Plays a vital role in red blood cell formation and nervous system health, keeping energy levels stable.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">Ideal For:</p>
+                                    <p>Patients experiencing low energy or mild nausea.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- L-Carnitine -->
+                    <div class="vitamin-card cursor-pointer rounded-2xl border-2 border-green-200 bg-green-50 p-6 transition-all hover:border-green-400 hover:shadow-lg" data-vitamin="l-carnitine" onclick="toggleVitaminDetails('l-carnitine'); selectVitamin('l-carnitine');">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-200">
+                                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-lg font-semibold text-slate-900">L-Carnitine</span>
+                            </div>
+                            <label class="flex cursor-pointer items-center" onclick="event.stopPropagation(); selectVitamin('l-carnitine');">
+                                <input type="radio" name="vitamin" value="l-carnitine" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue">
+                            </label>
+                        </div>
+                        <div class="vitamin-details hidden mt-4 border-t border-green-200 pt-4" data-details="l-carnitine">
+                            <div class="space-y-3 text-sm text-slate-700">
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">What It Does:</p>
+                                    <p>Supports metabolism, aids in fat burning, and may improve energy levels.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-statwell-navy mb-1">How It Works:</p>
+                                    <p>Transports fatty acids into cells to be used for energy, potentially aiding in weight loss.</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">Ideal For:</p>
+                                    <p>Patients looking for metabolic support to enhance weight loss results.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Any option is fine -->
+                    <div class="vitamin-card cursor-pointer rounded-2xl border-2 border-slate-200 bg-slate-50 p-6 transition-all hover:border-slate-400 hover:shadow-lg" data-vitamin="any">
+                        <label class="flex cursor-pointer items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-200">
+                                    <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-lg font-semibold text-slate-900">Any option is fine</span>
+                            </div>
+                            <input type="radio" name="vitamin" value="any" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue" onchange="selectVitamin('any')">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(1)" class="rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                        Back
+                    </button>
+                    <button onclick="proceedToNextStep()" id="continue-btn-2" class="rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Select Consultation Type -->
+            <div id="step-3" class="step-content hidden">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-2 text-center">Select Consultation Type</h1>
+                <p class="text-base text-slate-600 mb-8 text-center leading-tight">Choose how you'd like to connect with our medical professionals.<br>Both options include comprehensive care and prescription services tailored to your needs.</p>
+                
+                <div class="space-y-4" id="consultation-cards">
+                    <!-- Express Consultation -->
+                    <label class="flex cursor-pointer items-center justify-between rounded-2xl border-2 border-slate-200 bg-slate-50 p-6 transition-all hover:border-statwell-blue hover:shadow-lg consultation-option">
+                        <div class="flex items-start gap-4 flex-1">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-statwell-blue flex-shrink-0">
+                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-slate-900 mb-1">Express Consultation</h3>
+                                <p class="text-sm text-slate-600 mb-3">Perfect for busy schedules. Get professional medical review and prescription without scheduling conflicts.</p>
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <svg class="h-4 w-4 text-statwell-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Comprehensive case review</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <svg class="h-4 w-4 text-statwell-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Personalized treatment plan</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-slate-900">$49.99</span>
+                            </div>
+                        </div>
+                        <input type="radio" name="consultation" value="express" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue ml-4" onchange="selectConsultationType('express')">
+                    </label>
+
+                    <!-- Live Video Consultation -->
+                    <label class="flex cursor-pointer items-center justify-between rounded-2xl border-2 border-slate-200 bg-slate-50 p-6 transition-all hover:border-statwell-blue hover:shadow-lg consultation-option">
+                        <div class="flex items-start gap-4 flex-1">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 flex-shrink-0">
+                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-slate-900 mb-1">Live Video Consultation</h3>
+                                <p class="text-sm text-slate-600 mb-3">Connect face-to-face with a medical professional for personalized guidance and real-time support.</p>
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <svg class="h-4 w-4 text-statwell-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Real-time video consultation</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-slate-600">
+                                    <svg class="h-4 w-4 text-statwell-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Interactive Q&A session</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-slate-900">$129.99</span>
+                            </div>
+                        </div>
+                        <input type="radio" name="consultation" value="live" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue ml-4" onchange="selectConsultationType('live')">
+                    </label>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(getPreviousStep())" class="rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                        Back
+                    </button>
+                    <button onclick="proceedToNextStep()" id="continue-btn-3" class="rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Confirm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4a: Calendar Selection (For Live Consultation) -->
+            <div id="step-4-calendar" class="step-content hidden">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-2 text-center">Set time and date</h1>
+                
+                <div class="grid gap-8 lg:grid-cols-2 mt-8">
+                    <!-- Calendar -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <button onclick="changeMonth(-1)" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                                <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <h2 class="text-lg font-bold text-slate-900" id="current-month-year">November 2025</h2>
+                            <button onclick="changeMonth(1)" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                                <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2 mb-4">
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">SUN</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">MON</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">TUE</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">WED</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">THU</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">FRI</div>
+                            <div class="text-center text-xs font-semibold text-slate-500 py-2">SAT</div>
+                        </div>
+                        <div id="calendar-days" class="grid grid-cols-7 gap-2">
+                            <!-- Calendar days will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Time Slots -->
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Timezone</label>
+                            <select id="timezone-select" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20">
+                                <option value="Africa/Lagos">Africa/Lagos</option>
+                                <option value="America/New_York">America/New_York</option>
+                                <option value="America/Chicago">America/Chicago</option>
+                                <option value="America/Denver">America/Denver</option>
+                                <option value="America/Los_Angeles">America/Los_Angeles</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-3">Available Time Slots</label>
+                            <div id="time-slots" class="space-y-2 max-h-96 overflow-y-auto">
+                                <!-- Time slots will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(3)" class="rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                        Back
+                    </button>
+                    <button onclick="proceedToNextStep()" id="continue-btn-4-calendar" class="rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4b: Confirm Details (For Live Consultation) -->
+            <div id="step-4-confirm" class="step-content hidden">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-8 text-center">Confirm details</h1>
+                
+                <div class="grid gap-8 lg:grid-cols-2">
+                    <!-- Consultation Details -->
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 mb-4">Weight Loss Consultation</h2>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-slate-700" id="confirm-date">Tuesday, Nov 18, 2025</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                <span class="text-slate-700" id="confirm-time">05:00 PM, Africa/Lagos</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-slate-700">60 mins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Details Form -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Name</label>
+                            <input type="text" id="confirm-name" value="Henrietta Onwuneme" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Email address</label>
+                            <input type="email" id="confirm-email" value="onwunemehenrietta7+1@gmail.com" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
+                            <div class="flex gap-2">
+                                <select class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20">
+                                    <option>+1</option>
+                                    <option>+44</option>
+                                    <option>+234</option>
+                                </select>
+                                <input type="tel" id="confirm-phone" value="3012345567" class="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Please share anything that will help prepare for our meeting.</label>
+                            <textarea rows="3" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-statwell-blue focus:outline-none focus:ring-2 focus:ring-statwell-blue/20" placeholder="Optional notes..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep('4-calendar')" class="rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                        Back
+                    </button>
+                    <button onclick="proceedToPayment()" class="rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Payment (Stripe) -->
+            <div id="step-5-payment" class="step-content hidden">
+                <h1 class="text-3xl font-bold text-statwell-navy mb-2 text-center">Complete Payment</h1>
+                <p class="text-base text-slate-600 mb-8 text-center">Secure payment processing powered by Stripe</p>
+                
+                <div class="max-w-md mx-auto">
+                    <div class="bg-slate-50 rounded-2xl p-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-600">Consultation Type:</span>
+                            <span class="font-semibold text-slate-900" id="payment-consultation-type">Express Consultation</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-600">Medication:</span>
+                            <span class="font-semibold text-slate-900" id="payment-medication">Compounded Semaglutide</span>
+                        </div>
+                        <div class="border-t border-slate-200 pt-4 mt-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold text-slate-900">Total:</span>
+                                <span class="text-2xl font-bold text-statwell-blue" id="payment-total">$49.99</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stripe Payment Form Placeholder -->
+                    <div class="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-12 text-center">
+                        <svg class="h-16 w-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                        <p class="text-slate-600 mb-4">Stripe Payment Integration</p>
+                        <p class="text-sm text-slate-400">In production, this would integrate with Stripe Checkout or Stripe Elements</p>
+                        <button onclick="simulatePayment()" class="mt-6 rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">
+                            Complete Payment (Demo)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <button onclick="goToStep(getPreviousStep())" class="rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                        Back
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 6: Success Screen -->
+            <div id="step-6-success" class="step-content hidden">
+                <div class="text-center max-w-md mx-auto">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-green-100 mb-4">
+                            <svg class="h-12 w-12 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h1 class="text-3xl font-bold text-slate-900 mb-2">Consultation Booked!</h1>
+                    <p class="text-base text-slate-600 mb-8">Your consultation has been successfully scheduled. You'll receive a confirmation email shortly.</p>
+                    
+                    <div class="bg-slate-50 rounded-2xl p-6 mb-8 text-left">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-slate-600">Transaction Date:</span>
+                            <span class="font-semibold text-slate-900" id="success-date">Nov 18, 2025</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Service:</span>
+                            <span class="font-semibold text-slate-900">Weight loss consultation</span>
+                        </div>
+                    </div>
+
+                    <button onclick="goToDashboard()" class="w-full rounded-full bg-statwell-blue px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-600">
+                        Go to dashboard
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentStep = 1;
+        let selectedMedication = null;
+        let selectedConsultationType = null;
+        let selectedDate = null;
+        let selectedTime = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCalendar();
+            generateTimeSlots();
+        });
+
+        // Toggle medication details (when clicking the card)
+        function toggleMedicationDetails(medication) {
+            const detailsContainer = document.getElementById('medication-details-container');
+            const detailsContent = document.getElementById('medication-details-content');
+            const template = document.getElementById(`details-${medication}`);
+            
+            if (detailsContainer && detailsContent && template) {
+                // Check if this medication's details are currently showing
+                const currentHeading = detailsContent.querySelector('h4');
+                const isCurrentlyShowing = !detailsContainer.classList.contains('hidden') && 
+                                         currentHeading && 
+                                         currentHeading.textContent.toLowerCase().includes(medication.toLowerCase());
+                
+                if (detailsContainer.classList.contains('hidden') || !isCurrentlyShowing) {
+                    // Show the details
+                    detailsContent.innerHTML = template.innerHTML;
+                    detailsContainer.classList.remove('hidden');
+                    
+                    // Apply medication-specific styling to details container
+                    updateDetailsContainerStyle(medication, detailsContainer);
+                    
+                    // Scroll to details
+                    detailsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    // Hide the details (clicking same card again)
+                    detailsContainer.classList.add('hidden');
+                }
+            }
+        }
+
+        // Update details container styling based on selected medication
+        function updateDetailsContainerStyle(medication, container) {
+            // Remove all medication color classes
+            container.classList.remove(
+                'border-emerald-300', 'bg-emerald-50',
+                'border-amber-300', 'bg-amber-50',
+                'border-statwell-blue', 'bg-blue-50'
+            );
+            
+            // Add appropriate color classes based on medication
+            if (medication === 'semaglutide') {
+                container.classList.add('border-emerald-300', 'bg-emerald-50');
+            } else if (medication === 'tirzepatide') {
+                container.classList.add('border-amber-300', 'bg-amber-50');
+            } else if (medication === 'zepbound') {
+                container.classList.add('border-statwell-blue', 'bg-blue-50');
+            }
+        }
+
+        // Medication selection (when clicking the radio button or card)
+        function selectMedication(medication) {
+            selectedMedication = medication;
+            
+            // Select the radio button
+            const radio = document.querySelector(`input[name="medication"][value="${medication}"]`);
+            if (radio) {
+                radio.checked = true;
+            }
+
+            // Update card border - keep colored borders
+            document.querySelectorAll('.medication-card').forEach(card => {
+                if (card.dataset.medication === medication) {
+                    // Add stronger border for selected
+                    if (medication === 'semaglutide') {
+                        card.classList.remove('border-emerald-300');
+                        card.classList.add('border-emerald-500');
+                    } else if (medication === 'tirzepatide') {
+                        card.classList.remove('border-amber-300');
+                        card.classList.add('border-amber-500');
+                    } else if (medication === 'zepbound') {
+                        card.classList.remove('border-statwell-blue');
+                        card.classList.add('border-blue-600');
+                    }
+                } else {
+                    // Reset to default colored borders
+                    if (card.dataset.medication === 'semaglutide') {
+                        card.classList.remove('border-emerald-500');
+                        card.classList.add('border-emerald-300');
+                    } else if (card.dataset.medication === 'tirzepatide') {
+                        card.classList.remove('border-amber-500');
+                        card.classList.add('border-amber-300');
+                    } else if (card.dataset.medication === 'zepbound') {
+                        card.classList.remove('border-blue-600');
+                        card.classList.add('border-statwell-blue');
+                    }
+                }
+            });
+
+            // Update details container style if it's visible
+            const detailsContainer = document.getElementById('medication-details-container');
+            if (detailsContainer && !detailsContainer.classList.contains('hidden')) {
+                updateDetailsContainerStyle(medication, detailsContainer);
+            }
+
+            // Enable continue button
+            document.getElementById('continue-btn-1').disabled = false;
+        }
+
+        function proceedToNextStep() {
+            if (currentStep === 1) {
+                // Check if vitamin selection is needed
+                if (selectedMedication === 'semaglutide' || selectedMedication === 'tirzepatide') {
+                    goToStep(2);
+                } else {
+                    // Skip vitamin step for Zepbound
+                    goToStep(3);
+                }
+            } else if (currentStep === 2) {
+                goToStep(3);
+            } else if (currentStep === 3) {
+                if (selectedConsultationType === 'express') {
+                    // Go directly to payment
+                    goToStep('5-payment');
+                } else {
+                    // Go to calendar for live consultation
+                    goToStep('4-calendar');
+                }
+            } else if (currentStep === '4-calendar' || currentStep === 4) {
+                // From calendar to confirm details
+                if (selectedDate && selectedTime) {
+                    goToStep('4-confirm');
+                }
+            }
+        }
+
+        function goToStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Show target step
+            let stepId = typeof step === 'number' ? `step-${step}` : `step-${step}`;
+            const targetStep = document.getElementById(stepId);
+            if (targetStep) {
+                targetStep.classList.remove('hidden');
+                // Store step as string if it contains a dash, otherwise as number
+                if (typeof step === 'string' && step.includes('-')) {
+                    currentStep = step;
+                } else {
+                    currentStep = typeof step === 'number' ? step : parseInt(step.split('-')[1]);
+                }
+                
+                // Initialize calendar if showing calendar step
+                if (stepId === 'step-4-calendar') {
+                    updateCalendar();
+                    generateTimeSlots();
+                    // Reset selections when entering calendar step
+                    selectedDate = null;
+                    selectedTime = null;
+                    checkCalendarContinue();
+                }
+            }
+        }
+
+        function getPreviousStep() {
+            if (currentStep === 3 && (selectedMedication === 'semaglutide' || selectedMedication === 'tirzepatide')) {
+                return 2;
+            } else if (currentStep === 3 && selectedMedication === 'zepbound') {
+                return 1;
+            } else if (currentStep === '4-confirm') {
+                return '4-calendar';
+            } else if (currentStep === '4-calendar' || currentStep === 4) {
+                return 3;
+            }
+            return currentStep - 1;
+        }
+
+        // Toggle vitamin details (when clicking the card)
+        function toggleVitaminDetails(vitamin) {
+            const allDetails = document.querySelectorAll('.vitamin-details');
+            const selectedCard = document.querySelector(`[data-vitamin="${vitamin}"]`);
+            if (selectedCard) {
+                const selectedDetails = selectedCard.querySelector('.vitamin-details');
+                allDetails.forEach(detail => {
+                    if (detail === selectedDetails) {
+                        detail.classList.toggle('hidden');
+                    } else {
+                        detail.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // Vitamin selection (when clicking the radio button or card)
+        function selectVitamin(vitamin) {
+            // Select the radio button
+            const radio = document.querySelector(`input[name="vitamin"][value="${vitamin}"]`);
+            if (radio) {
+                radio.checked = true;
+            }
+
+            // Update card border to show selection
+            document.querySelectorAll('.vitamin-card').forEach(card => {
+                if (card.dataset.vitamin === vitamin) {
+                    // Add stronger border for selected based on vitamin type
+                    const cardVitamin = card.dataset.vitamin;
+                    if (cardVitamin === 'b6') {
+                        card.classList.remove('border-pink-200');
+                        card.classList.add('border-pink-400');
+                    } else if (cardVitamin === 'b12') {
+                        card.classList.remove('border-amber-200');
+                        card.classList.add('border-amber-400');
+                    } else if (cardVitamin === 'l-carnitine') {
+                        card.classList.remove('border-green-200');
+                        card.classList.add('border-green-400');
+                    } else if (cardVitamin === 'any') {
+                        card.classList.remove('border-slate-200');
+                        card.classList.add('border-slate-400');
+                    }
+                } else {
+                    // Reset to default borders based on vitamin type
+                    const cardVitamin = card.dataset.vitamin;
+                    if (cardVitamin === 'b6') {
+                        card.classList.remove('border-pink-400');
+                        card.classList.add('border-pink-200');
+                    } else if (cardVitamin === 'b12') {
+                        card.classList.remove('border-amber-400');
+                        card.classList.add('border-amber-200');
+                    } else if (cardVitamin === 'l-carnitine') {
+                        card.classList.remove('border-green-400');
+                        card.classList.add('border-green-200');
+                    } else if (cardVitamin === 'any') {
+                        card.classList.remove('border-slate-400');
+                        card.classList.add('border-slate-200');
+                    }
+                }
+            });
+
+            // Enable continue button
+            const btn = document.getElementById('continue-btn-2');
+            if (btn) {
+                btn.disabled = false;
+            }
+        }
+
+        function selectConsultationType(type) {
+            selectedConsultationType = type;
+            document.getElementById('continue-btn-3').disabled = false;
+
+            // Update visual selection
+            document.querySelectorAll('.consultation-option').forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                if (radio.value === type) {
+                    option.classList.add('border-statwell-blue');
+                    option.classList.remove('border-slate-200');
+                } else {
+                    option.classList.remove('border-statwell-blue');
+                    option.classList.add('border-slate-200');
+                }
+            });
+        }
+
+        // Calendar functions
+        function updateCalendar() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const container = document.getElementById('calendar-days');
+            container.innerHTML = '';
+
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                container.appendChild(emptyDiv);
+            }
+
+            // Add day cells
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'text-center py-2 rounded-lg cursor-pointer hover:bg-slate-100 transition';
+                dayDiv.textContent = day;
+                dayDiv.onclick = () => selectDate(day);
+                
+                // Highlight today
+                const today = new Date();
+                if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                    dayDiv.classList.add('bg-statwell-blue', 'text-white');
+                }
+                
+                container.appendChild(dayDiv);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendar();
+        }
+
+        function selectDate(day) {
+            selectedDate = new Date(currentYear, currentMonth, day);
+            
+            // Update visual selection
+            document.querySelectorAll('#calendar-days > div').forEach(div => {
+                div.classList.remove('bg-statwell-blue', 'text-white');
+                if (parseInt(div.textContent) === day && div.textContent) {
+                    div.classList.add('bg-statwell-blue', 'text-white');
+                }
+            });
+
+            // Update confirm details
+            if (selectedDate) {
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = dayNames[selectedDate.getDay()];
+                const monthName = monthNames[selectedDate.getMonth()];
+                const dayNum = selectedDate.getDate();
+                document.getElementById('confirm-date').textContent = `${dayName}, ${monthName} ${dayNum}, ${selectedDate.getFullYear()}`;
+            }
+
+            checkCalendarContinue();
+        }
+
+        function generateTimeSlots() {
+            const container = document.getElementById('time-slots');
+            const slots = ['04:00pm', '05:00pm', '06:00pm', '07:00pm', '08:00pm', '09:00pm'];
+            container.innerHTML = '';
+
+            slots.forEach(slot => {
+                const slotDiv = document.createElement('label');
+                slotDiv.className = 'flex cursor-pointer items-center justify-between rounded-lg border-2 border-slate-200 bg-white p-4 transition hover:border-statwell-blue';
+                slotDiv.innerHTML = `
+                    <span class="text-slate-900 font-medium">${slot}</span>
+                    <input type="radio" name="time-slot" value="${slot}" class="h-5 w-5 text-statwell-blue focus:ring-statwell-blue" onchange="selectTime('${slot}')">
+                `;
+                container.appendChild(slotDiv);
+            });
+        }
+
+        function selectTime(time) {
+            selectedTime = time;
+            const timezone = document.getElementById('timezone-select').value;
+            document.getElementById('confirm-time').textContent = `${time}, ${timezone}`;
+            checkCalendarContinue();
+        }
+
+        function checkCalendarContinue() {
+            const btn = document.getElementById('continue-btn-4-calendar');
+            if (btn) {
+                btn.disabled = !(selectedDate && selectedTime);
+            }
+        }
+
+        function proceedToPayment() {
+            goToStep('5-payment');
+            updatePaymentDetails();
+        }
+
+        function updatePaymentDetails() {
+            const consultationTypes = {
+                'express': 'Express Consultation - $49.99',
+                'live': 'Live Video Consultation - $129.99'
+            };
+            const medicationNames = {
+                'semaglutide': 'Compounded Semaglutide',
+                'tirzepatide': 'Tirzepatide',
+                'zepbound': 'Zepbound (Brand Tirzepatide)'
+            };
+
+            document.getElementById('payment-consultation-type').textContent = selectedConsultationType === 'express' ? 'Express Consultation' : 'Live Video Consultation';
+            document.getElementById('payment-medication').textContent = medicationNames[selectedMedication];
+            document.getElementById('payment-total').textContent = selectedConsultationType === 'express' ? '$49.99' : '$129.99';
+        }
+
+        function simulatePayment() {
+            // Simulate payment processing
+            setTimeout(() => {
+                goToStep('6-success');
+                document.getElementById('success-date').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }, 500);
+        }
+
+        function goToDashboard() {
+            // Redirect to dashboard (will be created separately)
+            window.location.href = 'weightloss-dashboard.html';
+        }
+
+        // Update timezone selection
+        document.getElementById('timezone-select')?.addEventListener('change', function() {
+            if (selectedTime) {
+                document.getElementById('confirm-time').textContent = `${selectedTime}, ${this.value}`;
+            }
+        });
+    </script>
+</body>
+</html>
+

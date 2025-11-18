@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatWellMD Weight Loss Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        statwell: {
+                            blue: '#5D78FF',
+                            teal: '#40BFAA',
+                            navy: '#2A3B54',
+                            accent: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        panel: '0 30px 70px rgba(42, 59, 84, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        html, body { min-height: 100%; }
+    </style>
+</head>
+<body class="min-h-full bg-slate-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Left Sidebar -->
+        <aside class="w-64 bg-statwell-navy text-white flex flex-col">
+            <div class="p-6 border-b border-white/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-statwell-blue text-white font-bold">WL</div>
+                    <div>
+                        <div class="font-semibold text-white">Weight Loss</div>
+                        <div class="text-sm text-white/70">Henrietta Onwuneme</div>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 space-y-2" id="sidebar-nav">
+                <a href="#" class="guide-target flex items-center gap-3 px-4 py-3 rounded-lg bg-statwell-blue/20 text-white hover:bg-statwell-blue/30 transition relative">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span>Home</span>
+                    <span class="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-statwell-blue text-xs font-semibold text-white">3</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span>Diet & Fitness</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Support</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-slate-100">
+            <div class="p-8">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-statwell-navy">Welcome, Henrietta</h1>
+                    <p class="text-slate-600 mt-1">Home</p>
+                </div>
+
+                <!-- Weight Stats -->
+                <div class="bg-white rounded-2xl p-6 shadow-panel mb-6">
+                    <div class="text-sm font-semibold text-statwell-navy mb-4">HO Henrietta Onwuneme</div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <div class="text-sm text-slate-600 mb-1">Current Weight</div>
+                            <div class="text-2xl font-bold text-statwell-navy">300 lbs</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-slate-600 mb-1">Goal Weight</div>
+                            <div class="text-2xl font-bold text-statwell-navy">190 lbs</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-slate-600 mb-1">Time Frame</div>
+                            <div class="text-2xl font-bold text-statwell-navy">8 months</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month Section -->
+                <div class="bg-white rounded-2xl p-6 shadow-panel guide-target-month" id="month-section">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-statwell-navy">Month (November)</h2>
+                        <div class="text-sm text-slate-600">Ongoing <svg class="inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="flex gap-4 mb-6 guide-target-tabs" id="tabs-section">
+                        <button class="px-4 py-2 rounded-lg bg-statwell-blue text-white font-semibold text-sm relative">
+                            To-do
+                            <span class="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs font-semibold">3</span>
+                        </button>
+                        <button class="px-4 py-2 rounded-lg text-slate-600 font-semibold text-sm hover:bg-slate-50">
+                            Completed
+                            <span class="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-200 text-xs font-semibold text-slate-600">1</span>
+                        </button>
+                    </div>
+
+                    <!-- Tasks -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 rounded-lg border border-slate-200 hover:border-statwell-blue/50 transition">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-slate-300"></div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-statwell-navy">GLP-1 Booklet Acknowledgment</div>
+                                <div class="text-sm text-slate-600 mt-1">Tuesday, November 18, 2025</div>
+                            </div>
+                            <button class="px-4 py-2 rounded-full bg-statwell-blue text-white text-sm font-semibold hover:bg-blue-600 transition">Get started</button>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-lg border border-slate-200 hover:border-statwell-blue/50 transition">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-slate-300"></div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-statwell-navy">Verify Your Identity</div>
+                                <div class="text-sm text-slate-600 mt-1">Tuesday, November 18, 2025</div>
+                            </div>
+                            <button class="px-4 py-2 rounded-full bg-statwell-blue text-white text-sm font-semibold hover:bg-blue-600 transition">Get started</button>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-lg border border-slate-200 hover:border-statwell-blue/50 transition">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-slate-300"></div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-statwell-navy">Join appointment meeting</div>
+                                <div class="text-sm text-slate-600 mt-1">Tuesday, November 18, 2025 5:00 PM</div>
+                            </div>
+                            <button class="px-4 py-2 rounded-full bg-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-300 transition">Join Meeting</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Snapshot Button -->
+                <div class="mt-6 text-center guide-target-snapshot" id="snapshot-section">
+                    <button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-statwell-navy font-semibold hover:bg-slate-50 transition">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                        Expand Medical Snapshot
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Onboarding Guide Overlay -->
+    <div id="guide-overlay" class="fixed inset-0 z-50 pointer-events-none">
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-black/40 pointer-events-auto"></div>
+        
+        <!-- Guide Modal -->
+        <div id="guide-modal" class="hidden absolute rounded-2xl bg-statwell-navy text-white p-6 shadow-2xl max-w-sm pointer-events-auto z-10">
+            <h3 class="text-xl font-bold mb-3" id="guide-title">Sidebar Navigation</h3>
+            <p class="text-sm text-white/80 mb-6" id="guide-text">This is your main Navigation Menu. Each section is designed to guide you through the important steps in your journey.</p>
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-white/60" id="guide-progress">1/5</span>
+                <div class="flex gap-3">
+                    <button onclick="skipGuide()" class="text-sm text-white/70 hover:text-white transition">Skip Guide</button>
+                    <button onclick="nextGuide()" id="guide-next-btn" class="px-6 py-2 rounded-full bg-statwell-blue text-white text-sm font-semibold hover:bg-blue-600 transition">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentGuideStep = 0;
+        const guides = [
+            {
+                title: "Sidebar Navigation",
+                text: "This is your main Navigation Menu. Each section is designed to guide you through the important steps in your journey.",
+                target: "sidebar-nav",
+                position: "right"
+            },
+            {
+                title: "Timeline Progress by Month",
+                text: "Your journey is organized in months. This is where all your important tasks appear. Completing these tasks is essential to move forward in your program.",
+                target: "month-section",
+                position: "right"
+            },
+            {
+                title: "To-do vs Completed Tabs",
+                text: "Use the To-do tab to see what still needs to be done, and the completed tab to confirm your progress. Finishing your To-do tasks ensures you stay on track.",
+                target: "tabs-section",
+                position: "bottom"
+            },
+            {
+                title: "Expand Medical Snapshot",
+                text: "Click here to expand and view your medical snapshot. You can update your medical information on your Medical dashboard.",
+                target: "snapshot-section",
+                position: "top"
+            },
+            {
+                title: "Switch to Medical Dashboard",
+                text: "Here you can switch to your full medical dashboard. This is where you'll manage your medication history, prescriptions, and other medical records.",
+                target: null,
+                position: "center"
+            }
+        ];
+
+        // Check if this is first-time user
+        const isFirstTime = !localStorage.getItem('weightloss-dashboard-visited');
+        
+        if (isFirstTime) {
+            // Show guide after a brief delay
+            setTimeout(() => {
+                showGuide(0);
+            }, 500);
+        }
+
+        function showGuide(step) {
+            currentGuideStep = step;
+            const guide = guides[step];
+            const modal = document.getElementById('guide-modal');
+            const overlay = document.getElementById('guide-overlay');
+            const nextBtn = document.getElementById('guide-next-btn');
+            
+            // Update modal content
+            document.getElementById('guide-title').textContent = guide.title;
+            document.getElementById('guide-text').textContent = guide.text;
+            document.getElementById('guide-progress').textContent = `${step + 1}/5`;
+            
+            // Update button text
+            if (step === guides.length - 1) {
+                nextBtn.textContent = 'Finish';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            
+            // Position modal
+            if (guide.target) {
+                const target = document.getElementById(guide.target);
+                if (target) {
+                    const rect = target.getBoundingClientRect();
+                    const modalWidth = 320; // max-w-sm = 384px, but we'll use 320 for better spacing
+                    const modalHeight = 200; // approximate height
+                    let top, left;
+                    
+                    if (guide.position === 'right') {
+                        left = rect.right + 20;
+                        top = rect.top + (rect.height / 2);
+                        modal.style.transform = 'translateY(-50%)';
+                    } else if (guide.position === 'bottom') {
+                        left = rect.left + (rect.width / 2);
+                        top = rect.bottom + 20;
+                        modal.style.transform = 'translateX(-50%)';
+                    } else if (guide.position === 'top') {
+                        left = rect.left + (rect.width / 2);
+                        top = rect.top - modalHeight - 20;
+                        modal.style.transform = 'translateX(-50%)';
+                    } else {
+                        left = window.innerWidth / 2;
+                        top = window.innerHeight / 2;
+                        modal.style.transform = 'translate(-50%, -50%)';
+                    }
+                    
+                    // Keep modal within viewport
+                    if (left + modalWidth > window.innerWidth) {
+                        left = window.innerWidth - modalWidth - 20;
+                    }
+                    if (left < 20) {
+                        left = 20;
+                    }
+                    if (top + modalHeight > window.innerHeight) {
+                        top = window.innerHeight - modalHeight - 20;
+                    }
+                    if (top < 20) {
+                        top = 20;
+                    }
+                    
+                    modal.style.left = `${left}px`;
+                    modal.style.top = `${top}px`;
+                }
+            } else {
+                // Center modal
+                modal.style.left = '50%';
+                modal.style.top = '50%';
+                modal.style.transform = 'translate(-50%, -50%)';
+            }
+            
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        }
+
+        function nextGuide() {
+            if (currentGuideStep < guides.length - 1) {
+                showGuide(currentGuideStep + 1);
+            } else {
+                finishGuide();
+            }
+        }
+
+        function skipGuide() {
+            finishGuide();
+        }
+
+        function finishGuide() {
+            document.getElementById('guide-modal').classList.add('hidden');
+            document.getElementById('guide-overlay').classList.add('hidden');
+            localStorage.setItem('weightloss-dashboard-visited', 'true');
+        }
+
+        // Handle window resize to reposition guide
+        window.addEventListener('resize', () => {
+            if (!document.getElementById('guide-modal').classList.contains('hidden')) {
+                showGuide(currentGuideStep);
+            }
+        });
+    </script>
+</body>
+</html>
+
