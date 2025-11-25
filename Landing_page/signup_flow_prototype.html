@@ -7,311 +7,92 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'statwell-teal': '#40BFAA',
+                        'statwell-blue': '#5D78FF',
+                        'statwell-hero-blue': '#007BFF',
+                        'statwell-gray': '#94A49A',
+                        'statwell-navy': '#2A3B54',
+                        'statwell-coral': '#FF6B6B',
+                        'statwell-white': '#F5F7FA',
+                    },
+                    fontFamily: {
+                        'primary': ['Avenir Next', 'sans-serif'],
+                        'secondary': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            /* StatwellMD Colors */
-            --statwell-teal: #40BFAA;
-            --statwell-blue: #5D78FF;
-            --statwell-hero-blue: #007BFF;
-            --statwell-gray: #94A49A;
-            --statwell-teal-light: #65D5B8;
-            --statwell-navy: #2A3B54;
-            --statwell-coral: #FF6B6B;
-            --statwell-white: #F5F7FA;
-            --white: #FFFFFF;
-            --black: #000000;
-            --light-gray: #f1f3f6;
-
-            /* Base */
-            --bg-primary: var(--white);
-            --bg-secondary: var(--statwell-white);
-            --text-primary: var(--statwell-navy);
-            --text-secondary: var(--statwell-gray);
-            --border-primary: var(--statwell-gray);
-            --border-secondary: #e0e0e0;
-
-            /* Functional Colors */
-            --primary: var(--statwell-blue);
-            --secondary: var(--statwell-teal);
-            --success: #10B981;
-            --warning: #F59E0B;
-            --error: var(--statwell-coral);
-            --info: var(--statwell-blue);
-            
-            /* Fonts */
-            --font-primary: 'Avenir Next', sans-serif;
-            --font-secondary: 'Inter', sans-serif;
-            
-            /* Spacing & Animation */
-            --space-sm: 8px; 
-            --space-md: 16px; 
-            --space-lg: 24px; 
-            --space-xl: 32px;
-            --anim-normal: 0.2s;
-            --smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        /* Custom styles only for complex features that can't be done with Tailwind */
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-        }
-        
-        body { 
-            font-family: var(--font-secondary); 
-            line-height: 1.6; 
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--space-md);
-        }
-
-        /* Modal Overlay */
-        .modal-overlay {
-            position: fixed;
+        /* Left panel background image and overlay */
+        .left-panel-bg::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s var(--smooth);
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1000');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Main Modal Container - Modern Patient Snap Info Style */
-        .signup-modal {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 480px;
-            max-height: 90vh;
-            overflow: hidden;
-            border: 1px solid rgba(93, 120, 255, 0.12);
-            position: relative;
-            transform: translateY(30px) scale(0.95);
-            transition: all 0.3s var(--smooth);
-        }
-        .signup-modal:hover {
-            border-color: rgba(93, 120, 255, 0.25);
-            box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
-        }
-
-        .modal-overlay.active .signup-modal {
-            transform: translateY(0) scale(1);
-        }
-
-        /* Close Button */
-        .close-btn {
+        .left-panel-bg::after {
+            content: '';
             position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            z-index: 10;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s;
-        }
-
-        .close-btn:hover {
-            background: var(--light-gray);
-            color: var(--text-primary);
-        }
-
-        /* Modal Content */
-        .modal-content {
-            padding: var(--space-xl);
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        /* Flow Steps */
-        .flow-step {
-            display: none;
-            animation: slideIn 0.4s var(--smooth);
-        }
-
-        .flow-step.active {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOut {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-        }
-
-        /* Headers */
-        .step-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
-        }
-
-        .step-title {
-            font-size: 24px;
-            font-weight: 700;
-            font-family: var(--font-primary);
-            color: var(--text-primary);
-            margin-bottom: var(--space-sm);
-        }
-
-        .step-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: var(--space-md);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(93, 120, 255, 0.12);
-            border-radius: 12px;
-            font-size: 16px;
-            background: var(--bg-primary);
-            transition: all var(--anim-normal);
-            outline: none;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
-        }
-
-        .form-input.error {
-            border-color: var(--error);
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Phone Input */
-        .phone-input {
-            display: flex;
-            gap: var(--space-sm);
-        }
-
-        .country-code {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px;
-            border: 1px solid var(--border-secondary);
-            border-radius: 12px;
-            background: var(--light-gray);
-            font-size: 16px;
-            min-width: 80px;
-        }
-
-        .flag-emoji {
-            font-size: 18px;
-        }
-
-        /* Dropdown Styles */
-        .dropdown-container {
-            position: relative;
-        }
-
-        .dropdown-input {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-right: 40px;
-        }
-
-        .dropdown-arrow {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            transition: transform 0.2s;
-        }
-
-        .dropdown-container.open .dropdown-arrow {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
+            top: 0;
             left: 0;
             right: 0;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-secondary);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(93, 120, 255, 0.4) 0%, rgba(37, 99, 235, 0.4) 100%);
+            backdrop-filter: blur(1px);
+            z-index: 1;
         }
 
-        .dropdown-container.open .dropdown-menu {
-            display: block;
-            animation: dropdownSlide 0.2s var(--smooth);
+        /* Speech bubble arrow */
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(255, 255, 255, 0.95);
         }
 
+        /* Step container animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-container.active {
+            display: block !important;
+            animation: fadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Dropdown animations */
         @keyframes dropdownSlide {
             from {
                 opacity: 0;
@@ -323,114 +104,17 @@
             }
         }
 
-        .dropdown-search {
-            padding: 12px;
-            border: none;
-            border-bottom: 1px solid var(--border-secondary);
-            outline: none;
-            width: 100%;
+        .dropdown-container.open .dropdown-menu {
+            animation: dropdownSlide 0.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .dropdown-option {
-            padding: 12px;
-            cursor: pointer;
-            transition: background 0.1s;
+        .dropdown-container.open .dropdown-arrow {
+            transform: translateY(-50%) rotate(180deg);
         }
 
-        .dropdown-option:hover {
-            background: var(--light-gray);
-        }
-
-        /* Date Input */
-        .date-input {
-            position: relative;
-        }
-
-        .date-input input[type="date"] {
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        /* Checkbox */
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-sm);
-            margin: var(--space-lg) 0;
-        }
-
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-        }
-
-        .checkbox-label {
-            font-size: 14px;
-            line-height: 1.4;
-            color: var(--text-secondary);
-        }
-
-        .checkbox-label a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* Buttons */
-        .btn {
-            width: 100%;
-            padding: 12px 24px;
-            border: 1px solid transparent;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--anim-normal) var(--smooth);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            min-height: 44px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left var(--anim-normal);
-        }
-
-        .btn:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #4c63d2);
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(93, 120, 255, 0.4);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .btn-loading {
-            position: relative;
-            color: transparent;
+        /* Button loading spinner */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .btn-loading::after {
@@ -442,217 +126,62 @@
             border-top: 2px solid currentColor;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            color: var(--white);
+            color: white;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        /* Modal animations */
+        .modal-overlay.active {
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
-        /* Login Link */
-        .login-link {
-            text-align: center;
-            margin-top: var(--space-lg);
-            font-size: 14px;
-            color: var(--text-secondary);
+        .modal-overlay.active .otp-modal {
+            transform: translateY(0) scale(1);
         }
 
-        .login-link a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
+        /* Form validation states */
+        .form-input.valid {
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
-        /* Verification Code Input */
-        .verification-step {
-            text-align: center;
+        .form-input.invalid {
+            border-color: #FF6B6B;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
         }
 
-        .back-btn {
-            position: absolute;
-            top: var(--space-md);
-            left: var(--space-md);
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s;
+        /* Custom scrollbars */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .back-btn:hover {
-            background: var(--light-gray);
-            color: var(--text-primary);
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f3f6;
+            border-radius: 3px;
         }
 
-        .email-info {
-            background: var(--light-gray);
-            padding: var(--space-md);
-            border-radius: 12px;
-            margin: var(--space-lg) 0;
-            font-size: 14px;
-            color: var(--text-secondary);
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #5D78FF;
+            border-radius: 3px;
         }
 
-        .code-inputs {
-            display: flex;
-            gap: var(--space-sm);
-            justify-content: center;
-            margin: var(--space-xl) 0;
+        .custom-scrollbar-light::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .code-input {
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(93, 120, 255, 0.12);
-            border-radius: 12px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 600;
-            outline: none;
-            transition: all var(--anim-normal);
+        .custom-scrollbar-light::-webkit-scrollbar-track {
+            background: transparent;
         }
 
-        .code-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+        .custom-scrollbar-light::-webkit-scrollbar-thumb {
+            background: #e0e0e0;
+            border-radius: 3px;
         }
 
-        .code-input.filled {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        .timer-section {
-            margin-top: var(--space-lg);
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .timer {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .resend-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* Success/Error Messages */
-        .message {
-            padding: var(--space-md);
-            border-radius: 12px;
-            margin: var(--space-md) 0;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .message.success {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .message.error {
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-
-        /* Notification Modal */
-        .notification-modal {
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: var(--space-xl);
-            text-align: center;
-            max-width: 400px;
-            box-shadow: 0 4px 12px rgba(42, 59, 84, 0.08);
-            border: 1px solid var(--border-secondary);
-        }
-
-        .notification-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto var(--space-md);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-
-        .notification-icon.success {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-
-        .notification-icon.info {
-            background: rgba(93, 120, 255, 0.1);
-            color: var(--primary);
-        }
-
-        /* Card Style - Modern Patient Snap Info Style */
-        .card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: var(--space-lg);
-            border: 1px solid rgba(93, 120, 255, 0.12);
-            position: relative;
-            transition: all var(--anim-normal);
-            margin-bottom: var(--space-sm);
-        }
-        .card:hover {
-            border-color: rgba(93, 120, 255, 0.25);
-            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 { 
-            font-family: var(--font-primary); 
-            font-weight: 700; 
-        }
-        .text-title { 
-            font-size: 18px; 
-            font-weight: 600; 
-            font-family: var(--font-primary); 
-        }
-        .text-caption { 
-            font-size: 14px; 
-            font-weight: 500; 
-        }
-        .text-muted { 
-            color: var(--text-secondary); 
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            .signup-modal {
-                width: 95%;
-                margin: var(--space-md);
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .code-inputs {
-                gap: 6px;
-            }
-
-            .code-input {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
+        /* Date input appearance */
+        .date-input input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
         }
 
         /* Reduced Motion */
@@ -665,193 +194,236 @@
         }
     </style>
 </head>
-<body>
-    <!-- Main Modal Overlay -->
-    <div class="modal-overlay active" id="modalOverlay">
-        <div class="signup-modal">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            
-            <!-- Step 1: Registration Form -->
-            <div class="flow-step active" id="step1">
-                <div class="modal-content">
-                    <div class="step-header">
-                        <h2 class="step-title">Register Now</h2>
-                        <p class="step-subtitle">Let's create an account for you, before you continue.</p>
+<body class="font-secondary bg-statwell-white text-statwell-navy min-h-screen flex overflow-hidden">
+    <!-- Step 1: Signup Page -->
+    <div class="flex flex-col md:flex-row w-full min-h-screen overflow-hidden" id="signupPage">
+        <!-- Left Panel -->
+        <div class="flex-[0_0_auto] md:flex-[0_0_45%] min-h-[200px] md:min-h-screen bg-black flex flex-col justify-between p-6 md:p-4 text-white relative overflow-hidden left-panel-bg">
+            <div>
+                <div class="flex items-center gap-2 mb-4 relative z-[2]">
+                    <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" class="h-10 w-auto">
+                </div>
+            </div>
+            <div class="flex-1 flex items-center justify-center relative z-[2] py-4">
+                <div class="absolute top-[15%] right-[5%] bg-white/95 text-statwell-navy p-4 rounded-2xl shadow-lg max-w-[220px] text-sm font-medium leading-snug z-[3] speech-bubble">
+                    <p class="m-0">Connect with a US licensed StatwellMD provider, all online.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="flex-1 bg-white flex items-center justify-center p-6 overflow-hidden">
+            <div class="w-full max-w-[480px] h-screen flex flex-col justify-center py-2">
+                <div class="max-h-[calc(100vh-20px)] overflow-y-auto overflow-x-hidden pr-2 custom-scrollbar-light step-container active block" id="signupStep">
+                    <div class="text-left mb-2">
+                        <h2 class="text-[22px] font-bold font-primary text-statwell-navy mb-1">Create Account</h2>
+                        <p class="text-[13px] text-statwell-gray leading-tight">Let's create an account for you, before you continue.</p>
                     </div>
 
                     <form id="registrationForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">First name</label>
-                                <input type="text" class="form-input" id="firstName" required>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">First Name</label>
+                                <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 form-input" id="firstName" placeholder="First Name" required>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Last name</label>
-                                <input type="text" class="form-input" id="lastName" required>
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Last Name</label>
+                                <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 form-input" id="lastName" placeholder="Last Name" required>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Email address</label>
-                            <input type="email" class="form-input" id="email" required>
+                        <div class="mb-2.5">
+                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Email</label>
+                            <input type="email" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="email" placeholder="Email" required>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Phone number</label>
-                            <div class="phone-input">
-                                <div class="country-code">
-                                    <svg style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5;" viewBox="0 0 24 24">
+                        <div class="mb-2.5">
+                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Phone</label>
+                            <div class="flex gap-2">
+                                <div class="flex items-center gap-1.5 px-2.5 py-2 border-2 border-statwell-navy rounded-lg bg-[#f1f3f6] text-sm min-w-[80px] font-medium" title="United States +1">
+                                    <svg class="w-[18px] h-[18px] stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24">
                                         <rect x="3" y="3" width="18" height="12" rx="2"/>
                                         <path d="M3 9h18"/>
                                         <path d="M3 15h18"/>
                                     </svg>
                                     <span>+1</span>
                                 </div>
-                                <input type="tel" class="form-input" id="phone" placeholder="000 000 000" required>
+                                <input type="tel" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="phone" placeholder="000 000 0000" required>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">State</label>
-                                <div class="dropdown-container" id="stateDropdown">
-                                    <input type="text" class="form-input dropdown-input" id="stateInput" placeholder="Select State" readonly required>
-                                    <svg class="dropdown-arrow" style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="6,9 12,15 18,9"/>
-                                    </svg>
-                                    <div class="dropdown-menu">
-                                        <input type="text" class="dropdown-search" placeholder="Search states..." id="stateSearch">
-                                        <div id="stateOptions"></div>
-                                    </div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Date of Birth</label>
+                                <div class="relative date-input">
+                                    <input type="date" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 form-input" id="dateOfBirth" required>
+                                    <div class="text-[10px] text-statwell-gray mt-0.5 italic">MM/DD/YYYY</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">City</label>
-                                <div class="dropdown-container" id="cityDropdown">
-                                    <input type="text" class="form-input dropdown-input" id="cityInput" placeholder="Select city" readonly required>
-                                    <svg class="dropdown-arrow" style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Gender</label>
+                                <div class="relative dropdown-container" id="genderDropdown">
+                                    <input type="text" class="w-full px-2.5 py-2 pr-10 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray cursor-pointer form-input dropdown-input" id="genderInput" placeholder="Select Gender" readonly required>
+                                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-200 w-3 h-3 stroke-current fill-none stroke-2 dropdown-arrow" viewBox="0 0 24 24">
                                         <polyline points="6,9 12,15 18,9"/>
                                     </svg>
-                                    <div class="dropdown-menu">
-                                        <input type="text" class="dropdown-search" placeholder="Search cities..." id="citySearch">
-                                        <div id="cityOptions"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-input" id="address" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Date of Birth</label>
-                                <div class="date-input">
-                                    <input type="date" class="form-input" id="dateOfBirth" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Gender</label>
-                                <div class="dropdown-container" id="genderDropdown">
-                                    <input type="text" class="form-input dropdown-input" id="genderInput" placeholder="Select gender" readonly required>
-                                    <svg class="dropdown-arrow" style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="6,9 12,15 18,9"/>
-                                    </svg>
-                                    <div class="dropdown-menu">
+                                    <div class="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border-2 border-statwell-navy rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto overflow-x-visible hidden dropdown-menu">
                                         <div id="genderOptions">
-                                            <div class="dropdown-option" data-value="male">Male</div>
-                                            <div class="dropdown-option" data-value="female">Female</div>
-                                            <div class="dropdown-option" data-value="other">Other</div>
-                                            <div class="dropdown-option" data-value="prefer-not-to-say">Prefer not to say</div>
+                                            <div class="px-4 py-3 cursor-pointer transition-colors text-sm hover:bg-[#f1f3f6] dropdown-option" data-value="Male">Male</div>
+                                            <div class="px-4 py-3 cursor-pointer transition-colors text-sm hover:bg-[#f1f3f6] dropdown-option" data-value="Female">Female</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="checkbox-group">
-                            <input type="checkbox" class="checkbox" id="termsCheckbox" required>
-                            <label class="checkbox-label" for="termsCheckbox">
-                                I agree with StatwellMD <a href="#">Terms of service</a> & <a href="#">Privacy Policy</a>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">State</label>
+                                <div class="relative dropdown-container" id="stateDropdown">
+                                    <input type="text" class="w-full px-2.5 py-2 pr-10 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray cursor-pointer form-input dropdown-input" id="stateInput" placeholder="Select State" readonly required>
+                                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-200 w-3 h-3 stroke-current fill-none stroke-2 dropdown-arrow" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                    <div class="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border-2 border-statwell-navy rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto overflow-x-visible hidden dropdown-menu">
+                                        <input type="text" class="w-full p-3 border-none border-b-2 border-[#e0e0e0] outline-none text-sm dropdown-search" placeholder="Search states..." id="stateSearch">
+                                        <div id="stateOptions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">City</label>
+                                <div class="relative dropdown-container" id="cityDropdown">
+                                    <input type="text" class="w-full px-2.5 py-2 pr-10 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray cursor-pointer form-input dropdown-input" id="cityInput" placeholder="Select City" readonly required>
+                                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-200 w-3 h-3 stroke-current fill-none stroke-2 dropdown-arrow" viewBox="0 0 24 24">
+                                        <polyline points="6,9 12,15 18,9"/>
+                                    </svg>
+                                    <div class="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border-2 border-statwell-navy rounded-xl shadow-2xl z-[100] max-h-[250px] overflow-y-auto overflow-x-visible hidden dropdown-menu">
+                                        <input type="text" class="w-full p-3 border-none border-b-2 border-[#e0e0e0] outline-none text-sm dropdown-search" placeholder="Search cities..." id="citySearch">
+                                        <div id="cityOptions"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-2.5">
+                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Street Address</label>
+                            <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="address" placeholder="E.g. 504 Tower Square Plaza Suite 200" required>
+                        </div>
+
+                        <div class="flex items-start gap-1.5 my-2">
+                            <input type="checkbox" class="w-[18px] h-[18px] mt-0.5 cursor-pointer accent-statwell-blue" id="termsCheckbox" required>
+                            <label class="text-[11px] leading-tight text-statwell-gray checkbox-label" for="termsCheckbox">
+                                By signing up, I agree to the StatWellMD's <a href="#" class="text-statwell-blue no-underline hover:underline">Terms of use</a> and <a href="#" class="text-statwell-blue no-underline hover:underline">Privacy Policy</a>.
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="registerBtn">
-                            Register
+                        <div class="flex items-start gap-1.5 my-2">
+                            <input type="checkbox" class="w-[18px] h-[18px] mt-0.5 cursor-pointer accent-statwell-blue" id="promoCheckbox">
+                            <label class="text-[11px] leading-tight text-statwell-gray checkbox-label" for="promoCheckbox">
+                                I consent to receive SMS notifications, in addition to email, for updates about my care.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full px-6 py-2.5 border-2 border-transparent rounded-lg text-sm font-semibold font-secondary cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 relative overflow-hidden min-h-[40px] mt-2 bg-gradient-to-br from-statwell-blue to-[#4c63d2] text-white shadow-lg shadow-statwell-blue/30 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-statwell-blue/40 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none btn btn-primary" id="registerBtn">
+                            SIGN UP
                         </button>
                     </form>
 
-                    <div class="login-link">
-                        Already have an account? <a href="#">Log in</a>
+                    <div class="text-center mt-1.5 text-xs text-statwell-gray login-link">
+                        Already have an account? <a href="#" class="text-statwell-blue no-underline font-medium hover:underline">Log In</a>
                     </div>
-                </div>
-            </div>
-
-            <!-- Step 2: Verification Code -->
-            <div class="flow-step" id="step2">
-                <button class="back-btn" onclick="goToStep(1)">←</button>
-                <div class="modal-content verification-step">
-                    <div class="step-header">
-                        <h2 class="step-title">Verify your account</h2>
-                        <p class="step-subtitle">We sent a 6 digit OTP to <span id="verificationEmail"></span>.<br>Please input it below to proceed.</p>
-                    </div>
-
-                    <div class="code-inputs">
-                        <input type="text" class="code-input" maxlength="1" id="code1">
-                        <input type="text" class="code-input" maxlength="1" id="code2">
-                        <input type="text" class="code-input" maxlength="1" id="code3">
-                        <input type="text" class="code-input" maxlength="1" id="code4">
-                        <input type="text" class="code-input" maxlength="1" id="code5">
-                        <input type="text" class="code-input" maxlength="1" id="code6">
-                    </div>
-
-                    <div id="verificationMessage"></div>
-
-                    <button class="btn btn-primary" id="confirmCodeBtn" onclick="verifyCode()">
-                        Confirm code
-                    </button>
-
-                    <div class="timer-section">
-                        <span class="timer" id="timer">00:20</span> 
-                        <a href="#" class="resend-link" id="resendLink" onclick="resendCode()" style="display: none;">Resend code</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3: Completed Form -->
-            <div class="flow-step" id="step3">
-                <div class="modal-content">
-                    <div class="step-header">
-                        <h2 class="step-title">Registration Complete</h2>
-                        <p class="step-subtitle">Your account has been verified. Here's your information:</p>
-                    </div>
-
-                    <div id="completedForm">
-                        <!-- Will be populated with form data -->
-                    </div>
-
-                    <button class="btn btn-primary" onclick="goToHomepage()">
-                        Continue to Homepage
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Notification Modal -->
-    <div class="modal-overlay" id="notificationOverlay">
-        <div class="notification-modal">
-            <div class="notification-icon" id="notificationIcon">
-                📧
+    <!-- Step 2: Pharmacy Selection Page -->
+    <div class="flex flex-col items-center justify-center min-h-screen p-8 bg-statwell-white relative m-0 w-full hidden" id="pharmacyPage">
+        <div class="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+            <img src="https://res.cloudinary.com/dhhivbgpz/image/upload/v1758075012/STATWELLMD_LOGO_wtcrge.png" alt="StatwellMD Logo" class="h-8 md:h-9 w-auto">
+        </div>
+        <div class="w-full max-w-[950px] bg-white rounded-[20px] p-4 shadow-xl flex flex-col max-h-[calc(100vh-100px)] md:max-h-[calc(100vh-120px)] mx-auto">
+            <div class="mb-2 flex-shrink-0">
+                <h2 class="text-xl font-bold font-primary text-statwell-navy mb-1">Select Your Preferred Pharmacy</h2>
+                <p class="text-[13px] text-statwell-gray mb-2">Choose where you'd like to receive your prescriptions. You can change this later in your settings.</p>
+                
+                <div class="flex flex-col md:flex-row items-start md:items-end gap-3 md:gap-4">
+                    <div class="mb-0 w-full md:w-auto md:max-w-[200px]">
+                        <label class="block text-xs font-semibold text-statwell-navy mb-1">Zip Code</label>
+                        <input type="text" class="w-full px-2.5 py-1.5 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="zipCode" placeholder="Enter zip code" maxlength="5" required>
+                    </div>
+                    <div class="bg-[#f1f3f6] px-3 py-1.5 rounded-[10px] mb-0 text-[11px] text-statwell-gray flex items-center gap-1.5 w-full md:w-auto md:max-w-[250px] h-[38px]" id="locationDisplay">
+                        <strong class="text-statwell-navy font-semibold">Location:</strong> 
+                        <span id="displayCity" class="font-medium"></span>
+                        <span>,</span>
+                        <span id="displayState" class="font-medium"></span>
+                    </div>
+                </div>
             </div>
-            <h3 id="notificationTitle">Code Sent!</h3>
-            <p id="notificationMessage">A verification code has been sent to your email address.</p>
+
+            <div id="pharmacyMessage"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 mt-2 flex-1 overflow-y-auto pr-2 min-h-0 custom-scrollbar" id="pharmacyGrid">
+                <!-- Pharmacies will be populated here -->
+            </div>
+
+            <div class="sticky bottom-0 bg-white pt-4 mt-4 border-t border-[#e0e0e0] flex-shrink-0 z-[5]">
+                <button class="w-full px-6 py-2.5 border-2 border-transparent rounded-lg text-sm font-semibold font-secondary cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 relative overflow-hidden min-h-[40px] bg-gradient-to-br from-statwell-blue to-[#4c63d2] text-white shadow-lg shadow-statwell-blue/30 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-statwell-blue/40 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none btn btn-primary" id="continuePharmacyBtn" disabled>
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div class="fixed top-0 left-0 w-full h-full bg-black/60 backdrop-blur-md flex items-center justify-center z-[2000] opacity-0 invisible transition-all duration-300 modal-overlay" id="otpModal">
+        <div class="bg-white rounded-[20px] w-[90%] max-w-[480px] p-8 border border-statwell-blue/12 relative transform translate-y-[30px] scale-95 transition-all duration-300 otp-modal">
+            <button class="absolute top-4 right-4 bg-transparent border-none text-2xl text-statwell-gray cursor-pointer w-8 h-8 flex items-center justify-center rounded-full transition-all duration-200 hover:bg-[#f1f3f6] hover:text-statwell-navy close-btn" onclick="closeOTPModal()">&times;</button>
+            
+            <div class="text-center mb-2">
+                <h2 class="text-[22px] font-bold font-primary text-statwell-navy mb-1">Verify your account</h2>
+                <p class="text-[13px] text-statwell-gray leading-tight">We sent a 6 digit OTP to <span id="verificationEmail"></span>.<br>Please input it below to proceed.</p>
+            </div>
+
+            <div class="flex gap-1.5 md:gap-2 justify-center my-8">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code1">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code2">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code3">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code4">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code5">
+                <input type="text" class="w-10 h-10 md:w-12 md:h-12 border-2 border-statwell-navy rounded-xl text-center text-lg md:text-xl font-semibold outline-none transition-all duration-200 focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 code-input" maxlength="1" id="code6">
+            </div>
+
+            <div id="otpMessage"></div>
+
+            <button class="w-full px-6 py-2.5 border-2 border-transparent rounded-lg text-sm font-semibold font-secondary cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 relative overflow-hidden min-h-[40px] bg-gradient-to-br from-statwell-blue to-[#4c63d2] text-white shadow-lg shadow-statwell-blue/30 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-statwell-blue/40 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none btn btn-primary" id="confirmCodeBtn" onclick="verifyCode()">
+                Confirm code
+            </button>
+
+            <div class="mt-6 text-sm text-statwell-gray text-center">
+                <span class="font-semibold text-statwell-blue timer" id="timer">00:20</span> 
+                <a href="#" class="text-statwell-blue no-underline font-medium cursor-pointer hover:underline resend-link hidden" id="resendLink" onclick="resendCode()">Resend code</a>
+            </div>
         </div>
     </div>
 
     <script>
+        // Available states
+        const AVAILABLE_STATES = ['AL', 'AZ', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MI', 'MN', 'MS', 'MT', 'NE', 'NH', 'ND', 'OH', 'OK', 'TN', 'TX', 'PA', 'UT', 'WA', 'WV', 'WI', 'WY', 'DC', 'Pennsylvania', 'Missouri'];
+        
+        // State name mappings
+        const STATE_NAME_TO_CODE = {
+            'Alabama': 'AL', 'Arizona': 'AZ', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
+            'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL',
+            'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS', 'Kentucky': 'KY', 'Louisiana': 'LA',
+            'Maine': 'ME', 'Maryland': 'MD', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
+            'Montana': 'MT', 'Nebraska': 'NE', 'New Hampshire': 'NH', 'North Dakota': 'ND', 'Ohio': 'OH',
+            'Oklahoma': 'OK', 'Tennessee': 'TN', 'Texas': 'TX', 'Pennsylvania': 'PA', 'Utah': 'UT',
+            'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY', 'District of Columbia': 'DC',
+            'Missouri': 'MO'
+        };
+
         // US States and Cities Data
         const statesAndCities = {
             "Alabama": ["Birmingham", "Montgomery", "Mobile", "Huntsville", "Tuscaloosa"],
@@ -903,30 +475,312 @@
             "Washington": ["Seattle", "Spokane", "Tacoma", "Vancouver", "Bellevue"],
             "West Virginia": ["Charleston", "Huntington", "Parkersburg", "Morgantown", "Wheeling"],
             "Wisconsin": ["Milwaukee", "Madison", "Green Bay", "Kenosha", "Racine"],
-            "Wyoming": ["Cheyenne", "Casper", "Laramie", "Gillette", "Rock Springs"]
+            "Wyoming": ["Cheyenne", "Casper", "Laramie", "Gillette", "Rock Springs"],
+            "District of Columbia": ["Washington"]
         };
 
-        let currentStep = 1;
+        // Sample pharmacy data (in real app, this would come from API based on zipcode)
+        const samplePharmacies = {
+            '10001': [
+                { name: 'QuickCare Pharmacy', type: 'Retail Pharmacy', address: '123 Main St, New York, NY 10001' },
+                { name: 'HealthPlus Pharmacy', type: 'Specialty Pharmacy', address: '456 Oak Ave, New York, NY 10003' },
+                { name: 'MedExpress Pharmacy', type: 'Mail-Order Pharmacy', address: '789 Pine St, New York, NY 10005' }
+            ],
+            'default': [
+                { name: 'City Pharmacy & Health', type: 'Retail Pharmacy', address: '123 Main St' },
+                { name: 'CarePlus Specialty', type: 'Specialty Pharmacy', address: '456 Oak Ave' },
+                { name: 'Metro Health Pharmacy', type: 'Retail Pharmacy', address: '789 Pine St' },
+                { name: 'WellnessRx Pharmacy', type: 'Retail Pharmacy', address: '321 Elm St' },
+                { name: 'Family Medicine Pharmacy', type: 'Community Pharmacy', address: '555 Broadway' },
+                { name: 'Central Medical Pharmacy', type: 'Retail Pharmacy', address: '777 Market St' },
+                { name: 'ExpressCare Pharmacy', type: 'Retail Pharmacy', address: '888 First Ave' },
+                { name: 'Neighborhood Pharmacy', type: 'Community Pharmacy', address: '999 Second St' },
+                { name: 'Community Health Rx', type: 'Retail Pharmacy', address: '111 Third Ave' },
+                { name: 'MedCenter Pharmacy', type: 'Hospital Pharmacy', address: '222 Fourth St' },
+                { name: 'FastCare Pharmacy', type: 'Retail Pharmacy', address: '333 Fifth Ave' },
+                { name: 'PrimeCare Pharmacy', type: 'Retail Pharmacy', address: '444 Sixth St' },
+                { name: 'HealthFirst Pharmacy', type: 'Community Pharmacy', address: '555 Seventh Ave' },
+                { name: 'MainStreet Pharmacy', type: 'Retail Pharmacy', address: '666 Eighth St' },
+                { name: 'Corner Drug Store', type: 'Retail Pharmacy', address: '777 Ninth Ave' },
+                { name: '24/7 Pharmacy', type: 'Retail Pharmacy', address: '888 Tenth St' },
+                { name: 'CareMed Pharmacy', type: 'Retail Pharmacy', address: '999 Eleventh Ave' },
+                { name: 'Pharmacy Plus', type: 'Retail Pharmacy', address: '111 Twelfth St' }
+            ]
+        };
+
+        let currentStep = 'signup';
         let formData = {};
         let verificationTimer;
         let timeLeft = 20;
+        let selectedPharmacy = null;
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^\d{3}\s?\d{3}\s?\d{4}$/;
+            return re.test(phone.replace(/\s/g, ''));
+        }
+
+        function validateZipCode(zip) {
+            const re = /^\d{5}$/;
+            return re.test(zip);
+        }
+
+        function isStateAvailable(stateName) {
+            const stateCode = STATE_NAME_TO_CODE[stateName];
+            return AVAILABLE_STATES.includes(stateCode) || AVAILABLE_STATES.includes(stateName);
+        }
+
+        // Real-time validation
+        function setupValidation(input, validator, errorMessage) {
+            input.addEventListener('input', function() {
+                const value = this.value.trim();
+                if (value === '') {
+                    this.classList.remove('valid', 'invalid');
+                    this.style.borderColor = '#2A3B54';
+                } else if (validator(value)) {
+                    this.classList.remove('invalid');
+                    this.classList.add('valid');
+                } else {
+                    this.classList.remove('valid');
+                    this.classList.add('invalid');
+                }
+            });
+
+            input.addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (value && !validator(value)) {
+                    this.classList.add('invalid');
+                }
+            });
+        }
+
+        // Handle form submission
+        function setupFormSubmission() {
+            const form = document.getElementById('registrationForm');
+            if (!form) {
+                console.error('Registration form not found');
+                return;
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Form submitted!');
+                
+                // Get all form values
+                const firstName = document.getElementById('firstName');
+                const lastName = document.getElementById('lastName');
+                const email = document.getElementById('email');
+                const phone = document.getElementById('phone');
+                const dateOfBirth = document.getElementById('dateOfBirth');
+                const gender = document.getElementById('genderInput');
+                const state = document.getElementById('stateInput');
+                const city = document.getElementById('cityInput');
+                const address = document.getElementById('address');
+                const termsCheckbox = document.getElementById('termsCheckbox');
+                
+                // Basic validation
+                if (!termsCheckbox || !termsCheckbox.checked) {
+                    alert('Please agree to the Terms of use and Privacy Policy');
+                    return;
+                }
+                
+                if (!firstName || !firstName.value || !lastName || !lastName.value || 
+                    !email || !email.value || !phone || !phone.value || 
+                    !dateOfBirth || !dateOfBirth.value || !gender || !gender.value || 
+                    !state || !state.value || !city || !city.value || !address || !address.value) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                formData = {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value,
+                    phone: phone.value,
+                    dateOfBirth: dateOfBirth.value,
+                    gender: gender.value,
+                    state: state.value,
+                    city: city.value,
+                    address: address.value
+                };
+
+                console.log('Form data collected:', formData);
+
+                const registerBtn = document.getElementById('registerBtn');
+                if (!registerBtn) {
+                    console.error('Register button not found');
+                    return;
+                }
+                
+                registerBtn.classList.add('btn-loading');
+                registerBtn.style.color = 'transparent';
+                registerBtn.disabled = true;
+
+                setTimeout(() => {
+                    console.log('Timeout completed, showing modal...');
+                    
+                    registerBtn.classList.remove('btn-loading');
+                    registerBtn.style.color = '';
+                    registerBtn.disabled = false;
+                    
+                    const verificationEmailEl = document.getElementById('verificationEmail');
+                    const otpModal = document.getElementById('otpModal');
+                    
+                    console.log('Verification email element:', verificationEmailEl);
+                    console.log('OTP modal element:', otpModal);
+                    
+                    if (verificationEmailEl) {
+                        verificationEmailEl.textContent = formData.email;
+                    } else {
+                        console.error('Verification email element not found');
+                    }
+                    
+                    if (otpModal) {
+                        console.log('Opening OTP modal...');
+                        otpModal.classList.add('active');
+                        console.log('OTP modal classes after adding active:', otpModal.className);
+                        console.log('OTP modal computed style visibility:', window.getComputedStyle(otpModal).visibility);
+                        console.log('OTP modal computed style opacity:', window.getComputedStyle(otpModal).opacity);
+                        startTimer();
+                    } else {
+                        console.error('OTP modal element not found');
+                    }
+                }, 1500);
+            });
+            
+            console.log('Form submission handler attached successfully');
+        }
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing application...');
+            
+            // Show signup step first
+            const signupStep = document.getElementById('signupStep');
+            if (signupStep) {
+                signupStep.classList.remove('hidden');
+                signupStep.classList.add('block');
+                console.log('Signup step shown');
+            } else {
+                console.error('Signup step not found');
+            }
+            
             initializeDropdowns();
             initializeCodeInputs();
+            setupFormValidation();
+            setupPharmacySelection();
+            setupFormSubmission();
+            setupPharmacyContinue();
+            
+            console.log('Application initialized');
         });
+
+        function setupFormValidation() {
+            // Email validation
+            const emailInput = document.getElementById('email');
+            setupValidation(emailInput, validateEmail, 'Invalid email format');
+
+            // Phone validation
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length > 10) value = value.slice(0, 10);
+                if (value.length >= 6) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
+                } else if (value.length >= 3) {
+                    value = value.slice(0, 3) + ' ' + value.slice(3);
+                }
+                this.value = value;
+                
+                if (value === '') {
+                    this.classList.remove('valid', 'invalid');
+                } else if (validatePhone(value)) {
+                    this.classList.remove('invalid');
+                    this.classList.add('valid');
+                } else {
+                    this.classList.remove('valid');
+                    this.classList.add('invalid');
+                }
+            });
+
+            // Name validation
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            firstNameInput.addEventListener('input', function() {
+                if (this.value.trim().length >= 2) {
+                    this.classList.add('valid');
+                    this.classList.remove('invalid');
+                } else if (this.value.trim()) {
+                    this.classList.add('invalid');
+                    this.classList.remove('valid');
+                } else {
+                    this.classList.remove('valid', 'invalid');
+                }
+            });
+            lastNameInput.addEventListener('input', function() {
+                if (this.value.trim().length >= 2) {
+                    this.classList.add('valid');
+                    this.classList.remove('invalid');
+                } else if (this.value.trim()) {
+                    this.classList.add('invalid');
+                    this.classList.remove('valid');
+                } else {
+                    this.classList.remove('valid', 'invalid');
+                }
+            });
+
+            // Address validation
+            const addressInput = document.getElementById('address');
+            addressInput.addEventListener('input', function() {
+                if (this.value.trim().length >= 5) {
+                    this.classList.add('valid');
+                    this.classList.remove('invalid');
+                } else if (this.value.trim()) {
+                    this.classList.add('invalid');
+                    this.classList.remove('valid');
+                } else {
+                    this.classList.remove('valid', 'invalid');
+                }
+            });
+
+            // Date of Birth validation
+            const dateOfBirthInput = document.getElementById('dateOfBirth');
+            dateOfBirthInput.addEventListener('change', function() {
+                if (this.value) {
+                    const selectedDate = new Date(this.value);
+                    const today = new Date();
+                    if (selectedDate <= today) {
+                        this.classList.add('valid');
+                        this.classList.remove('invalid');
+                    } else {
+                        this.classList.add('invalid');
+                        this.classList.remove('valid');
+                    }
+                } else {
+                    this.classList.remove('valid', 'invalid');
+                }
+            });
+        }
 
         // Initialize dropdowns
         function initializeDropdowns() {
-            // Populate states
+            // Populate states - only show available states
             const stateOptions = document.getElementById('stateOptions');
             Object.keys(statesAndCities).forEach(state => {
-                const option = document.createElement('div');
-                option.className = 'dropdown-option';
-                option.textContent = state;
-                option.setAttribute('data-value', state);
-                stateOptions.appendChild(option);
+                if (isStateAvailable(state)) {
+                    const option = document.createElement('div');
+                    option.className = 'px-4 py-3 cursor-pointer transition-colors text-sm hover:bg-[#f1f3f6] dropdown-option';
+                    option.textContent = state;
+                    option.setAttribute('data-value', state);
+                    stateOptions.appendChild(option);
+                }
             });
 
             // Setup dropdown functionality
@@ -949,6 +803,14 @@
             input.addEventListener('click', () => {
                 closeAllDropdowns();
                 container.classList.toggle('open');
+                const menu = container.querySelector('.dropdown-menu');
+                if (container.classList.contains('open')) {
+                    menu.classList.remove('hidden');
+                    menu.classList.add('block');
+                } else {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('block');
+                }
             });
 
             if (search) {
@@ -958,11 +820,18 @@
             }
 
             options.addEventListener('click', (e) => {
-                if (e.target.classList.contains('dropdown-option')) {
-                    const value = e.target.getAttribute('data-value') || e.target.textContent;
-                    input.value = e.target.textContent;
+                const option = e.target.closest('.dropdown-option');
+                if (option) {
+                    const value = option.getAttribute('data-value') || option.textContent;
+                    input.value = option.textContent;
                     container.classList.remove('open');
+                    const menu = container.querySelector('.dropdown-menu');
+                    menu.classList.add('hidden');
+                    menu.classList.remove('block');
                     if (onSelect) onSelect(value);
+                    
+                    input.classList.add('valid');
+                    input.classList.remove('invalid');
                 }
             });
         }
@@ -975,7 +844,7 @@
             if (statesAndCities[state]) {
                 statesAndCities[state].forEach(city => {
                     const option = document.createElement('div');
-                    option.className = 'dropdown-option';
+                    option.className = 'px-4 py-3 cursor-pointer transition-colors text-sm hover:bg-[#f1f3f6] dropdown-option';
                     option.textContent = city;
                     option.setAttribute('data-value', city);
                     cityOptions.appendChild(option);
@@ -999,6 +868,11 @@
         function closeAllDropdowns() {
             document.querySelectorAll('.dropdown-container').forEach(dropdown => {
                 dropdown.classList.remove('open');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                if (menu) {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('block');
+                }
             });
         }
 
@@ -1019,23 +893,24 @@
                     
                     if (value && /^\d$/.test(value)) {
                         e.target.classList.add('filled');
+                        e.target.style.borderColor = '#10B981';
                         
-                        // Auto-focus next input
                         if (index < codeInputs.length - 1) {
                             codeInputs[index + 1].focus();
                         }
                     } else {
                         e.target.classList.remove('filled');
                         e.target.value = '';
+                        e.target.style.borderColor = '#2A3B54';
                     }
                 });
 
                 input.addEventListener('keydown', (e) => {
-                    // Handle backspace
                     if (e.key === 'Backspace' && !e.target.value && index > 0) {
                         codeInputs[index - 1].focus();
                         codeInputs[index - 1].value = '';
                         codeInputs[index - 1].classList.remove('filled');
+                        codeInputs[index - 1].style.borderColor = '#2A3B54';
                     }
                 });
 
@@ -1048,6 +923,7 @@
                         if (codeInputs[i]) {
                             codeInputs[i].value = digit;
                             codeInputs[i].classList.add('filled');
+                            codeInputs[i].style.borderColor = '#10B981';
                         }
                     });
                 });
@@ -1055,61 +931,13 @@
         }
 
         // Handle form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect form data
-            formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                state: document.getElementById('stateInput').value,
-                city: document.getElementById('cityInput').value,
-                address: document.getElementById('address').value,
-                dateOfBirth: document.getElementById('dateOfBirth').value,
-                gender: document.getElementById('genderInput').value
-            };
-
-            // Show loading state
-            const registerBtn = document.getElementById('registerBtn');
-            registerBtn.classList.add('btn-loading');
-            registerBtn.disabled = true;
-
-            // Simulate API call
-            setTimeout(() => {
-                registerBtn.classList.remove('btn-loading');
-                registerBtn.disabled = false;
-                showNotification('Code Sent!', 'A verification code has been sent to your email address.', 'info');
-                
-                setTimeout(() => {
-                    hideNotification();
-                    goToStep(2);
-                }, 2000);
-            }, 1500);
-        });
-
-        // Navigate to step
-        function goToStep(step) {
-            // Hide current step
-            document.querySelector('.flow-step.active').classList.remove('active');
-            
-            // Show new step
-            document.getElementById(`step${step}`).classList.add('active');
-            currentStep = step;
-
-            if (step === 2) {
-                document.getElementById('verificationEmail').textContent = formData.email;
-                startTimer();
-            } else if (step === 3) {
-                displayCompletedForm();
-            }
-        }
 
         // Start verification timer
         function startTimer() {
             timeLeft = 20;
             updateTimerDisplay();
+            
+            if (verificationTimer) clearInterval(verificationTimer);
             
             verificationTimer = setInterval(() => {
                 timeLeft--;
@@ -1118,7 +946,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(verificationTimer);
                     document.getElementById('timer').style.display = 'none';
-                    document.getElementById('resendLink').style.display = 'inline';
+                    document.getElementById('resendLink').classList.remove('hidden');
                 }
             }, 1000);
         }
@@ -1131,141 +959,162 @@
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        // Verify code
-        function verifyCode() {
+        // Make functions globally accessible for onclick handlers
+        window.verifyCode = function() {
             const codeInputs = document.querySelectorAll('.code-input');
             const code = Array.from(codeInputs).map(input => input.value).join('');
             
             if (code.length !== 6) {
-                showMessage('Please enter all 6 digits', 'error');
+                showOTPMessage('Please enter all 6 digits', 'error');
                 return;
             }
 
             const confirmBtn = document.getElementById('confirmCodeBtn');
             confirmBtn.classList.add('btn-loading');
+            confirmBtn.style.color = 'transparent';
             confirmBtn.disabled = true;
 
-            // Simulate verification (accept any 6-digit code)
             setTimeout(() => {
                 confirmBtn.classList.remove('btn-loading');
+                confirmBtn.style.color = '';
                 confirmBtn.disabled = false;
                 
                 if (code === '123456') {
-                    // Simulate wrong code for demo
-                    showMessage('Invalid code. Please try again.', 'error');
+                    showOTPMessage('Invalid code. Please try again.', 'error');
                     codeInputs.forEach(input => {
-                        input.classList.add('error');
-                        input.classList.remove('filled');
                         input.value = '';
+                        input.classList.remove('filled');
+                        input.style.borderColor = '#2A3B54';
                     });
-                    
-                    setTimeout(() => {
-                        codeInputs.forEach(input => input.classList.remove('error'));
-                    }, 500);
                 } else {
-                    // Success
                     clearInterval(verificationTimer);
-                    showNotification('Success!', 'You have successfully authenticated and will now be taken to your homepage.', 'success');
+                    showOTPMessage('Verification successful!', 'success');
                     
                     setTimeout(() => {
-                        hideNotification();
-                        goToStep(3);
-                    }, 3000);
+                        closeOTPModal();
+                        showPharmacyPage();
+                    }, 1500);
                 }
             }, 1500);
-        }
+        };
 
-        // Resend code
-        function resendCode() {
-            showNotification('Code Resent!', 'A new verification code has been sent to your email.', 'info');
+        window.resendCode = function() {
+            clearInterval(verificationTimer);
+            showOTPMessage('Code resent!', 'success');
             document.getElementById('timer').style.display = 'inline';
-            document.getElementById('resendLink').style.display = 'none';
-            startTimer();
+            document.getElementById('resendLink').classList.add('hidden');
             
-            setTimeout(() => {
-                hideNotification();
-            }, 2000);
-        }
+            document.querySelectorAll('.code-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+                input.style.borderColor = '#2A3B54';
+            });
+            
+            startTimer();
+        };
 
-        // Display completed form
-        function displayCompletedForm() {
-            const completedForm = document.getElementById('completedForm');
-            completedForm.innerHTML = `
-                <div class="card" style="margin-bottom: var(--space-lg);">
-                    <div style="display: grid; gap: var(--space-md);">
-                        <div><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</div>
-                        <div><strong>Email:</strong> ${formData.email} <span style="color: var(--success); display: inline-flex; align-items: center; gap: 4px;">
-                            <svg style="width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Verified
-                        </span></div>
-                        <div><strong>Phone:</strong> +1 ${formData.phone}</div>
-                        <div><strong>Location:</strong> ${formData.city}, ${formData.state}</div>
-                        <div><strong>Address:</strong> ${formData.address}</div>
-                        <div><strong>Date of Birth:</strong> ${formData.dateOfBirth}</div>
-                        <div><strong>Gender:</strong> ${formData.gender}</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Show message
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('verificationMessage');
-            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+        // Show OTP message
+        function showOTPMessage(text, type) {
+            const messageDiv = document.getElementById('otpMessage');
+            const bgColor = type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 107, 107, 0.1)';
+            const textColor = type === 'success' ? '#10B981' : '#FF6B6B';
+            const borderColor = type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 107, 107, 0.2)';
+            messageDiv.innerHTML = `<div class="p-4 rounded-xl my-4 text-center font-medium" style="background: ${bgColor}; color: ${textColor}; border: 1px solid ${borderColor};">${text}</div>`;
             
             setTimeout(() => {
                 messageDiv.innerHTML = '';
             }, 5000);
         }
 
-        // Show notification modal
-        function showNotification(title, message, type) {
-            document.getElementById('notificationTitle').textContent = title;
-            document.getElementById('notificationMessage').textContent = message;
+        window.closeOTPModal = function() {
+            document.getElementById('otpModal').classList.remove('active');
+            clearInterval(verificationTimer);
+        };
+
+        // Show pharmacy page
+        function showPharmacyPage() {
+            document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('pharmacyPage').classList.remove('hidden');
+            document.getElementById('pharmacyPage').classList.add('flex');
             
-            const icon = document.getElementById('notificationIcon');
-            icon.className = `notification-icon ${type}`;
-            if (type === 'success') {
-                icon.innerHTML = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>';
-            } else if (type === 'info') {
-                icon.innerHTML = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
-            } else {
-                icon.innerHTML = '<svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+            document.getElementById('displayCity').textContent = formData.city;
+            document.getElementById('displayState').textContent = formData.state;
+        }
+
+        // Setup pharmacy selection
+        function setupPharmacySelection() {
+            const zipCodeInput = document.getElementById('zipCode');
+            const continueBtn = document.getElementById('continuePharmacyBtn');
+            
+            zipCodeInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length > 5) value = value.slice(0, 5);
+                this.value = value;
+                
+                if (value === '') {
+                    this.classList.remove('valid', 'invalid');
+                    document.getElementById('pharmacyGrid').innerHTML = '';
+                    continueBtn.disabled = true;
+                } else if (validateZipCode(value)) {
+                    this.classList.remove('invalid');
+                    this.classList.add('valid');
+                    loadPharmacies(value);
+                } else {
+                    this.classList.remove('valid');
+                    this.classList.add('invalid');
+                }
+            });
+        }
+
+        // Load pharmacies based on zipcode
+        function loadPharmacies(zipcode) {
+            const pharmacyGrid = document.getElementById('pharmacyGrid');
+            const pharmacies = samplePharmacies[zipcode] || samplePharmacies['default'];
+            
+            pharmacyGrid.innerHTML = '';
+            selectedPharmacy = null;
+            document.getElementById('continuePharmacyBtn').disabled = true;
+            
+            pharmacies.forEach((pharmacy, index) => {
+                const card = document.createElement('div');
+                card.className = 'border-2 border-[#e0e0e0] rounded-[10px] p-2.5 px-3 cursor-pointer transition-all duration-200 bg-white flex-shrink-0 hover:border-statwell-blue hover:shadow-lg hover:shadow-statwell-blue/15 pharmacy-card';
+                card.onclick = () => selectPharmacy(card, pharmacy);
+                card.innerHTML = `
+                    <div class="font-semibold text-sm mb-1 text-statwell-navy leading-tight">${pharmacy.name}</div>
+                    <div class="text-xs text-statwell-gray mb-0.5 leading-tight">${pharmacy.type}</div>
+                    <div class="text-[11px] text-statwell-gray leading-tight">${pharmacy.address}</div>
+                `;
+                pharmacyGrid.appendChild(card);
+            });
+        }
+
+        // Select pharmacy
+        function selectPharmacy(card, pharmacy) {
+            document.querySelectorAll('.pharmacy-card').forEach(c => {
+                c.classList.remove('border-statwell-blue', 'bg-statwell-blue/5');
+                c.classList.add('border-[#e0e0e0]');
+            });
+            
+            card.classList.add('border-statwell-blue', 'bg-statwell-blue/5');
+            card.classList.remove('border-[#e0e0e0]');
+            selectedPharmacy = pharmacy;
+            document.getElementById('continuePharmacyBtn').disabled = false;
+        }
+
+        // Setup continue button after pharmacy selection
+        function setupPharmacyContinue() {
+            const continueBtn = document.getElementById('continuePharmacyBtn');
+            if (!continueBtn) {
+                console.error('Continue pharmacy button not found');
+                return;
             }
             
-            document.getElementById('notificationOverlay').classList.add('active');
+            continueBtn.addEventListener('click', function() {
+                if (selectedPharmacy) {
+                    alert('Registration complete! Pharmacy selected: ' + selectedPharmacy.name);
+                }
+            });
         }
-
-        // Hide notification modal
-        function hideNotification() {
-            document.getElementById('notificationOverlay').classList.remove('active');
-        }
-
-        // Go to homepage
-        function goToHomepage() {
-            showNotification('Welcome!', 'Redirecting to your dashboard...', 'success');
-            setTimeout(() => {
-                // In a real app, this would redirect to the homepage
-                alert('Welcome to StatwellMD! You would now be redirected to your dashboard.');
-                closeModal();
-            }, 2000);
-        }
-
-        // Close modal
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-
-        // Prevent modal close on content click
-        document.querySelector('.signup-modal').addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-
-        // Close modal on overlay click
-        document.getElementById('modalOverlay').addEventListener('click', closeModal);
-        document.getElementById('notificationOverlay').addEventListener('click', hideNotification);
     </script>
 </body>
 </html>
