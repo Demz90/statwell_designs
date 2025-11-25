@@ -92,129 +92,171 @@
             background-color: var(--bg-primary); 
             border-radius: 20px; 
             width: 100%; 
-            max-width: 700px;
+            max-width: 1200px;
             border: 1px solid rgba(93, 120, 255, 0.12); 
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: all var(--anim-normal);
         }
+        .condition-view-container .close-modal {
+            color: white;
+            z-index: 10;
+        }
         .condition-view-container:hover {
             border-color: rgba(93, 120, 255, 0.25);
             box-shadow: 0 8px 24px rgba(93, 120, 255, 0.15);
         }
-        
-        .modal-header {
-            padding: var(--space-md);
-            text-align: center;
-        }
-        .image-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-        .image-grid img {
+        .condition-content-wrapper {
+            display: flex;
+            flex-direction: row;
             width: 100%;
-            border-radius: 16px;
-            aspect-ratio: 16 / 10;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        .condition-left-content {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            min-width: 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        .condition-left-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .condition-right-images {
+            width: 350px;
+            flex-shrink: 0;
+            padding: 16px;
+            background: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        .condition-right-images::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .condition-right-images img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
-
-        .tabs-container { 
-            display: flex; 
-            gap: var(--space-sm); 
-            padding: 6px; 
-            background: var(--light-gray); 
-            border-radius: 16px; 
-            margin: 0 var(--space-md) var(--space-md);
-            align-self: center;
-            border: 1px solid rgba(93, 120, 255, 0.08);
+        .modal-header {
+            margin-bottom: 16px;
         }
-        .tab-item { 
-            padding: 8px 16px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            cursor: pointer; 
-            transition: all var(--anim-normal); 
-            white-space: nowrap; 
-            font-size: 14px;
-        }
-        .tab-item.active { 
-            background: linear-gradient(135deg, var(--primary), #4c63d2); 
-            color: var(--white); 
-            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3);
-            transform: translateY(-1px);
-        }
-        .tab-item:not(.active) { 
-            background: transparent; 
-            color: var(--text-secondary); 
-        }
-        .tab-item:hover:not(.active) {
-            background: rgba(93, 120, 255, 0.05);
-            color: var(--text-primary);
-        }
-
-        .tab-content {
-            padding: var(--space-md);
-            height: 280px; /* Fixed height to prevent layout shifts */
-        }
-        .tab-pane {
-             display: none;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-        .tab-pane-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-lg);
-        }
-
-        .section-title {
-            font-size: 18px;
+        .modal-header h1 {
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: var(--space-md);
-            position: relative;
-            padding-bottom: var(--space-sm);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            margin-bottom: 0;
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 3px;
-            border-radius: 2px;
-            background-color: var(--secondary);
+        .condition-section {
+            margin-bottom: 10px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--anim-normal);
         }
+        .condition-section:last-child {
+            margin-bottom: 0;
+        }
+        .condition-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            cursor: pointer;
+            background: var(--white);
+            transition: all var(--anim-normal);
+            user-select: none;
+        }
+        .condition-section-header:hover {
+            background: var(--light-gray);
+        }
+        .condition-section-header.active {
+            background: rgba(93, 120, 255, 0.05);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            margin: 0;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            color: #10B981;
+            flex-shrink: 0;
+            stroke: currentColor;
+            fill: none;
+            fill: none;
+            stroke-width: 2;
+        }
+        .section-chevron {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-secondary);
+            fill: none;
+            stroke-width: 2;
+            transition: transform var(--anim-normal);
+            flex-shrink: 0;
+        }
+        .condition-section-header.active .section-chevron {
+            transform: rotate(180deg);
+            stroke: var(--primary);
+        }
+        .condition-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 16px;
+        }
+        .condition-section-content.active {
+            max-height: 2000px;
+            padding: 14px 16px;
+        }
+
         
         .symptoms-list {
             list-style: none;
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
+            gap: 8px;
         }
         .symptoms-list li {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
+            gap: 10px;
+            font-size: 13px;
         }
         .symptom-icon-container {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             flex-shrink: 0;
             border: 1px solid var(--border-secondary);
-            border-radius: 12px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: var(--white);
         }
         .symptom-icon-container svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             stroke: var(--primary);
         }
         
@@ -223,34 +265,51 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            gap: 8px;
         }
         .treatment-plan-list li {
             display: flex;
-            align-items: center;
-            gap: var(--space-md);
+            align-items: flex-start;
+            gap: 10px;
             font-weight: 500;
+            font-size: 13px;
+            line-height: 1.5;
         }
         .treatment-plan-icon {
-            background-color: var(--statwell-teal-light);
-            color: var(--statwell-navy);
+            background: linear-gradient(135deg, var(--statwell-teal), #35a895);
+            color: var(--white);
             border-radius: 50%;
-            width: 28px;
-            height: 28px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .treatment-plan-icon svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            stroke-width: 3;
         }
 
         .decision-banner {
             background-color: var(--bg-secondary);
-            padding: var(--space-sm) var(--space-md);
+            padding: 12px 20px;
             border-top: 1px solid var(--border-secondary);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: var(--space-lg);
+            flex-shrink: 0;
+        }
+        .decision-banner .btn-primary {
+            flex: 1;
+            max-width: 400px;
+            min-width: 250px;
+            font-size: 15px;
+            padding: 12px 24px;
         }
         .key-facts-group {
             display: flex;
@@ -268,37 +327,83 @@
 </head>
 <body>
     <div id="condition-view" class="condition-view-container">
-        <div class="modal-header">
-            <h1 class="text-display" id="condition-name"></h1>
-            <p class="text-muted" id="condition-tagline" style="max-width: 500px; margin: var(--space-sm) auto 0;"></p>
-            <div class="image-grid" id="condition-images"></div>
-        </div>
-        
-        <div class="tabs-container" id="tabs-container">
-            <div class="tab-item active" data-tab="symptoms">Symptoms</div>
-            <div class="tab-item" data-tab="treatment">Causes & Treatment</div>
-            <div class="tab-item" data-tab="overview">Overview</div>
-        </div>
+        <div class="condition-content-wrapper">
+            <div class="condition-left-content">
+                <div class="modal-header">
+                    <h1 id="condition-name"></h1>
+                </div>
 
-        <div class="tab-content">
-            <div id="symptoms-pane" class="tab-pane active">
-                 <ul class="symptoms-list" id="symptoms-list"></ul>
-            </div>
-            <div id="treatment-pane" class="tab-pane">
-                <div class="tab-pane-grid">
-                    <div>
-                        <h3 class="section-title">Common Causes</h3>
-                        <ul class="treatment-plan-list" id="causes-list"></ul>
+                <!-- Overview Section -->
+                <div class="condition-section">
+                    <div class="condition-section-header active" onclick="toggleConditionSection(this)">
+                        <h3 class="section-title">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                            Overview
+                        </h3>
+                        <svg class="section-chevron" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
                     </div>
-                    <div>
-                        <h3 class="section-title">Your Treatment Plan</h3>
-                        <ul class="treatment-plan-list" id="treatment-plan-list"></ul>
+                    <div class="condition-section-content active">
+                        <p id="overview-content" style="font-size: 13px; line-height: 1.6; color: var(--text-primary); margin: 0;"></p>
+                    </div>
+                </div>
+
+                <!-- Symptoms Section -->
+                <div class="condition-section">
+                    <div class="condition-section-header" onclick="toggleConditionSection(this)">
+                        <h3 class="section-title">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                            Symptoms
+                        </h3>
+                        <svg class="section-chevron" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="condition-section-content">
+                        <ul class="symptoms-list" id="symptoms-list"></ul>
+                    </div>
+                </div>
+
+                <!-- Causes and Care Section -->
+                <div class="condition-section">
+                    <div class="condition-section-header" onclick="toggleConditionSection(this)">
+                        <h3 class="section-title">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 7h-4V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1z"/>
+                                <line x1="9" y1="9" x2="15" y2="9"/>
+                                <line x1="9" y1="13" x2="15" y2="13"/>
+                            </svg>
+                            Causes and Care
+                        </h3>
+                        <svg class="section-chevron" viewBox="0 0 24 24">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </div>
+                    <div class="condition-section-content">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div>
+                                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Common Causes</h4>
+                                <ul class="treatment-plan-list" id="causes-list"></ul>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Your Treatment Plan</h4>
+                                <ul class="treatment-plan-list" id="treatment-plan-list"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="overview-pane" class="tab-pane">
-                 <p class="text-muted" id="overview-content"></p>
-            </div>
+
+            <div class="condition-right-images" id="condition-images"></div>
         </div>
 
         <div class="decision-banner">
@@ -344,7 +449,6 @@
                 }
                 document.title = `StatwellMD - ${data.name} Information`;
                 document.getElementById('condition-name').textContent = data.name;
-                document.getElementById('condition-tagline').textContent = data.tagline;
                 document.getElementById('overview-content').textContent = data.overview;
                 document.getElementById('condition-images').innerHTML = data.images.map(src => `<img src="${src}" alt="${data.name}">`).join('');
                 
@@ -370,33 +474,22 @@
                         <span>${symptom.text}</span>
                     </li>`).join('');
 
-                const createListHTML = (items, listId, icon) => {
+                const createListHTML = (items, listId) => {
                     const container = document.getElementById(listId);
                     container.innerHTML = items.map(item => `
                         <li>
-                           <span class="treatment-plan-icon">${icon}</span>
+                           <span class="treatment-plan-icon">
+                               <svg viewBox="0 0 24 24">
+                                   <polyline points="20,6 9,17 4,12"/>
+                               </svg>
+                           </span>
                            <span>${item}</span>
                         </li>`).join('');
                 };
                 
-                createListHTML(data.causes, 'causes-list', '✓');
-                createListHTML(data.treatments, 'treatment-plan-list', '✓');
+                createListHTML(data.causes, 'causes-list');
+                createListHTML(data.treatments, 'treatment-plan-list');
             }
-
-            const tabsContainer = document.getElementById('tabs-container');
-            tabsContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('tab-item')) {
-                    const targetTab = e.target.dataset.tab;
-
-                    tabsContainer.querySelector('.active').classList.remove('active');
-                    e.target.classList.add('active');
-
-                    document.querySelectorAll('.tab-pane').forEach(pane => {
-                        pane.classList.remove('active');
-                    });
-                    document.getElementById(`${targetTab}-pane`).classList.add('active');
-                }
-            });
             
             const urlParams = new URLSearchParams(window.location.search);
             const conditionParam = urlParams.get('condition');
