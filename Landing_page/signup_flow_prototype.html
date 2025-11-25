@@ -232,23 +232,24 @@
                             </div>
                         </div>
 
-                        <div class="mb-2.5">
-                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Email</label>
-                            <input type="email" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="email" placeholder="Email" required>
-                        </div>
-
-                        <div class="mb-2.5">
-                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Phone</label>
-                            <div class="flex gap-2">
-                                <div class="flex items-center gap-1.5 px-2.5 py-2 border-2 border-statwell-navy rounded-lg bg-[#f1f3f6] text-sm min-w-[80px] font-medium" title="United States +1">
-                                    <svg class="w-[18px] h-[18px] stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24">
-                                        <rect x="3" y="3" width="18" height="12" rx="2"/>
-                                        <path d="M3 9h18"/>
-                                        <path d="M3 15h18"/>
-                                    </svg>
-                                    <span>+1</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Email</label>
+                                <input type="email" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="email" placeholder="Email" required>
+                            </div>
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Phone</label>
+                                <div class="flex gap-2">
+                                    <div class="flex items-center gap-1.5 px-2.5 py-2 border-2 border-statwell-navy rounded-lg bg-[#f1f3f6] text-sm min-w-[80px] font-medium" title="United States +1">
+                                        <svg class="w-[18px] h-[18px] stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24">
+                                            <rect x="3" y="3" width="18" height="12" rx="2"/>
+                                            <path d="M3 9h18"/>
+                                            <path d="M3 15h18"/>
+                                        </svg>
+                                        <span>+1</span>
+                                    </div>
+                                    <input type="tel" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="phone" placeholder="000 000 0000" required>
                                 </div>
-                                <input type="tel" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="phone" placeholder="000 000 0000" required>
                             </div>
                         </div>
 
@@ -306,9 +307,15 @@
                             </div>
                         </div>
 
-                        <div class="mb-2.5">
-                            <label class="block text-xs font-semibold text-statwell-navy mb-1">Street Address</label>
-                            <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="address" placeholder="E.g. 504 Tower Square Plaza Suite 200" required>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Zip Code</label>
+                                <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="zipCode" placeholder="Enter zip code" maxlength="5" required>
+                            </div>
+                            <div class="mb-2.5">
+                                <label class="block text-xs font-semibold text-statwell-navy mb-1">Street Address</label>
+                                <input type="text" class="w-full px-2.5 py-2 border-2 border-statwell-navy rounded-lg text-sm font-secondary bg-white transition-all duration-200 outline-none focus:border-statwell-blue focus:ring-3 focus:ring-statwell-blue/10 placeholder:text-statwell-gray form-input" id="address" placeholder="E.g. 504 Tower Square Plaza Suite 200" required>
+                            </div>
                         </div>
 
                         <div class="flex items-start gap-1.5 my-2">
@@ -582,6 +589,7 @@
                 const gender = document.getElementById('genderInput');
                 const state = document.getElementById('stateInput');
                 const city = document.getElementById('cityInput');
+                const zipCode = document.getElementById('zipCode');
                 const address = document.getElementById('address');
                 const termsCheckbox = document.getElementById('termsCheckbox');
                 
@@ -594,7 +602,7 @@
                 if (!firstName || !firstName.value || !lastName || !lastName.value || 
                     !email || !email.value || !phone || !phone.value || 
                     !dateOfBirth || !dateOfBirth.value || !gender || !gender.value || 
-                    !state || !state.value || !city || !city.value || !address || !address.value) {
+                    !state || !state.value || !city || !city.value || !zipCode || !zipCode.value || !address || !address.value) {
                     alert('Please fill in all required fields');
                     return;
                 }
@@ -608,6 +616,7 @@
                     gender: gender.value,
                     state: state.value,
                     city: city.value,
+                    zipCode: zipCode.value,
                     address: address.value
                 };
 
@@ -733,6 +742,24 @@
                     this.classList.remove('valid');
                 } else {
                     this.classList.remove('valid', 'invalid');
+                }
+            });
+
+            // Zipcode validation
+            const zipCodeInput = document.getElementById('zipCode');
+            zipCodeInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length > 5) value = value.slice(0, 5);
+                this.value = value;
+                
+                if (value === '') {
+                    this.classList.remove('valid', 'invalid');
+                } else if (validateZipCode(value)) {
+                    this.classList.remove('invalid');
+                    this.classList.add('valid');
+                } else {
+                    this.classList.remove('valid');
+                    this.classList.add('invalid');
                 }
             });
 
