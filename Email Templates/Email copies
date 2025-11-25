@@ -1,0 +1,407 @@
+Email Template Drafts
+EMAIL 1 — Signup Confirmation
+
+Subject: Welcome to StatWellMD
+
+Body:
+Hi [First Name],
+
+Welcome to StatWellMD — your secure, trusted way to get care online, anytime.
+
+With your account, you can:
+
+Complete a short medical questionnaire to start your consultation.
+
+Get your case reviewed by a licensed clinician.
+
+Receive prescriptions to your preferred pharmacy.
+
+Request refills or follow-ups whenever you need them.
+
+
+[Start My Consultation]
+
+
+Warm regards,
+The StatWellMD Team
+
+
+
+EMAIL 2 — Consultation Received
+
+Subject: Your consultation has been received
+Body:
+Hi [First Name],
+
+Thank you for submitting your consultation with StatWellMD. Your medical questionnaire has been securely received, and your consultation fee of [Amount] has been confirmed.
+
+Here’s what happens next:
+
+1. A licensed clinician will review your consultation shortly.
+
+
+2. If medication is approved, your prescription will be sent directly to your chosen pharmacy.
+
+
+3. You’ll receive an update once your prescription is sent.
+
+
+
+You can log in anytime to check your consultation status.
+
+[Go to Dashboard]
+
+Thank you for trusting StatWellMD with your care.
+
+Warmly,
+The StatWellMD Team
+
+
+
+EMAIL 3 — Prescription Issued
+
+Subject: Your Prescription Has Been Sent to Your Pharmacy
+
+Body:
+Hi [First Name],
+
+Good news! Your StatWellMD provider has reviewed your consultation for:
+
+Condition: [Condition Name]
+Date of submission: [Date]
+
+Your prescription has been sent to:
+
+Pharmacy: [Pharmacy Name]
+Address: [Pharmacy Address]
+Contact: [Pharmacy Phone Number]
+
+You’ll typically receive a call from your pharmacy within 2–3 hours to confirm pickup or delivery. If you don’t hear from them, feel free to call directly.
+
+Once your pharmacy contacts you, and you receive your medication, please update your delivery status on your StatWellMD dashboard. This helps us confirm your treatment progress and keep your records accurate.
+
+
+[Go to My Dashboard]
+
+Thank you for choosing StatWellMD.
+
+Stay well,
+The StatWellMD Team
+
+
+
+EMAIL 4 — Delivery Status Reminder
+
+Subject: Have you received your medication yet?
+
+Body:
+Hi [First Name],
+
+We noticed you haven’t confirmed receipt of your prescription. Have you received your medication from [Pharmacy Name] yet?
+
+If you’ve already received your medication, please take a moment to update your delivery status on your StatWellMD dashboard. This helps us keep your treatment records accurate and ensures your care stays on track.
+
+[Update Delivery Status]
+
+If your pharmacy hasn’t contacted you, you can reach them directly at:
+Pharmacy: [Pharmacy Name]
+Address: [Pharmacy Address]
+Contact: [Pharmacy Phone Number]
+
+
+Thank you for keeping your care on track.
+
+Warm regards,
+The StatWellMD Team
+
+
+EMAIL 5 — Post-Treatment Check-In
+
+Subject: How are you feeling after your treatment?
+
+Body:
+Hi [First Name],
+
+We hope you’re feeling better after your recent treatment for [Condition Name].
+If your symptoms have improved, that’s great news!
+
+If you’re still not feeling better or your symptoms have returned, please submit a new consultation so a provider can review your case and recommend the next best step.
+
+
+[Start a New Consultation]
+
+Your health and safety come first, and we’re here to support your recovery.
+
+Take care,
+The StatWellMD Team
+
+
+EMAIL 6 — Refill Request Confirmation
+
+Subject: We’ve received your refill request
+
+Body:
+Hi [First Name],
+
+Your refill request for [Medication Name] has been received. A licensed StatWellMD clinician will review your request shortly to ensure it’s safe and appropriate.
+
+You’ll be notified once your refill is approved or if additional information is needed.
+
+[View My Request]
+
+Thank you for choosing StatWellMD for your ongoing care.
+
+Warm regards,
+The StatWellMD Team
+
+
+EMAIL 7 — Refill Approved
+
+Subject: Your refill has been approved
+Body:
+Hi [First Name],
+
+Good news — your refill request for [Medication Name] has been approved by your StatWellMD provider.
+
+Your prescription has been sent to:
+Pharmacy: [Pharmacy Name]
+Address: [Pharmacy Address]
+Phone: [Pharmacy Phone Number]
+
+You’ll typically receive a call from your pharmacy within 2–3 hours to confirm pickup or delivery.
+
+After receiving your refill, please update your delivery status on your StatWellMD dashboard to keep your medication history up to date.
+
+[Update Delivery Status]
+
+Thank you for choosing StatWellMD for your care.
+
+EMAIL 8 — Refill Denied
+
+Subject: Update on your refill request
+Body:
+Hi [First Name],
+
+After reviewing your refill request for [Medication Name], your StatWellMD provider determined that a refill cannot be issued at this time.
+
+Reason: [Insert short reason — e.g., follow-up required, condition reassessment needed, or prescription expired.]
+
+You can submit a new consultation to review your current symptoms or request a new prescription if needed.
+
+[Start New Consultation]
+
+We’re committed to helping you receive the care that’s right for you.
+
+Warm regards,
+The StatWellMD Team
+
+EMAIL 9— Medication Refill Reminder (3–5 Days Before)
+
+Subject: Your medication runs out in [X] days
+
+Body:
+Hi [First Name],
+
+We noticed your current prescription for [Medication Name] will run out in [X] days.
+
+To stay on track with your treatment and avoid any gaps, please request your refill today.
+
+[Request My Refill]
+
+Once approved, your provider will send the refill directly to your preferred pharmacy.
+
+If you’ve already submitted your request, you can ignore this message.
+
+Stay consistent, stay well 
+The StatWellMD Team
+
+
+
+EMAIL 10 — Medication Refill Reminder (Last Day)
+
+Subject: Your prescription has reached its final day
+
+Body:
+Hi [First Name],
+
+Your prescription for [Medication Name] has reached its final day.
+
+To continue your treatment without interruption, please submit your refill request now.
+
+[Request My Refill]
+
+Your provider will review your request and send your refill to your preferred pharmacy once approved.
+
+Thank you for choosing StatWellMD — we’re here to support your health journey.
+
+Warm regards,
+The StatWellMD Team
+
+
+
+EMAIL 11 — Daily Medication Reminder
+
+Subject: Reminder: Take your medication today 
+
+Body:
+Hi [First Name],
+
+Just a quick reminder to take your [Medication Name] as prescribed today. Staying consistent with your treatment helps you get the best results.
+
+[Go to Dashboard]
+
+You’ve got this.
+The StatWellMD Team
+
+
+
+EMAIL 12 — Admin Onboarding Invite
+
+Subject: Welcome to StatWellMD — Your Admin Account is Ready
+Body:
+
+Hi [First Name],
+
+You’ve been added as an Admin User on the StatWellMD platform.
+
+Your login details are below:
+Email: [Email Address]
+Temporary Password: [Password]
+
+[Log In to Dashboard]
+
+Once logged in, you can manage patient encounters, monitor provider actions, and access admin tools.
+Please change your password immediately after your first login for security reasons.
+
+Welcome aboard,
+The StatWellMD Team
+
+
+EMAIL 13— New Consultation Alert (Pending Review)
+
+Subject: New consultation awaiting review
+
+Body:
+Hi [Provider Name],
+
+A new patient consultation has been submitted and is awaiting your review.
+
+Patient Name: [Patient Name]
+Condition/Reason for Visit: [Condition Name]
+Submission Time: [Timestamp]
+
+[View Consultation]
+
+Please review the patient’s medical questionnaire and issue a prescription or care recommendation if appropriate.
+
+Thank you for keeping our patients cared for.
+The StatWellMD Admin Team
+
+
+
+EMAIL 14— Prescription Sent Confirmation
+
+Subject: Prescription successfully transmitted
+
+Body:
+Hi [Provider Name],
+
+The prescription for [Patient Name] has been successfully transmitted via DoseSpot.
+
+Medication: [Medication Name]
+Pharmacy: [Pharmacy Name]
+Status: Sent successfully
+
+[View Encounter]
+
+Thank you for your timely action and for supporting our patients’ health.
+
+Warm regards,
+The StatWellMD Team
+
+
+
+EMAIL 15 — Task Completion Notification (Delivery Confirmed)
+
+Subject: Patient delivery confirmed — Encounter closed
+
+Body:
+Hi [Provider Name],
+
+[Patient Name] has confirmed receipt of their medication for [Condition Name].
+
+This encounter is now marked as Completed in the system.
+
+[View Completed Encounter]
+
+Thank you for providing quality care through StatWellMD.
+
+Warm regards,
+The StatWellMD Admin Team
+
+
+
+EMAIL 16 — Refill Request Alert
+
+Subject: New refill request awaiting review
+
+Body:
+Hi [Provider Name],
+
+A patient has submitted a new refill request requiring your review.
+
+Patient: [Patient Name]
+Medication: [Medication Name]
+Condition: [Condition Name]
+Date Requested: [Date]
+
+[Review Refill Request]
+
+Please review and approve or deny the refill as clinically appropriate.
+
+Thank you for ensuring safe and responsible prescribing.
+The StatWellMD Team
+
+
+EMAIL 17— Refill Processed Confirmation
+
+Subject: Refill prescription successfully transmitted
+
+Body:
+
+Hi [Provider Name],
+
+The refill for [Patient Name] has been successfully processed and transmitted via DoseSpot.
+
+Medication: [Medication Name]
+Pharmacy: [Pharmacy Name]
+Status: Sent successfully
+
+[View Encounter]
+
+Thank you for your continued diligence.
+The StatWellMD Admin Team
+
+
+EMAIL 18— Payment Failure Notification
+
+Subject: Payment failed for patient consultation
+
+Body:
+
+Hi [Admin/Support Team],
+
+A patient’s payment attempt for a consultation did not go through.
+
+Patient: [Patient Name]
+Email: [Patient Email]
+Attempted Amount: [Amount]
+Timestamp: [Date & Time]
+
+[View Payment Record]
+
+Please follow up with the patient or assist with retrying the payment if needed.
+
+Regards,
+The StatWellMD Billing Team
+
