@@ -49,7 +49,41 @@
             overflow-y: auto; 
             box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
         }
-        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .main-content { flex: 1; padding: 16px 24px; margin-left: 280px; overflow-y: auto; }
+        .main-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        /* Scrollable content areas */
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
 
         /* Sidebar - Dark Theme */
         .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
@@ -186,18 +220,21 @@
         }
 
         /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .welcome-text { font-size: 14px; color: var(--text-secondary); }
-        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+        .page-title { font-size: 28px; font-weight: 700; font-family: var(--font-primary); margin-top: 4px; }
 
         /* Progress Navigation */
         .progress-navigation {
             background: var(--white);
             border-radius: 16px;
-            padding: var(--space-lg);
-            margin-bottom: var(--space-xl);
+            padding: 12px 16px;
+            margin-bottom: 12px;
             border: 1px solid rgba(93, 120, 255, 0.12);
             transition: all var(--anim-normal);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .progress-navigation:hover {
             border-color: rgba(93, 120, 255, 0.25);
@@ -245,6 +282,9 @@
             z-index: 2;
             transition: all var(--anim-normal);
         }
+        .progress-step:not(:last-child)::after {
+            top: 20px;
+        }
         .progress-step.active .progress-step-icon {
             background: var(--primary);
             color: var(--white);
@@ -271,20 +311,80 @@
         }
 
         /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: 8px 16px; border-radius: 8px; font-weight: 500; border: 1px solid transparent; cursor: pointer; transition: all var(--anim-normal) var(--smooth); text-decoration: none; font-size: 14px; }
-        .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(93, 120, 255, 0.3); }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); }
-        .btn-secondary { background: var(--bg-primary); color: var(--primary); border-color: var(--primary); }
-        .btn-secondary:hover { background: var(--statwell-teal-light); color: var(--text-primary); border-color: var(--statwell-teal-light); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 6px; 
+            padding: 10px 16px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: all var(--anim-normal) var(--smooth); 
+            text-decoration: none; 
+            font-size: 13px; 
+            position: relative;
+            overflow: hidden;
+            min-height: 38px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, #4F46E5 100%); 
+            color: var(--white); 
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.3), 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(93, 120, 255, 0.4), 0 4px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-primary:active { 
+            transform: translateY(0); 
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.3); 
+        }
+        .btn-primary:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            transform: none; 
+            box-shadow: 0 2px 4px rgba(93, 120, 255, 0.2); 
+        }
+        .btn-secondary { 
+            background: var(--white); 
+            color: var(--primary); 
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(93, 120, 255, 0.1);
+        }
+        .btn-secondary:hover { 
+            background: var(--primary); 
+            color: var(--white); 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 16px rgba(93, 120, 255, 0.25); 
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
 
         /* Condition Selector Controls */
         .condition-selector-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-md);
+            gap: 10px;
             align-items: center;
-            margin-bottom: var(--space-xl);
+            margin-bottom: 12px;
         }
         .filter-tabs {
             display: flex;
@@ -292,9 +392,10 @@
             gap: var(--space-sm);
         }
         .filter-tab {
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 99px;
             font-weight: 500;
+            font-size: 13px;
             cursor: pointer;
             transition: all var(--anim-normal);
             border: 1px solid var(--border-secondary);
@@ -311,14 +412,20 @@
         }
         .condition-search {
             width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-secondary);
-            font-size: 16px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 2px solid var(--statwell-navy);
+            font-size: 14px;
+            transition: all var(--anim-normal);
+        }
+        .condition-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
+            outline: none;
         }
 
         /* Condition Cards */
-        .condition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-xl); }
+        .condition-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; }
         .condition-card { 
             border-radius: 16px; 
             overflow: hidden; 
@@ -338,7 +445,7 @@
             box-shadow: 0 4px 16px rgba(93, 120, 255, 0.15);
         }
         .condition-card-img { width: 100%; flex-grow: 1; height: 0; object-fit: cover; display: block; }
-        .condition-card-title { padding: var(--space-md); font-weight: 600; background: var(--white); margin: 0; flex-shrink: 0; }
+        .condition-card-title { padding: 10px 12px; font-weight: 600; font-size: 14px; background: var(--white); margin: 0; flex-shrink: 0; }
         .condition-card-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(42, 59, 84, 0.85); color: var(--white); padding: var(--space-md); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
         .condition-card:hover .condition-card-overlay, .condition-card.is-active .condition-card-overlay { opacity: 1; }
         .condition-card-overlay p { font-size: 14px; margin-bottom: var(--space-md); }
@@ -357,86 +464,142 @@
             background-color: var(--bg-primary); 
             border-radius: 24px; 
             width: 100%; 
-            max-width: 700px;
+            max-width: 1200px;
             border: 1px solid var(--border-secondary); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            margin: 5% auto;
+            margin: 3% auto;
             position: relative;
             animation: slideIn 0.4s var(--smooth);
+            max-height: 90vh;
+        }
+        .condition-view-container .close-modal {
+            color: white;
+            z-index: 10;
+        }
+        .condition-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        .condition-left-content {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            min-width: 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        .condition-left-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .condition-right-images {
+            width: 350px;
+            flex-shrink: 0;
+            padding: 16px;
+            background: var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        .condition-right-images::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .condition-right-images img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .modal-header {
-            padding: var(--space-md);
-            text-align: center;
+            margin-bottom: 16px;
         }
-        .image-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
-        .image-grid img {
-            width: 100%;
-            border-radius: 16px;
-            aspect-ratio: 16 / 10;
-            object-fit: cover;
-        }
-
-        .tabs-container { 
-            display: flex; 
-            gap: var(--space-sm); 
-            padding: 4px; 
-            background: var(--light-gray); 
-            border-radius: 12px; 
-            margin: 0 var(--space-md) var(--space-md);
-            align-self: center;
-        }
-        .tab-item { 
-            padding: 6px 14px; 
-            border-radius: 8px; 
-            font-weight: 500; 
-            cursor: pointer; 
-            transition: all var(--anim-normal); 
-            white-space: nowrap; 
-            font-size: 14px;
-        }
-        .tab-item.active { background: var(--white); color: var(--text-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .tab-item:not(.active) { background: transparent; color: var(--text-secondary); }
-
-        .tab-content {
-            padding: var(--space-md);
-            height: 280px; /* Fixed height to prevent layout shifts */
-        }
-        .tab-pane {
-             display: none;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-        .tab-pane-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-lg);
-        }
-
-        .section-title {
-            font-size: 18px;
+        .modal-header h1 {
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: var(--space-md);
-            position: relative;
-            padding-bottom: var(--space-sm);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            margin-bottom: 0;
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 3px;
-            border-radius: 2px;
-            background-color: var(--secondary);
+
+        .condition-section {
+            margin-bottom: 10px;
+            border: 1px solid var(--border-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--anim-normal);
+        }
+        .condition-section:last-child {
+            margin-bottom: 0;
+        }
+        .condition-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            cursor: pointer;
+            background: var(--white);
+            transition: all var(--anim-normal);
+            user-select: none;
+        }
+        .condition-section-header:hover {
+            background: var(--light-gray);
+        }
+        .condition-section-header.active {
+            background: rgba(93, 120, 255, 0.05);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            margin: 0;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            color: #10B981;
+            flex-shrink: 0;
+            stroke: currentColor;
+            fill: none;
+            fill: none;
+            stroke-width: 2;
+        }
+        .section-chevron {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-secondary);
+            fill: none;
+            stroke-width: 2;
+            transition: transform var(--anim-normal);
+            flex-shrink: 0;
+        }
+        .condition-section-header.active .section-chevron {
+            transform: rotate(180deg);
+            stroke: var(--primary);
+        }
+        .condition-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 16px;
+        }
+        .condition-section-content.active {
+            max-height: 2000px;
+            padding: 14px 16px;
         }
         
         .symptoms-list {
@@ -444,27 +607,28 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
+            gap: 8px;
         }
         .symptoms-list li {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
+            gap: 10px;
+            font-size: 13px;
         }
         .symptom-icon-container {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             flex-shrink: 0;
             border: 1px solid var(--border-secondary);
-            border-radius: 12px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: var(--white);
         }
         .symptom-icon-container svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             stroke: var(--primary);
         }
         
@@ -473,34 +637,51 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            gap: 8px;
         }
         .treatment-plan-list li {
             display: flex;
-            align-items: center;
-            gap: var(--space-md);
+            align-items: flex-start;
+            gap: 10px;
             font-weight: 500;
+            font-size: 13px;
+            line-height: 1.5;
         }
         .treatment-plan-icon {
-            background-color: var(--statwell-teal-light);
-            color: var(--statwell-navy);
+            background: linear-gradient(135deg, var(--statwell-teal), #35a895);
+            color: var(--white);
             border-radius: 50%;
-            width: 28px;
-            height: 28px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .treatment-plan-icon svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            stroke-width: 3;
         }
 
         .decision-banner {
             background-color: var(--bg-secondary);
-            padding: var(--space-sm) var(--space-md);
+            padding: 12px 20px;
             border-top: 1px solid var(--border-secondary);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: var(--space-lg);
+            flex-shrink: 0;
+        }
+        .decision-banner .btn-primary {
+            flex: 1;
+            max-width: 400px;
+            min-width: 250px;
+            font-size: 15px;
+            padding: 12px 24px;
         }
         .key-facts-group {
             display: flex;
@@ -519,11 +700,14 @@
             justify-content: space-between;
             align-items: center;
             background: var(--white);
-            padding: var(--space-lg);
+            padding: 12px 16px;
             border-radius: 16px;
-            margin-bottom: var(--space-lg);
+            margin-bottom: 12px;
             border: 1px solid rgba(93, 120, 255, 0.12);
             transition: all var(--anim-normal);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .selected-condition-header:hover {
             border-color: rgba(93, 120, 255, 0.25);
@@ -538,18 +722,18 @@
             font-size: 32px; 
         }
         .condition-name { 
-            font-size: 20px; 
+            font-size: 18px; 
             font-weight: 700; 
             font-family: var(--font-primary); 
             color: var(--text-primary); 
         }
         .condition-type { 
-            font-size: 14px; 
+            font-size: 12px; 
             color: var(--text-secondary); 
             margin-top: 2px; 
         }
         .consultation-fee { 
-            font-size: 24px; 
+            font-size: 20px; 
             font-weight: 700; 
             color: var(--primary); 
         }
@@ -559,100 +743,116 @@
         .questions-container {
             background: var(--white);
             border-radius: 16px;
-            padding: var(--space-xl);
+            padding: 16px 24px;
             border: 1px solid rgba(93, 120, 255, 0.12);
             transition: all var(--anim-normal);
+            margin-bottom: 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 200px);
         }
         .questions-container:hover {
             border-color: rgba(93, 120, 255, 0.25);
             box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
         }
         .questions-header { 
-            text-align: center; 
-            margin-bottom: var(--space-xl); 
+            text-align: left; 
+            margin-bottom: 12px; 
         }
         .questions-header h2 { 
-            font-size: 24px; 
+            font-size: 22px; 
             font-weight: 700; 
             font-family: var(--font-primary); 
-            margin-bottom: var(--space-sm); 
+            margin-bottom: 4px; 
             color: var(--text-primary); 
         }
         .questions-header p { 
             color: var(--text-secondary); 
-            margin-bottom: var(--space-lg); 
+            margin-bottom: 12px; 
+            font-size: 13px;
         }
         .progress-indicator { 
             display: inline-flex; 
             align-items: center; 
-            gap: var(--space-sm); 
+            gap: 6px; 
             background: var(--light-gray); 
-            padding: var(--space-sm) var(--space-md); 
+            padding: 6px 10px; 
             border-radius: 20px; 
-            font-size: 14px; 
+            font-size: 12px; 
             font-weight: 600; 
-        }
-        .progress-indicator #current-question { 
-            color: var(--primary); 
         }
 
         /* Question Cards */
         .question-card {
-            display: none;
-            padding: var(--space-lg);
-            background: var(--white);
-            border-radius: 16px;
-            border: 1px solid rgba(93, 120, 255, 0.12);
-            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            background: transparent;
+            border: none;
+            margin-bottom: 16px;
             transition: all var(--anim-normal);
+            border-bottom: 1px solid var(--border-secondary);
+            padding-bottom: 16px;
+        }
+        .question-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
         }
         .question-card:hover {
             border-color: rgba(93, 120, 255, 0.25);
-            box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
-        }
-        .question-card.active { 
-            display: block; 
-            animation: slideInQuestion 0.3s ease; 
         }
         @keyframes slideInQuestion {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .question-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
         .question-number { 
             display: inline-flex; 
             align-items: center; 
             justify-content: center; 
-            width: 32px; 
-            height: 32px; 
+            width: 28px; 
+            height: 28px; 
             background: var(--primary); 
             color: var(--white); 
             border-radius: 50%; 
             font-weight: 700; 
-            font-size: 14px; 
-            margin-bottom: var(--space-md); 
+            font-size: 12px; 
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .question-content {
+            flex: 1;
         }
         .question-content h3 { 
-            font-size: 18px; 
+            font-size: 16px; 
             font-weight: 600; 
-            margin-bottom: var(--space-sm); 
+            margin-bottom: 4px; 
             color: var(--text-primary); 
         }
         .question-subtext { 
-            font-size: 14px; 
+            font-size: 13px; 
             color: var(--text-secondary); 
-            margin-bottom: var(--space-lg); 
+            margin-bottom: 10px; 
             line-height: 1.5; 
         }
         .question-options { 
             display: flex; 
-            gap: var(--space-lg); 
+            gap: 10px; 
         }
         .option-label { 
             display: flex; 
             align-items: center; 
-            gap: var(--space-sm); 
+            gap: 8px; 
             cursor: pointer; 
-            padding: var(--space-md); 
+            padding: 8px 10px; 
             border-radius: 8px; 
             transition: all var(--anim-normal); 
             flex: 1; 
@@ -668,7 +868,7 @@
         }
         .option-text { 
             font-weight: 500; 
-            font-size: 16px; 
+            font-size: 14px; 
         }
 
         /* Questions Navigation */
@@ -676,77 +876,105 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-top: var(--space-xl); 
-            padding-top: var(--space-lg); 
+            margin-top: auto; 
+            padding-top: 12px; 
             border-top: 1px solid var(--border-secondary); 
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            z-index: 10;
+            margin-bottom: 0;
+        }
+        .questions-form {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        .questions-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+            min-height: 0;
+        }
+        .questions-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .questions-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .questions-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
         }
 
         /* Urgent Banner */
         .urgent-banner { 
             background: linear-gradient(135deg, var(--error) 0%, #e53e3e 100%); 
             color: var(--white); 
-            padding: var(--space-xl); 
+            padding: 16px 20px; 
             border-radius: 16px; 
-            margin-bottom: var(--space-lg); 
+            margin-bottom: 12px; 
             box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
         }
         .urgent-icon { 
-            font-size: 48px; 
-            margin-bottom: var(--space-md); 
+            font-size: 32px; 
+            margin-bottom: 12px; 
         }
         .urgent-content h3 { 
-            margin: 0 0 var(--space-md) 0; 
-            font-size: 24px; 
+            margin: 0 0 8px 0; 
+            font-size: 20px; 
             font-weight: 700; 
         }
         .urgent-content p { 
-            margin: 0 0 var(--space-lg) 0; 
-            font-size: 16px; 
+            margin: 0 0 12px 0; 
+            font-size: 14px; 
             line-height: 1.5; 
         }
         .urgent-recommendation { 
             background: rgba(255, 255, 255, 0.1); 
-            padding: var(--space-lg); 
-            border-radius: 12px; 
-            margin: var(--space-lg) 0; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin: 12px 0; 
         }
         .urgent-recommendation h4 { 
-            margin: 0 0 var(--space-md) 0; 
-            font-size: 18px; 
+            margin: 0 0 8px 0; 
+            font-size: 16px; 
             font-weight: 600; 
         }
         .urgent-recommendation ul { 
             margin: 0; 
-            padding-left: var(--space-lg); 
+            padding-left: 20px; 
         }
         .urgent-recommendation li { 
-            margin-bottom: var(--space-sm); 
-            font-size: 14px; 
+            margin-bottom: 6px; 
+            font-size: 13px; 
             line-height: 1.4; 
         }
         .triggered-questions { 
             background: rgba(255, 255, 255, 0.1); 
-            padding: var(--space-lg); 
-            border-radius: 12px; 
-            margin-top: var(--space-lg); 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-top: 12px; 
         }
         .triggered-questions h4 { 
-            margin: 0 0 var(--space-md) 0; 
-            font-size: 16px; 
+            margin: 0 0 8px 0; 
+            font-size: 14px; 
             font-weight: 600; 
         }
         .triggered-question-item { 
             background: rgba(255, 255, 255, 0.2); 
-            padding: var(--space-sm) var(--space-md); 
+            padding: 8px 10px; 
             border-radius: 8px; 
-            margin-bottom: var(--space-sm); 
-            font-size: 14px; 
+            margin-bottom: 6px; 
+            font-size: 13px; 
         }
         .urgent-actions { 
             display: flex; 
-            gap: var(--space-md); 
-            margin-top: var(--space-lg); 
+            gap: 10px; 
+            margin-top: 12px; 
             flex-wrap: wrap; 
         }
         .btn-white { 
@@ -772,14 +1000,14 @@
 
         /* Consent Step */
         .consent-form { display: flex; flex-direction: column; gap: var(--space-lg); }
-        .consent-checkbox { display: flex; align-items: flex-start; gap: var(--space-sm); }
-        .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; }
+        .consent-checkbox { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 0; }
+        .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary); }
         .consent-text { font-size: 14px; line-height: 1.5; }
 
         /* Payment Confirmation */
-        .payment-summary { background: var(--light-gray); padding: var(--space-lg); border-radius: 12px; margin-bottom: var(--space-lg); }
-        .payment-item { display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm) 0; }
-        .payment-total { border-top: 1px solid var(--border-secondary); padding-top: var(--space-md); margin-top: var(--space-md); font-weight: 700; font-size: 18px; }
+        .payment-summary { background: var(--light-gray); padding: 12px; border-radius: 12px; margin-bottom: 10px; }
+        .payment-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+        .payment-total { border-top: 1px solid var(--border-secondary); padding-top: 8px; margin-top: 8px; font-weight: 700; font-size: 16px; }
 
         /* Success Modal */
         .success-content { text-align: center; }
@@ -806,6 +1034,97 @@
             border-color: var(--primary) !important;
             background: rgba(93, 120, 255, 0.05);
         }
+
+        /* Pharmacy Selection */
+        .pharmacy-list {
+            display: grid;
+            gap: 10px;
+        }
+        .pharmacy-grid-modal {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .pharmacy-grid-modal {
+                grid-template-columns: 1fr;
+            }
+        }
+        .pharmacy-scroll-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-bottom: 0;
+        }
+        .pharmacy-modal-wrapper {
+            overflow: hidden !important;
+        }
+        .pharmacy-modal-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .pharmacy-modal-wrapper {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .pharmacy-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--statwell-teal);
+        }
+        .pharmacy-item {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .pharmacy-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(93, 120, 255, 0.15);
+        }
+        .pharmacy-item.selected {
+            border-color: var(--primary);
+            background: rgba(93, 120, 255, 0.05);
+        }
+        .pharmacy-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        .pharmacy-info {
+            flex: 1;
+        }
+        .pharmacy-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        .pharmacy-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+            line-height: 1.3;
+        }
+        .pharmacy-address {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            line-height: 1.3;
+        }
     </style>
 </head>
 <body>
@@ -819,6 +1138,7 @@
             <button class="demo-btn" onclick="showState('follow-up-questions')">Follow-up Questions</button>
             <button class="demo-btn" onclick="showState('urgent-banner')">Urgent Banner</button>
             <button class="demo-btn" onclick="showState('consent-step')">Consent Step</button>
+            <button class="demo-btn" onclick="showState('pharmacy-selection')">Pharmacy Selection</button>
             <button class="demo-btn" onclick="showState('payment-confirmation')">Payment Confirmation</button>
             <button class="demo-btn" onclick="showState('payment-success')">Payment Success</button>
         </div>
@@ -894,8 +1214,8 @@
 
             <!-- Conditions Listing State -->
             <div class="state active" id="conditions-listing-state">
-                <div style="margin-bottom: var(--space-xl);">
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Browse through conditions we treat and be on your path to wellness</p>
+                <div style="margin-bottom: 12px;">
+                    <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 13px;">Browse through conditions we treat and be on your path to wellness</p>
                 </div>
 
                 <!-- Condition Selector Controls -->
@@ -930,27 +1250,29 @@
                 </div>
 
                 <!-- Who is this visit for? -->
-                <div style="background: var(--white); border-radius: 16px; padding: var(--space-xl); margin-bottom: var(--space-xl); border: 1px solid rgba(93, 120, 255, 0.12);">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: var(--space-lg); color: var(--text-primary);">Who is this visit for?</h3>
-                    <div style="display: grid; gap: var(--space-md);">
-                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
-                            <input type="radio" name="visit-for" value="me" checked style="width: 20px; height: 20px; accent-color: var(--primary);">
-                            <span style="font-weight: 500; font-size: 16px;">Me (age 19 or older)</span>
-                        </label>
-                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
-                            <input type="radio" name="visit-for" value="dependent" style="width: 20px; height: 20px; accent-color: var(--primary);">
-                            <span style="font-weight: 500; font-size: 16px;">My dependent (age 19 or older)</span>
-                        </label>
-                        <label class="visit-for-option" style="display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border: 2px solid var(--border-secondary); border-radius: 12px; cursor: pointer; transition: all var(--anim-normal);">
-                            <input type="radio" name="visit-for" value="care-for" style="width: 20px; height: 20px; accent-color: var(--primary);">
-                            <span style="font-weight: 500; font-size: 16px;">Someone I care for (age 19 or older) <span style="color: var(--text-secondary); font-weight: 400;">(I have their consent)</span></span>
-                        </label>
+                <div style="background: var(--white); border-radius: 16px; padding: 16px 24px; margin-bottom: 0; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; max-height: calc(100vh - 200px);">
+                    <div style="flex: 1; overflow-y: auto; padding-right: 8px; min-height: 0;" class="scrollable-content">
+                        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); font-family: var(--font-primary);">Who is this visit for?</h3>
+                        <div style="display: grid; gap: 10px; margin-bottom: 12px;">
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--border-secondary); border-radius: 8px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="me" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 14px;">Me (age 19 or older)</span>
+                            </label>
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--border-secondary); border-radius: 8px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="dependent" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 14px;">My dependent (age 19 or older)</span>
+                            </label>
+                            <label class="visit-for-option" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--border-secondary); border-radius: 8px; cursor: pointer; transition: all var(--anim-normal);">
+                                <input type="radio" name="visit-for" value="care-for" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <span style="font-weight: 500; font-size: 14px;">Someone I care for (age 19 or older) <span style="color: var(--text-secondary); font-weight: 400;">(I have their consent)</span></span>
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: var(--space-md);">
-                    <button class="btn btn-secondary" onclick="showState('conditions-listing')">Back</button>
-                    <button class="btn btn-primary" onclick="showState('follow-up-questions')">Continue to Assessment</button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-secondary); position: sticky; bottom: 0; background: var(--white); z-index: 10; margin-bottom: 0;">
+                        <button class="btn btn-secondary" onclick="showState('conditions-listing')">Back</button>
+                        <button class="btn btn-primary" onclick="showState('follow-up-questions')">Continue to Assessment</button>
+                    </div>
                 </div>
             </div>
 
@@ -993,11 +1315,12 @@
                         <h2>Health Assessment Questions</h2>
                         <p>Please answer these questions to help us provide the best care for your condition.</p>
                         <div class="progress-indicator">
-                            <span id="current-question">1</span> of <span id="total-questions">5</span>
+                            <span id="total-questions">5</span> Questions
                         </div>
                     </div>
 
                     <form class="questions-form" id="questions-form">
+                        <div class="questions-content">
                         <!-- Question 1 -->
                         <div class="question-card active" data-question="1">
                             <div class="question-number">1</div>
@@ -1092,11 +1415,11 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
 
                         <div class="questions-navigation">
-                            <button type="button" class="btn btn-secondary" id="prev-question" onclick="previousQuestion()">Previous</button>
-                            <button type="button" class="btn btn-primary" id="next-question" onclick="nextQuestion()" disabled>Next Question</button>
-                            <button type="button" class="btn btn-primary" id="submit-questions" onclick="submitQuestions()" style="display: none;">Complete Assessment</button>
+                            <button type="button" class="btn btn-secondary" onclick="showState('who-is-visit-for')">Back</button>
+                            <button type="button" class="btn btn-primary" id="submit-questions" onclick="submitQuestions()">Complete Assessment</button>
                         </div>
                     </form>
                 </div>
@@ -1154,41 +1477,48 @@
                     <div class="consultation-fee">$29.99</div>
                 </div>
 
-                <!-- Urgent Banner -->
-                <div class="urgent-banner">
-                    <div class="urgent-icon">
-                        <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                    </div>
-                    <div class="urgent-content">
-                        <h3>Urgent Medical Attention Required</h3>
-                        <p>Based on your responses, we've identified symptoms that could indicate a serious medical condition requiring immediate attention.</p>
-                        
-                        <div class="urgent-recommendation">
-                            <h4>What you should do:</h4>
-                            <ul>
-                                <li>Call 911 or go to your nearest emergency room immediately</li>
-                                <li>Do not drive yourself if you're experiencing severe symptoms</li>
-                                <li>Inform emergency personnel about your current symptoms</li>
-                            </ul>
-                        </div>
+                <!-- Urgent Banner Container -->
+                <div style="background: var(--white); padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; max-height: calc(100vh - 200px);">
+                    <div style="flex: 1; overflow-y: auto; padding-right: 8px; min-height: 0;" class="scrollable-content">
+                        <!-- Urgent Banner -->
+                        <div class="urgent-banner">
+                            <div class="urgent-icon">
+                                <svg style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="urgent-content">
+                                <h3>Urgent Medical Attention Required</h3>
+                                <p>Based on your responses, we've identified symptoms that could indicate a serious medical condition requiring immediate attention.</p>
+                                
+                                <div class="urgent-recommendation">
+                                    <h4>What you should do:</h4>
+                                    <ul>
+                                        <li>Call 911 or go to your nearest emergency room immediately</li>
+                                        <li>Do not drive yourself if you're experiencing severe symptoms</li>
+                                        <li>Inform emergency personnel about your current symptoms</li>
+                                    </ul>
+                                </div>
 
-                        <div class="triggered-questions">
-                            <h4>Questions that triggered this alert:</h4>
-                            <div id="triggered-questions-list">
-                                <!-- Questions will be populated here -->
+                                <div class="triggered-questions">
+                                    <h4>Questions that triggered this alert:</h4>
+                                    <div id="triggered-questions-list">
+                                        <!-- Questions will be populated here -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="urgent-actions">
-                    <button class="btn btn-secondary" onclick="retryQuestions()">Retry Assessment</button>
-                    <button class="btn btn-white" onclick="showDeleteConfirmation()">Delete Session</button>
-                    <a href="tel:911" class="btn btn-primary urgent-call-btn">Call 911</a>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-secondary); position: sticky; bottom: 0; background: var(--white); z-index: 10; margin-bottom: 0;">
+                        <button class="btn btn-secondary" onclick="retryQuestions()">Retry Assessment</button>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-white" onclick="showDeleteConfirmation()">Delete Session</button>
+                            <a href="tel:911" class="btn btn-primary urgent-call-btn">Call 911</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1219,55 +1549,145 @@
                         </div>
                         <div class="progress-step">
                             <div class="progress-step-icon">4</div>
-                            <div class="progress-step-label">Payment</div>
+                            <div class="progress-step-label">Pharmacy</div>
                         </div>
                         <div class="progress-step">
                             <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">6</div>
                             <div class="progress-step-label">Complete</div>
                         </div>
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-xl); border-radius: 12px;">
-                    <h3 style="margin-bottom: var(--space-lg); font-size: 20px; font-weight: 600;">Please review your consent</h3>
+                <div style="background: var(--white); padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; max-height: calc(100vh - 200px);">
+                    <div style="flex: 1; overflow-y: auto; padding-right: 8px; min-height: 0;" class="scrollable-content">
+                        <h3 style="margin-bottom: 12px; font-size: 22px; font-weight: 700; font-family: var(--font-primary); color: var(--text-primary);">Please review your consent</h3>
+                        
+                        <div class="consent-form" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent-checkbox-1" onchange="checkAllConsents()" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <label for="consent-checkbox-1" class="consent-text" style="font-size: 14px;">
+                                    I confirm this is not an emergency; I'll call 911 for urgent/life-threatening issues.
+                                </label>
+                            </div>
+                            
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent-checkbox-2" onchange="checkAllConsents()" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <label for="consent-checkbox-2" class="consent-text" style="font-size: 14px;">
+                                    I am 16 years of age or older (or the legal guardian of a 16-17-year-old patient).
+                                </label>
+                            </div>
+                            
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent-checkbox-3" onchange="checkAllConsents()" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <label for="consent-checkbox-3" class="consent-text" style="font-size: 14px;">
+                                    I agree to <a href="../Landing_page/terms_of_service.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Telehealth Consent and Terms of Use</a>.
+                                </label>
+                            </div>
+                            
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent-checkbox-4" onchange="checkAllConsents()" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <label for="consent-checkbox-4" class="consent-text" style="font-size: 14px;">
+                                    I acknowledge Medication Policy (no Controlled Substances; prescriptions only if clinically appropriate).
+                                </label>
+                            </div>
+                            
+                            <div class="consent-checkbox">
+                                <input type="checkbox" id="consent-checkbox-5" onchange="checkAllConsents()" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <label for="consent-checkbox-5" class="consent-text" style="font-size: 14px;">
+                                    I have reviewed the <a href="../Landing_page/privacy_policy.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Privacy Notice</a> (HIPAA-compliant handling of my data).
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="consent-form">
-                        <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox-1" onchange="checkAllConsents()">
-                            <label for="consent-checkbox-1" class="consent-text">
-                                I confirm this is not an emergency; I'll call 911 for urgent/life-threatening issues.
-                            </label>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-secondary); position: sticky; bottom: 0; background: var(--white); z-index: 10; margin-bottom: 0;">
+                        <button class="btn btn-secondary" onclick="showState('follow-up-questions')">Back</button>
+                        <button class="btn btn-primary" onclick="showState('pharmacy-selection')" id="consent-continue" disabled>Continue to Pharmacy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pharmacy Selection State -->
+            <div class="state" id="pharmacy-selection-state">
+                <!-- Progress Navigation -->
+                <div class="progress-navigation">
+                    <div class="progress-steps">
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Select Condition</div>
                         </div>
-                        
-                        <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox-2" onchange="checkAllConsents()">
-                            <label for="consent-checkbox-2" class="consent-text">
-                                I am 16 years of age or older (or the legal guardian of a 16-17-year-old patient).
-                            </label>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Health Assessment</div>
                         </div>
-                        
-                        <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox-3" onchange="checkAllConsents()">
-                            <label for="consent-checkbox-3" class="consent-text">
-                                I agree to <a href="../Landing_page/terms_of_service.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Telehealth Consent and Terms of Use</a>.
-                            </label>
+                        <div class="progress-step completed">
+                            <div class="progress-step-icon">
+                                <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <div class="progress-step-label">Consent</div>
                         </div>
-                        
-                        <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox-4" onchange="checkAllConsents()">
-                            <label for="consent-checkbox-4" class="consent-text">
-                                I acknowledge Medication Policy (no Controlled Substances; prescriptions only if clinically appropriate).
-                            </label>
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-label">Pharmacy</div>
                         </div>
-                        
-                        <div class="consent-checkbox">
-                            <input type="checkbox" id="consent-checkbox-5" onchange="checkAllConsents()">
-                            <label for="consent-checkbox-5" class="consent-text">
-                                I have reviewed the <a href="../Landing_page/privacy_policy.html" style="color: var(--primary); text-decoration: underline;" target="_blank">Privacy Notice</a> (HIPAA-compliant handling of my data).
-                            </label>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Payment</div>
                         </div>
-                        
-                        <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-lg);" onclick="showState('payment-confirmation')" id="consent-continue" disabled>Continue to Payment</button>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">6</div>
+                            <div class="progress-step-label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: var(--white); padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; max-height: calc(100vh - 200px);">
+                    <div style="flex: 1; overflow-y: auto; padding-right: 8px; min-height: 0;" class="scrollable-content">
+                        <div style="margin-bottom: 12px;">
+                            <h2 style="font-size: 22px; font-weight: 700; font-family: var(--font-primary); margin-bottom: 4px; color: var(--text-primary);">Review and Confirm Pharmacy</h2>
+                            <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 13px;">Please review your selected pharmacy or choose a different one.</p>
+                        </div>
+
+                        <!-- Selected Pharmacy Display -->
+                        <div id="selected-pharmacy-display" style="background: var(--light-gray); border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 2px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <div style="font-weight: 600; font-size: 14px; color: var(--text-primary);">Current Pharmacy</div>
+                                <button class="btn btn-secondary btn-sm" onclick="openPharmacyChangeModal()" style="min-height: 32px; padding: 6px 12px; font-size: 13px;">Change</button>
+                            </div>
+                            <div id="selected-pharmacy-info">
+                                <div class="pharmacy-name" id="current-pharmacy-name" style="font-weight: 600; font-size: 16px; margin-bottom: 4px;">No pharmacy selected</div>
+                                <div class="pharmacy-address" id="current-pharmacy-address" style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pharmacy List (Hidden by default, shown when changing) -->
+                        <div id="pharmacy-list-container" style="display: none;">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Choose a Different Pharmacy</h3>
+                            <div class="pharmacy-scroll-container" id="pharmacy-scroll-container">
+                                <div class="pharmacy-list" id="pharmacy-list">
+                                    <!-- Pharmacies will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-secondary); position: sticky; bottom: 0; background: var(--white); z-index: 10; margin-bottom: 0;">
+                        <button class="btn btn-secondary" onclick="showState('consent-step')">Back</button>
+                        <button class="btn btn-primary" onclick="showState('payment-confirmation')" id="pharmacy-continue">Continue to Payment</button>
                     </div>
                 </div>
             </div>
@@ -1303,109 +1723,120 @@
                         </div>
                         <div class="progress-step active">
                             <div class="progress-step-icon">4</div>
-                            <div class="progress-step-label">Payment</div>
+                            <div class="progress-step-label">Pharmacy</div>
                         </div>
                         <div class="progress-step">
                             <div class="progress-step-icon">5</div>
+                            <div class="progress-step-label">Payment</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="progress-step-icon">6</div>
                             <div class="progress-step-label">Complete</div>
                         </div>
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 600px; margin: 0 auto;">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-sm); margin-bottom: var(--space-lg);">
-                        <h2 style="text-align: center; margin: 0;">Payment Confirmation</h2>
-                        <div style="position: relative; display: inline-block;">
-                            <button onclick="togglePaymentFAQ()" style="width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center;">?</button>
-                            <div id="payment-faq" style="display: none; position: absolute; top: 32px; right: 0; background: var(--white); border: 2px solid var(--primary); border-radius: 12px; padding: var(--space-md); width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 100;">
-                                <div style="margin-bottom: var(--space-md);">
-                                    <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: var(--space-xs);">What's "asynchronous"?</div>
-                                    <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">You answer a smart intake; a licensed clinician reviews and treats without live video.</div>
+                <div style="background: var(--white); padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; max-height: calc(100vh - 200px);">
+                    <div style="flex: 1; overflow-y: auto; padding-right: 8px; min-height: 0;" class="scrollable-content">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;">
+                            <h2 style="text-align: center; margin: 0; font-size: 22px; font-weight: 700; font-family: var(--font-primary); color: var(--text-primary);">Payment Confirmation</h2>
+                            <div style="position: relative; display: inline-block;">
+                                <button onclick="togglePaymentFAQ()" style="width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; cursor: pointer; font-weight: 600; font-size: 12px; display: flex; align-items: center; justify-content: center;">?</button>
+                                <div id="payment-faq" style="display: none; position: absolute; top: 28px; right: 0; background: var(--white); border: 2px solid var(--primary); border-radius: 12px; padding: 12px; width: 280px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 100;">
+                                    <div style="margin-bottom: 10px;">
+                                        <div style="font-weight: 600; font-size: 13px; color: var(--text-primary); margin-bottom: 4px;">What's "asynchronous"?</div>
+                                        <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">You answer a smart intake; a licensed clinician reviews and treats without live video.</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 13px; color: var(--text-primary); margin-bottom: 4px;">What we don't treat:</div>
+                                        <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Emergencies or life-threatening issues (call 911).</div>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-summary" style="background: var(--light-gray); padding: 12px; border-radius: 12px; margin-bottom: 10px;">
+                            <div class="payment-item" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
                                 <div>
-                                    <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: var(--space-xs);">What we don't treat:</div>
-                                    <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Emergencies or life-threatening issues (call 911).</div>
+                                    <div style="font-weight: 500; font-size: 14px;">Medical Consultation</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Takes within 24 hours to review</div>
                                 </div>
+                                <span id="base-fee" style="font-weight: 600; font-size: 14px;">$29.99</span>
+                            </div>
+                            <div class="payment-item" id="express-fee-item" style="display: none; display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                <div>
+                                    <div style="font-weight: 500; font-size: 14px;">Express Service (30 min)</div>
+                                </div>
+                                <span style="font-weight: 600; font-size: 14px;">$9.99</span>
+                            </div>
+                            <div class="payment-item" id="work-note-fee-item" style="display: none; display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                <div>
+                                    <div style="font-weight: 500; font-size: 14px;">Work/School Note</div>
+                                </div>
+                                <span style="font-weight: 600; font-size: 14px;">$4.99</span>
+                            </div>
+                            <div class="payment-item payment-total" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid var(--border-secondary); margin-top: 8px; padding-top: 8px; font-weight: 700; font-size: 16px;">
+                                <span>Total</span>
+                                <span id="total-amount">$29.99</span>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="payment-summary">
-                        <div class="payment-item">
-                            <div>
-                                <div style="font-weight: 500;">Medical Consultation</div>
-                                <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Takes within 24 hours to review</div>
+
+                        <!-- Express Fee and Work Note Options - Side by Side -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                            <!-- Express Fee Option -->
+                            <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 8px; padding: 12px;">
+                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="express-fee-checkbox" onchange="toggleExpressFee()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: 4px;">
+                                            Express Service - $9.99
+                                        </div>
+                                        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                                            Get your consultation reviewed and prescription ready within 30 minutes or less
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
-                            <span id="base-fee">$29.99</span>
-                        </div>
-                        <div class="payment-item" id="express-fee-item" style="display: none;">
-                            <div>
-                                <div style="font-weight: 500;">Express Service (30 min)</div>
+
+                            <!-- Work/School Note Option -->
+                            <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 8px; padding: 12px;">
+                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="work-note-checkbox" onchange="toggleWorkNote()" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); margin-bottom: 4px;">
+                                            Work/School Note - $4.99
+                                        </div>
+                                        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                                            Get a work or school excuse note from your provider
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
-                            <span>$9.99</span>
                         </div>
-                        <div class="payment-item" id="work-note-fee-item" style="display: none;">
-                            <div>
-                                <div style="font-weight: 500;">Work/School Note</div>
+
+                        <!-- Refund Policy -->
+                        <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                            <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+                                <svg style="width: 18px; height: 18px; stroke: #f59e0b; fill: none; stroke-width: 2; flex-shrink: 0;" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                                <div style="font-weight: 600; font-size: 13px; color: #92400e;">Refunds:</div>
                             </div>
-                            <span>$4.99</span>
+                            <div style="font-size: 12px; color: #92400e; line-height: 1.5;">
+                                If we cannot treat your condition or you withdraw before a clinician renders a decision, we'll issue a full refund. Once a clinical decision is documented, the visit is considered delivered.
+                            </div>
                         </div>
-                        <div class="payment-item payment-total">
-                            <span>Total</span>
-                            <span id="total-amount">$29.99</span>
+
+                        <div style="font-size: 12px; color: var(--text-secondary); text-align: center; margin-bottom: 10px;">
+                            You will only be charged once per visit. We do not bill insurance.
                         </div>
                     </div>
 
-                    <!-- Express Fee Option -->
-                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-md);">
-                        <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
-                            <input type="checkbox" id="express-fee-checkbox" onchange="toggleExpressFee()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; font-size: 16px; color: var(--text-primary); margin-bottom: var(--space-xs);">
-                                    Express Service - $9.99
-                                </div>
-                                <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
-                                    Get your consultation reviewed and prescription ready within 30 minutes or less
-                                </div>
-                            </div>
-                        </label>
+                    <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-secondary); position: sticky; bottom: 0; background: var(--white); z-index: 10; margin-bottom: 0;">
+                        <button class="btn btn-primary" onclick="processPayment()">Complete Secure Checkout - $<span id="checkout-total">29.99</span></button>
                     </div>
-
-                    <!-- Work/School Note Option -->
-                    <div style="background: rgba(93, 120, 255, 0.05); border: 1px solid rgba(93, 120, 255, 0.15); border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
-                        <label style="display: flex; align-items: flex-start; gap: var(--space-md); cursor: pointer;">
-                            <input type="checkbox" id="work-note-checkbox" onchange="toggleWorkNote()" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); cursor: pointer;">
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; font-size: 16px; color: var(--text-primary); margin-bottom: var(--space-xs);">
-                                    Work/School Note - $4.99
-                                </div>
-                                <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
-                                    Get a work or school excuse note from your provider
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                    <!-- Refund Policy -->
-                    <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 12px; padding: var(--space-lg); margin-bottom: var(--space-lg);">
-                        <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-xs);">
-                            <svg style="width: 20px; height: 20px; stroke: #f59e0b; fill: none; stroke-width: 2; flex-shrink: 0;" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="8" x2="12" y2="12"/>
-                                <line x1="12" y1="16" x2="12.01" y2="16"/>
-                            </svg>
-                            <div style="font-weight: 600; font-size: 14px; color: #92400e;">Refunds:</div>
-                        </div>
-                        <div style="font-size: 13px; color: #92400e; line-height: 1.5;">
-                            If we cannot treat your condition or you withdraw before a clinician renders a decision, we'll issue a full refund. Once a clinical decision is documented, the visit is considered delivered.
-                        </div>
-                    </div>
-
-                    <div style="font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: var(--space-lg);">
-                        You will only be charged once per visit. We do not bill insurance.
-                    </div>
-
-                    <button class="btn btn-primary" style="width: 100%;" onclick="processPayment()">Complete Secure Checkout - $<span id="checkout-total">29.99</span></button>
                 </div>
             </div>
 
@@ -1457,35 +1888,35 @@
                     </div>
                 </div>
 
-                <div style="background: var(--white); padding: var(--space-xl); border-radius: 16px; max-width: 600px; margin: 0 auto;">
-                    <div class="success-content">
-                        <div class="success-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <div style="background: var(--white); padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(93, 120, 255, 0.12); max-width: 1000px; margin: 0 auto;">
+                    <div class="success-content" style="text-align: center;">
+                        <div class="success-icon" style="width: 60px; height: 60px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                            <svg style="width: 30px; height: 30px; stroke: white; fill: none; stroke-width: 3;" viewBox="0 0 24 24">
                                 <path d="M20 6L9 17l-5-5"/>
                             </svg>
                         </div>
-                        <h2 style="margin-bottom: var(--space-sm);">Payment Successful!</h2>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">Your payment has been processed successfully. A licensed provider will review your case.</p>
+                        <h2 style="margin-bottom: 8px; font-size: 22px; font-weight: 700; font-family: var(--font-primary); color: var(--text-primary);">Payment Successful!</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 13px;">Your payment has been processed successfully. A licensed provider will review your case.</p>
                         
-                        <div class="success-details">
-                            <div class="success-detail">
+                        <div class="success-details" style="background: var(--light-gray); padding: 12px; border-radius: 12px; margin: 12px 0; text-align: left;">
+                            <div class="success-detail" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
                                 <span>Transaction date:</span>
-                                <span id="transaction-date"></span>
+                                <span id="transaction-date" style="font-weight: 500;"></span>
                             </div>
-                            <div class="success-detail">
+                            <div class="success-detail" style="display: flex; justify-content: space-between; font-size: 14px;">
                                 <span>Total Amount:</span>
                                 <span style="font-weight: 700; color: var(--primary);" id="success-total-amount">$29.99</span>
                             </div>
                         </div>
 
-                        <div style="background: var(--light-gray); padding: var(--space-lg); border-radius: 12px; margin: var(--space-lg) 0; text-align: left;">
-                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: var(--space-md); color: var(--text-primary);">Services Purchased:</h3>
-                            <div id="success-services-list" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        <div style="background: var(--light-gray); padding: 12px; border-radius: 12px; margin: 12px 0; text-align: left;">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Services Purchased:</h3>
+                            <div id="success-services-list" style="display: flex; flex-direction: column; gap: 6px; font-size: 14px;">
                                 <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" style="width: 100%;" onclick="goToDashboard()">Go to home</button>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 12px;" onclick="goToDashboard()">Go to home</button>
                     </div>
                 </div>
             </div>
@@ -1496,118 +1927,188 @@
     <div id="condition-detail-modal" class="modal">
         <div class="condition-view-container">
             <span class="close-modal" onclick="closeModal('condition-detail-modal')">&times;</span>
-            <div class="modal-header">
-                <h1 class="text-display" id="condition-detail-name">Asthma</h1>
-                <p class="text-muted" id="condition-detail-tagline" style="max-width: 500px; margin: var(--space-sm) auto 0;">Breathe easier with a personalized treatment plan.</p>
-                <div class="image-grid" id="condition-detail-images">
-                    <img src="https://images.pexels.com/photos/4173115/pexels-photo-4173115.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asthma">
-                    <img src="https://images.pexels.com/photos/4127521/pexels-photo-4127521.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asthma">
-                </div>
-            </div>
-            
-            <div class="tabs-container" id="condition-detail-tabs">
-                <div class="tab-item active" data-tab="symptoms">Symptoms</div>
-                <div class="tab-item" data-tab="treatment">Causes & Treatment</div>
-                <div class="tab-item" data-tab="overview">Overview</div>
-            </div>
+            <div class="condition-content-wrapper">
+                <div class="condition-left-content">
+                    <div class="modal-header">
+                        <h1 id="condition-detail-name">Asthma</h1>
+                    </div>
 
-            <div class="tab-content">
-                <div id="symptoms-detail-pane" class="tab-pane active">
-                    <ul class="symptoms-list" id="symptoms-detail-list">
-                        <li>
-                            <div class="symptom-icon-container">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 16.5V13c0-3.3-2.7-6-6-6s-6 2.7-6 6v3.5"/>
-                                    <path d="M6 16.5A2.5 2.5 0 0 0 8.5 19h7a2.5 2.5 0 0 0 2.5-2.5"/>
+                    <!-- Overview Section -->
+                    <div class="condition-section">
+                        <div class="condition-section-header active" onclick="toggleConditionSection(this)">
+                            <h3 class="section-title">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10 9 9 9 8 9"/>
                                 </svg>
-                            </div>
-                            <span>Difficulty Breathing</span>
-                        </li>
-                        <li>
-                            <div class="symptom-icon-container">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 5v14"/>
-                                    <path d="M18 9v6"/>
-                                    <path d="M6 9v6"/>
-                                </svg>
-                            </div>
-                            <span>Wheezing or Whistling Sound</span>
-                        </li>
-                        <li>
-                            <div class="symptom-icon-container">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M2 12a10 10 0 1 0 20 0"/>
-                                    <path d="M2 12a10 10 0 0 1 10-9.5c.6.2 1.1.4 1.6.7L10 11H6.5"/>
-                                </svg>
-                            </div>
-                            <span>Frequent Coughing Fits</span>
-                        </li>
-                        <li>
-                            <div class="symptom-icon-container">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17.09 4a4.9 4.9 0 0 0-4.5 2.47A4.9 4.9 0 0 0 8 4a4.91 4.91 0 0 0-4.91 4.72c0 4.22 3 12.22 6 12.22 1.25 0 2.5-1.06 4-1.06Z"/>
-                                </svg>
-                            </div>
-                            <span>Chest Tightness or Pain</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="treatment-detail-pane" class="tab-pane">
-                    <div class="tab-pane-grid">
-                        <div>
-                            <h3 class="section-title">Common Causes</h3>
-                            <ul class="treatment-plan-list" id="causes-detail-list">
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Allergens (pollen, dust, pet dander)</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Smoke and air pollution</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Colds, flu, or sinus infections</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Exercise or physical activity</span></li>
-                            </ul>
+                                Overview
+                            </h3>
+                            <svg class="section-chevron" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
                         </div>
-                        <div>
-                            <h3 class="section-title">Your Treatment Plan</h3>
-                            <ul class="treatment-plan-list" id="treatment-detail-list">
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Personalized treatment plan from a licensed provider</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Prescription for quick-relief (rescue) inhalers</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Prescription for long-term control medications</span></li>
-                                <li><span class="treatment-plan-icon">
-                                    <svg style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;" viewBox="0 0 24 24">
-                                        <polyline points="20,6 9,17 4,12"/>
-                                    </svg>
-                                </span><span>Expert guidance on identifying and avoiding triggers</span></li>
+                        <div class="condition-section-content active">
+                            <p id="overview-detail-content" style="font-size: 13px; line-height: 1.6; color: var(--text-primary); margin: 0;">A chronic respiratory condition causing airway inflammation. Effectively managed with proper treatment.</p>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Section -->
+                    <div class="condition-section">
+                        <div class="condition-section-header" onclick="toggleConditionSection(this)">
+                            <h3 class="section-title">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                                Symptoms
+                            </h3>
+                            <svg class="section-chevron" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                        <div class="condition-section-content">
+                            <ul class="symptoms-list" id="symptoms-detail-list">
+                                <li>
+                                    <div class="symptom-icon-container">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 16.5V13c0-3.3-2.7-6-6-6s-6 2.7-6 6v3.5"/>
+                                            <path d="M6 16.5A2.5 2.5 0 0 0 8.5 19h7a2.5 2.5 0 0 0 2.5-2.5"/>
+                                        </svg>
+                                    </div>
+                                    <span>Difficulty Breathing</span>
+                                </li>
+                                <li>
+                                    <div class="symptom-icon-container">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 5v14"/>
+                                            <path d="M18 9v6"/>
+                                            <path d="M6 9v6"/>
+                                        </svg>
+                                    </div>
+                                    <span>Wheezing or Whistling Sound</span>
+                                </li>
+                                <li>
+                                    <div class="symptom-icon-container">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12a10 10 0 1 0 20 0"/>
+                                            <path d="M2 12a10 10 0 0 1 10-9.5c.6.2 1.1.4 1.6.7L10 11H6.5"/>
+                                        </svg>
+                                    </div>
+                                    <span>Frequent Coughing Fits</span>
+                                </li>
+                                <li>
+                                    <div class="symptom-icon-container">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17.09 4a4.9 4.9 0 0 0-4.5 2.47A4.9 4.9 0 0 0 8 4a4.91 4.91 0 0 0-4.91 4.72c0 4.22 3 12.22 6 12.22 1.25 0 2.5-1.06 4-1.06Z"/>
+                                        </svg>
+                                    </div>
+                                    <span>Chest Tightness or Pain</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
+
+                    <!-- Causes and Care Section -->
+                    <div class="condition-section">
+                        <div class="condition-section-header" onclick="toggleConditionSection(this)">
+                            <h3 class="section-title">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 7h-4V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1z"/>
+                                    <line x1="9" y1="9" x2="15" y2="9"/>
+                                    <line x1="9" y1="13" x2="15" y2="13"/>
+                                </svg>
+                                Causes and Care
+                            </h3>
+                            <svg class="section-chevron" viewBox="0 0 24 24">
+                                <polyline points="6,9 12,15 18,9"/>
+                            </svg>
+                        </div>
+                        <div class="condition-section-content">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div>
+                                    <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Common Causes</h4>
+                                    <ul class="treatment-plan-list" id="causes-detail-list">
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Allergens (pollen, dust, pet dander)</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Smoke and air pollution</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Colds, flu, or sinus infections</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Exercise or physical activity</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Your Treatment Plan</h4>
+                                    <ul class="treatment-plan-list" id="treatment-detail-list">
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Personalized treatment plan from a licensed provider</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Prescription for quick-relief (rescue) inhalers</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Prescription for long-term control medications</span>
+                                        </li>
+                                        <li>
+                                            <span class="treatment-plan-icon">
+                                                <svg viewBox="0 0 24 24">
+                                                    <polyline points="20,6 9,17 4,12"/>
+                                                </svg>
+                                            </span>
+                                            <span>Expert guidance on identifying and avoiding triggers</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="overview-detail-pane" class="tab-pane">
-                    <p class="text-muted" id="overview-detail-content">A chronic respiratory condition causing airway inflammation. Effectively managed with proper treatment.</p>
+
+                <div class="condition-right-images" id="condition-detail-images">
+                    <img src="https://images.pexels.com/photos/4173115/pexels-photo-4173115.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asthma">
+                    <img src="https://images.pexels.com/photos/4127521/pexels-photo-4127521.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Asthma">
                 </div>
             </div>
 
@@ -1640,6 +2141,25 @@
             <div style="display: flex; gap: var(--space-md);">
                 <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal('delete-confirmation-modal')">Cancel</button>
                 <button class="btn btn-primary" style="flex: 1;" onclick="confirmDelete()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pharmacy Change Modal -->
+    <div id="pharmacy-change-modal" class="modal" style="display: none; align-items: center; justify-content: center;">
+        <div class="modal-content pharmacy-modal-wrapper" style="max-width: 950px; max-height: 80vh; padding: 20px; display: flex; flex-direction: column; overflow: hidden;">
+            <span class="close-modal" onclick="closePharmacyChangeModal()">&times;</span>
+            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); flex-shrink: 0;">Select Pharmacy</h3>
+            
+            <div class="pharmacy-scroll-container" id="pharmacy-modal-list" style="flex: 1; min-height: 0; overflow-y: auto; max-height: none;">
+                <div class="pharmacy-list pharmacy-grid-modal" id="pharmacy-modal-list-items">
+                    <!-- Pharmacies will be populated here -->
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-secondary); flex-shrink: 0;">
+                <button class="btn btn-secondary" onclick="closePharmacyChangeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmPharmacyChange()">Confirm Selection</button>
             </div>
         </div>
     </div>
@@ -1698,17 +2218,48 @@
 
         function showState(state) {
             // Update demo buttons
-            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
+            document.querySelectorAll('.demo-btn').forEach(btn => {
+                btn.classList.remove('active');
+                const buttonText = btn.textContent.toLowerCase().replace(/\s+/g, '-');
+                const stateNormalized = state.toLowerCase().replace(/-/g, '');
+                const buttonNormalized = buttonText.replace(/-/g, '');
+                
+                // Match button to state
+                if ((state === 'pharmacy-selection' && buttonNormalized.includes('pharmacy')) ||
+                    (state === 'consent-step' && buttonNormalized.includes('consent')) ||
+                    (state === 'payment-confirmation' && buttonNormalized.includes('payment') && buttonNormalized.includes('confirmation')) ||
+                    (state === 'payment-success' && buttonNormalized.includes('payment') && buttonNormalized.includes('success')) ||
+                    (state === 'follow-up-questions' && buttonNormalized.includes('follow')) ||
+                    (state === 'urgent-banner' && buttonNormalized.includes('urgent')) ||
+                    (state === 'who-is-visit-for' && buttonNormalized.includes('visit')) ||
+                    (state === 'condition-detail' && buttonNormalized.includes('condition') && buttonNormalized.includes('detail')) ||
+                    (state === 'conditions-listing' && buttonNormalized.includes('conditions') && buttonNormalized.includes('listing'))) {
+                    btn.classList.add('active');
+                }
+            });
 
             // Hide all states
             document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
             
             // Show selected state
-            document.getElementById(state + '-state').classList.add('active');
-            currentState = state;
+            const stateElement = document.getElementById(state + '-state');
+            if (stateElement) {
+                stateElement.classList.add('active');
+                currentState = state;
+                
+                // Initialize state-specific content
+                if (state === 'pharmacy-selection') {
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        populatePharmacies();
+                        // Set default pharmacy if none selected
+                        if (!selectedPharmacy && pharmacies.length > 0) {
+                            selectedPharmacy = pharmacies[0];
+                            updateSelectedPharmacyDisplay();
+                        }
+                    }, 100);
+                }
+            }
         }
 
         function selectCondition(conditionKey) {
@@ -1733,7 +2284,21 @@
 
         function updateConditionDetails(condition) {
             document.getElementById('condition-detail-name').textContent = condition.name;
-            document.getElementById('condition-detail-tagline').textContent = condition.snippet;
+            
+            // Update overview (using snippet as overview for now)
+            const overviewContent = document.getElementById('overview-detail-content');
+            if (overviewContent) {
+                overviewContent.textContent = condition.snippet || 'A condition that can be effectively managed with proper treatment.';
+            }
+            
+            // Update images
+            const imagesContainer = document.getElementById('condition-detail-images');
+            if (imagesContainer && condition.img) {
+                imagesContainer.innerHTML = `
+                    <img src="${condition.img}" alt="${condition.name}">
+                    <img src="${condition.img}" alt="${condition.name}">
+                `;
+            }
             
             // Update key facts
             const factsContainer = document.getElementById('condition-detail-facts');
@@ -1778,90 +2343,52 @@
             
             // Check if this is a "yes" answer that triggers urgent care
             if (answer === 'yes') {
-                triggeredQuestions.push({
-                    number: questionNum,
-                    question: document.querySelector(`[data-question="${questionNum}"] h3`).textContent
-                });
-            }
-            
-            // Enable next button
-            document.getElementById('next-question').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < totalQuestions) {
-                currentQuestion++;
-                showQuestion(currentQuestion);
-                updateProgressIndicator();
-            }
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 1) {
-                currentQuestion--;
-                showQuestion(currentQuestion);
-                updateProgressIndicator();
-            } else {
-                // Go back to who-is-visit-for state
-                showState('who-is-visit-for');
-            }
-        }
-
-        function showQuestion(questionNum) {
-            // Hide all questions
-            document.querySelectorAll('.question-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Show current question
-            document.querySelector(`[data-question="${questionNum}"]`).classList.add('active');
-            
-            // Update navigation buttons
-            const prevBtn = document.getElementById('prev-question');
-            if (questionNum === 1) {
-                prevBtn.textContent = 'Back';
-            } else {
-                prevBtn.textContent = 'Previous';
-            }
-            
-            if (questionNum === totalQuestions) {
-                document.getElementById('next-question').style.display = 'none';
-                document.getElementById('submit-questions').style.display = 'inline-flex';
-            } else {
-                document.getElementById('next-question').style.display = 'inline-flex';
-                document.getElementById('submit-questions').style.display = 'none';
-            }
-            
-            // Check if current question is answered
-            const currentAnswer = questionAnswers[questionNum];
-            if (currentAnswer) {
-                const radioButton = document.querySelector(`input[name="question${questionNum}"][value="${currentAnswer}"]`);
-                if (radioButton) {
-                    radioButton.checked = true;
+                const questionCard = document.querySelector(`[data-question="${questionNum}"]`);
+                const questionText = questionCard.querySelector('h3').textContent;
+                // Check if already added
+                const exists = triggeredQuestions.find(tq => tq.number === questionNum);
+                if (!exists) {
+                    triggeredQuestions.push({
+                        number: questionNum,
+                        question: questionText
+                    });
                 }
+            } else {
+                // Remove from triggered if answer changed to "no"
+                triggeredQuestions = triggeredQuestions.filter(tq => tq.number !== questionNum);
             }
+            
+            // Check if all questions are answered
+            checkAllQuestionsAnswered();
         }
 
-        function updateProgressIndicator() {
-            document.getElementById('current-question').textContent = currentQuestion;
-        }
 
         function resetQuestions() {
             currentQuestion = 1;
-            showQuestion(currentQuestion);
-            updateProgressIndicator();
+            questionAnswers = {};
+            triggeredQuestions = [];
             
             // Clear all answers
             document.querySelectorAll('input[type="radio"]').forEach(input => {
                 input.checked = false;
             });
             
-            // Reset navigation
-            document.getElementById('next-question').disabled = true;
-            document.getElementById('submit-questions').style.display = 'none';
+            // Reset submit button
+            const submitBtn = document.getElementById('submit-questions');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+            }
+            
+            checkAllQuestionsAnswered();
         }
 
         function submitQuestions() {
+            // Check if all questions are answered
+            if (Object.keys(questionAnswers).length !== totalQuestions) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+            
             // Check if any "yes" answers triggered urgent care
             if (triggeredQuestions.length > 0) {
                 // Show triggered questions in urgent banner
@@ -2000,6 +2527,203 @@
             showState('conditions-listing');
         }
 
+        // Pharmacy data
+        const pharmacies = [
+            { id: 1, name: 'CVS Pharmacy', type: 'Retail Pharmacy', address: '123 Main St, New York, NY 10001', distance: '0.5 miles' },
+            { id: 2, name: 'Walgreens', type: 'Retail Pharmacy', address: '456 Broadway, New York, NY 10013', distance: '1.2 miles' },
+            { id: 3, name: 'Rite Aid', type: 'Retail Pharmacy', address: '789 Park Ave, New York, NY 10021', distance: '2.1 miles' },
+            { id: 4, name: 'Duane Reade', type: 'Retail Pharmacy', address: '321 5th Ave, New York, NY 10016', distance: '0.8 miles' },
+            { id: 5, name: 'Local Pharmacy', type: 'Independent Pharmacy', address: '654 Lexington Ave, New York, NY 10022', distance: '1.5 miles' },
+            { id: 6, name: 'City Pharmacy & Health', type: 'Retail Pharmacy', address: '123 Main St, New York, NY 10001', distance: '0.3 miles' },
+            { id: 7, name: 'CarePlus Specialty', type: 'Specialty Pharmacy', address: '456 Oak Ave, New York, NY 10003', distance: '0.9 miles' },
+            { id: 8, name: 'Metro Health Pharmacy', type: 'Retail Pharmacy', address: '789 Pine St, New York, NY 10005', distance: '1.4 miles' },
+            { id: 9, name: 'WellnessRx Pharmacy', type: 'Retail Pharmacy', address: '321 Elm St, New York, NY 10010', distance: '1.1 miles' },
+            { id: 10, name: 'Family Medicine Pharmacy', type: 'Community Pharmacy', address: '555 Broadway, New York, NY 10012', distance: '0.7 miles' },
+            { id: 11, name: 'Central Medical Pharmacy', type: 'Retail Pharmacy', address: '777 Market St, New York, NY 10014', distance: '1.8 miles' },
+            { id: 12, name: 'ExpressCare Pharmacy', type: 'Retail Pharmacy', address: '888 First Ave, New York, NY 10017', distance: '2.3 miles' },
+            { id: 13, name: 'Neighborhood Pharmacy', type: 'Community Pharmacy', address: '999 Second St, New York, NY 10018', distance: '1.6 miles' },
+            { id: 14, name: 'Community Health Rx', type: 'Retail Pharmacy', address: '111 Third Ave, New York, NY 10019', distance: '2.0 miles' },
+            { id: 15, name: 'MedCenter Pharmacy', type: 'Hospital Pharmacy', address: '222 Fourth St, New York, NY 10020', distance: '2.5 miles' },
+            { id: 16, name: 'FastCare Pharmacy', type: 'Retail Pharmacy', address: '333 Fifth Ave, New York, NY 10021', distance: '1.9 miles' },
+            { id: 17, name: 'PrimeCare Pharmacy', type: 'Retail Pharmacy', address: '444 Sixth St, New York, NY 10022', distance: '2.2 miles' },
+            { id: 18, name: 'HealthFirst Pharmacy', type: 'Community Pharmacy', address: '555 Seventh Ave, New York, NY 10023', distance: '2.7 miles' },
+            { id: 19, name: 'MainStreet Pharmacy', type: 'Retail Pharmacy', address: '666 Eighth St, New York, NY 10024', distance: '2.4 miles' },
+            { id: 20, name: 'Corner Drug Store', type: 'Retail Pharmacy', address: '777 Ninth Ave, New York, NY 10025', distance: '3.0 miles' }
+        ];
+        
+        let selectedPharmacy = null;
+        
+        function populatePharmacies() {
+            // Get the pharmacy list from the modal (if modal is open) or from the pharmacy selection state
+            const modal = document.getElementById('pharmacy-change-modal');
+            const pharmacyList = modal && modal.style.display !== 'none' 
+                ? document.getElementById('pharmacy-modal-list-items')
+                : document.getElementById('pharmacy-list');
+            const loadingDiv = document.getElementById('pharmacy-loading');
+            
+            if (!pharmacyList) {
+                console.error('Pharmacy list element not found');
+                return;
+            }
+            
+            // Show loading
+            if (loadingDiv) loadingDiv.style.display = 'block';
+            pharmacyList.innerHTML = '';
+            
+            // Small delay to simulate loading (can be removed in production)
+            setTimeout(() => {
+                pharmacies.forEach(pharmacy => {
+                    const pharmacyItem = document.createElement('div');
+                    pharmacyItem.className = 'pharmacy-item';
+                    pharmacyItem.setAttribute('data-pharmacy-id', pharmacy.id);
+                    pharmacyItem.onclick = () => selectPharmacyInModal(pharmacy.id);
+                    
+                    pharmacyItem.innerHTML = `
+                        <div class="pharmacy-info">
+                            <div class="pharmacy-name">${pharmacy.name}</div>
+                            <div class="pharmacy-type">${pharmacy.type}</div>
+                            <div class="pharmacy-address">${pharmacy.address}</div>
+                        </div>
+                    `;
+                    
+                    pharmacyList.appendChild(pharmacyItem);
+                });
+                
+                // Hide loading
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                
+                // Mark currently selected pharmacy in modal
+                if (selectedPharmacy) {
+                    const selectedItem = pharmacyList.querySelector(`[data-pharmacy-id="${selectedPharmacy.id}"]`);
+                    if (selectedItem) {
+                        selectedItem.classList.add('selected');
+                    }
+                }
+                
+                // Update selected pharmacy display
+                updateSelectedPharmacyDisplay();
+            }, 50);
+        }
+        
+        function updateSelectedPharmacyDisplay() {
+            const nameEl = document.getElementById('current-pharmacy-name');
+            const addressEl = document.getElementById('current-pharmacy-address');
+            
+            if (selectedPharmacy && nameEl && addressEl) {
+                nameEl.textContent = selectedPharmacy.name;
+                addressEl.innerHTML = `${selectedPharmacy.type} • ${selectedPharmacy.distance}<br>${selectedPharmacy.address}`;
+            } else if (nameEl && addressEl) {
+                nameEl.textContent = 'No pharmacy selected';
+                addressEl.textContent = '';
+            }
+        }
+        
+        function openPharmacyChangeModal() {
+            const modal = document.getElementById('pharmacy-change-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                // Populate pharmacies specifically for the modal
+                populatePharmaciesForModal();
+            }
+        }
+        
+        function populatePharmaciesForModal() {
+            const pharmacyList = document.getElementById('pharmacy-modal-list-items');
+            const loadingDiv = document.getElementById('pharmacy-loading');
+            
+            if (!pharmacyList) {
+                console.error('Pharmacy modal list element not found');
+                return;
+            }
+            
+            // Show loading
+            if (loadingDiv) loadingDiv.style.display = 'block';
+            pharmacyList.innerHTML = '';
+            
+            // Small delay to simulate loading (can be removed in production)
+            setTimeout(() => {
+                pharmacies.forEach(pharmacy => {
+                    const pharmacyItem = document.createElement('div');
+                    pharmacyItem.className = 'pharmacy-item';
+                    pharmacyItem.setAttribute('data-pharmacy-id', pharmacy.id);
+                    pharmacyItem.onclick = () => selectPharmacyInModal(pharmacy.id);
+                    
+                    pharmacyItem.innerHTML = `
+                        <div class="pharmacy-info">
+                            <div class="pharmacy-name">${pharmacy.name}</div>
+                            <div class="pharmacy-type">${pharmacy.type}</div>
+                            <div class="pharmacy-address">${pharmacy.address}</div>
+                        </div>
+                    `;
+                    
+                    pharmacyList.appendChild(pharmacyItem);
+                });
+                
+                // Hide loading
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                
+                // Mark currently selected pharmacy in modal
+                if (selectedPharmacy) {
+                    const selectedItem = pharmacyList.querySelector(`[data-pharmacy-id="${selectedPharmacy.id}"]`);
+                    if (selectedItem) {
+                        selectedItem.classList.add('selected');
+                    }
+                }
+            }, 50);
+        }
+        
+        function closePharmacyChangeModal() {
+            const modal = document.getElementById('pharmacy-change-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        function selectPharmacyInModal(pharmacyId) {
+            // Update UI in modal
+            document.querySelectorAll('.pharmacy-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            const selectedItem = document.querySelector(`[data-pharmacy-id="${pharmacyId}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('selected');
+            }
+        }
+        
+        function confirmPharmacyChange() {
+            const selectedItem = document.querySelector('.pharmacy-item.selected');
+            if (selectedItem) {
+                const pharmacyId = parseInt(selectedItem.getAttribute('data-pharmacy-id'));
+                selectedPharmacy = pharmacies.find(p => p.id === pharmacyId);
+                updateSelectedPharmacyDisplay();
+                closePharmacyChangeModal();
+            } else {
+                alert('Please select a pharmacy');
+            }
+        }
+        
+        function selectPharmacy(pharmacyId) {
+            selectedPharmacy = pharmacies.find(p => p.id === pharmacyId);
+            updateSelectedPharmacyDisplay();
+            
+            // Enable continue button
+            const continueBtn = document.getElementById('pharmacy-continue');
+            if (continueBtn) {
+                continueBtn.disabled = false;
+            }
+        }
+        
+        function toggleConditionSection(header) {
+            const section = header.closest('.condition-section');
+            const content = section.querySelector('.condition-section-content');
+            const isActive = header.classList.contains('active');
+            
+            // Toggle active state
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
         // Populate conditions grid
         function populateConditionsGrid(filterCategory = 'All', searchTerm = '') {
             const gridContainer = document.getElementById('condition-grid');
@@ -2083,22 +2807,8 @@
             // Populate conditions grid
             populateConditionsGrid();
             
-            const tabs = document.querySelectorAll('.tab-item');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const targetTab = tab.dataset.tab;
-                    
-                    // Update tab states
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-
-                    // Update pane states
-                    document.querySelectorAll('.tab-pane').forEach(pane => {
-                        pane.classList.remove('active');
-                    });
-                    document.getElementById(`${targetTab}-detail-pane`).classList.add('active');
-                });
-            });
+            // Initialize questions
+            checkAllQuestionsAnswered();
 
             // Mobile tap handling for condition cards
             const conditionGrid = document.querySelector('.condition-grid');
@@ -2130,6 +2840,10 @@
             const checkbox4 = document.getElementById('consent-checkbox-4');
             const checkbox5 = document.getElementById('consent-checkbox-5');
             const consentContinue = document.getElementById('consent-continue');
+            
+            if (!checkbox1 || !checkbox2 || !checkbox3 || !checkbox4 || !checkbox5 || !consentContinue) {
+                return;
+            }
             
             const allChecked = checkbox1.checked && checkbox2.checked && checkbox3.checked && checkbox4.checked && checkbox5.checked;
             consentContinue.disabled = !allChecked;
