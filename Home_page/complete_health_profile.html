@@ -49,7 +49,7 @@
             overflow-y: auto; 
             box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
         }
-        .main-content { flex: 1; padding: var(--space-xl); margin-left: 280px; }
+        .main-content { flex: 1; padding: 16px 24px; margin-left: 280px; overflow-y: auto; }
 
         /* Sidebar */
         .logo { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
@@ -198,18 +198,21 @@
         }
 
         /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xl); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .welcome-text { font-size: 14px; color: var(--text-secondary); }
-        .page-title { font-size: 32px; font-weight: 700; font-family: var(--font-primary); margin-top: var(--space-sm); }
+        .page-title { font-size: 28px; font-weight: 700; font-family: var(--font-primary); margin-top: 4px; }
 
         /* Progress Navigation - Matching conditions_flow.html */
         .progress-navigation {
             background: var(--white);
             border-radius: 16px;
-            padding: var(--space-lg);
-            margin-bottom: var(--space-xl);
+            padding: 12px 16px;
+            margin-bottom: 12px;
             border: 1px solid rgba(93, 120, 255, 0.12);
             transition: all var(--anim-normal);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .progress-navigation:hover {
             border-color: rgba(93, 120, 255, 0.25);
@@ -286,49 +289,57 @@
         .form-container {
             background: var(--white);
             border-radius: 16px;
-            padding: var(--space-xl);
+            padding: 16px 24px;
             border: 1px solid rgba(93, 120, 255, 0.12);
             transition: all var(--anim-normal);
-            margin-bottom: var(--space-lg);
+            margin-bottom: 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 200px);
         }
         .form-container:hover {
             border-color: rgba(93, 120, 255, 0.25);
             box-shadow: 0 2px 12px rgba(93, 120, 255, 0.1);
         }
         .form-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
+            text-align: left;
+            margin-bottom: 12px;
         }
         .form-header h2 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             font-family: var(--font-primary);
-            margin-bottom: var(--space-sm);
+            margin-bottom: 4px;
             color: var(--text-primary);
         }
         .form-header p {
             color: var(--text-secondary);
-            margin-bottom: var(--space-lg);
+            margin-bottom: 12px;
+            font-size: 13px;
         }
         .form-group {
-            margin-bottom: var(--space-lg);
+            margin-bottom: 10px;
         }
         .form-label {
             display: block;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: var(--space-sm);
+            margin-bottom: 4px;
         }
         .form-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border-secondary);
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 8px 10px;
+            border: 2px solid var(--statwell-navy);
+            border-radius: 8px;
+            font-size: 14px;
             background: var(--bg-primary);
             transition: all var(--anim-normal);
             outline: none;
+            font-family: var(--font-secondary);
         }
         .form-input:focus {
             border-color: var(--primary);
@@ -351,12 +362,12 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-lg);
+            gap: 10px;
         }
         .form-row-three {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--space-lg);
+            gap: 10px;
         }
 
         /* Buttons */
@@ -364,18 +375,18 @@
             display: inline-flex; 
             align-items: center; 
             justify-content: center;
-            gap: var(--space-sm); 
-            padding: 12px 20px; 
-            border-radius: 12px; 
+            gap: 6px; 
+            padding: 10px 16px; 
+            border-radius: 8px; 
             font-weight: 600; 
             border: 1px solid transparent; 
             cursor: pointer; 
             transition: all var(--anim-normal) var(--smooth); 
             text-decoration: none; 
-            font-size: 14px; 
+            font-size: 13px; 
             position: relative;
             overflow: hidden;
-            min-height: 44px;
+            min-height: 38px;
         }
         .btn::before {
             content: '';
@@ -432,9 +443,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: var(--space-xl);
-            padding-top: var(--space-lg);
+            margin-top: auto;
+            padding-top: 12px;
             border-top: 1px solid var(--border-secondary);
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            z-index: 10;
+            margin-bottom: 0;
+        }
+        .form-container-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        .form-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+            min-height: 0;
+        }
+        .form-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .form-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+        .form-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
         }
 
         .checkbox-group, .radio-group {
@@ -545,14 +584,14 @@
         /* Condition Selection */
         .condition-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: var(--space-md);
-            margin-bottom: var(--space-lg);
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 8px;
+            margin-bottom: 0;
         }
         .condition-item {
             border: 2px solid var(--border-secondary);
-            border-radius: 12px;
-            padding: var(--space-md);
+            border-radius: 8px;
+            padding: 8px 10px;
             cursor: pointer;
             transition: all var(--anim-normal);
             text-align: center;
@@ -563,40 +602,32 @@
             background: rgba(93, 120, 255, 0.05);
         }
         .condition-item.selected {
-            border-color: var(--primary);
-            background: rgba(93, 120, 255, 0.1);
-        }
-        .condition-checkbox {
-            position: absolute;
-            top: var(--space-sm);
-            right: var(--space-sm);
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary);
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
         }
         .condition-name {
             font-weight: 500;
-            font-size: 14px;
-            margin-top: var(--space-sm);
+            font-size: 12px;
+            margin-top: 4px;
         }
 
         /* Condition Details */
         .condition-detail-card {
             background: var(--light-gray);
-            border-radius: 12px;
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
             border: 1px solid var(--border-secondary);
         }
         .condition-detail-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-md);
+            margin-bottom: 8px;
         }
         .condition-detail-name {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-primary);
         }
         .remove-condition-btn {
@@ -618,15 +649,15 @@
         .vitals-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-lg);
+            gap: 10px;
         }
 
         /* Allergies */
         .allergy-item {
             background: var(--light-gray);
-            border-radius: 12px;
-            padding: var(--space-lg);
-            margin-bottom: var(--space-md);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
             border: 1px solid var(--border-secondary);
             position: relative;
         }
@@ -634,11 +665,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-md);
+            margin-bottom: 8px;
         }
         .allergy-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-primary);
         }
         .remove-allergy-btn {
@@ -665,15 +696,16 @@
             border: 2px dashed var(--border-secondary);
             background: var(--light-gray);
             color: var(--text-secondary);
-            padding: var(--space-lg);
-            border-radius: 12px;
+            padding: 8px 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all var(--anim-normal);
-            margin-bottom: var(--space-lg);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: var(--space-sm);
+            gap: 6px;
+            font-size: 12px;
         }
         .add-allergy-btn:hover {
             border-color: var(--primary);
@@ -749,8 +781,10 @@
             text-align: center;
             background: var(--white);
             border-radius: 16px;
-            padding: var(--space-xl);
+            padding: 16px 24px;
             border: 1px solid rgba(93, 120, 255, 0.12);
+            max-width: 1000px;
+            margin: 0 auto;
         }
         .success-icon {
             width: 80px;
@@ -783,7 +817,8 @@
         .success-actions {
             display: flex;
             gap: var(--space-md);
-            justify-content: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
         }
 
         /* Dashboard Task Styles */
@@ -965,12 +1000,11 @@
         <div class="demo-buttons">
             <button class="demo-btn active" onclick="showStep('dashboard-task')">Dashboard Task</button>
             <button class="demo-btn" onclick="showStep('step1')">Step 1: Registration</button>
-            <button class="demo-btn" onclick="showStep('step2')">Step 2: Pharmacy</button>
-            <button class="demo-btn" onclick="showStep('step3')">Step 3: Conditions</button>
-            <button class="demo-btn" onclick="showStep('step4')">Step 4: Details</button>
-            <button class="demo-btn" onclick="showStep('step5')">Step 5: Vitals</button>
-            <button class="demo-btn" onclick="showStep('step6')">Step 6: Allergies</button>
-            <button class="demo-btn" onclick="showStep('step7')">Step 7: Complete</button>
+            <button class="demo-btn" onclick="showStep('step2')">Step 2: Conditions</button>
+            <button class="demo-btn" onclick="showStep('step3')">Step 3: Details</button>
+            <button class="demo-btn" onclick="showStep('step4')">Step 4: Vitals</button>
+            <button class="demo-btn" onclick="showStep('step5')">Step 5: Allergies</button>
+            <button class="demo-btn" onclick="showStep('step6')">Step 6: Complete</button>
         </div>
     </div>
 
@@ -1232,26 +1266,22 @@
                     </div>
                     <div class="progress-step" id="progress-step-2">
                         <div class="progress-step-icon">2</div>
-                        <div class="progress-step-label">Pharmacy</div>
+                        <div class="progress-step-label">Conditions</div>
                     </div>
                     <div class="progress-step" id="progress-step-3">
                         <div class="progress-step-icon">3</div>
-                        <div class="progress-step-label">Conditions</div>
+                        <div class="progress-step-label">Condition Details</div>
                     </div>
                     <div class="progress-step" id="progress-step-4">
                         <div class="progress-step-icon">4</div>
-                        <div class="progress-step-label">Condition Details</div>
+                        <div class="progress-step-label">Vitals</div>
                     </div>
                     <div class="progress-step" id="progress-step-5">
                         <div class="progress-step-icon">5</div>
-                        <div class="progress-step-label">Vitals</div>
+                        <div class="progress-step-label">Allergies</div>
                     </div>
                     <div class="progress-step" id="progress-step-6">
                         <div class="progress-step-icon">6</div>
-                        <div class="progress-step-label">Allergies</div>
-                    </div>
-                    <div class="progress-step" id="progress-step-7">
-                        <div class="progress-step-icon">7</div>
                         <div class="progress-step-label">Complete</div>
                     </div>
                 </div>
@@ -1260,10 +1290,11 @@
             <!-- Step 1: Registration Details -->
             <div class="step active" id="step1">
                 <div class="form-container">
-                    <div class="form-header">
-                        <h2>Confirm Your Registration Details</h2>
-                        <p>Please review and update your personal information. Email addresses cannot be changed.</p>
-                    </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Confirm Your Registration Details</h2>
+                            <p>Please review and update your personal information. Email addresses cannot be changed.</p>
+                        </div>
 
                     <div class="form-row">
                         <div class="form-group">
@@ -1330,6 +1361,8 @@
                         </div>
                     </div>
 
+                    </div>
+
                     <div class="form-navigation">
                         <button class="btn btn-secondary" onclick="showStep('dashboard-task')">Back to Dashboard</button>
                         <button class="btn btn-primary" onclick="nextStep('step2')">Continue</button>
@@ -1337,170 +1370,83 @@
                 </div>
             </div>
 
-            <!-- Step 2: Pharmacy Selection -->
+            <!-- Step 2: Medical Conditions Selection -->
             <div class="step" id="step2">
                 <div class="form-container">
-                    <div class="form-header">
-                        <h2>Select Your Preferred Pharmacy</h2>
-                        <p>Choose where you'd like to receive your prescriptions. You can change this later in your settings.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Search Pharmacies</label>
-                        <input type="text" class="form-input" id="pharmacy-search" placeholder="Search by name, type, or address..." onkeyup="filterPharmacies()">
-                    </div>
-
-                    <div class="pharmacy-scroll-container">
-                        <div class="pharmacy-list">
-                            <div class="pharmacy-item selected" onclick="selectPharmacy(this, 'quickcare')">
-                                <input type="radio" name="pharmacy" value="quickcare" class="pharmacy-radio" checked>
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">QuickCare Pharmacy</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">123 Main St, New York, NY 10001</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'healthplus')">
-                                <input type="radio" name="pharmacy" value="healthplus" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">HealthPlus Pharmacy</div>
-                                    <div class="pharmacy-type">Specialty Pharmacy</div>
-                                    <div class="pharmacy-address">456 Oak Ave, New York, NY 10003</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'medexpress')">
-                                <input type="radio" name="pharmacy" value="medexpress" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">MedExpress Pharmacy</div>
-                                    <div class="pharmacy-type">Mail-Order Pharmacy</div>
-                                    <div class="pharmacy-address">789 Pine St, New York, NY 10005</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'wellness')">
-                                <input type="radio" name="pharmacy" value="wellness" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">Wellness Central</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">321 Elm St, New York, NY 10007</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'citypharm')">
-                                <input type="radio" name="pharmacy" value="citypharm" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">City Pharmacy & Health</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">555 Broadway, New York, NY 10009</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'careplus')">
-                                <input type="radio" name="pharmacy" value="careplus" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">CarePlus Specialty</div>
-                                    <div class="pharmacy-type">Specialty Pharmacy</div>
-                                    <div class="pharmacy-address">777 5th Ave, New York, NY 10010</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'metrohealth')">
-                                <input type="radio" name="pharmacy" value="metrohealth" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">Metro Health Pharmacy</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">999 Park Ave, New York, NY 10012</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'familymed')">
-                                <input type="radio" name="pharmacy" value="familymed" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">Family Medicine Pharmacy</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">111 Lexington Ave, New York, NY 10014</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'healthfirst')">
-                                <input type="radio" name="pharmacy" value="healthfirst" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">HealthFirst Community</div>
-                                    <div class="pharmacy-type">Community Pharmacy</div>
-                                    <div class="pharmacy-address">333 3rd Ave, New York, NY 10016</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'prescriptionsplus')">
-                                <input type="radio" name="pharmacy" value="prescriptionsplus" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">Prescriptions Plus</div>
-                                    <div class="pharmacy-type">Mail-Order Pharmacy</div>
-                                    <div class="pharmacy-address">444 Madison Ave, New York, NY 10018</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'wellnessrx')">
-                                <input type="radio" name="pharmacy" value="wellnessrx" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">WellnessRx Pharmacy</div>
-                                    <div class="pharmacy-type">Retail Pharmacy</div>
-                                    <div class="pharmacy-address">666 6th Ave, New York, NY 10020</div>
-                                </div>
-                            </div>
-
-                            <div class="pharmacy-item" onclick="selectPharmacy(this, 'medcenter')">
-                                <input type="radio" name="pharmacy" value="medcenter" class="pharmacy-radio">
-                                <div class="pharmacy-info">
-                                    <div class="pharmacy-name">Medical Center Pharmacy</div>
-                                    <div class="pharmacy-type">Hospital Pharmacy</div>
-                                <div class="pharmacy-address">888 8th Ave, New York, NY 10022</div>
-                            </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Select Your Medical Conditions</h2>
+                            <p>Please select all conditions that apply to you. This helps us provide better care and treatment recommendations.</p>
                         </div>
-                        <div class="pharmacy-no-results" id="pharmacy-no-results">
-                            No pharmacies found matching your search. Try a different search term.
+
+                        <div class="condition-grid" id="condition-grid">
+                            <!-- Conditions will be populated by JavaScript -->
                         </div>
-                    </div>
                     </div>
 
                     <div class="form-navigation">
                         <button class="btn btn-secondary" onclick="prevStep('step1')">Back</button>
-                        <button class="btn btn-primary" onclick="nextStep('step3')">Continue</button>
+                        <button class="btn btn-primary" onclick="nextStep('step3')" id="continue-conditions" disabled>Continue</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 3: Medical Conditions Selection -->
+            <!-- Step 3: Condition Details -->
             <div class="step" id="step3">
                 <div class="form-container">
-                    <div class="form-header">
-                        <h2>Select Your Medical Conditions</h2>
-                        <p>Please select all conditions that apply to you. This helps us provide better care and treatment recommendations.</p>
-                    </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Provide Details About Your Conditions</h2>
+                            <p>Please provide additional information about the conditions you selected. This helps us create a personalized treatment plan.</p>
+                        </div>
 
-                    <div class="condition-grid" id="condition-grid">
-                        <!-- Conditions will be populated by JavaScript -->
+                        <div id="condition-details-container">
+                            <!-- Condition details will be populated by JavaScript -->
+                        </div>
                     </div>
 
                     <div class="form-navigation">
                         <button class="btn btn-secondary" onclick="prevStep('step2')">Back</button>
-                        <button class="btn btn-primary" onclick="nextStep('step4')" id="continue-conditions" disabled>Continue</button>
+                        <button class="btn btn-primary" onclick="nextStep('step4')">Continue</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 4: Condition Details -->
+            <!-- Step 4: Vitals -->
             <div class="step" id="step4">
                 <div class="form-container">
-                    <div class="form-header">
-                        <h2>Provide Details About Your Conditions</h2>
-                        <p>Please provide additional information about the conditions you selected. This helps us create a personalized treatment plan.</p>
-                    </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Your Current Vitals</h2>
+                            <p>Please provide your current vital signs if you know them. This information is optional but helps us provide better care.</p>
+                        </div>
 
-                    <div id="condition-details-container">
-                        <!-- Condition details will be populated by JavaScript -->
+                        <div class="form-group">
+                            <label class="form-label">Do you know your current vital signs?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="know-vitals" value="yes" class="radio-input" onchange="toggleVitalsInput(true)">
+                                    <span class="radio-text">Yes</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="know-vitals" value="no" class="radio-input" onchange="toggleVitalsInput(false)" checked>
+                                    <span class="radio-text">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="vitals-input" style="display: none;">
+                            <div class="vitals-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Blood Pressure (systolic/diastolic)</label>
+                                    <input type="text" class="form-input" placeholder="e.g., 120/80" id="blood-pressure">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Heart Rate (BPM)</label>
+                                    <input type="number" class="form-input" placeholder="e.g., 72" id="heart-rate">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-navigation">
@@ -1510,39 +1456,40 @@
                 </div>
             </div>
 
-            <!-- Step 5: Vitals -->
+            <!-- Step 5: Allergies -->
             <div class="step" id="step5">
                 <div class="form-container">
-                    <div class="form-header">
-                        <h2>Your Current Vitals</h2>
-                        <p>Please provide your current vital signs if you know them. This information is optional but helps us provide better care.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Do you know your current vital signs?</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="know-vitals" value="yes" class="radio-input" onchange="toggleVitalsInput(true)">
-                                <span class="radio-text">Yes</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="know-vitals" value="no" class="radio-input" onchange="toggleVitalsInput(false)" checked>
-                                <span class="radio-text">No</span>
-                            </label>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h2>Your Allergies</h2>
+                            <p>Please provide information about any allergies you have. This is important for your safety and treatment planning.</p>
                         </div>
-                    </div>
 
-                    <div id="vitals-input" style="display: none;">
-                        <div class="vitals-grid">
-                            <div class="form-group">
-                                <label class="form-label">Blood Pressure (systolic/diastolic)</label>
-                                <input type="text" class="form-input" placeholder="e.g., 120/80" id="blood-pressure">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Heart Rate (BPM)</label>
-                                <input type="number" class="form-input" placeholder="e.g., 72" id="heart-rate">
+                        <div class="form-group">
+                            <label class="form-label">Do you have any allergies?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="have-allergies" value="yes" class="radio-input" onchange="toggleAllergiesInput(true)">
+                                    <span class="radio-text">Yes</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="have-allergies" value="no" class="radio-input" onchange="toggleAllergiesInput(false)" checked>
+                                    <span class="radio-text">No</span>
+                                </label>
                             </div>
                         </div>
+
+                        <div id="allergies-container">
+                            <!-- Allergies will be populated by JavaScript -->
+                        </div>
+
+                        <button type="button" class="add-allergy-btn" onclick="addAllergy()" id="add-allergy-btn" style="display: none;">
+                            <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: var(--space-sm);" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Another Allergy
+                        </button>
                     </div>
 
                     <div class="form-navigation">
@@ -1552,49 +1499,8 @@
                 </div>
             </div>
 
-            <!-- Step 6: Allergies -->
+            <!-- Step 6: Completion -->
             <div class="step" id="step6">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2>Your Allergies</h2>
-                        <p>Please provide information about any allergies you have. This is important for your safety and treatment planning.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Do you have any allergies?</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="have-allergies" value="yes" class="radio-input" onchange="toggleAllergiesInput(true)">
-                                <span class="radio-text">Yes</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="have-allergies" value="no" class="radio-input" onchange="toggleAllergiesInput(false)" checked>
-                                <span class="radio-text">No</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div id="allergies-container">
-                        <!-- Allergies will be populated by JavaScript -->
-                    </div>
-
-                    <button type="button" class="add-allergy-btn" onclick="addAllergy()" id="add-allergy-btn" style="display: none;">
-                        <svg style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; margin-right: var(--space-sm);" viewBox="0 0 24 24">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                        Add Another Allergy
-                    </button>
-
-                    <div class="form-navigation">
-                        <button class="btn btn-secondary" onclick="prevStep('step5')">Back</button>
-                        <button class="btn btn-primary" onclick="nextStep('step7')">Continue</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 7: Completion -->
-            <div class="step" id="step7">
                 <div class="success-container">
                     <div class="success-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1607,8 +1513,8 @@
                     </p>
                     
                     <div class="success-actions">
-                        <button class="btn btn-secondary" onclick="goToHome()">Return to Home Dashboard</button>
-                        <button class="btn btn-primary" onclick="goToMedicals()">Go to Medical Dashboard</button>
+                        <button class="btn btn-primary" onclick="goToHome()">Return to Home Dashboard</button>
+                        <button class="btn btn-secondary" onclick="goToMedicals()">Go to Medical Dashboard</button>
                     </div>
                 </div>
             </div>
@@ -1695,9 +1601,8 @@
             });
 
             // Special validation for conditions step
-            if (currentStep === 'step3') {
-                const selectedCheckboxes = document.querySelectorAll('.condition-checkbox:checked');
-                if (selectedCheckboxes.length === 0) {
+            if (currentStep === 'step2') {
+                if (selectedConditions.length === 0) {
                     isValid = false;
                     alert('Please select at least one medical condition.');
                 }
@@ -1719,7 +1624,7 @@
             
             const stepNumber = parseInt(currentStep.replace('step', ''));
             
-            for (let i = 1; i <= 7; i++) {
+            for (let i = 1; i <= 6; i++) {
                 const stepElement = document.getElementById(`progress-step-${i}`);
                 const iconElement = stepElement.querySelector('.progress-step-icon');
                 
@@ -1737,18 +1642,7 @@
             }
         }
 
-        // Pharmacy selection
-        function selectPharmacy(element, pharmacyId) {
-            // Remove selected class from all pharmacy items
-            document.querySelectorAll('.pharmacy-item').forEach(item => {
-                item.classList.remove('selected');
-                item.querySelector('.pharmacy-radio').checked = false;
-            });
-            
-            // Add selected class to clicked item
-            element.classList.add('selected');
-            element.querySelector('.pharmacy-radio').checked = true;
-        }
+        // Pharmacy selection function removed - pharmacy step no longer exists
 
         // Populate conditions grid
         function populateConditionsGrid() {
@@ -1758,8 +1652,9 @@
             medicalConditions.forEach(condition => {
                 const conditionItem = document.createElement('div');
                 conditionItem.className = 'condition-item';
+                conditionItem.setAttribute('data-condition', condition);
+                conditionItem.onclick = () => toggleCondition(condition);
                 conditionItem.innerHTML = `
-                    <input type="checkbox" class="condition-checkbox" value="${condition}" onchange="toggleCondition('${condition}')">
                     <div class="condition-name">${condition}</div>
                 `;
                 gridContainer.appendChild(conditionItem);
@@ -1768,16 +1663,19 @@
 
         // Toggle condition selection
         function toggleCondition(conditionName) {
-            const checkbox = document.querySelector(`input[value="${conditionName}"]`);
+            const conditionItem = document.querySelector(`[data-condition="${conditionName}"]`);
+            const isSelected = conditionItem.classList.contains('selected');
             
-            if (checkbox.checked) {
-                if (!selectedConditions.includes(conditionName)) {
-                    selectedConditions.push(conditionName);
-                }
-            } else {
+            if (isSelected) {
+                conditionItem.classList.remove('selected');
                 selectedConditions = selectedConditions.filter(c => c !== conditionName);
                 // Remove condition details if they exist
                 delete conditionDetails[conditionName];
+            } else {
+                conditionItem.classList.add('selected');
+                if (!selectedConditions.includes(conditionName)) {
+                    selectedConditions.push(conditionName);
+                }
             }
             
             // Enable/disable continue button
@@ -1928,10 +1826,10 @@
             selectedConditions = selectedConditions.filter(c => c !== condition);
             delete conditionDetails[condition];
             
-            // Uncheck the checkbox
-            const checkbox = document.querySelector(`input[value="${condition}"]`);
-            if (checkbox) {
-                checkbox.checked = false;
+            // Remove selected class from condition item
+            const conditionItem = document.querySelector(`[data-condition="${condition}"]`);
+            if (conditionItem) {
+                conditionItem.classList.remove('selected');
             }
             
             updateConditionDetailsContainer();
@@ -2233,40 +2131,14 @@
             updateProgressSteps();
         }
 
+        // Pharmacy-related functions removed - pharmacy step no longer exists
+
         // Toggle task expansion (for other task cards)
         function toggleTask(header) {
             const card = header.closest('.task-card');
             card.classList.toggle('expanded');
         }
 
-        // Filter pharmacies based on search input
-        function filterPharmacies() {
-            const searchInput = document.getElementById('pharmacy-search');
-            const filter = searchInput.value.toLowerCase();
-            const pharmacyItems = document.querySelectorAll('.pharmacy-item');
-            const noResults = document.getElementById('pharmacy-no-results');
-            let visibleCount = 0;
-            
-            pharmacyItems.forEach(item => {
-                const name = item.querySelector('.pharmacy-name').textContent.toLowerCase();
-                const type = item.querySelector('.pharmacy-type').textContent.toLowerCase();
-                const address = item.querySelector('.pharmacy-address').textContent.toLowerCase();
-                
-                if (name.includes(filter) || type.includes(filter) || address.includes(filter)) {
-                    item.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-            
-            // Show/hide no results message
-            if (visibleCount === 0 && filter !== '') {
-                noResults.style.display = 'block';
-            } else {
-                noResults.style.display = 'none';
-            }
-        }
     </script>
 </body>
 </html>
